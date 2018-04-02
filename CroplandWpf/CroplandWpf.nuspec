@@ -13,6 +13,9 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags></tags>
+    <dependencies>
+      <dependency id="JetBrains.Annotations" version="11.1.0" />
+    </dependencies>
   </metadata>
   <files>
     <file src="bin\Release\CroplandWpf.dll" target="lib\net46\CroplandWpf.dll" />
