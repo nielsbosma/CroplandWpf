@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>CroplandWpf</id>
+    <version>1.0.6</version>
+    <title>CroplandWpf</title>
+    <authors>Bosma Interactive AB</authors>
+    <owners>Bosma Interactive AB</owners>
+    <licenseUrl>https://github.com/nielsbosma/CroplandWpf</licenseUrl>
+    <projectUrl>https://github.com/nielsbosma/CroplandWpf</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A WPF control library and theme inspired by Material Design.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags></tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\CroplandWpf.dll" target="lib\net46\CroplandWpf.dll" />
+    <file src="bin\Release\CroplandWpf.xml" target="lib\net46\CroplandWpf.xml" />
+  </files>
+</package>
