@@ -32,6 +32,9 @@
     <DocumentationFile>bin\Release\CroplandWpf.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=11.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>packages\JetBrains.Annotations.11.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -48,10 +51,27 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\ViewModelBase.cs" />
+    <Page Include="Themes\Cropland.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControl1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\EnumBooleanConverter.cs" />
+    <Compile Include="Converters\EnumToVisibilityConverter.cs" />
+    <Compile Include="Converters\FormatConverter.cs" />
+    <Compile Include="Converters\HideEmptyStringConverter.cs" />
+    <Compile Include="Converters\InvertBooleanConverter.cs" />
+    <Compile Include="Converters\NullableTimeDateConverter.cs" />
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Converters\StringNullOrEmptyToVisibilityConverter.cs" />
+    <Compile Include="MVVM\AsyncDelegateCommand.cs" />
+    <Compile Include="MVVM\DelegateCommand.cs" />
+    <Compile Include="MVVM\Helper.cs" />
     <Compile Include="UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -77,10 +97,15 @@
     </EmbeddedResource>
     <None Include="CroplandWpf.nuspec" />
     <None Include="NugetPackAndUpload.ps1" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
