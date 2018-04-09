@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CroplandWpf.Themes.Default">
+
+	<DropShadowEffect x:Key="effectShadow_Small" Direction="270" ShadowDepth="1.2" Color="#FF000000" Opacity="0.3" BlurRadius="4"></DropShadowEffect>
+	
+	<DropShadowEffect x:Key="effectShadow_Large" Direction="270" ShadowDepth="4" Color="#FF000000" Opacity="0.2" BlurRadius="10"></DropShadowEffect>
+
+	<SolidColorBrush x:Key="brushControl_Background_Dark" Color="{DynamicResource colorControl_Background_Dark}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushControl_Foreground_Light" Color="{DynamicResource colorControl_Foreground_Light}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushControl_Foreground_Dark" Color="{DynamicResource colorControl_Foreground_Dark}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushControl_Background_Disabled_Dark" Opacity="0.35" Color="{DynamicResource colorControl_Background_Disabled_Dark}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushControl_Foreground_Disabled_Light" Color="{DynamicResource colorControl_Foreground_Disabled_Light}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushControl_Foreground_Disabled_Dark" Color="{DynamicResource colorControl_Foreground_Disabled_Dark}"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushControl_Background_MouseOver" Color="{DynamicResource colorControl_Background_MouseOver}"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushScrollBar_Thumb_Background" Color="{DynamicResource colorScrollBar_Thumb_Background}"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushScrollBar_Track_Background" Color="{DynamicResource colorScrollBar_Track_Background}"></SolidColorBrush>
+	
+</ResourceDictionary>

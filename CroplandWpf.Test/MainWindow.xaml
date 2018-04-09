@@ -5,8 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CroplandWpf.Test"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="450" Width="800" Style="{DynamicResource {x:Type Window}}">
+
+	<Window.Resources>
+		
+	</Window.Resources>
+
+	<Border Background="#FFf2f2f2">
+		<Grid Margin="10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<StackPanel Grid.Column="0" Orientation="Vertical">
+				<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left">NORMAL</Button>
+				<Button VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5">DISABLED</Button>
+				<CheckBox Margin="5" FontSize="9.5pt">CheckBox</CheckBox>
+				<CheckBox Margin="5" IsEnabled="False">CheckBox (disabled)</CheckBox>
+				<RadioButton Margin="5,5,5,3" GroupName="rbtest" IsChecked="True">RadioButton 1 (group: rbtest)</RadioButton>
+				<RadioButton Margin="5,0,5,5" GroupName="rbtest">RadioButton 2 (group: rbtest)</RadioButton>
+				<RadioButton Margin="5,0,5,5" IsEnabled="False">RadioButton 3 (disabled)</RadioButton>
+				<RadioButton Margin="5,0,5,5" IsEnabled="False" IsChecked="True">RadioButton 4 (checked/disabled)</RadioButton>
+				<TextBox Margin="5">TextBox</TextBox>
+				<TextBox Margin="5" IsEnabled="False">TextBox (disabled)</TextBox>
+			</StackPanel>
+			<StackPanel Grid.Column="1" Orientation="Vertical">
+				<ListBox Height="150">
+					<ListBoxItem>1231 2312</ListBoxItem>
+					<ListBoxItem>1231 2312</ListBoxItem>
+					<ListBoxItem>1231 2312</ListBoxItem>
+					<ListBoxItem>1231 2312</ListBoxItem>
+					<ListBoxItem>1231 2312</ListBoxItem>
+					<ListBoxItem>1231 2312</ListBoxItem>
+					<ListBoxItem>1231 2312</ListBoxItem>
+					<ListBoxItem>1231 2312</ListBoxItem>
+					<ListBoxItem>1231 2312</ListBoxItem>
+				</ListBox>
+			</StackPanel>
+		</Grid>
+	</Border>
 </Window>
