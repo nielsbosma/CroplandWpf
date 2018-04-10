@@ -23,5 +23,11 @@
 	<SolidColorBrush x:Key="brushScrollBar_Thumb_Background" Color="{DynamicResource colorScrollBar_Thumb_Background}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushScrollBar_Track_Background" Color="{DynamicResource colorScrollBar_Track_Background}"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushListBoxItem_MouseOver_Background" Color="{DynamicResource colorListBoxItem_MouseOver_Background}"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushListBox_Background" Color="{DynamicResource colorListBox_Background}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushListBox_Border" Color="{DynamicResource colorListBox_Border}"></SolidColorBrush>
 	
 </ResourceDictionary>

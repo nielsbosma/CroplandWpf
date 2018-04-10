@@ -3,12 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}"
         xmlns:local="clr-namespace:CroplandWpf.Test"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Style="{DynamicResource {x:Type Window}}">
 
 	<Window.Resources>
-		
+		<DataTemplate x:Key="templateStringTest">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="TExt:"></TextBlock>
+				<TextBlock Text="{Binding}"></TextBlock>
+			</StackPanel>
+		</DataTemplate>
 	</Window.Resources>
 
 	<Border Background="#FFf2f2f2">
@@ -19,30 +25,30 @@
 				<ColumnDefinition Width="*"></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 			<StackPanel Grid.Column="0" Orientation="Vertical">
+				<TextBlock FontWeight="Bold">Common Controls</TextBlock>
+				<TextBlock Margin="5">Button</TextBlock>
 				<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left">NORMAL</Button>
 				<Button VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5">DISABLED</Button>
+				<Rectangle Fill="DarkGray" Height="1"></Rectangle>
 				<CheckBox Margin="5" FontSize="9.5pt">CheckBox</CheckBox>
 				<CheckBox Margin="5" IsEnabled="False">CheckBox (disabled)</CheckBox>
+				<Rectangle Fill="DarkGray" Height="1"></Rectangle>
 				<RadioButton Margin="5,5,5,3" GroupName="rbtest" IsChecked="True">RadioButton 1 (group: rbtest)</RadioButton>
 				<RadioButton Margin="5,0,5,5" GroupName="rbtest">RadioButton 2 (group: rbtest)</RadioButton>
 				<RadioButton Margin="5,0,5,5" IsEnabled="False">RadioButton 3 (disabled)</RadioButton>
 				<RadioButton Margin="5,0,5,5" IsEnabled="False" IsChecked="True">RadioButton 4 (checked/disabled)</RadioButton>
+				<Rectangle Fill="DarkGray" Height="1"></Rectangle>
 				<TextBox Margin="5">TextBox</TextBox>
 				<TextBox Margin="5" IsEnabled="False">TextBox (disabled)</TextBox>
 			</StackPanel>
 			<StackPanel Grid.Column="1" Orientation="Vertical">
-				<ListBox Height="150">
-					<ListBoxItem>1231 2312</ListBoxItem>
-					<ListBoxItem>1231 2312</ListBoxItem>
-					<ListBoxItem>1231 2312</ListBoxItem>
-					<ListBoxItem>1231 2312</ListBoxItem>
-					<ListBoxItem>1231 2312</ListBoxItem>
-					<ListBoxItem>1231 2312</ListBoxItem>
-					<ListBoxItem>1231 2312</ListBoxItem>
-					<ListBoxItem>1231 2312</ListBoxItem>
-					<ListBoxItem>1231 2312</ListBoxItem>
-				</ListBox>
+				<TextBlock FontWeight="Bold">ItemControls</TextBlock>
+				<TextBlock Margin="5">ListBox</TextBlock>
+				<ListBox Height="150" ItemsSource="{Binding TestItemsSource}"></ListBox>
+				<TextBlock>ComboBox</TextBlock>
+				<ComboBox ItemsSource="{Binding TestItemsSource}"></ComboBox>
 			</StackPanel>
+
 		</Grid>
 	</Border>
 </Window>

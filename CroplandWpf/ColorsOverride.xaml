@@ -11,5 +11,8 @@
 	<Color x:Key="colorControl_Background_MouseOver">#FF0E4627</Color>
 	<Color x:Key="colorScrollBar_Thumb_Background">#FF666666</Color>
 	<Color x:Key="colorScrollBar_Track_Background">#FFE7E7E7</Color>
-	
+	<Color x:Key="colorListBoxItem_MouseOver_Background">#FFE7E7E7</Color>
+	<Color x:Key="colorListBox_Background">#FFfafafa</Color>
+	<Color x:Key="colorListBox_Border">#FFcdcdcd</Color>
+
 </ResourceDictionary>

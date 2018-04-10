@@ -1,5 +1,21 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CroplandWpf.Themes">
+
+	<Style x:Key="{x:Type ComboBox}" TargetType="ComboBox">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ComboBox">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+						</Grid.RowDefinitions>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
     
 </ResourceDictionary>

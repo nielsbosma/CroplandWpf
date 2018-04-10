@@ -17,12 +17,15 @@
 					<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
 						<Grid>
 							<Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
-							<ScrollViewer x:Name="PART_ContentHost" Margin="10" Padding="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"></ScrollViewer>
+							<ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="10" Padding="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"></ScrollViewer>
 						</Grid>
 					</Border>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsEnabled" Value="False">
 							<Setter Property="Opacity" Value="0.6"></Setter>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="borderEffectHost" Property="Effect" Value="{DynamicResource effectShadow_Large}"></Setter>
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>

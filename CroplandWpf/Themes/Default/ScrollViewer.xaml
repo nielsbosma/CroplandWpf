@@ -18,6 +18,10 @@
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushScrollBar_Thumb_Background}"></Setter>
 		<Setter Property="BorderThickness" Value="0"></Setter>
+		<Setter Property="MinHeight" Value="4"></Setter>
+		<Setter Property="MinWidth" Value="4"></Setter>
+		<Setter Property="BorderBrush" Value="{DynamicResource brushScrollBar_Track_Background}"></Setter>
+		<Setter Property="BorderThickness" Value="1"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Thumb">
@@ -30,22 +34,83 @@
 	<Style x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushScrollBar_Track_Background}"></Setter>
+		<Setter Property="Width" Value="6"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ScrollBar">
-					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3.5">
-						<Track x:Name="PART_Track" Margin="5,5" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="1">
-							<Track.DecreaseRepeatButton>
-								<RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Style="{StaticResource styleRepeatButton_ScrollBar}"/>
-							</Track.DecreaseRepeatButton>
-							<Track.IncreaseRepeatButton>
-								<RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource styleRepeatButton_ScrollBar}"/>
-							</Track.IncreaseRepeatButton>
-							<Track.Thumb>
-								<Thumb Style="{StaticResource styleThumb_ScrollBar}" Margin="1"/>
-							</Track.Thumb>
-						</Track>
-					</Border>
+					<Grid Background="Transparent">
+						<Rectangle x:Name="rectanglePlaceholder" Fill="Transparent" Width="6" Height="6"></Rectangle>
+						<Border x:Name="borderBackground" HorizontalAlignment="Right" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3.5">
+							<Track x:Name="PART_Track" IsDirectionReversed="True" IsEnabled="{TemplateBinding IsMouseOver}">
+								<Track.DecreaseRepeatButton>
+									<RepeatButton x:Name="repeatButton_ScrollDecrease" Command="{x:Static ScrollBar.PageUpCommand}" Style="{StaticResource styleRepeatButton_ScrollBar}"/>
+								</Track.DecreaseRepeatButton>
+								<Track.IncreaseRepeatButton>
+									<RepeatButton x:Name="repeatButton_ScrollIncrease" Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource styleRepeatButton_ScrollBar}"/>
+								</Track.IncreaseRepeatButton>
+								<Track.Thumb>
+									<Thumb Style="{StaticResource styleThumb_ScrollBar}"/>
+								</Track.Thumb>
+							</Track>
+						</Border>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="Orientation" Value="Horizontal">
+							<Setter Property="Width" Value="NaN"></Setter>
+							<Setter TargetName="PART_Track" Property="IsDirectionReversed" Value="False"></Setter>
+							<Setter Property="Height" Value="6"></Setter>
+							<Setter TargetName="borderBackground" Property="HorizontalAlignment" Value="Stretch"></Setter>
+							<Setter TargetName="borderBackground" Property="VerticalAlignment" Value="Bottom"></Setter>
+							<Setter TargetName="repeatButton_ScrollDecrease" Property="Command" Value="{x:Static ScrollBar.PageLeftCommand}"></Setter>
+							<Setter TargetName="repeatButton_ScrollIncrease" Property="Command" Value="{x:Static ScrollBar.PageRightCommand}"></Setter>
+						</Trigger>
+						
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsMouseOver" Value="True"></Condition>
+								<Condition Property="Orientation" Value="Vertical"></Condition>
+							</MultiTrigger.Conditions>
+							<MultiTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Width" From="6" To="10" Duration="00:00:00"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground" Storyboard.TargetProperty="Width" From="6" To="10" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.EnterActions>
+							<MultiTrigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground" Storyboard.TargetProperty="Width" From="10" To="6" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Width" From="10" To="6" BeginTime="00:00:00.150" Duration="00:00:00"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.ExitActions>
+						</MultiTrigger>
+
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsMouseOver" Value="True"></Condition>
+								<Condition Property="Orientation" Value="Horizontal"></Condition>
+							</MultiTrigger.Conditions>
+							<MultiTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Height" From="6" To="10" Duration="00:00:00"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground" Storyboard.TargetProperty="Height" From="6" To="10" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.EnterActions>
+							<MultiTrigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground" Storyboard.TargetProperty="Height" From="10" To="6" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Height" From="10" To="6" BeginTime="00:00:00.150" Duration="00:00:00"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.ExitActions>
+						</MultiTrigger>
+					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -53,22 +118,36 @@
 
 	<Style x:Key="{x:Type ScrollViewer}" TargetType="ScrollViewer">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="VerticalScrollBarVisibility" Value="Auto"></Setter>
+		<Setter Property="HorizontalScrollBarVisibility" Value="Auto"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ScrollViewer">
 					<Grid>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="*"></RowDefinition>
-							<RowDefinition Height="Auto"></RowDefinition>
-						</Grid.RowDefinitions>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*"></ColumnDefinition>
-							<ColumnDefinition Width="Auto"></ColumnDefinition>
-						</Grid.ColumnDefinitions>
-						<!--<-->
-						<ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="0" Margin="{TemplateBinding Padding}" Grid.Row="0"/>
-						<ScrollBar Grid.Row="0" Grid.Column="1" x:Name="PART_VerticalScrollBar" Orientation="Vertical" Margin="0,4" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}"/>
-						<ScrollBar Grid.Row="1" Grid.Column="0" x:Name="PART_HorizontalScrollBar" Orientation="Horizontal" AutomationProperties.AutomationId="HorizontalScrollBar" Margin="4,0" Cursor="Arrow" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}"/>
+						<Grid Margin="4,4,14,14">
+							<ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"  Margin="{TemplateBinding Padding}" />
+						</Grid>
+						<ScrollBar x:Name="PART_VerticalScrollBar" HorizontalAlignment="Right" Orientation="Vertical" Margin="4,4,4,8" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=VerticalOffset, Mode=OneWay}" ViewportSize="{TemplateBinding ViewportHeight}"/>
+						<ScrollBar x:Name="PART_HorizontalScrollBar" Orientation="Horizontal" VerticalAlignment="Bottom" AutomationProperties.AutomationId="HorizontalScrollBar" Margin="4,4,10,4" Cursor="Arrow" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HorizontalOffset, Mode=OneWay}" ViewportSize="{TemplateBinding ViewportWidth}"/>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	
+	<Style x:Key="styleScrollViewer_TextBox" TargetType="ScrollViewer">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="VerticalScrollBarVisibility" Value="Auto"></Setter>
+		<Setter Property="HorizontalScrollBarVisibility" Value="Auto"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ScrollViewer">
+					<Grid>
+						<Grid>
+							<ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"  Margin="{TemplateBinding Padding}" />
+						</Grid>
+						<ScrollBar x:Name="PART_VerticalScrollBar" HorizontalAlignment="Right" Orientation="Vertical" Margin="4,4,4,6" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=VerticalOffset, Mode=OneWay}" ViewportSize="{TemplateBinding ViewportHeight}"/>
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>
