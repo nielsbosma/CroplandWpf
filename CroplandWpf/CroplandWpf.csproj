@@ -54,6 +54,7 @@
     <Compile Include="Attached\FontLoader.cs" />
     <Compile Include="Helpers\CustomSourceResourceDictionary.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
+    <Compile Include="PresentationHelpers\DynamicColorAnimator.cs" />
     <Content Include="ColorsOverride.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -83,6 +84,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <None Include="Themes\Default\Dummy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <Page Include="Themes\Default\Fonts.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

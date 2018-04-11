@@ -2,16 +2,103 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CroplandWpf.Themes">
 
+	<Style x:Key="styleToggleButton_ComboBox" TargetType="ToggleButton">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
+		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ToggleButton">
+					<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2" Effect="{DynamicResource effectShadow_Small}">
+						<Path x:Name="pathIndicator" Stretch="Fill" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{DynamicResource geometryComboBox_SingleArrow}" Width="10" Height="5" Fill="{TemplateBinding Foreground}" Margin="10,0" RenderTransformOrigin="0.5,0.5">
+							<Path.RenderTransform>
+								<ScaleTransform x:Name="transformIndicator" ScaleX="1.0" ScaleY="-1.0"></ScaleTransform>
+							</Path.RenderTransform>
+						</Path>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="pathIndicator" Property="RenderTransform" Value="{x:Null}"></Setter>
+							<Setter TargetName="borderBackground" Property="CornerRadius" Value="2,2,0,0"></Setter>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="styleTextBox_ComboBox" TargetType="TextBox">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
+		<Setter Property="AllowDrop" Value="true"/>
+		<Setter Property="MinWidth" Value="0"/>
+		<Setter Property="MinHeight" Value="0"/>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+		<Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="TextBox">
+					<ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Background="Transparent" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+		<Setter Property="Padding" Value="10,6"></Setter>
+		<Setter Property="FontSize" Value="9.5pt"></Setter>
+		<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ComboBoxItem">
+					<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
+						<ContentPresenter Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"></ContentPresenter>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="False">
+							<!--TODO-->
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<!--TODO-->
+							<Setter Property="Background" Value="{DynamicResource brushListBoxItem_MouseOver_Background}"></Setter>
+						</Trigger>
+						<Trigger Property="IsSelected" Value="True">
+							<Setter Property="Background" Value="{DynamicResource brushListBoxItem_MouseOver_Background}"></Setter>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<Style x:Key="{x:Type ComboBox}" TargetType="ComboBox">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="MinHeight" Value="36"></Setter>
+		<Setter Property="MinWidth" Value="60"></Setter>
+		<Setter Property="Padding" Value="10,6,30,6"></Setter>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+		<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ComboBox">
 					<Grid>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"></RowDefinition>
-							<RowDefinition Height="Auto"></RowDefinition>
-						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition></ColumnDefinition>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}" Placement="Bottom" Effect="{DynamicResource effectShadow_Small}">
+							<Border Margin="2,0,2,4" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="0,0,2,2">
+								<ScrollViewer MinHeight="50" MaxHeight="250" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}">
+									<ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+								</ScrollViewer>
+							</Border>
+						</Popup>
+						<ToggleButton Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource styleToggleButton_ComboBox}"></ToggleButton>
+						<ContentPresenter Grid.Column="0" TextBlock.Foreground="{DynamicResource brushControl_Foreground_Light}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>

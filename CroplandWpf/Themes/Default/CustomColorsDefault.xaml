@@ -4,6 +4,7 @@
 					ReplacementSource="ColorsOverride.xaml">
 
 	<Color x:Key="colorControl_Background_Dark">#FF227347</Color>
+	<Color x:Key="colorControl_Background_Light">#FFffffff</Color>
 	<Color x:Key="colorControl_Foreground_Light">#FFffffff</Color>
 	<Color x:Key="colorControl_Foreground_Dark">#FF4A4A4A</Color>
 	<Color x:Key="colorControl_Background_Disabled_Dark">#FF797979</Color>

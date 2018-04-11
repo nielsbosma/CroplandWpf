@@ -9,6 +9,8 @@
 		<Setter Property="Padding" Value="10,6"></Setter>
 		<Setter Property="FontSize" Value="9.5pt"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushListBox_Background}"></Setter>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+		<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ListBoxItem">

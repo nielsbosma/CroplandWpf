@@ -7,6 +7,7 @@
 	<DropShadowEffect x:Key="effectShadow_Large" Direction="270" ShadowDepth="4" Color="#FF000000" Opacity="0.2" BlurRadius="10"></DropShadowEffect>
 
 	<SolidColorBrush x:Key="brushControl_Background_Dark" Color="{DynamicResource colorControl_Background_Dark}"></SolidColorBrush>
+	<SolidColorBrush x:Key="brushControl_Background_Light" Color="{DynamicResource colorControl_Background_Light}"></SolidColorBrush>
 	
 	<SolidColorBrush x:Key="brushControl_Foreground_Light" Color="{DynamicResource colorControl_Foreground_Light}"></SolidColorBrush>
 	
