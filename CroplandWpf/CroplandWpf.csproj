@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attached\FontLoader.cs" />
+    <Compile Include="Components\HyperlinkButton.cs" />
     <Compile Include="Helpers\CustomSourceResourceDictionary.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="PresentationHelpers\DynamicColorAnimator.cs" />
@@ -172,7 +173,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\" />
     <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>

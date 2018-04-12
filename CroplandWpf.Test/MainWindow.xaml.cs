@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CroplandWpf.MVVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,23 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty TestItemsSourceProperty =
 			DependencyProperty.Register("TestItemsSource", typeof(List<string>), typeof(MainWindow), new PropertyMetadata());
 
+
+		public string HyperlinkTest
+		{
+			get { return (string)GetValue(HyperlinkTestProperty); }
+			set { SetValue(HyperlinkTestProperty, value); }
+		}
+		public static readonly DependencyProperty HyperlinkTestProperty =
+			DependencyProperty.Register("HyperlinkTest", typeof(string), typeof(MainWindow), new PropertyMetadata("http://some_link"));
+
+		public DelegateCommand HyperlinkTestCommand
+		{
+			get { return (DelegateCommand)GetValue(HyperlinkTestCommandProperty); }
+			private set { SetValue(HyperlinkTestCommandProperty, value); }
+		}
+		public static readonly DependencyProperty HyperlinkTestCommandProperty =
+			DependencyProperty.Register("HyperlinkTestCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
 		public MainWindow()
         {
             InitializeComponent();
@@ -36,6 +54,12 @@ namespace CroplandWpf.Test
 				"Item 4", "Item 5", "Item 6", "Item 7",
 				"Another list box item with even more loooooooooooooooooooong text 8",
 				"Item 9", "Item 10", "Item 11", "Item 12" };
+			HyperlinkTestCommand = new DelegateCommand(HyperlinkTestCommand_Execute);
         }
-    }
+
+		private void HyperlinkTestCommand_Execute(object parameter)
+		{
+			MessageBox.Show(parameter as string);
+		}
+	}
 }

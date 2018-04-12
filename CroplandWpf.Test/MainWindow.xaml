@@ -6,17 +6,18 @@
         xmlns:local="clr-namespace:CroplandWpf.Test"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="CroplandWpf.Test.MainWindow"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
+		xmlns:c="clr-namespace:CroplandWpf.Components;assembly=CroplandWpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Style="{DynamicResource {x:Type Window}}">
 
 	<Window.Resources>
 		<DataTemplate x:Key="templateStringTest">
 			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="TExt:"/>
+				<TextBlock Text="Text:"/>
 				<TextBlock Text="{Binding}"/>
 			</StackPanel>
 		</DataTemplate>
-		
+
 	</Window.Resources>
 
 	<Border Background="#FFf2f2f2">
@@ -30,7 +31,20 @@
 				<TextBlock FontWeight="Bold">Common Controls</TextBlock>
 				<TextBlock Margin="5">Button</TextBlock>
 				<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left" Content="NORMAL"/>
-				<Button VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5" Content="DISABLED"/>
+				<StackPanel Orientation="Horizontal">
+					<Button x:Name="buttonTest" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5" Content="DISABLED"/>
+					<CheckBox Margin="24,0,0,0" IsChecked="{Binding ElementName=buttonTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Button Margin="5" Style="{DynamicResource styleButton_AddFile}"></Button>
+					<Button x:Name="buttonRemoveTest" Margin="0,5,5,5" Style="{DynamicResource styleButton_RemoveFile}"></Button>
+					<CheckBox IsChecked="{Binding ElementName=buttonRemoveTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<c:HyperlinkButton x:Name="hyperlinkTest" Command="{Binding HyperlinkTestCommand}" CommandParameter="{Binding HyperlinkTest}">Hyperlink</c:HyperlinkButton>
+					<CheckBox Margin="24,0,0,0" IsChecked="{Binding ElementName=hyperlinkTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+				</StackPanel>
+				<c:HyperlinkButton IsUnderlined="False">no underline</c:HyperlinkButton>
 				<Rectangle Fill="DarkGray" Height="1"/>
 				<CheckBox Margin="5" FontSize="9.5pt" Content="CheckBox"/>
 				<CheckBox Margin="5" IsEnabled="False" Content="CheckBox (disabled)"/>
@@ -38,7 +52,10 @@
 				<RadioButton Margin="5,5,5,3" GroupName="rbtest" IsChecked="True" Content="RadioButton 1 (group: rbtest)"/>
 				<RadioButton Margin="5,0,5,5" GroupName="rbtest" Content="RadioButton 2 (group: rbtest)"/>
 				<RadioButton Margin="5,0,5,5" IsEnabled="False" Content="RadioButton 3 (disabled)"/>
-				<RadioButton Margin="5,0,5,5" IsEnabled="False" IsChecked="True" Content="RadioButton 4 (checked/disabled)"/>
+				<StackPanel>
+					<RadioButton x:Name="radioButtonTest" Margin="5,0,5,5" IsEnabled="False" IsChecked="True" Content="RadioButton 4 (checked/disabled)"/>
+					<CheckBox Margin="5,0" IsChecked="{Binding ElementName=radioButtonTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+				</StackPanel>
 				<Rectangle Fill="DarkGray" Height="1"/>
 				<TextBox Margin="5" Text="TextBox"/>
 				<TextBox Margin="5" IsEnabled="False" Text="TextBox (disabled)"/>
@@ -46,9 +63,11 @@
 			<StackPanel Grid.Column="1" Orientation="Vertical">
 				<TextBlock FontWeight="Bold">ItemControls</TextBlock>
 				<TextBlock Margin="5">ListBox</TextBlock>
-				<ListBox Height="150" ItemsSource="{Binding TestItemsSource}"/>
+				<ListBox x:Name="listBoxTest" Height="150" ItemsSource="{Binding TestItemsSource}"/>
+				<CheckBox Margin="3" IsChecked="{Binding ElementName=listBoxTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
 				<TextBlock Margin="5">ComboBox</TextBlock>
-				<ComboBox ItemsSource="{Binding TestItemsSource}" />
+				<ComboBox x:Name="comboBoxTest" ItemsSource="{Binding TestItemsSource}" />
+				<CheckBox Margin="3" IsChecked="{Binding ElementName=comboBoxTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
 			</StackPanel>
 
 		</Grid>

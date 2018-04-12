@@ -19,17 +19,41 @@
 							<ColumnDefinition></ColumnDefinition>
 						</Grid.ColumnDefinitions>
 						<Path Grid.Column="0" x:Name="pathTick" Data="{DynamicResource geometryRadioButton}" Stretch="Fill" Fill="#FF6e6e6e"></Path>
+						<Path Grid.Column="0" x:Name="pathTick_Overlap_IsChecked" Opacity="0.0" Data="{DynamicResource geometryRadioButton_Checked}" Stretch="Fill" Fill="{DynamicResource brushControl_Background_Dark}"></Path>
 						<ContentPresenter Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="{TemplateBinding Padding}"></ContentPresenter>
 					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsChecked" Value="True">
-							<Setter TargetName="pathTick" Property="Fill" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
-							<Setter TargetName="pathTick" Property="Data" Value="{DynamicResource geometryRadioButton_Checked}"></Setter>
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="pathTick_Overlap_IsChecked" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="pathTick_Overlap_IsChecked" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
 						</Trigger>
 						<Trigger Property="IsEnabled" Value="False">
-							<!--TODO-->
-							<Setter Property="Opacity" Value="0.6"></Setter>
-							<!--/TODO-->
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.6"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.6" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>

@@ -22,10 +22,64 @@
 					</Border>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsEnabled" Value="False">
-							<Setter Property="Opacity" Value="0.6"></Setter>
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
 						</Trigger>
-						<Trigger Property="IsMouseOver" Value="True">
-							<Setter TargetName="borderEffectHost" Property="Effect" Value="{DynamicResource effectShadow_Large}"></Setter>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsMouseOver" Value="True"></Condition>
+								<Condition Property="IsKeyboardFocused" Value="False"></Condition>
+							</MultiTrigger.Conditions>
+							<MultiTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.2" Duration="00:00:00.100"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.EnterActions>
+							<MultiTrigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.ExitActions>
+						</MultiTrigger>
+						<Trigger Property="IsKeyboardFocused" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.2" Duration="00:00:00.100"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>

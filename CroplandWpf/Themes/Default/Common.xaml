@@ -13,7 +13,7 @@
 	
 	<SolidColorBrush x:Key="brushControl_Foreground_Dark" Color="{DynamicResource colorControl_Foreground_Dark}"></SolidColorBrush>
 	
-	<SolidColorBrush x:Key="brushControl_Background_Disabled_Dark" Opacity="0.35" Color="{DynamicResource colorControl_Background_Disabled_Dark}"></SolidColorBrush>
+	<SolidColorBrush x:Key="brushControl_Background_Disabled_Dark" Color="{DynamicResource colorControl_Background_Disabled_Dark}"></SolidColorBrush>
 	
 	<SolidColorBrush x:Key="brushControl_Foreground_Disabled_Light" Color="{DynamicResource colorControl_Foreground_Disabled_Light}"></SolidColorBrush>
 	
@@ -27,8 +27,14 @@
 
 	<SolidColorBrush x:Key="brushListBoxItem_MouseOver_Background" Color="{DynamicResource colorListBoxItem_MouseOver_Background}"></SolidColorBrush>
 
+	<SolidColorBrush x:Key="brushListBoxItem_IsSelected_Background" Color="{DynamicResource colorListBoxItem_MouseOver_Background}"></SolidColorBrush>
+
 	<SolidColorBrush x:Key="brushListBox_Background" Color="{DynamicResource colorListBox_Background}"></SolidColorBrush>
 	
 	<SolidColorBrush x:Key="brushListBox_Border" Color="{DynamicResource colorListBox_Border}"></SolidColorBrush>
-	
+
+	<SolidColorBrush x:Key="brushHyperlink_Foreground" Color="{DynamicResource colorHyperlink_Foreground}"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushHyperlink_Foreground_MouseOver" Color="{DynamicResource colorHyperlink_Foreground_MouseOver}"></SolidColorBrush>
+
 </ResourceDictionary>
