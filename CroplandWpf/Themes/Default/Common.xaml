@@ -37,4 +37,12 @@
 
 	<SolidColorBrush x:Key="brushHyperlink_Foreground_MouseOver" Color="{DynamicResource colorHyperlink_Foreground_MouseOver}"></SolidColorBrush>
 
+	<SolidColorBrush x:Key="brushItemsControl_Background" Color="{DynamicResource colorItemsControl_Background}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushItemsControl_Border" Color="{DynamicResource colorItemsControl_Border}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushItemsControl_Foreground" Color="{DynamicResource colorItemsControl_Foreground}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushItemsControl_Item_Background" Color="{DynamicResource colorItemsControl_Item_Background}"></SolidColorBrush>
+
 </ResourceDictionary>

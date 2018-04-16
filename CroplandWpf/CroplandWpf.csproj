@@ -52,7 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attached\FontLoader.cs" />
+    <Compile Include="Attached\ItemsControlHelper.cs" />
+    <Compile Include="Attached\RemoveRequestHelper.cs" />
     <Compile Include="Components\HyperlinkButton.cs" />
+    <Compile Include="Components\RemovableItemContentControl.cs" />
+    <Compile Include="Components\RemovableItemsItemsControl.cs" />
     <Compile Include="Helpers\CustomSourceResourceDictionary.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="PresentationHelpers\DynamicColorAnimator.cs" />
@@ -93,7 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Default\ListBox.xaml">
+    <Page Include="Themes\Default\ItemsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

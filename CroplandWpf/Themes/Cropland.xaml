@@ -14,7 +14,7 @@
 		<ResourceDictionary Source="Default/CheckBox.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/TextBox.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/ComboBox.xaml"></ResourceDictionary>
-		<ResourceDictionary Source="Default/ListBox.xaml"></ResourceDictionary>
+		<ResourceDictionary Source="Default/ItemsControl.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/RadioButton.xaml"></ResourceDictionary>
 	</ResourceDictionary.MergedDictionaries>
 

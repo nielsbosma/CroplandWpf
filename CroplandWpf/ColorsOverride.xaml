@@ -17,5 +17,9 @@
 	<Color x:Key="colorListBox_Border">#FFcdcdcd</Color>
 	<Color x:Key="colorHyperlink_Foreground">#FF4A90E2</Color>
 	<Color x:Key="colorHyperlink_Foreground_MouseOver">#FF326DB2</Color>
+	<Color x:Key="colorItemsControl_Background">#FFf3f3f3</Color>
+	<Color x:Key="colorItemsControl_Border">#FFdadada</Color>
+	<Color x:Key="colorItemsControl_Foreground">#FF4e4e4e</Color>
+	<Color x:Key="colorItemsControl_Item_Background">#FFdddddd</Color>
 
 </ResourceDictionary>

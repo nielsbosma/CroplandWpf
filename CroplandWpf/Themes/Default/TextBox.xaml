@@ -17,7 +17,12 @@
 					<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
 						<Grid>
 							<Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
+							<Border x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}"></Border>
 							<ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="10" Padding="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"></ScrollViewer>
+							<!--<StackPanel Orientation="Horizontal">
+								<TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsKeyboardFocused}"></TextBlock>
+								<TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsMouseOver}"></TextBlock>
+							</StackPanel>-->
 						</Grid>
 					</Border>
 					<ControlTemplate.Triggers>
