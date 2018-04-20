@@ -62,6 +62,7 @@
 						</Trigger>
 
 						<Trigger Property="IsSelected" Value="True">
+							<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
@@ -123,24 +124,43 @@
 
 
 	<Style x:Key="{x:Type c:RemovableItemContentControl}" TargetType="c:RemovableItemContentControl">
-		<Setter Property="Margin" Value="0,0,8,0"></Setter>
 		<Setter Property="MinHeight" Value="36"></Setter>
 		<Setter Property="MinWidth" Value="50"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushItemsControl_Item_Background}"></Setter>
 		<Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+		<Setter Property="Margin" Value="2,2,8,4"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:RemovableItemContentControl">
-					<Grid>
+					<Grid ClipToBounds="False">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition></ColumnDefinition>
 							<ColumnDefinition Width="Auto"></ColumnDefinition>
 						</Grid.ColumnDefinitions>
+						<Border Grid.ColumnSpan="2" x:Name="borderEffect" Opacity="0.0" Background="{TemplateBinding Background}" CornerRadius="2" Effect="{DynamicResource effectShadow_Small}" ClipToBounds="False"></Border>
 						<Border Grid.ColumnSpan="2" x:Name="borderBackground" Background="{TemplateBinding Background}" CornerRadius="2"></Border>
 						<ContentPresenter Grid.Column="0" Margin="8,0" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>
 						<Button Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource styleButton_RemoveRequest}" HorizontalAlignment="Center" Margin="6,0" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:RemovableItemContentControl}, Path=(a:RemoveRequestHelper.RemoveRequestCommand)}" CommandParameter="{Binding}"></Button>
 					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderEffect" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderEffect" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

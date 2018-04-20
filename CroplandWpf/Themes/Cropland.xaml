@@ -16,6 +16,7 @@
 		<ResourceDictionary Source="Default/ComboBox.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/ItemsControl.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/RadioButton.xaml"></ResourceDictionary>
+		<ResourceDictionary Source="Default/SearchAutocompleteControl.xaml"></ResourceDictionary>
 	</ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

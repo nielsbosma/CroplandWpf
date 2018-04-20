@@ -57,6 +57,9 @@
     <Compile Include="Components\HyperlinkButton.cs" />
     <Compile Include="Components\RemovableItemContentControl.cs" />
     <Compile Include="Components\RemovableItemsItemsControl.cs" />
+    <Compile Include="Components\SearchAutocmpleteItem.cs" />
+    <Compile Include="Components\SearchAutocompleteControl.cs" />
+    <Compile Include="Exceptions\TemplatePartNotFoundException.cs" />
     <Compile Include="Helpers\CustomSourceResourceDictionary.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="PresentationHelpers\DynamicColorAnimator.cs" />
@@ -106,6 +109,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Default\ScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Default\SearchAutocompleteComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Default\SearchAutocompleteControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

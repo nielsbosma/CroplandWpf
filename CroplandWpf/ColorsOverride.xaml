@@ -21,5 +21,11 @@
 	<Color x:Key="colorItemsControl_Border">#FFdadada</Color>
 	<Color x:Key="colorItemsControl_Foreground">#FF4e4e4e</Color>
 	<Color x:Key="colorItemsControl_Item_Background">#FFdddddd</Color>
+	<Color x:Key="colorSearchAutocompleteComboBox_Foreground">#FF4f4f4f</Color>
+	<Color x:Key="colorSearchAutocompleteComboBoxItem_Foreground_Highlight">#FF2b784e</Color>
+	<Color x:Key="colorIconFill">#FF787878</Color>
+	<Color x:Key="colorButtonUtil_Foreground">#FF2a784d</Color>
+	<Color x:Key="colorButtonUtil_Background">#00FFFFFF</Color>
+	<Color x:Key="colorButtonUtil_Foreground_MouseOver">#0023bb68</Color>
 
 </ResourceDictionary>

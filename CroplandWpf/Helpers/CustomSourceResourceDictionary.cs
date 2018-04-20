@@ -66,7 +66,7 @@ namespace CroplandWpf.Helpers
 
 				Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() => { ReplaceAvailableResources(replacementDictionary); }), DispatcherPriority.Send);
 			}
-			catch (WebException ex)
+			catch (WebException)
 			{
 				Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() => { RestoreReplacementDictionary(); }), DispatcherPriority.Send);
 			}

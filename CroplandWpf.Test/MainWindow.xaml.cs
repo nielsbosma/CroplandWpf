@@ -22,22 +22,7 @@ namespace CroplandWpf.Test
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public List<string> TestItemsSource
-		{
-			get { return (List<string>)GetValue(TestItemsSourceProperty); }
-			private set { SetValue(TestItemsSourceProperty, value); }
-		}
-		public static readonly DependencyProperty TestItemsSourceProperty =
-			DependencyProperty.Register("TestItemsSource", typeof(List<string>), typeof(MainWindow), new PropertyMetadata());
-
-		public ObservableCollection<string> TestRemovableItemsItemsSource
-		{
-			get { return (ObservableCollection<string>)GetValue(TestRemovableItemsItemsSourceProperty); }
-			private set { SetValue(TestRemovableItemsItemsSourceProperty, value); }
-		}
-		public static readonly DependencyProperty TestRemovableItemsItemsSourceProperty =
-			DependencyProperty.Register("TestRemovableItemsItemsSource", typeof(ObservableCollection<string>), typeof(MainWindow), new PropertyMetadata());
-
+		#region DPs
 		public string HyperlinkTest
 		{
 			get { return (string)GetValue(HyperlinkTestProperty); }
@@ -46,6 +31,53 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty HyperlinkTestProperty =
 			DependencyProperty.Register("HyperlinkTest", typeof(string), typeof(MainWindow), new PropertyMetadata("http://some_link"));
 
+		#region Collections
+		public List<string> TestItemsSource
+		{
+			get { return (List<string>)GetValue(TestItemsSourceProperty); }
+			private set { SetValue(TestItemsSourceProperty, value); }
+		}
+		public static readonly DependencyProperty TestItemsSourceProperty =
+			DependencyProperty.Register("TestItemsSource", typeof(List<string>), typeof(MainWindow), new PropertyMetadata());
+
+		#region RemovableItemsItemsControl
+		public ObservableCollection<string> TestRemovableItemsItemsSource
+		{
+			get { return (ObservableCollection<string>)GetValue(TestRemovableItemsItemsSourceProperty); }
+			private set { SetValue(TestRemovableItemsItemsSourceProperty, value); }
+		}
+		public static readonly DependencyProperty TestRemovableItemsItemsSourceProperty =
+			DependencyProperty.Register("TestRemovableItemsItemsSource", typeof(ObservableCollection<string>), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+
+		#region SearchAutocompleteControl
+		public ObservableCollection<string> SearchAutocompleteTestSource
+		{
+			get { return (ObservableCollection<string>)GetValue(SearchAutocompleteTestSourceProperty); }
+			private set { SetValue(SearchAutocompleteTestSourceProperty, value); }
+		}
+		public static readonly DependencyProperty SearchAutocompleteTestSourceProperty =
+			DependencyProperty.Register("SearchAutocompleteTestSource", typeof(ObservableCollection<string>), typeof(MainWindow), new PropertyMetadata());
+
+		public ObservableCollection<string> SearchResults
+		{
+			get { return (ObservableCollection<string>)GetValue(SearchResultsProperty); }
+			private set { SetValue(SearchResultsProperty, value); }
+		}
+		public static readonly DependencyProperty SearchResultsProperty =
+			DependencyProperty.Register("SearchResults", typeof(ObservableCollection<string>), typeof(MainWindow), new PropertyMetadata());
+
+		public object ClickedSearchItem
+		{
+			get { return (object)GetValue(ClickedSearchItemProperty); }
+			set { SetValue(ClickedSearchItemProperty, value); }
+		}
+		public static readonly DependencyProperty ClickedSearchItemProperty =
+			DependencyProperty.Register("ClickedSearchItem", typeof(object), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+		#endregion
+
+		#region Commands
 		public DelegateCommand HyperlinkTestCommand
 		{
 			get { return (DelegateCommand)GetValue(HyperlinkTestCommandProperty); }
@@ -69,6 +101,24 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty AddNewFileTestCommandProperty =
 			DependencyProperty.Register("AddNewFileTestCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand ConversionSearchResultRefreshCommand
+		{
+			get { return (DelegateCommand)GetValue(ConversionSearchResultRefreshCommandProperty); }
+			private set { SetValue(ConversionSearchResultRefreshCommandProperty, value); }
+		}
+		public static readonly DependencyProperty ConversionSearchResultRefreshCommandProperty =
+			DependencyProperty.Register("ConversionSearchResultRefreshCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand SearchItemClickCommand
+		{
+			get { return (DelegateCommand)GetValue(SearchItemClickCommandProperty); }
+			set { SetValue(SearchItemClickCommandProperty, value); }
+		}
+		public static readonly DependencyProperty SearchItemClickCommandProperty =
+			DependencyProperty.Register("SearchItemClickCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+		#endregion
 
 		private Random random = new Random();
 
@@ -94,9 +144,42 @@ namespace CroplandWpf.Test
 				"File5.xslx",
 			};
 
+			SearchAutocompleteTestSource = new ObservableCollection<string>
+			{
+				"Convert to bmp",
+				"Convert to psd",
+				"Convert to 3ds",
+				"Convert to ai",
+				"Convert to max",
+				"Convert to xml",
+				"Convert to jpeg",
+				"Convert to doc",
+				"Convert to xsl",
+				"Cnovetr to pdf",
+				"Convert to cs",
+				"Convert to jpg"
+			};
+
 			HyperlinkTestCommand = new DelegateCommand(HyperlinkTestCommand_Execute);
 			RemoveRequestTestCommand = new DelegateCommand(RemoveRequestTestCommand_Execute);
 			AddNewFileTestCommand = new DelegateCommand(AddNewFileTestCommand_Execute);
+			ConversionSearchResultRefreshCommand = new DelegateCommand(ConversionSearchResultRefreshCommand_Execute);
+			SearchItemClickCommand = new DelegateCommand(SearchItemClickCommand_Execute);
+		}
+
+		#region Commanding
+		private void ConversionSearchResultRefreshCommand_Execute(object obj)
+		{
+			string searchString = obj as string;
+			if (String.IsNullOrWhiteSpace(searchString))
+				SearchResults = new ObservableCollection<string>();
+			else
+			{
+				searchString = searchString.ToLower();
+				SearchResults = new ObservableCollection<string>(from cs in SearchAutocompleteTestSource
+																 where cs != null && cs.ToLower().Contains(searchString)
+																 select cs);
+			}
 		}
 
 		private void AddNewFileTestCommand_Execute(object parameter)
@@ -118,5 +201,11 @@ namespace CroplandWpf.Test
 					TestRemovableItemsItemsSource.Remove(parameter.ToString());
 			}
 		}
+
+		private void SearchItemClickCommand_Execute(object parameter)
+		{
+			ClickedSearchItem = parameter;
+		}
+		#endregion
 	}
 }

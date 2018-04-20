@@ -29,6 +29,8 @@
 		<DataTemplate x:Key="templateRemovableList_CustomContent">
 			<Button Style="{DynamicResource styleButton_AddFile}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=AddNewFileTestCommand}" Margin="10,0,5,0" VerticalAlignment="Center"></Button>
 		</DataTemplate>
+		
+		
 	</Window.Resources>
 
 	<Border Background="#FFf2f2f2">
@@ -86,6 +88,13 @@
 				<TextBlock Margin="5">ComboBox</TextBlock>
 				<ComboBox x:Name="comboBoxTest" ItemsSource="{Binding TestItemsSource}" />
 				<CheckBox Margin="3" IsChecked="{Binding ElementName=comboBoxTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+				<TextBlock Margin="5">SearchAutocompleteControl</TextBlock>
+				<c:SearchAutocompleteControl x:Name="searchAutocomplete" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding SearchResults}" SearchItemCommand="{Binding SearchItemClickCommand}"></c:SearchAutocompleteControl>
+				<TextBlock Margin="15,3,0,3">
+					<Run>clicked search item:</Run>
+					<Run Text="{Binding ClickedSearchItem}" FontWeight="Bold"></Run>
+				</TextBlock>
+				<CheckBox Margin="3" IsChecked="{Binding ElementName=searchAutocomplete, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
 			</StackPanel>
 			<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Top">
 				<TextBlock Margin="5">Removable items ItemsControl</TextBlock>

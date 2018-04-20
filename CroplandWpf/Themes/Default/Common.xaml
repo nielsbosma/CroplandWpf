@@ -7,6 +7,7 @@
 	<DropShadowEffect x:Key="effectShadow_Large" Direction="270" ShadowDepth="4" Color="#FF000000" Opacity="0.2" BlurRadius="10"></DropShadowEffect>
 
 	<SolidColorBrush x:Key="brushControl_Background_Dark" Color="{DynamicResource colorControl_Background_Dark}"></SolidColorBrush>
+	
 	<SolidColorBrush x:Key="brushControl_Background_Light" Color="{DynamicResource colorControl_Background_Light}"></SolidColorBrush>
 	
 	<SolidColorBrush x:Key="brushControl_Foreground_Light" Color="{DynamicResource colorControl_Foreground_Light}"></SolidColorBrush>
@@ -27,7 +28,7 @@
 
 	<SolidColorBrush x:Key="brushListBoxItem_MouseOver_Background" Color="{DynamicResource colorListBoxItem_MouseOver_Background}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushListBoxItem_IsSelected_Background" Color="{DynamicResource colorListBoxItem_MouseOver_Background}"></SolidColorBrush>
+	<SolidColorBrush x:Key="brushListBoxItem_IsSelected_Background" Color="{DynamicResource colorListBoxItem_IsSelected_Background}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushListBox_Background" Color="{DynamicResource colorListBox_Background}"></SolidColorBrush>
 	
@@ -44,5 +45,17 @@
 	<SolidColorBrush x:Key="brushItemsControl_Foreground" Color="{DynamicResource colorItemsControl_Foreground}"></SolidColorBrush>
 	
 	<SolidColorBrush x:Key="brushItemsControl_Item_Background" Color="{DynamicResource colorItemsControl_Item_Background}"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushSearchAutocompleteComboBox_Foreground" Color="{DynamicResource colorSearchAutocompleteComboBox_Foreground}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushSearchAutocompleteComboBox_Foreground_Highlight" Color="{DynamicResource colorSearchAutocompleteComboBoxItem_Foreground_Highlight}"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushIconFill" Color="{DynamicResource colorSearchAutocompleteComboBoxItem_Foreground_Highlight}"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushButtonUtil_Background" Color="{DynamicResource colorButtonUtil_Background}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushButtonUtil_Foreground" Color="{DynamicResource colorButtonUtil_Foreground}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushButtonUtil_Foreground_MouseOver" Color="{DynamicResource colorButtonUtil_Foreground_MouseOver}"></SolidColorBrush>
 
 </ResourceDictionary>
