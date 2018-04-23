@@ -58,4 +58,8 @@
 	
 	<SolidColorBrush x:Key="brushButtonUtil_Foreground_MouseOver" Color="{DynamicResource colorButtonUtil_Foreground_MouseOver}"></SolidColorBrush>
 
+	<SolidColorBrush x:Key="brushButton_Arrow_Background" Color="{DynamicResource colorButton_Arrow_Background}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushButton_Cross_Background" Color="{DynamicResource colorButton_Cross_Background}"></SolidColorBrush>
+	
 </ResourceDictionary>

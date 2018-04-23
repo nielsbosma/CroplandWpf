@@ -27,5 +27,7 @@
 	<Color x:Key="colorButtonUtil_Foreground">#FF2a784d</Color>
 	<Color x:Key="colorButtonUtil_Background">#00FFFFFF</Color>
 	<Color x:Key="colorButtonUtil_Foreground_MouseOver">#0023bb68</Color>
+	<Color x:Key="colorButton_Arrow_Background">#FF88b49c</Color>
+	<Color x:Key="colorButton_Cross_Background">#FF39825a</Color>
 
 </ResourceDictionary>

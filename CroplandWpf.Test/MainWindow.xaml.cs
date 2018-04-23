@@ -74,6 +74,14 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty ClickedSearchItemProperty =
 			DependencyProperty.Register("ClickedSearchItem", typeof(object), typeof(MainWindow), new PropertyMetadata());
+
+		public string CommandTextBoxString
+		{
+			get { return (string)GetValue(CommandTextBoxStringProperty); }
+			set { SetValue(CommandTextBoxStringProperty, value); }
+		}
+		public static readonly DependencyProperty CommandTextBoxStringProperty =
+			DependencyProperty.Register("CommandTextBoxString", typeof(string), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 		#endregion
 
@@ -117,6 +125,14 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty SearchItemClickCommandProperty =
 			DependencyProperty.Register("SearchItemClickCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand CommandTextBoxCommand
+		{
+			get { return (DelegateCommand)GetValue(CommandTextBoxCommandProperty); }
+			private set { SetValue(CommandTextBoxCommandProperty, value); }
+		}
+		public static readonly DependencyProperty CommandTextBoxCommandProperty =
+			DependencyProperty.Register("CommandTextBoxCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 		#endregion
 
@@ -165,6 +181,7 @@ namespace CroplandWpf.Test
 			AddNewFileTestCommand = new DelegateCommand(AddNewFileTestCommand_Execute);
 			ConversionSearchResultRefreshCommand = new DelegateCommand(ConversionSearchResultRefreshCommand_Execute);
 			SearchItemClickCommand = new DelegateCommand(SearchItemClickCommand_Execute);
+			CommandTextBoxCommand = new DelegateCommand(CommandTextBoxCommand_Execute, CommandTextBoxCommand_CanExecute);
 		}
 
 		#region Commanding
@@ -205,6 +222,17 @@ namespace CroplandWpf.Test
 		private void SearchItemClickCommand_Execute(object parameter)
 		{
 			ClickedSearchItem = parameter;
+		}
+
+		private bool CommandTextBoxCommand_CanExecute(object parameter)
+		{
+			bool result = parameter != null && !String.IsNullOrWhiteSpace(parameter.ToString());
+			return result;
+		}
+
+		private void CommandTextBoxCommand_Execute(object parameter)
+		{
+			CommandTextBoxString = parameter.ToString();
 		}
 		#endregion
 	}

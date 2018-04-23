@@ -43,21 +43,21 @@ namespace CroplandWpf.Components
 			DependencyProperty.Register("IsPopupOpen", typeof(bool), typeof(SearchAutocompleteControl), new PropertyMetadata());
 
 		#region Commands
-		public DelegateCommand SearchResultRefreshCommand
+		public ICommand SearchResultRefreshCommand
 		{
-			get { return (DelegateCommand)GetValue(SearchResultRefreshCommandProperty); }
+			get { return (ICommand)GetValue(SearchResultRefreshCommandProperty); }
 			set { SetValue(SearchResultRefreshCommandProperty, value); }
 		}
 		public static readonly DependencyProperty SearchResultRefreshCommandProperty =
-			DependencyProperty.Register("SearchResultRefreshCommand", typeof(DelegateCommand), typeof(SearchAutocompleteControl), new PropertyMetadata());
+			DependencyProperty.Register("SearchResultRefreshCommand", typeof(ICommand), typeof(SearchAutocompleteControl), new PropertyMetadata());
 
-		public DelegateCommand SearchItemCommand
+		public ICommand SearchItemCommand
 		{
-			get { return (DelegateCommand)GetValue(SearchItemCommandProperty); }
+			get { return (ICommand)GetValue(SearchItemCommandProperty); }
 			set { SetValue(SearchItemCommandProperty, value); }
 		}
 		public static readonly DependencyProperty SearchItemCommandProperty =
-			DependencyProperty.Register("SearchItemCommand", typeof(DelegateCommand), typeof(SearchAutocompleteControl), new PropertyMetadata());
+			DependencyProperty.Register("SearchItemCommand", typeof(ICommand), typeof(SearchAutocompleteControl), new PropertyMetadata());
 		#endregion
 		#endregion
 

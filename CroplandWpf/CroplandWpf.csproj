@@ -54,6 +54,8 @@
     <Compile Include="Attached\FontLoader.cs" />
     <Compile Include="Attached\ItemsControlHelper.cs" />
     <Compile Include="Attached\RemoveRequestHelper.cs" />
+    <Compile Include="Attached\VisualHelper.cs" />
+    <Compile Include="Components\CommandTextBox.cs" />
     <Compile Include="Components\HyperlinkButton.cs" />
     <Compile Include="Components\RemovableItemContentControl.cs" />
     <Compile Include="Components\RemovableItemsItemsControl.cs" />

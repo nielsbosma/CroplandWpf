@@ -9,7 +9,8 @@
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		xmlns:c="clr-namespace:CroplandWpf.Components;assembly=CroplandWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1280" Style="{DynamicResource {x:Type Window}}" WindowStartupLocation="CenterScreen">
+		WindowState="Maximized"
+        Title="MainWindow" Height="920" Width="1440" Style="{DynamicResource {x:Type Window}}" WindowStartupLocation="CenterScreen">
 
 	<Window.Resources>
 		<DataTemplate x:Key="templateStringTest">
@@ -29,8 +30,8 @@
 		<DataTemplate x:Key="templateRemovableList_CustomContent">
 			<Button Style="{DynamicResource styleButton_AddFile}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=AddNewFileTestCommand}" Margin="10,0,5,0" VerticalAlignment="Center"></Button>
 		</DataTemplate>
-		
-		
+
+
 	</Window.Resources>
 
 	<Border Background="#FFf2f2f2">
@@ -64,7 +65,6 @@
 				</StackPanel>
 				<c:HyperlinkButton IsUnderlined="False" HorizontalAlignment="Left">no underline</c:HyperlinkButton>
 				<Button Margin="5" HorizontalAlignment="Left" Style="{DynamicResource styleButton_RemoveRequest}"></Button>
-				
 				<Rectangle Fill="DarkGray" Height="1"/>
 				<CheckBox Margin="5" FontSize="9.5pt" Content="CheckBox"/>
 				<CheckBox Margin="5" IsEnabled="False" Content="CheckBox (disabled)"/>
@@ -79,6 +79,19 @@
 				<Rectangle Fill="DarkGray" Height="1"/>
 				<TextBox Margin="5" Text="TextBox"/>
 				<TextBox Margin="5" IsEnabled="False" Text="TextBox (disabled)"/>
+				<TextBlock Margin="5">CommandTextBox</TextBlock>
+				<c:CommandTextBox x:Name="commandTextBox" Command="{Binding CommandTextBoxCommand}" ButtonStyle="{DynamicResource styleButton_CommandTextBox_Green}" ButtonContent="REGISTER"></c:CommandTextBox>
+				<TextBlock Margin="20,5,5,5">
+					<Run>CommandTextBox output:</Run>
+					<Run Text="{Binding CommandTextBoxString}"></Run>
+				</TextBlock>
+				<CheckBox Margin="5,0,5,5" IsChecked="{Binding ElementName=commandTextBox, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+				<c:CommandTextBox x:Name="commandTextBox1" ButtonStyle="{DynamicResource styleButton_Arrow_Right}"></c:CommandTextBox>
+				<CheckBox Margin="5,0,5,5" IsChecked="{Binding ElementName=commandTextBox1, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+				<c:CommandTextBox ButtonStyle="{DynamicResource styleButton_Arrow_Up}"></c:CommandTextBox>
+				<c:CommandTextBox ButtonStyle="{DynamicResource styleButton_Cross}"></c:CommandTextBox>
+				<TextBlock Margin="5">CommandTextBox with IsButtonFisible = False</TextBlock>
+				<c:CommandTextBox ButtonStyle="{DynamicResource styleButton_Cross}" IsButtonVisible="False"></c:CommandTextBox>
 			</StackPanel>
 			<StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Top">
 				<TextBlock FontWeight="Bold">ItemControls</TextBlock>
