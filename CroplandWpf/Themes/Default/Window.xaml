@@ -86,7 +86,7 @@
 
 								<c:WindowControlThumb Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource styleThumb_Window_Move}" Role="Move"></c:WindowControlThumb>
 								
-								<Menu Grid.Row="0" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:MenuHelper.ItemsSource)}" HorizontalAlignment="Left"></Menu>
+								<Menu Grid.Row="0" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:MenuHelper.ItemsSource)}"></Menu>
 
 								<c:WindowControlButton Grid.Row="0" Grid.Column="2" Role="Close" Style="{StaticResource styleButton_Window_Close}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"></c:WindowControlButton>
 
