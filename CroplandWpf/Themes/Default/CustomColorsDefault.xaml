@@ -31,5 +31,8 @@
 	<Color x:Key="colorButtonUtil_Foreground_MouseOver">#0023bb68</Color>
 	<Color x:Key="colorButton_Arrow_Background">#FF88b49c</Color>
 	<Color x:Key="colorButton_Cross_Background">#FF39825a</Color>
+	<Color x:Key="colorMenuItem_Arrow_Background">#FF000000</Color>
+	<Color x:Key="colorMenuItem_MouseOver_Background">#FFE7E7E7</Color>
+	<Color x:Key="colorMenuItem_Arrow_Background_MouseOver">#FFffffff</Color>
 	
 </h:ReplacableValuesResourceDictionary>

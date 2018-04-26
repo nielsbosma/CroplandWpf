@@ -6,6 +6,8 @@
 	
 	<DropShadowEffect x:Key="effectShadow_Large" Direction="270" ShadowDepth="4" Color="#FF000000" Opacity="0.2" BlurRadius="10"></DropShadowEffect>
 
+	<DropShadowEffect x:Key="effectShadow_Window" Direction="270" ShadowDepth="15" Color="#FF000000" Opacity="0.7" BlurRadius="30"></DropShadowEffect>
+
 	<SolidColorBrush x:Key="brushControl_Background_Dark" Color="{DynamicResource colorControl_Background_Dark}"></SolidColorBrush>
 	
 	<SolidColorBrush x:Key="brushControl_Background_Light" Color="{DynamicResource colorControl_Background_Light}"></SolidColorBrush>
@@ -61,5 +63,20 @@
 	<SolidColorBrush x:Key="brushButton_Arrow_Background" Color="{DynamicResource colorButton_Arrow_Background}"></SolidColorBrush>
 	
 	<SolidColorBrush x:Key="brushButton_Cross_Background" Color="{DynamicResource colorButton_Cross_Background}"></SolidColorBrush>
+
+	<LinearGradientBrush x:Key="brushMenu_Separator_Background" EndPoint="0,1">
+		<GradientStop Offset="0.0" Color="#FFe6e6e6"></GradientStop>
+		<GradientStop Offset="1.0" Color="#FFfafafa"></GradientStop>
+	</LinearGradientBrush>
+	
+	<SolidColorBrush x:Key="brushMenuItem_MouseOver_Background" Color="{DynamicResource colorMenuItem_MouseOver_Background}"></SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushMenu_DropDown_Border" Color="#FFededed"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushMenu_Submenu_Gesture_Foreground" Color="#FFBCB9B9"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushMenuItem_Arrow_Background" Color="{DynamicResource colorMenuItem_Arrow_Background}"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushMenuItem_Arrow_Background_MouseOver" Color="{DynamicResource colorMenuItem_Arrow_Background_MouseOver}"></SolidColorBrush>
 	
 </ResourceDictionary>

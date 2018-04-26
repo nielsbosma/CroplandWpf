@@ -190,7 +190,7 @@
 		<Setter Property="ContentTemplate">
 			<Setter.Value>
 				<DataTemplate>
-					<Path Data="{DynamicResource geometryIcon_Remove}" Width="6" Height="6" Stretch="Fill" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=Foreground}" VerticalAlignment="Center" HorizontalAlignment="Center"></Path>
+					<Path Data="{DynamicResource geometryCross}" Width="6" Height="6" Stretch="Fill" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=Foreground}" VerticalAlignment="Center" HorizontalAlignment="Center"></Path>
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>
@@ -463,7 +463,7 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
 					<Border Background="{TemplateBinding Background}">
-						<Path VerticalAlignment="Center" HorizontalAlignment="Center" Width="10" Height="10" Stretch="Fill" Fill="{DynamicResource brushButton_Cross_Background}" Data="{DynamicResource geometryIcon_Remove}"></Path>
+						<Path VerticalAlignment="Center" HorizontalAlignment="Center" Width="10" Height="10" Stretch="Fill" Fill="{DynamicResource brushButton_Cross_Background}" Data="{DynamicResource geometryCross}"></Path>
 					</Border>
 				</ControlTemplate>
 			</Setter.Value>

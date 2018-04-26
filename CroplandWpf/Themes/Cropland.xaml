@@ -17,6 +17,7 @@
 		<ResourceDictionary Source="Default/ItemsControl.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/RadioButton.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/SearchAutocompleteControl.xaml"></ResourceDictionary>
+		<ResourceDictionary Source="Default/Menu.xaml"></ResourceDictionary>
 	</ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

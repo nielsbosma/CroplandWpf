@@ -53,17 +53,23 @@
   <ItemGroup>
     <Compile Include="Attached\FontLoader.cs" />
     <Compile Include="Attached\ItemsControlHelper.cs" />
+    <Compile Include="Attached\MenuHelper.cs" />
     <Compile Include="Attached\RemoveRequestHelper.cs" />
     <Compile Include="Attached\VisualHelper.cs" />
+    <Compile Include="Attached\WindowMaximizeFix.cs" />
+    <Compile Include="Components\ClippingBorder.cs" />
     <Compile Include="Components\CommandTextBox.cs" />
     <Compile Include="Components\HyperlinkButton.cs" />
     <Compile Include="Components\RemovableItemContentControl.cs" />
     <Compile Include="Components\RemovableItemsItemsControl.cs" />
     <Compile Include="Components\SearchAutocmpleteItem.cs" />
     <Compile Include="Components\SearchAutocompleteControl.cs" />
+    <Compile Include="Components\WindowControlButton.cs" />
+    <Compile Include="Components\WindowControlThumb.cs" />
     <Compile Include="Exceptions\TemplatePartNotFoundException.cs" />
     <Compile Include="Helpers\CustomSourceResourceDictionary.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
+    <Compile Include="MVVM\vmMenuItem.cs" />
     <Compile Include="PresentationHelpers\DynamicColorAnimator.cs" />
     <Content Include="ColorsOverride.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +109,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Default\ItemsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Default\Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
