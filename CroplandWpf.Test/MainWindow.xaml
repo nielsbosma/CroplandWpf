@@ -8,6 +8,7 @@
 		xmlns:a="clr-namespace:CroplandWpf.Attached;assembly=CroplandWpf"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		xmlns:c="clr-namespace:CroplandWpf.Components;assembly=CroplandWpf"
+		xmlns:msc="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
 		WindowState="Normal"
         Title="Cropland Test App" Height="800" Width="1440" Style="{DynamicResource {x:Type Window}}"
@@ -17,7 +18,7 @@
 	<Window.InputBindings>
 		<KeyBinding Command="{Binding}" CommandParameter="asd" Gesture="Ctrl+S"></KeyBinding>
 	</Window.InputBindings>
-	
+
 	<Window.Resources>
 		<DataTemplate x:Key="templateStringTest">
 			<StackPanel Orientation="Horizontal">
@@ -36,6 +37,39 @@
 		<DataTemplate x:Key="templateRemovableList_CustomContent">
 			<Button Style="{DynamicResource styleButton_AddFile}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=AddNewFileTestCommand}" Margin="10,0,5,0" VerticalAlignment="Center"></Button>
 		</DataTemplate>
+		<Style x:Key="CalendarStyle1" TargetType="{x:Type Calendar}">
+			<Setter Property="Foreground" Value="#FF333333"/>
+			<Setter Property="Background">
+				<Setter.Value>
+					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+						<GradientStop Color="#FFE4EAF0" Offset="0"/>
+						<GradientStop Color="#FFECF0F4" Offset="0.16"/>
+						<GradientStop Color="#FFFCFCFD" Offset="0.16"/>
+						<GradientStop Color="#FFFFFFFF" Offset="1"/>
+					</LinearGradientBrush>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="BorderBrush">
+				<Setter.Value>
+					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+						<GradientStop Color="#FFA3AEB9" Offset="0"/>
+						<GradientStop Color="#FF8399A9" Offset="0.375"/>
+						<GradientStop Color="#FF718597" Offset="0.375"/>
+						<GradientStop Color="#FF617584" Offset="1"/>
+					</LinearGradientBrush>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Calendar}">
+						<StackPanel x:Name="PART_Root" HorizontalAlignment="Center">
+							<CalendarItem x:Name="PART_CalendarItem" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Style="{TemplateBinding CalendarItemStyle}"/>
+						</StackPanel>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
 	</Window.Resources>
 
 	<Border>
@@ -124,6 +158,11 @@
 			<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Top">
 				<TextBlock Margin="5">Removable items ItemsControl</TextBlock>
 				<c:RemovableItemsItemsControl ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}"></c:RemovableItemsItemsControl>
+			</StackPanel>
+			<StackPanel Grid.Column="2" Grid.RowSpan="3" Orientation="Vertical">
+				<TextBlock Margin="5" FontWeight="Bold">DatePicker</TextBlock>
+				<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" ></DatePicker>
+				
 			</StackPanel>
 		</Grid>
 	</Border>

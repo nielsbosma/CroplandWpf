@@ -11,7 +11,7 @@
 		<Setter Property="MinHeight" Value="36"></Setter>
 		<Setter Property="MinWidth" Value="40"></Setter>
 		<Setter Property="Padding" Value="0"></Setter>
-		<Setter Property="Background" Value="#FFffffff"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="TextBox">

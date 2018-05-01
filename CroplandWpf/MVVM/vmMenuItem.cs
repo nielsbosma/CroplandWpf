@@ -164,7 +164,6 @@ namespace CroplandWpf.MVVM
 					}
 					GestureString = sb.Append(kg.Key).ToString();
 				}
-
 			}
 		}
 	}

@@ -5,7 +5,9 @@
 	<DropShadowEffect x:Key="effectShadow_Small" Direction="270" ShadowDepth="1.2" Color="#FF000000" Opacity="0.3" BlurRadius="4"></DropShadowEffect>
 	
 	<DropShadowEffect x:Key="effectShadow_Large" Direction="270" ShadowDepth="4" Color="#FF000000" Opacity="0.2" BlurRadius="10"></DropShadowEffect>
-
+	
+	<DropShadowEffect x:Key="effectShadow_Calendar" Direction="270" ShadowDepth="10" Color="#FF000000" Opacity="0.3" BlurRadius="15"></DropShadowEffect>
+	
 	<DropShadowEffect x:Key="effectShadow_Window" Direction="270" ShadowDepth="15" Color="#FF000000" Opacity="0.7" BlurRadius="30"></DropShadowEffect>
 
 	<SolidColorBrush x:Key="brushControl_Background_Dark" Color="{DynamicResource colorControl_Background_Dark}"></SolidColorBrush>
@@ -78,5 +80,15 @@
 	<SolidColorBrush x:Key="brushMenuItem_Arrow_Background" Color="{DynamicResource colorMenuItem_Arrow_Background}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushMenuItem_Arrow_Background_MouseOver" Color="{DynamicResource colorMenuItem_Arrow_Background_MouseOver}"></SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushCalendar_Icon_Background">#FFececec</SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushCalendar_Icon_Background_Active">#FF58595B</SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushCalendar_NavigationButton_Background">#FF777777</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushCalendarDayButton_Background_MouseOver">#FFe7e7e7</SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushCalendarDayButton_Foreground_MouseOver">#FF222222</SolidColorBrush>
 	
 </ResourceDictionary>

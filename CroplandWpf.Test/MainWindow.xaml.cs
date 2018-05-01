@@ -25,13 +25,25 @@ namespace CroplandWpf.Test
 	public partial class MainWindow : Window
 	{
 		#region DPs
+		#region Hyperlink
 		public string HyperlinkTest
 		{
 			get { return (string)GetValue(HyperlinkTestProperty); }
 			set { SetValue(HyperlinkTestProperty, value); }
 		}
 		public static readonly DependencyProperty HyperlinkTestProperty =
-			DependencyProperty.Register("HyperlinkTest", typeof(string), typeof(MainWindow), new PropertyMetadata("http://some_link"));
+			DependencyProperty.Register("HyperlinkTest", typeof(string), typeof(MainWindow), new PropertyMetadata("http://some_link")); 
+		#endregion
+
+		#region Calendar
+		public DateTime DateTimeTest
+		{
+			get { return (DateTime)GetValue(DateTimeTestProperty); }
+			set { SetValue(DateTimeTestProperty, value); }
+		}
+		public static readonly DependencyProperty DateTimeTestProperty =
+			DependencyProperty.Register("DateTimeTest", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(DateTime.Now));
+		#endregion
 
 		#region Collections
 		public List<string> TestItemsSource
@@ -209,7 +221,6 @@ namespace CroplandWpf.Test
 		public MainWindow()
 		{
 			InitializeComponent();
-
 			TestItemsSource = new List<string>
 			{
 				"Item 1", "Item 2",
@@ -271,16 +282,17 @@ namespace CroplandWpf.Test
 					{
 						new vmMenuItem() { Header = "Resolve Names", Command = ResolveNamesCommand, CommandParameter = "[resolve_names]", Gesture = new KeyGesture(Key.N, ModifierKeys.Control) },
 						new vmMenuItem() { Header = "Resolve Surnames", Command = ResolveSurnamesCommand, CommandParameter = "[resolve_surnames]" },
-						new vmMenuItemsContainer(){ Header = "Additional Actions",
+						new vmMenuItemsContainer() { Header = "Additional Actions",
 							Items = new MenuItemsCollection()
 							{
 								new vmMenuItem(){ Header = "Additional Open", Command = OpenCommand, CommandParameter = "additional_open", Gesture = new KeyGesture(Key.W, ModifierKeys.Windows) }
 							}
-						}
+						},
+						new vmMenuItem() { IsSeparator = true }
 					}},
 					new vmMenuItem() { IsSeparator = true },
 					new vmMenuItem() { Header = "Add", Command = AddCommand, CommandParameter = "[add]" },
-					new vmMenuItem() { Header = "Remove", Command = RemoveCommand, CommandParameter = "[remove]" }
+					new vmMenuItem() { Header = "Remove", Command = RemoveCommand, CommandParameter = "[remove]" },
 				}
 			});
 			mic.Add(new vmMenuItemsContainer()

@@ -15,7 +15,7 @@
 
 	<Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="Separator">
 		<Setter Property="Height" Value="2"/>
-		<Setter Property="Margin" Value="0,6"/>
+		<Setter Property="Margin" Value="0,3"/>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Separator">
@@ -191,6 +191,7 @@
 			<ContentPresenter Grid.Column="0" Name="presenter" ContentSource="Header" RecognizesAccessKey="True" Margin="6" />
 			<TextBlock x:Name="InputGestureText" Grid.Column="1" Text="{TemplateBinding InputGestureText}" Margin="5,2,2,2" DockPanel.Dock="Right"/>
 			<Path Grid.Column="2" x:Name="pathArrow" Width="7" Height="12" Stretch="Fill" Fill="{DynamicResource brushMenuItem_Arrow_Background}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,12,0" Data="{DynamicResource geometryShevron_Right}" />
+			<Path Grid.Column="2" x:Name="pathArrow_SubmenuOpen" Opacity="0.0" Width="7" Height="12" Stretch="Fill" Fill="{DynamicResource brushMenuItem_Arrow_Background_MouseOver}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,12,0" Data="{DynamicResource geometryShevron_Right}" />
 			<Popup Name="Popup" Placement="Right" HorizontalOffset="-4" IsOpen="{TemplateBinding IsSubmenuOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="None">
 				<Border Name="borderSubMenu" Margin="5,1,5,10" SnapsToDevicePixels="True" Background="{DynamicResource brushControl_Background_Light}" BorderBrush="{DynamicResource brushMenu_DropDown_Border}" BorderThickness="1" Effect="{DynamicResource effectShadow_Large}">
 					<StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" Margin="0,4" />
@@ -216,11 +217,11 @@
 			</Trigger>
 			<Trigger Property="IsSubmenuOpen" Value="True">
 				<Setter TargetName="presenter" Property="TextBlock.Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
-				<Setter TargetName="pathArrow" Property="Fill" Value="{DynamicResource brushMenuItem_Arrow_Background_MouseOver}"></Setter>
 				<Trigger.EnterActions>
 					<BeginStoryboard>
 						<Storyboard>
 							<DoubleAnimation Storyboard.TargetName="borderBackground_SubmenuOpen" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+							<DoubleAnimation Storyboard.TargetName="pathArrow_SubmenuOpen" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
 						</Storyboard>
 					</BeginStoryboard>
 				</Trigger.EnterActions>
@@ -228,6 +229,7 @@
 					<BeginStoryboard>
 						<Storyboard>
 							<DoubleAnimation Storyboard.TargetName="borderBackground_SubmenuOpen" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
+							<DoubleAnimation Storyboard.TargetName="pathArrow_SubmenuOpen" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
 						</Storyboard>
 					</BeginStoryboard>
 				</Trigger.ExitActions>

@@ -32,14 +32,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.150" From="0.0" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.150" From="1.0" To="0.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -65,10 +65,10 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="Window">
 					<Grid Background="Transparent">
-						<Border x:Name="border_EffectHost" Margin="24,0,24,30" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window}" CornerRadius="1,1,6,6">
+						<Border x:Name="border_EffectHost" Margin="24,0,24,30" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window}" CornerRadius="6">
 						</Border>
 
-						<c:ClippingBorder x:Name="borderClip" Margin="24,0,24,30" CornerRadius="1,1,6,6">
+						<c:ClippingBorder x:Name="borderClip" Margin="24,0,24,30" CornerRadius="6">
 							<Grid x:Name="gridRoot">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="52"></RowDefinition>
@@ -82,11 +82,11 @@
 
 								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="{DynamicResource brushControl_Background_Dark}" CornerRadius="1"></Border>
 
-								<TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{TemplateBinding Title}" FontSize="10.5pt" Margin="18,0" Foreground="{DynamicResource brushControl_Foreground_Light}"></TextBlock>
-
 								<c:WindowControlThumb Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource styleThumb_Window_Move}" Role="Move"></c:WindowControlThumb>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" IsHitTestVisible="False" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{TemplateBinding Title}" FontSize="10.5pt" Margin="18,0" Foreground="{DynamicResource brushControl_Foreground_Light}"></TextBlock>
 								
-								<Menu Grid.Row="0" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:MenuHelper.ItemsSource)}"></Menu>
+								<Menu Grid.Row="0" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:MenuHelper.ItemsSource)}" HorizontalAlignment="Left"></Menu>
 
 								<c:WindowControlButton Grid.Row="0" Grid.Column="2" Role="Close" Style="{StaticResource styleButton_Window_Close}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"></c:WindowControlButton>
 
