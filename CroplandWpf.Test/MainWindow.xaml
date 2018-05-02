@@ -11,9 +11,11 @@
 		xmlns:msc="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
 		WindowState="Normal"
-        Title="Cropland Test App" Height="800" Width="1440" Style="{DynamicResource {x:Type Window}}"
+        Title="Cropland Test App" Height="800" Width="1440"
 		a:MenuHelper.ItemsSource="{Binding MenuItemsTestSource}"
-		WindowStartupLocation="CenterScreen">
+		WindowStartupLocation="CenterScreen"
+		Style="{DynamicResource styleWindow_Light}">
+	<!--Style="{DynamicResource {x:Type Window}}"-->
 
 	<Window.InputBindings>
 		<KeyBinding Command="{Binding}" CommandParameter="asd" Gesture="Ctrl+S"></KeyBinding>

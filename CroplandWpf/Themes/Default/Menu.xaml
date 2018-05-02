@@ -72,6 +72,53 @@
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
 
+	<ControlTemplate x:Key="styleMenuItem_TopLevelHeader_Light" TargetType="MenuItem">
+		<Grid>
+			<Border x:Name="borderBackground" Background="{DynamicResource brushControl_Background_Light}"></Border>
+			<Border x:Name="borderBackground_Highlight" Opacity="0.0" Background="{DynamicResource brushMenuItem_MouseOver_Background_Light}" BorderBrush="{DynamicResource brushMenuItem_TopLevelheader_Border_IsActive}" BorderThickness="1"></Border>
+			<ContentPresenter x:Name="presenter" TextBlock.FontSize="13.5pt" TextBlock.Foreground="{DynamicResource brushMenuItem_Foreground_Dark}" Margin="24" ContentSource="Header" RecognizesAccessKey="True" />
+			<Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsSubmenuOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="None">
+				<Border Name="borderSubMenu" SnapsToDevicePixels="True" Background="{DynamicResource brushControl_Background_Light}" BorderBrush="{DynamicResource brushMenu_DropDown_Border}" BorderThickness="1" Effect="{DynamicResource effectShadow_Small}" Margin="2,1,2,4">
+					<StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" Margin="0,4" />
+				</Border>
+			</Popup>
+		</Grid>
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsHighlighted" Value="True">
+				<Trigger.EnterActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation Storyboard.TargetName="borderBackground_Highlight" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.EnterActions>
+				<Trigger.ExitActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation Storyboard.TargetName="borderBackground_Highlight" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.ExitActions>
+			</Trigger>
+			<Trigger Property="IsEnabled" Value="False">
+				<Trigger.EnterActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation Storyboard.TargetName="presenter" Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.EnterActions>
+				<Trigger.ExitActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation Storyboard.TargetName="presenter" Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.ExitActions>
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+	
 	<ControlTemplate x:Key="{x:Static MenuItem.TopLevelItemTemplateKey}" TargetType="MenuItem">
 		<Grid>
 			<Border x:Name="borderBackground" Background="{DynamicResource brushControl_Background_Dark}" CornerRadius="2"></Border>
@@ -282,9 +329,72 @@
 		</Style.Triggers>
 	</Style>
 
+	<Style x:Key="styleMenuItem_Light" TargetType="MenuItem">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="ItemsSource" Value="{Binding Items, FallbackValue={x:Null}}"></Setter>
+		<Setter Property="Header" Value="{Binding Header}"></Setter>
+		<Setter Property="OverridesDefaultStyle" Value="True"/>
+		<Style.Triggers>
+			<Trigger Property="Role" Value="TopLevelHeader">
+				<Setter Property="Template" Value="{StaticResource styleMenuItem_TopLevelHeader_Light}"/>
+				<Setter Property="Grid.IsSharedSizeScope" Value="true"/>
+			</Trigger>
+			<Trigger Property="Role" Value="TopLevelItem">
+				<Setter Property="Command" Value="{Binding Command}"></Setter>
+				<Setter Property="CommandParameter" Value="{Binding CommandParameter}"></Setter>
+				<Setter Property="InputGestureText" Value="{Binding Gesture.DisplayString}"></Setter>
+				<Setter Property="Template" Value="{StaticResource {x:Static MenuItem.TopLevelItemTemplateKey}}"/>
+			</Trigger>
+			<Trigger Property="Role" Value="SubmenuHeader">
+				<Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuHeaderTemplateKey}}"/>
+				<Setter Property="MinWidth" Value="250"></Setter>
+			</Trigger>
+			<Trigger Property="Role" Value="SubmenuItem">
+				<Setter Property="Command" Value="{Binding Command}"></Setter>
+				<Setter Property="CommandParameter" Value="{Binding CommandParameter}"></Setter>
+				<Setter Property="InputGestureText" Value="{Binding GestureString}"></Setter>
+				<Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuItemTemplateKey}}"/>
+				<Setter Property="MinWidth" Value="250"></Setter>
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+	<Style x:Key="styleMenu_Light" TargetType="Menu">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="ItemContainerStyle" Value="{StaticResource styleMenuItem_Light}"></Setter>
+		<Setter Property="Background" Value="Transparent"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Menu">
+					<Border Background="{TemplateBinding Background}">
+						<StackPanel Orientation="Horizontal" IsItemsHost="True"></StackPanel>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="False">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
 	<Style x:Key="{x:Type Menu}" TargetType="Menu">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
+		<Setter Property="Background" Value="Transparent"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Menu">

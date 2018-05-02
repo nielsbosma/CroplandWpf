@@ -8,7 +8,9 @@
 	
 	<DropShadowEffect x:Key="effectShadow_Calendar" Direction="270" ShadowDepth="10" Color="#FF000000" Opacity="0.3" BlurRadius="15"></DropShadowEffect>
 	
-	<DropShadowEffect x:Key="effectShadow_Window" Direction="270" ShadowDepth="15" Color="#FF000000" Opacity="0.7" BlurRadius="30"></DropShadowEffect>
+	<DropShadowEffect x:Key="effectShadow_Window" Direction="270" ShadowDepth="13" Color="#FF000000" Opacity="0.5" BlurRadius="28"></DropShadowEffect>
+
+	<DropShadowEffect x:Key="effectShadow_Window_Light" Direction="270" ShadowDepth="13" Color="#FF000000" Opacity="0.5" BlurRadius="30"></DropShadowEffect>
 
 	<SolidColorBrush x:Key="brushControl_Background_Dark" Color="{DynamicResource colorControl_Background_Dark}"></SolidColorBrush>
 	
@@ -72,7 +74,9 @@
 	</LinearGradientBrush>
 	
 	<SolidColorBrush x:Key="brushMenuItem_MouseOver_Background" Color="{DynamicResource colorMenuItem_MouseOver_Background}"></SolidColorBrush>
-	
+
+	<SolidColorBrush x:Key="brushMenuItem_MouseOver_Background_Light" Color="#FFf3f3f3"></SolidColorBrush>
+
 	<SolidColorBrush x:Key="brushMenu_DropDown_Border" Color="#FFededed"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushMenu_Submenu_Gesture_Foreground" Color="#FFBCB9B9"></SolidColorBrush>
@@ -90,5 +94,17 @@
 	<SolidColorBrush x:Key="brushCalendarDayButton_Background_MouseOver">#FFe7e7e7</SolidColorBrush>
 	
 	<SolidColorBrush x:Key="brushCalendarDayButton_Foreground_MouseOver">#FF222222</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushWindowBackground_Dark">#FFf3f3f3</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushMenuItem_Foreground_Dark">#FF515151</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushWindow_Title_Foreground_Dark">#FF227347</SolidColorBrush>
 	
-</ResourceDictionary>
+	<SolidColorBrush x:Key="brushButton_WindowClose_Background_Light">#FFeeeeee</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushButton_WindowClose_Icon_Background">#FF9b9b9b</SolidColorBrush>
+	
+	<SolidColorBrush x:Key="brushMenuItem_TopLevelheader_Border_IsActive">#FFcccccc</SolidColorBrush>
+
+</ResourceDictionary> 

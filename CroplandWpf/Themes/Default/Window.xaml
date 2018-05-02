@@ -50,6 +50,43 @@
 		</Setter>
 	</Style>
 
+	<Style x:Key="styleButton_Window_Close_Light" TargetType="c:WindowControlButton">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Background" Value="Transparent"></Setter>
+		<Setter Property="MinWidth" Value="20"></Setter>
+		<Setter Property="MinHeight" Value="20"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="c:WindowControlButton">
+					<Grid Background="Transparent">
+						<Ellipse Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="{DynamicResource brushButton_WindowClose_Background_Light}"></Ellipse>
+						<Ellipse x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="{DynamicResource brushControl_Background_Dark}"></Ellipse>
+						<Path x:Name="pathCross" VerticalAlignment="Center" HorizontalAlignment="Center" Width="12" Height="12" Stretch="Fill" Fill="{DynamicResource brushButton_WindowClose_Icon_Background}" Data="{DynamicResource geometryCross}" RenderTransformOrigin="0.5,0.5"></Path>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="pathCross" Property="Fill" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.150" From="0.0" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.150" From="1.0" To="0.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<Style x:Key="{x:Type Window}" TargetType="Window">
 		<Setter Property="a:WindowMaximizeFix.IsEnabled" Value="True"></Setter>
 		<Setter Property="a:FontLoader.CustomFontFamilySource" Value="pack://application:,,,/Fonts/;Roboto"></Setter>
@@ -65,10 +102,10 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="Window">
 					<Grid Background="Transparent">
-						<Border x:Name="border_EffectHost" Margin="24,0,24,30" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window}" CornerRadius="6">
+						<Border x:Name="border_EffectHost" Margin="{Binding ElementName=borderClip, Path=Margin}" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window}" CornerRadius="{Binding ElementName=borderClip, Path=CornerRadius}">
 						</Border>
 
-						<c:ClippingBorder x:Name="borderClip" Margin="24,0,24,30" CornerRadius="6">
+						<c:ClippingBorder x:Name="borderClip" Margin="24,5,24,30" CornerRadius="6">
 							<Grid x:Name="gridRoot">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="52"></RowDefinition>
@@ -85,7 +122,7 @@
 								<c:WindowControlThumb Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource styleThumb_Window_Move}" Role="Move"></c:WindowControlThumb>
 
 								<TextBlock Grid.Row="0" Grid.Column="0" IsHitTestVisible="False" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{TemplateBinding Title}" FontSize="10.5pt" Margin="18,0" Foreground="{DynamicResource brushControl_Foreground_Light}"></TextBlock>
-								
+
 								<Menu Grid.Row="0" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:MenuHelper.ItemsSource)}" HorizontalAlignment="Left"></Menu>
 
 								<c:WindowControlButton Grid.Row="0" Grid.Column="2" Role="Close" Style="{StaticResource styleButton_Window_Close}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"></c:WindowControlButton>
@@ -97,7 +134,63 @@
 					<ControlTemplate.Triggers>
 						<Trigger Property="WindowState" Value="Maximized">
 							<Setter TargetName="gridRoot" Property="Margin" Value="0"></Setter>
-							<Setter TargetName="border_EffectHost" Property="CornerRadius" Value="0"></Setter>
+							<Setter TargetName="borderClip" Property="Margin" Value="0"></Setter>
+							<Setter TargetName="borderClip" Property="CornerRadius" Value="0,0,0,0"></Setter>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+	<Style x:Key="styleWindow_Light" TargetType="Window">
+		<Setter Property="a:WindowMaximizeFix.IsEnabled" Value="True"></Setter>
+		<Setter Property="a:FontLoader.CustomFontFamilySource" Value="pack://application:,,,/Fonts/;Roboto"></Setter>
+		<Setter Property="FontSize" Value="9.5pt"></Setter>
+		<Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+		<Setter Property="UseLayoutRounding" Value="True"></Setter>
+		<Setter Property="AllowsTransparency" Value="True"></Setter>
+		<Setter Property="ResizeMode" Value="NoResize"></Setter>
+		<Setter Property="WindowStyle" Value="None"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushWindowBackground_Dark}"></Setter>
+		<Setter Property="Padding" Value="5"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Window">
+					<Grid Background="Transparent">
+						<Border x:Name="border_EffectHost" Margin="{Binding ElementName=borderClip, Path=Margin}" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window_Light}" CornerRadius="{Binding ElementName=borderClip, Path=CornerRadius}">
+						</Border>
+
+						<c:ClippingBorder x:Name="borderClip" Margin="24,5,24,37" CornerRadius="6" Background="{TemplateBinding Background}">
+							<Grid x:Name="gridRoot">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="69"></RowDefinition>
+									<RowDefinition></RowDefinition>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"></ColumnDefinition>
+									<ColumnDefinition></ColumnDefinition>
+									<ColumnDefinition Width="Auto"></ColumnDefinition>
+								</Grid.ColumnDefinitions>
+
+								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="{DynamicResource brushControl_Background_Light}" CornerRadius="1"></Border>
+
+								<c:WindowControlThumb Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource styleThumb_Window_Move}" Role="Move"></c:WindowControlThumb>
+
+								<TextBlock Grid.Row="0" Grid.Column="0" IsHitTestVisible="False" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{TemplateBinding Title}" FontSize="13.5pt" Margin="30,0" Foreground="{DynamicResource brushWindow_Title_Foreground_Dark}"></TextBlock>
+
+								<Menu Grid.Row="0" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:MenuHelper.ItemsSource)}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Style="{DynamicResource styleMenu_Light}" Height="69"></Menu>
+
+								<c:WindowControlButton Grid.Row="0" Grid.Column="2" Role="Close" Style="{StaticResource styleButton_Window_Close_Light}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"></c:WindowControlButton>
+
+								<ContentPresenter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="{TemplateBinding Padding}"></ContentPresenter>
+							</Grid>
+						</c:ClippingBorder>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="WindowState" Value="Maximized">
+							<Setter TargetName="gridRoot" Property="Margin" Value="0"></Setter>
 							<Setter TargetName="borderClip" Property="Margin" Value="0"></Setter>
 							<Setter TargetName="borderClip" Property="CornerRadius" Value="0,0,0,0"></Setter>
 						</Trigger>
