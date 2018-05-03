@@ -62,6 +62,14 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty MenuItemsTestSourceProperty =
 			DependencyProperty.Register("MenuItemsTestSource", typeof(MenuItemsCollection), typeof(MainWindow), new PropertyMetadata());
 
+		public ObservableCollection<Person> PersonsTestSource
+		{
+			get { return (ObservableCollection<Person>)GetValue(PersonsTestSourceProperty); }
+			private set { SetValue(PersonsTestSourceProperty, value); }
+		}
+		public static readonly DependencyProperty PersonsTestSourceProperty =
+			DependencyProperty.Register("PersonsTestSource", typeof(ObservableCollection<Person>), typeof(MainWindow), new PropertyMetadata());
+
 		#region RemovableItemsItemsControl
 		public ObservableCollection<string> TestRemovableItemsItemsSource
 		{
@@ -221,6 +229,7 @@ namespace CroplandWpf.Test
 		public MainWindow()
 		{
 			InitializeComponent();
+			#region ItemsSources
 			TestItemsSource = new List<string>
 			{
 				"Item 1", "Item 2",
@@ -254,6 +263,19 @@ namespace CroplandWpf.Test
 				"Convert to cs",
 				"Convert to jpg"
 			};
+
+			PersonsTestSource = new ObservableCollection<Person>()
+			{
+				new Person{ Name = "Laura", IsMedic = false, InternalNumber = 910934, Type = PersonType.Extrovert },
+				new Person{ Name = "Vigilo", IsMedic = false, InternalNumber = 001971, Type = PersonType.Introvert },
+				new Person{ Name = "C3PO", IsMedic = false, InternalNumber = 1001110, Type = PersonType.NA},
+				new Person{ Name = "E2E4", IsMedic = true, InternalNumber = 1001111, Type = PersonType.AnnoyingCryBaby},
+				new Person{ Name = "Adam Fielding", IsMedic = false, InternalNumber = 0491991, Type = PersonType.Introvert},
+				new Person{ Name = "Mere Mortal", IsMedic = false, InternalNumber = 000000, Type = PersonType.NA },
+				new Person{ Name = "Crystal Clear Table-Top Epoxy Resin", IsMedic = false, InternalNumber = 6097661, Type = PersonType.NA },
+				new Person{ Name = "Carinthia", IsMedic = true, InternalNumber = 3966511, Type = PersonType.NA }
+			};
+			#endregion
 
 			HyperlinkTestCommand = new DelegateCommand(HyperlinkTestCommand_Execute);
 			RemoveRequestTestCommand = new DelegateCommand(RemoveRequestTestCommand_Execute);
@@ -408,5 +430,29 @@ namespace CroplandWpf.Test
 			Process.Start("cmd.exe");
 		}
 		#endregion
+	}
+
+	public enum PersonType
+	{
+		NA,
+		Introvert,
+		Extrovert,
+		AnnoyingCryBaby
+	}
+
+	public class Person : ViewModelBase
+	{
+		public string Name { get; set; }
+
+		public int InternalNumber { get; set; }
+
+		public bool IsMedic { get; set; }
+
+		public PersonType Type { get; set; }
+
+		public Person()
+		{
+
+		}
 	}
 }

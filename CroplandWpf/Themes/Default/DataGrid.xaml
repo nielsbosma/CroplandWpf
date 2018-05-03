@@ -2,23 +2,61 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CroplandWpf.Themes.Default">
 
-	<Style x:Key="{x:Type DataGrid}" TargetType="DataGrid">
+	<!--<Style x:Key="{x:Type DataGrid}" TargetType="DataGrid">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="DataGrid">
-					
+
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>-->
+
+	<Style x:Key="styleThumb_ColumnHeaderGripper" TargetType="Thumb">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Cursor" Value="SizeWE"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Thumb">
+					<Border Width="2" Background="Transparent"></Border>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
 
+	<Style TargetType="{x:Type DataGridColumnHeader}">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
+		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
+		<Setter Property="BorderBrush" Value="{DynamicResource brushDataGrid_Border_Inner}"></Setter>
+		<Setter Property="MinHeight" Value="34"></Setter>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="FontSize" Value="9pt"></Setter>
+		<Setter Property="Padding" Value="10,0"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+					<Grid>
+						<Border x:Name="columnHeaderBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,1,0">
+							<ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+						</Border>
+						<Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource styleThumb_ColumnHeaderGripper}" />
+						<Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource styleThumb_ColumnHeaderGripper}" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
-
-	<Style x:Key="DataGridCellStyle1" TargetType="{x:Type DataGridCell}">
+	<Style x:Key="{x:Type DataGridCell}" TargetType="{x:Type DataGridCell}">
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="BorderBrush" Value="Transparent"/>
 		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="MinHeight" Value="30"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -30,14 +68,14 @@
 		</Setter>
 		<Style.Triggers>
 			<Trigger Property="IsSelected" Value="True">
-				<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
-				<Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+				<Setter Property="Background" Value="{DynamicResource brushListBoxItem_IsSelected_Background}"/>
+				<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"/>
+				<!--<Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>-->
 			</Trigger>
 			<Trigger Property="IsKeyboardFocusWithin" Value="True">
-				<Setter Property="BorderBrush" Value="{DynamicResource {x:Static DataGrid.FocusBorderBrushKey}}"/>
+				<Setter Property="BorderBrush" Value="{DynamicResource brushDataGrid_Border}"/>
 			</Trigger>
-			<MultiTrigger>
+			<!--<MultiTrigger>
 				<MultiTrigger.Conditions>
 					<Condition Property="IsSelected" Value="true"/>
 					<Condition Property="Selector.IsSelectionActive" Value="false"/>
@@ -45,16 +83,16 @@
 				<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
 				<Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
 				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
-			</MultiTrigger>
+			</MultiTrigger>-->
 			<Trigger Property="IsEnabled" Value="false">
-				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+				<Setter Property="Opacity" Value="0.6"></Setter>
 			</Trigger>
 		</Style.Triggers>
 	</Style>
 
 
-	<Style x:Key="DataGridRowStyle1" TargetType="{x:Type DataGridRow}">
-		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+	<Style x:Key="{x:Type DataGridRow}" TargetType="{x:Type DataGridRow}">
+		<Setter Property="Background" Value="{DynamicResource brushDataGrid_Background	}"/>
 		<Setter Property="SnapsToDevicePixels" Value="true"/>
 		<Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
 		<Setter Property="ValidationErrorTemplate">
@@ -93,10 +131,10 @@
 	</Style>
 
 
-	<Style x:Key="DataGridStyle1" TargetType="{x:Type DataGrid}">
-		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-		<Setter Property="BorderBrush" Value="#FF688CAF"/>
+	<Style x:Key="{x:Type DataGrid}" TargetType="{x:Type DataGrid}">
+		<Setter Property="Background" Value="{DynamicResource brushDataGrid_Background}"/>
+		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource brushDataGrid_Border}"/>
 		<Setter Property="BorderThickness" Value="1"/>
 		<Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected"/>
 		<Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
@@ -105,7 +143,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type DataGrid}">
-					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True" CornerRadius="1">
 						<ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
 							<ScrollViewer.Template>
 								<ControlTemplate TargetType="{x:Type ScrollViewer}">
@@ -150,6 +188,6 @@
 			</MultiTrigger>
 		</Style.Triggers>
 	</Style>
-	
+
 
 </ResourceDictionary>

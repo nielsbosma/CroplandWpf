@@ -130,13 +130,8 @@
 			<StackPanel Grid.Column="2" Grid.RowSpan="3" Orientation="Vertical">
 				<TextBlock Margin="5" FontWeight="Bold">DatePicker</TextBlock>
 				<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" ></DatePicker>
-				<DataGrid MinHeight="150" Style="{DynamicResource DataGridStyle1}">
-					<DataGrid.Columns>
-						<DataGridTextColumn Header="Name"></DataGridTextColumn>
-					</DataGrid.Columns>
+				<DataGrid MinHeight="150" ItemsSource="{Binding PersonsTestSource}">
 				</DataGrid>
-				<DataGridCell Style="{DynamicResource DataGridCellStyle1}">as</DataGridCell>
-				<DataGridRow Style="{DynamicResource DataGridRowStyle1}"></DataGridRow>
 			</StackPanel>
 		</Grid>
 	</Border>
