@@ -78,6 +78,7 @@
     <Compile Include="Components\ClippingBorder.cs" />
     <Compile Include="Components\CommandTextBox.cs" />
     <Compile Include="Components\HyperlinkButton.cs" />
+    <Compile Include="Components\MessageBoxPresenter.cs" />
     <Compile Include="Components\RemovableItemContentControl.cs" />
     <Compile Include="Components\RemovableItemsItemsControl.cs" />
     <Compile Include="Components\SearchAutocmpleteItem.cs" />
@@ -101,6 +102,10 @@
     <Page Include="Themes\Default\Button.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Default\DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Default\DatePicker.xaml">
       <SubType>Designer</SubType>
