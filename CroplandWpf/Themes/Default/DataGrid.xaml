@@ -1,5 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers"
+					xmlns:c="clr-namespace:CroplandWpf.Components"
                     xmlns:local="clr-namespace:CroplandWpf.Themes.Default">
 
 	<!--<Style x:Key="{x:Type DataGrid}" TargetType="DataGrid">
@@ -39,14 +41,29 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
 					<Grid>
-						<Border x:Name="columnHeaderBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,1,0">
-							<ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-						</Border>
-						<Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource styleThumb_ColumnHeaderGripper}" />
-						<Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource styleThumb_ColumnHeaderGripper}" />
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<Border Grid.Column="0" Grid.ColumnSpan="2" x:Name="columnHeaderBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,1,0"></Border>
+						<ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+						<Path Grid.Column="1" x:Name="pathSortIndicator" IsHitTestVisible="False" HorizontalAlignment="Right" VerticalAlignment="Center" Width="10" Height="5" Margin="0,0,10,0" Stretch="Fill" Fill="#FFffffff" RenderTransformOrigin="0.5,0.4" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z"/>
+						<Thumb Grid.Column="0" x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource styleThumb_ColumnHeaderGripper}" />
+						<Thumb Grid.Column="1" x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource styleThumb_ColumnHeaderGripper}" />
 					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="SortDirection" Value="Ascending">
+							<Setter TargetName="pathSortIndicator" Property="Visibility" Value="Visible"></Setter>
+							<Setter TargetName="pathSortIndicator" Property="RenderTransform">
+								<Setter.Value>
+									<RotateTransform Angle="180"></RotateTransform>
+								</Setter.Value>
+							</Setter>
+						</Trigger>
+						<Trigger Property="SortDirection" Value="Descending">
+							<Setter TargetName="pathSortIndicator" Property="Visibility" Value="Visible"></Setter>
+						</Trigger>
+					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -57,19 +74,21 @@
 		<Setter Property="BorderBrush" Value="Transparent"/>
 		<Setter Property="BorderThickness" Value="1"/>
 		<Setter Property="MinHeight" Value="30"></Setter>
+		<Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type DataGridCell}">
 					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-						<ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+						<ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 					</Border>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 		<Style.Triggers>
 			<Trigger Property="IsSelected" Value="True">
-				<Setter Property="Background" Value="{DynamicResource brushListBoxItem_IsSelected_Background}"/>
-				<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"/>
+				<Setter Property="Background" Value="{DynamicResource brushListBoxItem_MouseOver_Background}"/>
+				<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"/>
 				<!--<Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>-->
 			</Trigger>
 			<Trigger Property="IsKeyboardFocusWithin" Value="True">
@@ -130,7 +149,6 @@
 		</Style.Triggers>
 	</Style>
 
-
 	<Style x:Key="{x:Type DataGrid}" TargetType="{x:Type DataGrid}">
 		<Setter Property="Background" Value="{DynamicResource brushDataGrid_Background}"/>
 		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"/>
@@ -140,10 +158,14 @@
 		<Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
 		<Setter Property="ScrollViewer.PanningMode" Value="Both"/>
 		<Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+		<Setter Property="GridLinesVisibility" Value="All"></Setter>
+		<Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource brushDataGrid_Border_Inner}"></Setter>
+		<Setter Property="VerticalGridLinesBrush" Value="{DynamicResource brushDataGrid_Border_Inner}"></Setter>
+		<Setter Property="HeadersVisibility" Value="Column"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type DataGrid}">
-					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True" CornerRadius="1">
+					<c:ClippingBorder BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="2">
 						<ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
 							<ScrollViewer.Template>
 								<ControlTemplate TargetType="{x:Type ScrollViewer}">
@@ -159,7 +181,7 @@
 											<RowDefinition Height="Auto"/>
 										</Grid.RowDefinitions>
 										<Button Command="{x:Static DataGrid.SelectAllCommand}" Focusable="false" Style="{DynamicResource {ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}}" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.All}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
-										<DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" Grid.Column="1" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+										<DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" Grid.Column="1" Grid.ColumnSpan="2" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
 										<ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" Grid.ColumnSpan="2" Grid.Row="1"/>
 										<ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="2" Maximum="{TemplateBinding ScrollableHeight}" Orientation="Vertical" Grid.Row="1" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}"/>
 										<Grid Grid.Column="1" Grid.Row="2">
@@ -174,7 +196,7 @@
 							</ScrollViewer.Template>
 							<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
 						</ScrollViewer>
-					</Border>
+					</c:ClippingBorder>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -188,6 +210,223 @@
 			</MultiTrigger>
 		</Style.Triggers>
 	</Style>
+
+	<Style x:Key="styleTextBlock_DataGridTextColumn" TargetType="TextBlock">
+		<Setter Property="VerticalAlignment" Value="Center"></Setter>
+		<Setter Property="Padding" Value="10,0"></Setter>
+		<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+		<Setter Property="TextTrimming" Value="CharacterEllipsis"></Setter>
+	</Style>
+
+	<Style x:Key="styleTextBox_DataGridTextColumn" TargetType="TextBox">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
+		<Setter Property="AllowDrop" Value="True"/>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+		<Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+		<Setter Property="Padding" Value="5,0"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="TextBox">
+					<Grid>
+						<Border x:Name="borderBackground_Focused" Opacity="0.0" Background="{DynamicResource brushControl_Background_Light}"></Border>
+						<ScrollViewer x:Name="PART_ContentHost" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" Style="{DynamicResource styleScrollViewer_TextBox}" Background="Transparent" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="{TemplateBinding Padding}" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsKeyboardFocused" Value="True">
+							<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Focused" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Focused" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="styleCheckBox_DataGridCheckBoxColumn" TargetType="CheckBox">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="BorderBrush" Value="{DynamicResource brushCheckBox_DataGridCheckBoxColumn_Border}"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+		<Setter Property="Height" Value="17"></Setter>
+		<Setter Property="Width" Value="19"></Setter>
+		<Setter Property="Background" Value="Transparent"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="CheckBox">
+					<Grid Background="{TemplateBinding Background}">
+						<Border x:Name="borderTickFrame" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="2" Margin="0,0,1,0"></Border>
+						<!--<Path Grid.Column="0" x:Name="pathTickFrame" Data="{DynamicResource geometryCheckBox}" Stretch="Fill" Fill="#FFe5e5e5"></Path>-->
+						<!--<Path Grid.Column="0" x:Name="pathTickFrame_Overlap_IsChecked" Opacity="0.0" Data="{DynamicResource geometryCheckBox}" Stretch="Fill" Fill="{DynamicResource brushControl_Background_Dark}"></Path>-->
+						<Path Grid.Column="0" x:Name="pathTick_IsSelected" Opacity="0.0" Data="{DynamicResource geometryCheckBox_Tick}" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Fill="{DynamicResource brushListBoxItem_MouseOver_Background}" Stroke="{DynamicResource brushListBoxItem_MouseOver_Background}" Margin="5,0,0,2" Width="16" Height="14"></Path>
+						<Path Grid.Column="0" x:Name="pathTick" Opacity="0.0" Data="{DynamicResource geometryCheckBox_Tick}" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Fill="{DynamicResource brushControl_Background_Dark}" Stroke="Transparent" Margin="5,0,0,2" Width="15" Height="13"></Path>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsChecked" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="pathTick" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
+										<!--<DoubleAnimation Storyboard.TargetName="pathTickFrame_Overlap_IsChecked" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>-->
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="pathTick" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
+										<!--<DoubleAnimation Storyboard.TargetName="pathTickFrame_Overlap_IsChecked" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>-->
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.6"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.6" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=DataGridCell}, Path=IsSelected}" Value="True">
+							<Setter Property="BorderBrush" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
+						</DataTrigger>
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True"></Condition>
+								<Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=DataGridCell}, Path=IsSelected}" Value="True"></Condition>
+							</MultiDataTrigger.Conditions>
+							<Setter TargetName="pathTick_IsSelected" Property="Opacity" Value="1.0"></Setter>
+						</MultiDataTrigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+	<Style x:Key="styleToggleButton_ComboBox_DataGridComboBoxColumn" TargetType="ToggleButton">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushToggleButton_ComboBox_DataGridComboBoxColumn_Background}"></Setter>
+		<Setter Property="Foreground" Value="{DynamicResource brushToggleButton_ComboBox_DataGridComboBoxColumn_Arrow_Background}"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ToggleButton">
+					<Grid>
+						<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2"></Border>
+						<Border x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="#FFffffff" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="1" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}"></Border>
+						<Path x:Name="pathIndicator" Stretch="Fill" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{DynamicResource geometryComboBox_SingleArrow}" Width="10" Height="5" Fill="{TemplateBinding Foreground}" Margin="10,0" RenderTransformOrigin="0.5,0.5">
+							<Path.RenderTransform>
+								<ScaleTransform x:Name="transformIndicator" ScaleX="1.0" ScaleY="-1.0"></ScaleTransform>
+							</Path.RenderTransform>
+						</Path>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="pathIndicator" Property="RenderTransform" Value="{x:Null}"></Setter>
+							<Setter TargetName="borderBackground" Property="CornerRadius" Value="2,2,0,0"></Setter>
+						</Trigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsMouseOver" Value="True"></Condition>
+								<Condition Property="IsChecked" Value="False"></Condition>
+							</MultiTrigger.Conditions>
+							<MultiTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.150" From="0.0" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.EnterActions>
+							<MultiTrigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.150" From="1.0" To="0.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.ExitActions>
+						</MultiTrigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Opacity" Value="0.6"></Setter>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="styleComboBox_DataGridComboBoxColumn" TargetType="ComboBox">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="MinHeight" Value="30"></Setter>
+		<Setter Property="MinWidth" Value="40"></Setter>
+		<Setter Property="Padding" Value="10,6,30,6"></Setter>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
+		<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+		<Setter Property="IsSynchronizedWithCurrentItem" Value="False"></Setter>
+		<Setter Property="IsEditable" Value="False"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ComboBox">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition></ColumnDefinition>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<ToggleButton Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource styleToggleButton_ComboBox_DataGridComboBoxColumn}"></ToggleButton>
+						<ContentPresenter Grid.Column="0" TextBlock.Foreground="{TemplateBinding Foreground}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
+						<Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}" Placement="Bottom">
+							<Border Margin="2,0,2,4" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="0,0,2,2">
+								<ScrollViewer MinHeight="50" MaxHeight="250" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}">
+									<ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+								</ScrollViewer>
+							</Border>
+						</Popup>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="False">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 
 
 </ResourceDictionary>

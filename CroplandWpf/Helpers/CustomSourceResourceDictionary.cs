@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Threading;
 using System.Xml;
@@ -49,7 +50,7 @@ namespace CroplandWpf.Helpers
 		/// <summary>Initializes the new ReplacableValuesResourceDictionary class instance</summary>
 		public ReplacableValuesResourceDictionary()
 		{
-
+			
 		}
 		#endregion
 

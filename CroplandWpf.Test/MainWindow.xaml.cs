@@ -32,7 +32,7 @@ namespace CroplandWpf.Test
 			set { SetValue(HyperlinkTestProperty, value); }
 		}
 		public static readonly DependencyProperty HyperlinkTestProperty =
-			DependencyProperty.Register("HyperlinkTest", typeof(string), typeof(MainWindow), new PropertyMetadata("http://some_link")); 
+			DependencyProperty.Register("HyperlinkTest", typeof(string), typeof(MainWindow), new PropertyMetadata("http://some_link"));
 		#endregion
 
 		#region Calendar
@@ -228,6 +228,7 @@ namespace CroplandWpf.Test
 
 		public MainWindow()
 		{
+			DataGridComboBoxColumn dc = new DataGridComboBoxColumn();
 			InitializeComponent();
 			#region ItemsSources
 			TestItemsSource = new List<string>
@@ -266,14 +267,14 @@ namespace CroplandWpf.Test
 
 			PersonsTestSource = new ObservableCollection<Person>()
 			{
-				new Person{ Name = "Laura", IsMedic = false, InternalNumber = 910934, Type = PersonType.Extrovert },
-				new Person{ Name = "Vigilo", IsMedic = false, InternalNumber = 001971, Type = PersonType.Introvert },
-				new Person{ Name = "C3PO", IsMedic = false, InternalNumber = 1001110, Type = PersonType.NA},
-				new Person{ Name = "E2E4", IsMedic = true, InternalNumber = 1001111, Type = PersonType.AnnoyingCryBaby},
-				new Person{ Name = "Adam Fielding", IsMedic = false, InternalNumber = 0491991, Type = PersonType.Introvert},
-				new Person{ Name = "Mere Mortal", IsMedic = false, InternalNumber = 000000, Type = PersonType.NA },
-				new Person{ Name = "Crystal Clear Table-Top Epoxy Resin", IsMedic = false, InternalNumber = 6097661, Type = PersonType.NA },
-				new Person{ Name = "Carinthia", IsMedic = true, InternalNumber = 3966511, Type = PersonType.NA }
+				new Person{ Name = "Laura", IsMedic = false, InternalNumber = 910934, PersonalityType = PersonalityType.Extrovert },
+				new Person{ Name = "Vigilo", IsMedic = false, InternalNumber = 001971, PersonalityType = PersonalityType.Introvert },
+				new Person{ Name = "C3PO", IsMedic = false, InternalNumber = 1001110, PersonalityType = PersonalityType.NA},
+				new Person{ Name = "E2E4", IsMedic = true, InternalNumber = 1001111, PersonalityType = PersonalityType.AnnoyingCryBaby},
+				new Person{ Name = "Adam Fielding", IsMedic = false, InternalNumber = 0491991, PersonalityType = PersonalityType.Introvert},
+				new Person{ Name = "Mere Mortal", IsMedic = false, InternalNumber = 000000, PersonalityType = PersonalityType.NA },
+				new Person{ Name = "Crystal Clear Table-Top Epoxy Resin", IsMedic = false, InternalNumber = 6097661, PersonalityType = PersonalityType.NA },
+				new Person{ Name = "Carinthia", IsMedic = true, InternalNumber = 3966511, PersonalityType = PersonalityType.NA }
 			};
 			#endregion
 
@@ -432,7 +433,7 @@ namespace CroplandWpf.Test
 		#endregion
 	}
 
-	public enum PersonType
+	public enum PersonalityType
 	{
 		NA,
 		Introvert,
@@ -442,13 +443,67 @@ namespace CroplandWpf.Test
 
 	public class Person : ViewModelBase
 	{
-		public string Name { get; set; }
+		public string Name
+		{
+			get { return _name; }
+			set
+			{
+				if(_name != value)
+				{
+					_name = value;
+					OnPropertyChanged("Name");
+				}
+			}
+		}
+		private string _name;
 
-		public int InternalNumber { get; set; }
+		public int InternalNumber
+		{
+			get { return _internalNumber; }
+			set
+			{
+				if (_internalNumber != value)
+				{
+					_internalNumber = value;
+					OnPropertyChanged("InternalNumber");
+				}
+			}
+		}
+		private int _internalNumber;
 
-		public bool IsMedic { get; set; }
+		public bool IsMedic
+		{
+			get
+			{
+				return _isMedic;
+			}
+			set
+			{
+				if(_isMedic != value)
+				{
+					_isMedic = value;
+					OnPropertyChanged("IsMedic");
+				}
+			}
+		}
+		private bool _isMedic;
 
-		public PersonType Type { get; set; }
+		public PersonalityType PersonalityType
+		{
+			get
+			{
+				return _personalityType;
+			}
+			set
+			{
+				if (_personalityType != value)
+				{
+					_personalityType = value;
+					OnPropertyChanged("PersonalityType");
+				}
+			}
+		}
+		private PersonalityType _personalityType;
 
 		public Person()
 		{
