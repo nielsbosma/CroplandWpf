@@ -125,6 +125,8 @@
 				<CheckBox Margin="3" IsChecked="{Binding ElementName=listBoxTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
 				<TextBlock Margin="5">ComboBox</TextBlock>
 				<ComboBox x:Name="comboBoxTest" ItemsSource="{Binding TestItemsSource}" />
+				<TextBlock Margin="5">ComboBox (light)</TextBlock>
+				<ComboBox Margin="3" Style="{DynamicResource styleComboBox_Light}"  ItemsSource="{Binding TestItemsSource}"></ComboBox>
 				<CheckBox Margin="3" IsChecked="{Binding ElementName=comboBoxTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
 				<TextBlock Margin="5">SearchAutocompleteControl</TextBlock>
 				<c:SearchAutocompleteControl x:Name="searchAutocomplete" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding SearchResults}" SearchItemCommand="{Binding SearchItemClickCommand}"></c:SearchAutocompleteControl>

@@ -269,8 +269,6 @@
 				<ControlTemplate TargetType="CheckBox">
 					<Grid Background="{TemplateBinding Background}">
 						<Border x:Name="borderTickFrame" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="2" Margin="0,0,1,0"></Border>
-						<!--<Path Grid.Column="0" x:Name="pathTickFrame" Data="{DynamicResource geometryCheckBox}" Stretch="Fill" Fill="#FFe5e5e5"></Path>-->
-						<!--<Path Grid.Column="0" x:Name="pathTickFrame_Overlap_IsChecked" Opacity="0.0" Data="{DynamicResource geometryCheckBox}" Stretch="Fill" Fill="{DynamicResource brushControl_Background_Dark}"></Path>-->
 						<Path Grid.Column="0" x:Name="pathTick_IsSelected" Opacity="0.0" Data="{DynamicResource geometryCheckBox_Tick}" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Fill="{DynamicResource brushListBoxItem_MouseOver_Background}" Stroke="{DynamicResource brushListBoxItem_MouseOver_Background}" Margin="5,0,0,2" Width="16" Height="14"></Path>
 						<Path Grid.Column="0" x:Name="pathTick" Opacity="0.0" Data="{DynamicResource geometryCheckBox_Tick}" VerticalAlignment="Center" HorizontalAlignment="Left" Stretch="Fill" Fill="{DynamicResource brushControl_Background_Dark}" Stroke="Transparent" Margin="5,0,0,2" Width="15" Height="13"></Path>
 					</Grid>
