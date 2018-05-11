@@ -20,6 +20,9 @@
 		<ResourceDictionary Source="Default/Menu.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/DatePicker.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/DataGrid.xaml"></ResourceDictionary>
+		<ResourceDictionary Source="Default/MessageBoxWindow.xaml"></ResourceDictionary>
+		<ResourceDictionary Source="Default/OverlayHost.xaml"></ResourceDictionary>
+		<ResourceDictionary Source="Default/WindowMessageBoxTemplates.xaml"></ResourceDictionary>
 	</ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

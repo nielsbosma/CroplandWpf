@@ -137,5 +137,32 @@
 	<SolidColorBrush x:Key="brushToggleButton_ComboBox_DataGridComboBoxColumn_Arrow_Background">#FF000000</SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushCheckBox_DataGridCheckBoxColumn_Border">#FFe5e5e5</SolidColorBrush>
-	
+
+	<SolidColorBrush x:Key="brushIcon_LoadingIndicator_OuterRing" Color="#FF257F4E"></SolidColorBrush>
+	<SolidColorBrush x:Key="brushIcon_LoadingIndicator_InnerRing" Color="#FF227347"></SolidColorBrush>
+
+	<VisualBrush x:Key="brushIcon_MessageBox_Error" Stretch="Uniform">
+		<VisualBrush.Visual>
+			<Border Width="30" Height="30" Background="#FFdb2e45" CornerRadius="15">
+				<Path Data="{DynamicResource geometryCross}" Fill="White" Stretch="Fill" Margin="9" StrokeThickness="1" Stroke="White" VerticalAlignment="Center" HorizontalAlignment="Center"></Path>
+			</Border>
+		</VisualBrush.Visual>
+	</VisualBrush>
+
+	<VisualBrush x:Key="brushIcon_MessageBox_Question" Stretch="Uniform">
+		<VisualBrush.Visual>
+			<Border Width="30" Height="30" Background="#FF679ae8" CornerRadius="15">
+				<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFffffff" FontSize="16pt">?</TextBlock>
+			</Border>
+		</VisualBrush.Visual>
+	</VisualBrush>
+
+	<VisualBrush x:Key="brushIcon_MessageBox_Info" Stretch="Uniform">
+		<VisualBrush.Visual>
+			<Border Width="30" Height="30" Background="#FF3DAB70" CornerRadius="15">
+				<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFffffff" FontSize="16pt" FontStyle="Italic" Padding="0,0,0,3">i</TextBlock>
+			</Border>
+		</VisualBrush.Visual>
+	</VisualBrush>
+
 </ResourceDictionary> 

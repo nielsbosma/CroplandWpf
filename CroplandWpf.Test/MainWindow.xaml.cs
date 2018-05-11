@@ -1,4 +1,5 @@
-﻿using CroplandWpf.MVVM;
+﻿using CroplandWpf.Components;
+using CroplandWpf.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -43,6 +44,49 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty DateTimeTestProperty =
 			DependencyProperty.Register("DateTimeTest", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(DateTime.Now));
+
+		#region MessageBox
+		public MessageBoxInfo Mbi_Warning
+		{
+			get { return (MessageBoxInfo)GetValue(Mbi_WarningProperty); }
+			private set { SetValue(Mbi_WarningProperty, value); }
+		}
+		public static readonly DependencyProperty Mbi_WarningProperty =
+			DependencyProperty.Register("Mbi_Warning", typeof(MessageBoxInfo), typeof(MainWindow), new PropertyMetadata());
+
+		public MessageBoxInfo Mbi_Question
+		{
+			get { return (MessageBoxInfo)GetValue(Mbi_QuestionProperty); }
+			private set { SetValue(Mbi_QuestionProperty, value); }
+		}
+		public static readonly DependencyProperty Mbi_QuestionProperty =
+			DependencyProperty.Register("Mbi_Question", typeof(MessageBoxInfo), typeof(MainWindow), new PropertyMetadata());
+
+		public MessageBoxInfo Mbi_Exception
+		{
+			get { return (MessageBoxInfo)GetValue(Mbi_ExceptionProperty); }
+			private set { SetValue(Mbi_ExceptionProperty, value); }
+		}
+		public static readonly DependencyProperty Mbi_ExceptionProperty =
+			DependencyProperty.Register("Mbi_Exception", typeof(MessageBoxInfo), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand ShowMessageBoxCommand
+		{
+			get { return (DelegateCommand)GetValue(ShowMessageBoxCommandProperty); }
+			private set { SetValue(ShowMessageBoxCommandProperty, value); }
+		}
+		public static readonly DependencyProperty ShowMessageBoxCommandProperty =
+			DependencyProperty.Register("ShowMessageBoxCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public MessageBoxResult MessageBoxResult
+		{
+			get { return (MessageBoxResult)GetValue(MessageBoxResultProperty); }
+			private set { SetValue(MessageBoxResultProperty, value); }
+		}
+		public static readonly DependencyProperty MessageBoxResultProperty =
+			DependencyProperty.Register("MessageBoxResult", typeof(MessageBoxResult), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+
 		#endregion
 
 		#region Collections
@@ -228,7 +272,6 @@ namespace CroplandWpf.Test
 
 		public MainWindow()
 		{
-			DataGridComboBoxColumn dc = new DataGridComboBoxColumn();
 			InitializeComponent();
 			#region ItemsSources
 			TestItemsSource = new List<string>
@@ -332,10 +375,26 @@ namespace CroplandWpf.Test
 					new vmMenuItem() { Header = "FLAC to MP3 useless converter" }
 				}
 			});
+			mic.Add(new vmMenuItem() { Header = "No Items Here" });
 			MenuItemsTestSource = mic;
-			Popup p = new Popup();
-
 			#endregion
+
+			#region MessageBox
+			ShowMessageBoxCommand = new DelegateCommand(ShowMessageBoxCommand_Execute, ShowMessageBoxCommand_CanExecute);
+			Mbi_Exception = new MessageBoxInfo() { Header = "SeoTool", Buttons = MessageBoxButton.OK, Content = new ExceptionInfo { Name = "XPathonUrl", Exception = "ArgumentException", Message = "Missing the 'Url' argument. Check if you supplied the URL, or nothing good will happen." }, IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception, ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception };
+			Mbi_Question = new MessageBoxInfo() { Header = "FileStar", Buttons = MessageBoxButton.YesNo, Content = "Can you answer the question?..", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question };
+			Mbi_Warning = new MessageBoxInfo() { Header = "SuperTsar", Buttons = MessageBoxButton.OK, Content = "Congratulations! You received a warning!", IconBrushKey = MessageBoxIconBrushDefaultKeys.Warning };
+			#endregion
+		}
+
+		private void ShowMessageBoxCommand_Execute(object obj)
+		{
+			MessageBoxResult = MessageBoxService.Show(obj as MessageBoxInfo);
+		}
+
+		private bool ShowMessageBoxCommand_CanExecute(object arg)
+		{
+			return arg as MessageBoxInfo != null;
 		}
 
 		#region Commanding

@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:c="clr-namespace:CroplandWpf.Components"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
+
+	
+
+
+	<Style x:Key="{x:Type c:OverlayHost}" TargetType="c:OverlayHost">
+		<Setter Property="IsHitTestVisible" Value="False"></Setter>
+		<Setter Property="Opacity" Value="0.0"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="c:OverlayHost">
+					<Grid Background="Transparent">
+						<Border x:Name="borderBackground" Background="#66FFFFFF"></Border>
+						<c:OverlayContentControl x:Name="PART_Presenter" HorizontalAlignment="Center" VerticalAlignment="Center"></c:OverlayContentControl>
+					</Grid>
+					<ControlTemplate.Triggers>
+
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

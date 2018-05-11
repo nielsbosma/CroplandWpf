@@ -169,8 +169,6 @@
 	<Style x:Key="{x:Type c:RemovableItemsItemsControl}" TargetType="c:RemovableItemsItemsControl">
 		<Setter Property="a:ItemsControlHelper.Orientation" Value="Vertical"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushItemsControl_Background}"></Setter>
-		<Setter Property="BorderBrush" Value="{DynamicResource brushItemsControl_Border}"></Setter>
-		<Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ItemsControl">

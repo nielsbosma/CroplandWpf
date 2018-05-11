@@ -161,6 +161,48 @@
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
 
+	<ControlTemplate x:Key="styleMenuItem_TopLevelItem_Light" TargetType="MenuItem">
+		<Grid>
+			<Border x:Name="borderBackground" Background="{DynamicResource brushControl_Background_Light}"></Border>
+			<Border x:Name="borderBackground_Highlight" Opacity="0.0" Background="{DynamicResource brushMenuItem_MouseOver_Background_Light}" BorderBrush="{DynamicResource brushMenuItem_TopLevelheader_Border_IsActive}" BorderThickness="1"></Border>
+			<ContentPresenter x:Name="presenter" TextBlock.FontSize="13.5pt" TextBlock.Foreground="{DynamicResource brushMenuItem_Foreground_Dark}" Margin="24" ContentSource="Header" RecognizesAccessKey="True" />
+		</Grid>
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsHighlighted" Value="True">
+				<Trigger.EnterActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation Storyboard.TargetName="borderBackground_Highlight" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.EnterActions>
+				<Trigger.ExitActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation Storyboard.TargetName="borderBackground_Highlight" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.ExitActions>
+			</Trigger>
+			<Trigger Property="IsEnabled" Value="False">
+				<Trigger.EnterActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation Storyboard.TargetName="presenter" Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.EnterActions>
+				<Trigger.ExitActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation Storyboard.TargetName="presenter" Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.ExitActions>
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
 	<ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="MenuItem">
 		<Grid x:Name="gridRoot" Margin="6,0">
 			<Border Name="borderBackground" CornerRadius="2" Background="{DynamicResource brushControl_Background_Light}"></Border>
@@ -343,7 +385,7 @@
 				<Setter Property="Command" Value="{Binding Command}"></Setter>
 				<Setter Property="CommandParameter" Value="{Binding CommandParameter}"></Setter>
 				<Setter Property="InputGestureText" Value="{Binding Gesture.DisplayString}"></Setter>
-				<Setter Property="Template" Value="{StaticResource {x:Static MenuItem.TopLevelItemTemplateKey}}"/>
+				<Setter Property="Template" Value="{StaticResource styleMenuItem_TopLevelItem_Light}"/>
 			</Trigger>
 			<Trigger Property="Role" Value="SubmenuHeader">
 				<Setter Property="Template" Value="{StaticResource {x:Static MenuItem.SubmenuHeaderTemplateKey}}"/>

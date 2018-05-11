@@ -128,6 +128,8 @@
 								<c:WindowControlButton Grid.Row="0" Grid.Column="2" Role="Close" Style="{StaticResource styleButton_Window_Close}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"></c:WindowControlButton>
 
 								<ContentPresenter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="{TemplateBinding Padding}"></ContentPresenter>
+								
+								<c:OverlayHost ScopeName="main_window"></c:OverlayHost>
 							</Grid>
 						</c:ClippingBorder>
 					</Grid>
@@ -179,7 +181,7 @@
 								<c:WindowControlThumb Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource styleThumb_Window_Move}" Role="Move"></c:WindowControlThumb>
 
 								<!--<TextBlock Grid.Row="0" Grid.Column="0" IsHitTestVisible="False" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{TemplateBinding Title}" FontSize="13.5pt" Margin="30,0" Foreground="{DynamicResource brushWindow_Title_Foreground_Dark}"></TextBlock>-->
-								
+
 								<Rectangle Grid.Row="0" Grid.Column="0" Width="100" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="20,5" Fill="{DynamicResource brushAppIcon_FileStar}"></Rectangle>
 
 								<Menu Grid.Row="0" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:MenuHelper.ItemsSource)}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Style="{DynamicResource styleMenu_Light}" Height="69"></Menu>
@@ -187,6 +189,8 @@
 								<c:WindowControlButton Grid.Row="0" Grid.Column="2" Role="Close" Style="{StaticResource styleButton_Window_Close_Light}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"></c:WindowControlButton>
 
 								<ContentPresenter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="{TemplateBinding Padding}"></ContentPresenter>
+
+								<c:OverlayHost Grid.RowSpan="2" Grid.ColumnSpan="3" ScopeName="main_window"></c:OverlayHost>
 							</Grid>
 						</c:ClippingBorder>
 					</Grid>
