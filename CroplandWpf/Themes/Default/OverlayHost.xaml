@@ -3,7 +3,32 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
 
-	
+	<Style x:Key="{x:Type c:OverlayContentControl}" TargetType="c:OverlayContentControl">
+		<Setter Property="Background" Value="Transparent"></Setter>
+		<Setter Property="Opacity" Value="0.0"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="c:OverlayContentControl">
+					<Grid>
+						<Border Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}" CornerRadius="2"></Border>
+						<Border Background="{TemplateBinding Background}"></Border>
+						<ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsRendering" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.200"></DoubleAnimation>
+									</Storyboard> 
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
 
 	<Style x:Key="{x:Type c:OverlayHost}" TargetType="c:OverlayHost">
@@ -12,12 +37,15 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:OverlayHost">
-					<Grid Background="Transparent">
-						<Border x:Name="borderBackground" Background="#66FFFFFF"></Border>
-						<c:OverlayContentControl x:Name="PART_Presenter" HorizontalAlignment="Center" VerticalAlignment="Center"></c:OverlayContentControl>
+					<Grid Background="{x:Null}">
+						<Border x:Name="borderBackground" Background="{x:Null}"></Border>
+						<Canvas x:Name="PART_HostCanvas" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Canvas>
 					</Grid>
 					<ControlTemplate.Triggers>
-
+						<Trigger Property="HasChildren" Value="True">
+							<Setter Property="Opacity" Value="1.0"></Setter>
+							<Setter Property="IsHitTestVisible" Value="True"></Setter>
+						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>

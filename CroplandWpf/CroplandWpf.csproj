@@ -74,6 +74,7 @@
     <Compile Include="Attached\ItemsControlHelper.cs" />
     <Compile Include="Attached\MenuHelper.cs" />
     <Compile Include="Attached\RemoveRequestHelper.cs" />
+    <Compile Include="Attached\ToolTipBeacon.cs" />
     <Compile Include="Attached\VisualHelper.cs" />
     <Compile Include="Attached\WindowMaximizeFix.cs" />
     <Compile Include="Components\ClippingBorder.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Converters\EnumToValuesListConverter.cs" />
     <Compile Include="Exceptions\TemplatePartNotFoundException.cs" />
     <Compile Include="Helpers\CustomSourceResourceDictionary.cs" />
+    <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="MVVM\vmMenuItem.cs" />
     <Compile Include="PresentationHelpers\DataContextBridge.cs" />
@@ -134,6 +136,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <None Include="app.config" />
     <None Include="Themes\Default\Dummy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

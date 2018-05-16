@@ -1,4 +1,5 @@
-﻿using CroplandWpf.MVVM;
+﻿using CroplandWpf.Helpers;
+using CroplandWpf.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace CroplandWpf.Components
 		public static MessageBoxResult Show(MessageBoxInfo info)
 		{
 			window = new MessageBoxWindow();
-			window.Owner = GetActiveWindowInstance();
+			window.Owner = WindowHelper.GetActiveWindowInstance();
 			window.Show(info);
 			return window.Result;
 		}
@@ -32,15 +33,5 @@ namespace CroplandWpf.Components
 		{
 
 		}
-
-		private static Window GetActiveWindowInstance()
-		{
-			IntPtr result = GetActiveWindow();
-			Window activeWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(window => new WindowInteropHelper(window).Handle == result);
-			return activeWindow;
-		}
-
-		[DllImport("user32.dll")]
-		static extern IntPtr GetActiveWindow();
 	}
 }

@@ -44,6 +44,11 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty DateTimeTestProperty =
 			DependencyProperty.Register("DateTimeTest", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(DateTime.Now));
+		#endregion
+
+		#region ToolTip
+
+		#endregion
 
 		#region MessageBox
 		public MessageBoxInfo Mbi_Warning
@@ -87,8 +92,6 @@ namespace CroplandWpf.Test
 			DependencyProperty.Register("MessageBoxResult", typeof(MessageBoxResult), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
-		#endregion
-
 		#region Collections
 		public List<string> TestItemsSource
 		{
@@ -115,13 +118,13 @@ namespace CroplandWpf.Test
 			DependencyProperty.Register("PersonsTestSource", typeof(ObservableCollection<Person>), typeof(MainWindow), new PropertyMetadata());
 
 		#region RemovableItemsItemsControl
-		public ObservableCollection<string> TestRemovableItemsItemsSource
+		public ObservableCollection<FileItem> TestRemovableItemsItemsSource
 		{
-			get { return (ObservableCollection<string>)GetValue(TestRemovableItemsItemsSourceProperty); }
+			get { return (ObservableCollection<FileItem>)GetValue(TestRemovableItemsItemsSourceProperty); }
 			private set { SetValue(TestRemovableItemsItemsSourceProperty, value); }
 		}
 		public static readonly DependencyProperty TestRemovableItemsItemsSourceProperty =
-			DependencyProperty.Register("TestRemovableItemsItemsSource", typeof(ObservableCollection<string>), typeof(MainWindow), new PropertyMetadata());
+			DependencyProperty.Register("TestRemovableItemsItemsSource", typeof(ObservableCollection<FileItem>), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
 		#region SearchAutocompleteControl
@@ -283,13 +286,15 @@ namespace CroplandWpf.Test
 				"Item 9", "Item 10", "Item 11", "Item 12"
 			};
 
-			TestRemovableItemsItemsSource = new ObservableCollection<string>
+			TestRemovableItemsItemsSource = new ObservableCollection<FileItem>
 			{
-				"File1.xslx",
-				"File2.xslx",
-				"File3.xslx",
-				"File4.xslx",
-				"File5.xslx",
+				new FileItem{ Name = "File1.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				new FileItem{ Name = "File2.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				new FileItem{ Name = "File3.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				new FileItem{ Name = "Some Longer File Name.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				new FileItem{ Name = "File4.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				new FileItem{ Name = "File5.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				new FileItem{ Name = "File6.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) }
 			};
 
 			SearchAutocompleteTestSource = new ObservableCollection<string>
@@ -414,7 +419,7 @@ namespace CroplandWpf.Test
 
 		private void AddNewFileTestCommand_Execute(object parameter)
 		{
-			TestRemovableItemsItemsSource.Add("File" + random.Next(5, 20) + ".xlsx");
+			TestRemovableItemsItemsSource.Add(new FileItem() { Name = "new file #" + TestRemovableItemsItemsSource.Count, Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(256000, 512000) });
 		}
 
 		private void HyperlinkTestCommand_Execute(object parameter)
@@ -424,11 +429,12 @@ namespace CroplandWpf.Test
 
 		private void RemoveRequestTestCommand_Execute(object parameter)
 		{
-			if (parameter != null && TestRemovableItemsItemsSource.Contains(parameter.ToString()))
+			FileItem fi = parameter as FileItem;
+			if (fi != null && TestRemovableItemsItemsSource.Contains(fi))
 			{
-				string name = parameter.ToString();
+				string name = fi.Name;
 				if (MessageBox.Show("Remove '" + name + "'?", "Confirm Item Removal", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-					TestRemovableItemsItemsSource.Remove(parameter.ToString());
+					TestRemovableItemsItemsSource.Remove(parameter as FileItem);
 			}
 		}
 
@@ -490,83 +496,5 @@ namespace CroplandWpf.Test
 			Process.Start("cmd.exe");
 		}
 		#endregion
-	}
-
-	public enum PersonalityType
-	{
-		NA,
-		Introvert,
-		Extrovert,
-		AnnoyingCryBaby
-	}
-
-	public class Person : ViewModelBase
-	{
-		public string Name
-		{
-			get { return _name; }
-			set
-			{
-				if(_name != value)
-				{
-					_name = value;
-					OnPropertyChanged("Name");
-				}
-			}
-		}
-		private string _name;
-
-		public int InternalNumber
-		{
-			get { return _internalNumber; }
-			set
-			{
-				if (_internalNumber != value)
-				{
-					_internalNumber = value;
-					OnPropertyChanged("InternalNumber");
-				}
-			}
-		}
-		private int _internalNumber;
-
-		public bool IsMedic
-		{
-			get
-			{
-				return _isMedic;
-			}
-			set
-			{
-				if(_isMedic != value)
-				{
-					_isMedic = value;
-					OnPropertyChanged("IsMedic");
-				}
-			}
-		}
-		private bool _isMedic;
-
-		public PersonalityType PersonalityType
-		{
-			get
-			{
-				return _personalityType;
-			}
-			set
-			{
-				if (_personalityType != value)
-				{
-					_personalityType = value;
-					OnPropertyChanged("PersonalityType");
-				}
-			}
-		}
-		private PersonalityType _personalityType;
-
-		public Person()
-		{
-
-		}
 	}
 }

@@ -122,7 +122,6 @@
 	</Style>
 
 
-
 	<Style x:Key="{x:Type c:RemovableItemContentControl}" TargetType="c:RemovableItemContentControl">
 		<Setter Property="MinHeight" Value="36"></Setter>
 		<Setter Property="MinWidth" Value="50"></Setter>
@@ -138,6 +137,7 @@
 							<ColumnDefinition></ColumnDefinition>
 							<ColumnDefinition Width="Auto"></ColumnDefinition>
 						</Grid.ColumnDefinitions>
+						<a:ToolTipBeacon Target="{Binding RelativeSource={RelativeSource TemplatedParent}}"></a:ToolTipBeacon>
 						<Border Grid.ColumnSpan="2" x:Name="borderEffect" Opacity="0.0" Background="{TemplateBinding Background}" CornerRadius="2" Effect="{DynamicResource effectShadow_Small}" ClipToBounds="False"></Border>
 						<Border Grid.ColumnSpan="2" x:Name="borderBackground" Background="{TemplateBinding Background}" CornerRadius="2"></Border>
 						<ContentPresenter Grid.Column="0" Margin="8,0" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>

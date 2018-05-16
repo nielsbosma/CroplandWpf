@@ -4,8 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CroplandWpf.Test"
-        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
-		xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+		xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers;assembly=CroplandWpf"
 		x:Class="CroplandWpf.Test.MainWindow"
 		xmlns:a="clr-namespace:CroplandWpf.Attached;assembly=CroplandWpf"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -28,6 +27,78 @@
 				<TextBlock Text="Text:"/>
 				<TextBlock Text="{Binding}"/>
 			</StackPanel>
+		</DataTemplate>
+
+		<DataTemplate x:Key="templateToolTip_RemovableItemContentControl" DataType="local:FileItem">
+			<Grid x:Name="gridRoot">
+				<Border x:Name="borderBackground" Background="{DynamicResource brushControl_Background_Dark}" Padding="10" CornerRadius="3" Effect="{DynamicResource effectShadow_Large}" BorderThickness="0" Margin="0,10,0,0" MinHeight="100" MinWidth="150" MaxWidth="300">
+					<Grid TextBlock.Foreground="{DynamicResource brushControl_Foreground_Light}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						
+						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
+						<TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding Size_Mb, StringFormat='{}({0} mb)'}"></TextBlock>
+						<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontStyle="Italic" Text="{Binding Path}" TextTrimming="CharacterEllipsis" Margin="0,5,0,0"></TextBlock>
+						<c:HyperlinkButton Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Command="{x:Static a:ToolTipBeacon.DisableToolTipsGroupCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon)}" Foreground="{DynamicResource brushControl_Foreground_Light}">Don`t show again</c:HyperlinkButton>
+						<Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon).ToolTipCloseCommand}" HorizontalAlignment="Right" Margin="0,5,0,0" Style="{DynamicResource styleButton_Light}">Got It</Button>
+					</Grid>
+				</Border>
+				<Polygon x:Name="polygonArrow" HorizontalAlignment="Center" VerticalAlignment="Top" Points="0,11 11,0 22,11" Width="22" Height="11" Fill="{DynamicResource brushControl_Background_Dark}" RenderTransformOrigin="0.5,0.5"></Polygon>
+			</Grid>
+			<DataTemplate.Triggers>
+				<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:OverlayContentControl}, Path=CalculatedPlacement}" Value="Top">
+					<Setter TargetName="polygonArrow" Property="RenderTransform">
+						<Setter.Value>
+							<ScaleTransform ScaleX="1.0" ScaleY="-1.0"></ScaleTransform>
+						</Setter.Value>
+					</Setter>
+					<Setter TargetName="polygonArrow" Property="VerticalAlignment" Value="Bottom"></Setter>
+					<Setter TargetName="borderBackground" Property="Margin" Value="0,0,0,10"></Setter>
+				</DataTrigger>
+			</DataTemplate.Triggers>
+		</DataTemplate>
+
+		<DataTemplate x:Key="templateToolTip_RemovableItemContentControl_TopPlacement" DataType="local:FileItem">
+			<Grid x:Name="gridRoot">
+				<Border x:Name="borderBackground" Background="{DynamicResource brushControl_Background_Light}" Padding="10" CornerRadius="3" Effect="{DynamicResource effectShadow_Large}" BorderThickness="0" Margin="0,10,0,0" MinHeight="100" MinWidth="150" MaxWidth="300">
+					<Grid TextBlock.Foreground="{DynamicResource brushControl_Foreground_Dark}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+
+						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
+						<TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding Size_Mb, StringFormat='{}({0} mb)'}"></TextBlock>
+						<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontStyle="Italic" Text="{Binding Path}" TextTrimming="CharacterEllipsis" Margin="0,5,0,0"></TextBlock>
+						<c:HyperlinkButton Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Command="{x:Static a:ToolTipBeacon.DisableToolTipsGroupCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon)}">Don`t show again</c:HyperlinkButton>
+						<Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon).ToolTipCloseCommand}" HorizontalAlignment="Right" Margin="0,5,0,0">Got It</Button>
+					</Grid>
+				</Border>
+				<Polygon x:Name="polygonArrow" HorizontalAlignment="Center" VerticalAlignment="Top" Points="0,11 11,0 22,11" Width="22" Height="11" Fill="{DynamicResource brushControl_Background_Light}" RenderTransformOrigin="0.5,0.5"></Polygon>
+			</Grid>
+			<DataTemplate.Triggers>
+				<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:OverlayContentControl}, Path=CalculatedPlacement}" Value="Top">
+					<Setter TargetName="polygonArrow" Property="RenderTransform">
+						<Setter.Value>
+							<ScaleTransform ScaleX="1.0" ScaleY="-1.0"></ScaleTransform>
+						</Setter.Value>
+					</Setter>
+					<Setter TargetName="polygonArrow" Property="VerticalAlignment" Value="Bottom"></Setter>
+					<Setter TargetName="borderBackground" Property="Margin" Value="0,0,0,10"></Setter>
+				</DataTrigger>
+			</DataTemplate.Triggers>
 		</DataTemplate>
 
 		<c:MessageBoxInfo x:Key="mbiFromResources" ContentTemplateKey="templateMbiFromResources_Content" Header="MessageBoxInfo defined in resources" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="MessageBoxInfo with a custom ContentTemplate defined in XAML locally. Has the footer template defined too" Footer="some random footer" FooterTemplateKey="templateMbiFromResources_Footer" Buttons="YesNoCancel">
@@ -59,16 +130,27 @@
 			</CollectionViewSource.Source>
 		</CollectionViewSource>
 
-		<DataTemplate x:Key="templateRemovableItemTest">
+		<DataTemplate x:Key="templateRemovableItemTest" DataType="{x:Type local:FileItem}">
 			<TextBlock VerticalAlignment="Center">
-				<TextBlock Text="name: "></TextBlock>
-				<TextBlock Text="{Binding}"></TextBlock>
+				<TextBlock Text="{Binding Name}"></TextBlock>
 			</TextBlock>
 		</DataTemplate>
 
 		<DataTemplate x:Key="templateRemovableList_CustomContent">
 			<Button Style="{DynamicResource styleButton_AddFile}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=AddNewFileTestCommand}" Margin="10,0,5,0" VerticalAlignment="Center"></Button>
 		</DataTemplate>
+
+		<Style x:Key="styleRemovableItem_Files1" TargetType="c:RemovableItemContentControl" BasedOn="{StaticResource {x:Type c:RemovableItemContentControl}}">
+			<Setter Property="a:ToolTipBeacon.ToolTipContent" Value="{Binding}"></Setter>
+			<Setter Property="a:ToolTipBeacon.ToolTipTemplateKey" Value="templateToolTip_RemovableItemContentControl"></Setter>
+			<Setter Property="a:ToolTipBeacon.PlacementPriority" Value="Top"></Setter>
+		</Style>
+
+		<Style x:Key="styleRemovableItem_Files2" TargetType="c:RemovableItemContentControl" BasedOn="{StaticResource {x:Type c:RemovableItemContentControl}}">
+			<Setter Property="a:ToolTipBeacon.ToolTipContent" Value="{Binding}"></Setter>
+			<Setter Property="a:ToolTipBeacon.ToolTipTemplateKey" Value="templateToolTip_RemovableItemContentControl_TopPlacement"></Setter>
+			<Setter Property="a:ToolTipBeacon.PlacementPriority" Value="Bottom"></Setter>
+		</Style>
 	</Window.Resources>
 
 	<Border>
@@ -203,7 +285,8 @@
 			</StackPanel>
 			<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Top">
 				<TextBlock Margin="5">Removable items ItemsControl</TextBlock>
-				<c:RemovableItemsItemsControl ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}"></c:RemovableItemsItemsControl>
+				<c:RemovableItemsItemsControl Margin="0,0,0,0" a:ToolTipBeacon.InheritedGroupName="files" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}" ItemContainerStyle="{StaticResource styleRemovableItem_Files1}"></c:RemovableItemsItemsControl>
+				<c:RemovableItemsItemsControl Margin="0,50,0,0" a:ToolTipBeacon.InheritedGroupName="files2" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:ItemsControlHelper.Orientation="Horizontal" a:ToolTipBeacon.PlacementPriority="Top" ItemContainerStyle="{StaticResource styleRemovableItem_Files2}"></c:RemovableItemsItemsControl>
 			</StackPanel>
 			<StackPanel Grid.Column="2" Grid.RowSpan="3" Orientation="Vertical">
 				<TextBlock Margin="5" FontWeight="Bold">MessageBox</TextBlock>

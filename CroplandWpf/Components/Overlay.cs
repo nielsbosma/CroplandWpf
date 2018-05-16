@@ -1,5 +1,6 @@
 ﻿using CroplandWpf.Attached;
 using CroplandWpf.Exceptions;
+using CroplandWpf.Helpers;
 using CroplandWpf.MVVM;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,6 @@ using System.Windows.Threading;
 
 namespace CroplandWpf.Components
 {
-	public enum MessageBoxCloseRequestArgument
-	{
-		None,
-		Positive,
-		Negative
-	}
-
 	public class OverlayHost : Control
 	{
 		private static List<OverlayHost> registeredOverlays = new List<OverlayHost>();
@@ -32,11 +26,17 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty ScopeNameProperty =
 			DependencyProperty.Register("ScopeName", typeof(string), typeof(OverlayHost), new PropertyMetadata());
 
+		public bool HasChildren
+		{
+			get { return (bool)GetValue(HasChildrenProperty); }
+			private set { SetValue(HasChildrenProperty, value); }
+		}
+		public static readonly DependencyProperty HasChildrenProperty =
+			DependencyProperty.Register("HasChildren", typeof(bool), typeof(OverlayHost), new PropertyMetadata());
+
 		public Window OwnerWindow { get; private set; }
 
-		private OverlayContentControl _presenter;
-
-		private DispatcherTimer showDelayTimer;
+		private Canvas hostCanvas;
 
 		static OverlayHost()
 		{
@@ -45,16 +45,36 @@ namespace CroplandWpf.Components
 
 		public OverlayHost()
 		{
-			Loaded += MessageBoxOverlay_Loaded;
-			Unloaded += MessageBoxOverlay_Unloaded;
-			showDelayTimer = new DispatcherTimer(DispatcherPriority.Background);
-			showDelayTimer.Interval = TimeSpan.FromMilliseconds(500);
-			showDelayTimer.Tick += ShowDelayTimer_Tick;
+			Loaded += Overlay_Loaded;
+			Unloaded += Overlay_Unloaded;
 		}
 
-		private void ShowDelayTimer_Tick(object sender, EventArgs e)
+		public OverlayContentControl ShowContent(object content, Rect placementRect, object contentTemplateKey = null)
 		{
-			
+			OverlayContentControl existingOCC = hostCanvas.Children.OfType<OverlayContentControl>().SingleOrDefault(o => o.Content == content);
+			if (existingOCC != null)
+				return existingOCC;
+			OverlayContentControl occ = new OverlayContentControl();
+			occ.ParentOverlay = this;
+			occ.Content = content;
+			if (contentTemplateKey != null)
+				occ.SetResourceReference(OverlayContentControl.ContentTemplateProperty, contentTemplateKey);
+			hostCanvas.Children.Add(occ);
+			occ.TargetRect = placementRect;
+			HasChildren = true;
+			occ.IsRendering = true;
+			return occ;
+		}
+
+		public void HideContent(object content)
+		{
+			OverlayContentControl occ = hostCanvas.Children.OfType<OverlayContentControl>().SingleOrDefault(o => o.Content == content);
+			if (occ != null)
+			{
+				hostCanvas.Children.Remove(occ);
+				occ.IsRendering = false;
+			}
+			HasChildren = hostCanvas.Children.Count > 0;
 		}
 
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -62,13 +82,13 @@ namespace CroplandWpf.Components
 			base.OnPropertyChanged(e);
 		}
 
-		private void MessageBoxOverlay_Loaded(object sender, RoutedEventArgs e)
+		private void Overlay_Loaded(object sender, RoutedEventArgs e)
 		{
 			Register(this);
 			OwnerWindow = Window.GetWindow(this);
 		}
 
-		private void MessageBoxOverlay_Unloaded(object sender, RoutedEventArgs e)
+		private void Overlay_Unloaded(object sender, RoutedEventArgs e)
 		{
 			Unregister(this);
 			OwnerWindow = null;
@@ -77,10 +97,9 @@ namespace CroplandWpf.Components
 		public override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();
-			_presenter = Template.FindName("PART_Presenter", this) as OverlayContentControl;
-			if (_presenter == null)
-				throw new TemplatePartNotFoundException("PART_Presenter", GetType());
-			_presenter.ParentOverlay = this;
+			hostCanvas = Template.FindName("PART_HostCanvas", this) as Canvas;
+			if (hostCanvas == null)
+				throw new TemplatePartNotFoundException("PART_HostCanvas", GetType());
 		}
 
 		#region Static methods
@@ -96,11 +115,9 @@ namespace CroplandWpf.Components
 				registeredOverlays.Remove(overlay);
 		}
 
-		private static OverlayHost GetOverlayByScopeName(string scopeName)
+		public static OverlayHost GetOverlay(string scopeName = "")
 		{
-			if (String.IsNullOrEmpty(scopeName))
-				return null;
-			return registeredOverlays.FirstOrDefault(o => o.ScopeName == scopeName);
+			return registeredOverlays.SingleOrDefault(o => String.IsNullOrEmpty(scopeName) ? o.OwnerWindow == WindowHelper.GetActiveWindowInstance() : o.ScopeName == scopeName);
 		}
 		#endregion
 	}
