@@ -101,6 +101,75 @@
 			</DataTemplate.Triggers>
 		</DataTemplate>
 
+		<DataTemplate x:Key="templateToolTip_SearchAutoComplete_LeftPlacement" DataType="local:FileItem">
+			<Grid x:Name="gridRoot">
+				<Border x:Name="borderBackground" Background="{DynamicResource brushControl_Background_Light}" Padding="10" CornerRadius="3" Effect="{DynamicResource effectShadow_Large}" BorderThickness="0" Margin="0,0,10,0" MinHeight="100" MinWidth="150" MaxWidth="300">
+					<Grid TextBlock.Foreground="{DynamicResource brushControl_Foreground_Dark}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+
+						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="Allows to search within some collection"></TextBlock>
+						<c:HyperlinkButton Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Command="{x:Static a:ToolTipBeacon.DisableToolTipsGroupCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon)}">Don`t show again</c:HyperlinkButton>
+						<Button Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon).ToolTipCloseCommand}" HorizontalAlignment="Right" Margin="0,5,0,0">Got It</Button>
+					</Grid>
+				</Border>
+				<Polygon x:Name="polygonArrow" HorizontalAlignment="Right" VerticalAlignment="Center" Points="0,0 11,11 0,22" Width="11" Height="22" Fill="{DynamicResource brushControl_Background_Light}" RenderTransformOrigin="0.5,0.5"></Polygon>
+			</Grid>
+			<DataTemplate.Triggers>
+				<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:OverlayContentControl}, Path=CalculatedPlacement}" Value="Right">
+					<Setter TargetName="polygonArrow" Property="RenderTransform">
+						<Setter.Value>
+							<ScaleTransform ScaleX="-1.0" ScaleY="1.0"></ScaleTransform>
+						</Setter.Value>
+					</Setter>
+					<Setter TargetName="polygonArrow" Property="HorizontalAlignment" Value="Left"></Setter>
+					<Setter TargetName="borderBackground" Property="Margin" Value="10,0,0,0"></Setter>
+				</DataTrigger>
+			</DataTemplate.Triggers>
+		</DataTemplate>
+
+		<DataTemplate x:Key="templateToolTip_RemovableItemContentControl_RightPlacement" DataType="local:FileItem">
+			<Grid x:Name="gridRoot">
+				<Border x:Name="borderBackground" Background="{DynamicResource brushControl_Background_Light}" Padding="10" CornerRadius="3" Effect="{DynamicResource effectShadow_Large}" BorderThickness="0" Margin="0,10,0,0" MinHeight="100" MinWidth="150" MaxWidth="300">
+					<Grid TextBlock.Foreground="{DynamicResource brushControl_Foreground_Dark}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+
+						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
+						<TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding Size_Mb, StringFormat='{}({0} mb)'}"></TextBlock>
+						<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontStyle="Italic" Text="{Binding Path}" TextTrimming="CharacterEllipsis" Margin="0,5,0,0"></TextBlock>
+						<c:HyperlinkButton Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Command="{x:Static a:ToolTipBeacon.DisableToolTipsGroupCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon)}">Don`t show again</c:HyperlinkButton>
+						<Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon).ToolTipCloseCommand}" HorizontalAlignment="Right" Margin="0,5,0,0">Got It</Button>
+					</Grid>
+				</Border>
+				<Polygon x:Name="polygonArrow" HorizontalAlignment="Center" VerticalAlignment="Top" Points="0,11 11,0 22,11" Width="22" Height="11" Fill="{DynamicResource brushControl_Background_Light}" RenderTransformOrigin="0.5,0.5"></Polygon>
+			</Grid>
+			<DataTemplate.Triggers>
+				<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:OverlayContentControl}, Path=CalculatedPlacement}" Value="Top">
+					<Setter TargetName="polygonArrow" Property="RenderTransform">
+						<Setter.Value>
+							<ScaleTransform ScaleX="1.0" ScaleY="-1.0"></ScaleTransform>
+						</Setter.Value>
+					</Setter>
+					<Setter TargetName="polygonArrow" Property="VerticalAlignment" Value="Bottom"></Setter>
+					<Setter TargetName="borderBackground" Property="Margin" Value="0,0,0,10"></Setter>
+				</DataTrigger>
+			</DataTemplate.Triggers>
+		</DataTemplate>
+
 		<c:MessageBoxInfo x:Key="mbiFromResources" ContentTemplateKey="templateMbiFromResources_Content" Header="MessageBoxInfo defined in resources" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="MessageBoxInfo with a custom ContentTemplate defined in XAML locally. Has the footer template defined too" Footer="some random footer" FooterTemplateKey="templateMbiFromResources_Footer" Buttons="YesNoCancel">
 			<c:MessageBoxInfo.Resources>
 				<DataTemplate x:Key="templateMbiFromResources_Content">
@@ -179,6 +248,7 @@
 							<Button x:Name="buttonTest" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5" Content="DISABLED"/>
 							<CheckBox Margin="24,0,0,0" IsChecked="{Binding ElementName=buttonTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
 						</StackPanel>
+						<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left"></Button>
 						<StackPanel Orientation="Horizontal">
 							<Button Margin="5" Style="{DynamicResource styleButton_AddFile}"></Button>
 							<Button x:Name="buttonRemoveTest" Margin="0,5,5,5" Style="{DynamicResource styleButton_RemoveFile}"></Button>
@@ -274,9 +344,10 @@
 				<ComboBox x:Name="comboBoxTest" ItemsSource="{Binding TestItemsSource}" />
 				<TextBlock Margin="5">ComboBox (light)</TextBlock>
 				<ComboBox Margin="3" Style="{DynamicResource styleComboBox_Light}"  ItemsSource="{Binding TestItemsSource}"></ComboBox>
+				
 				<CheckBox Margin="3" IsChecked="{Binding ElementName=comboBoxTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
-				<TextBlock Margin="5">SearchAutocompleteControl</TextBlock>
-				<c:SearchAutocompleteControl x:Name="searchAutocomplete" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding SearchResults}" SearchItemCommand="{Binding SearchItemClickCommand}"></c:SearchAutocompleteControl>
+				<TextBlock FontWeight="Bold" Margin="5">SearchAutocompleteControl (left-aligned tooltip)</TextBlock>
+				<c:SearchAutocompleteControl x:Name="searchAutocomplete" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding SearchResults}" SearchItemCommand="{Binding SearchItemClickCommand}"></c:SearchAutocompleteControl>
 				<TextBlock Margin="15,3,0,3">
 					<Run>clicked search item:</Run>
 					<Run Text="{Binding ClickedSearchItem}" FontWeight="Bold"></Run>
@@ -284,7 +355,7 @@
 				<CheckBox Margin="3" IsChecked="{Binding ElementName=searchAutocomplete, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
 			</StackPanel>
 			<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Top">
-				<TextBlock Margin="5">Removable items ItemsControl</TextBlock>
+				<TextBlock Margin="5">Removable items ItemsControl (with item tooltips)</TextBlock>
 				<c:RemovableItemsItemsControl Margin="0,0,0,0" a:ToolTipBeacon.InheritedGroupName="files" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}" ItemContainerStyle="{StaticResource styleRemovableItem_Files1}"></c:RemovableItemsItemsControl>
 				<c:RemovableItemsItemsControl Margin="0,50,0,0" a:ToolTipBeacon.InheritedGroupName="files2" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:ItemsControlHelper.Orientation="Horizontal" a:ToolTipBeacon.PlacementPriority="Top" ItemContainerStyle="{StaticResource styleRemovableItem_Files2}"></c:RemovableItemsItemsControl>
 			</StackPanel>

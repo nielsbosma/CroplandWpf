@@ -1,5 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:c="clr-namespace:CroplandWpf.Components"
                     xmlns:local="clr-namespace:CroplandWpf.Themes">
-    
+
+	<!--<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="pack://application:,,,/Themes/Default/TextBox.xaml"></ResourceDictionary>
+	</ResourceDictionary.MergedDictionaries>-->
 </ResourceDictionary>

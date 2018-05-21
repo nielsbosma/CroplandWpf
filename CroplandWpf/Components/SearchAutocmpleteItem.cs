@@ -158,5 +158,9 @@ namespace CroplandWpf.Components
 				result.FontWeight = FontWeights.Bold;
 			return result;
 		}
+		public override string ToString()
+		{
+			return String.Format("{0} -> {1} ({2})", Content, DisplayString, runsToRender.Count);
+		}
 	}
 }

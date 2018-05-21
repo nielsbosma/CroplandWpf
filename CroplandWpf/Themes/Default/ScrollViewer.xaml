@@ -130,8 +130,6 @@
 						</Grid>
 						<ScrollBar x:Name="PART_VerticalScrollBar" HorizontalAlignment="Right" MinWidth="6" Orientation="Vertical" Margin="4,4,4,10" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=VerticalOffset, Mode=OneWay}" ViewportSize="{TemplateBinding ViewportHeight}"/>
 						<ScrollBar x:Name="PART_HorizontalScrollBar" Orientation="Horizontal" MinHeight="6" VerticalAlignment="Bottom" AutomationProperties.AutomationId="HorizontalScrollBar" Margin="4,4,10,4" Cursor="Arrow" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=HorizontalOffset, Mode=OneWay}" ViewportSize="{TemplateBinding ViewportWidth}"/>
-						<!--<TextBlock Text="{Binding ElementName=PART_VerticalScrollBar, Path=ActualWidth}" HorizontalAlignment="Right" VerticalAlignment="Top"></TextBlock>
-						<TextBlock Text="{Binding ElementName=PART_HorizontalScrollBar, Path=ActualHeight}" HorizontalAlignment="Left" VerticalAlignment="Bottom"></TextBlock>-->
 					</Grid>
 					<ControlTemplate.Triggers>
 						<MultiTrigger>
