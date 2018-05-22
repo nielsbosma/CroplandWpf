@@ -252,6 +252,8 @@ namespace CroplandWpf.Attached
 			showTimer.Tick += ShowTimer_Tick;
 			hideTimer.Tick += HideTimer_Tick;
 			stayOpenTimer.Tick += StayOpenTimer_Tick;
+			if (TemplatedParent as FrameworkElement != null && Target == null)
+				Target = TemplatedParent as FrameworkElement;
 		}
 
 		private void ToolTipBeacon_Unloaded(object sender, RoutedEventArgs e)

@@ -106,6 +106,7 @@ namespace CroplandWpf.Components
 					else
 						CalculatedPlacement = ToolTipPlacement.Bottom;
 					break;
+
 				case ToolTipPlacement.Top:
 					left = TargetRect.Left + TargetRect.Width / 2.0 - width / 2.0;
 					top = TargetRect.Top - height;
@@ -117,6 +118,31 @@ namespace CroplandWpf.Components
 					else
 						CalculatedPlacement = ToolTipPlacement.Top;
 					break;
+
+				case ToolTipPlacement.Left:
+					left = TargetRect.Left - width;
+					if (left < 0.0)
+					{
+						left = 0.0;
+						CalculatedPlacement = ToolTipPlacement.Right;
+					}
+					else
+						CalculatedPlacement = ToolTipPlacement.Left;
+					top = TargetRect.Top + TargetRect.Height / 2.0 - height / 2.0;
+					break;
+
+				case ToolTipPlacement.Right:
+					left = TargetRect.Left + TargetRect.Width;
+					if (left + width > ParentOverlay.ActualWidth)
+					{
+						left = TargetRect.Left - width;
+						CalculatedPlacement = ToolTipPlacement.Left;
+					}
+					else
+						CalculatedPlacement = ToolTipPlacement.Right;
+					top = TargetRect.Top + TargetRect.Height / 2.0 - height / 2.0;
+					break;
+
 				default:
 					break;
 			}
