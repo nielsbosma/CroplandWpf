@@ -1,4 +1,5 @@
-﻿$ApiKey = [Microsoft.VisualBasic.Interaction]::InputBox("Nuget ApiKey", "ApiKey", "", 0, 0);
+﻿[System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
+$ApiKey = [Microsoft.VisualBasic.Interaction]::InputBox("Nuget ApiKey", "ApiKey", "", 0, 0);
 $dte.Solution.SolutionBuild.Clean($true)
 $dte.Solution.SolutionBuild.Build($true)
 $project = Get-Project | select -First 1
