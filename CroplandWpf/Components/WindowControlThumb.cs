@@ -33,6 +33,14 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty TargetProperty =
 			DependencyProperty.Register("Target", typeof(Window), typeof(WindowControlThumb), new PropertyMetadata());
 
+		public bool AllowMaximize
+		{
+			get { return (bool)GetValue(AllowMaximizeProperty); }
+			set { SetValue(AllowMaximizeProperty, value); }
+		}
+		public static readonly DependencyProperty AllowMaximizeProperty =
+			DependencyProperty.Register("AllowMaximize", typeof(bool), typeof(WindowControlThumb), new PropertyMetadata(true));
+
 		private double targetLeft_Restore = 0.0;
 		private double targetTop_Restore = 0.0;
 
@@ -69,7 +77,7 @@ namespace CroplandWpf.Components
 
 			if (Target == null)
 				return;
-			if(Role == WindowControlThumbRole.Move)
+			if(Role == WindowControlThumbRole.Move && AllowMaximize)
 			{
 				if (Target.WindowState == WindowState.Normal)
 				{

@@ -16,7 +16,7 @@
         Title="Cropland Test App" Height="800" Width="1440"
 		a:MenuHelper.ItemsSource="{Binding MenuItemsTestSource}"
 		d:DesignWidth="1200"
-		d:DesignHeight="1080"
+		d:DesignHeight="1380"
 		WindowStartupLocation="CenterScreen"
 		Style="{DynamicResource styleWindow_Light}">
 	<!--Style="{DynamicResource {x:Type Window}}"-->
@@ -42,7 +42,7 @@
 							<ColumnDefinition Width="*"></ColumnDefinition>
 							<ColumnDefinition Width="Auto"></ColumnDefinition>
 						</Grid.ColumnDefinitions>
-						
+
 						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
 						<TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding Size_Mb, StringFormat='{}({0} mb)'}"></TextBlock>
 						<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontStyle="Italic" Text="{Binding Path}" TextTrimming="CharacterEllipsis" Margin="0,5,0,0"></TextBlock>
@@ -274,6 +274,11 @@
 						<Rectangle Fill="DarkGray" Height="1"/>
 						<TextBox Margin="5" Text="TextBox"/>
 						<TextBox Margin="5" IsEnabled="False" Text="TextBox (disabled)"/>
+						<TextBlock Margin="5" Text="PasswordBox"></TextBlock>
+						<StackPanel Orientation="Horizontal" Margin="5">
+							<PasswordBox a:PasswordHelper.AttachedController="{Binding UserPasswordController}" MinWidth="150"></PasswordBox>
+							<Button Margin="5,0" Command="{Binding UpdateUserPasswordCommand}">OK</Button>
+						</StackPanel>
 						<TextBlock Margin="5">CommandTextBox</TextBlock>
 						<c:CommandTextBox x:Name="commandTextBox" Command="{Binding CommandTextBoxCommand}" ButtonStyle="{DynamicResource styleButton_CommandTextBox_Green}" ButtonContent="REGISTER"></c:CommandTextBox>
 						<TextBlock Margin="20,5,5,5"><Run>CommandTextBox output:</Run><Run Text="{Binding CommandTextBoxString}"></Run></TextBlock>
@@ -344,7 +349,7 @@
 				<ComboBox x:Name="comboBoxTest" ItemsSource="{Binding TestItemsSource}" />
 				<TextBlock Margin="5">ComboBox (light)</TextBlock>
 				<ComboBox Margin="3" Style="{DynamicResource styleComboBox_Light}"  ItemsSource="{Binding TestItemsSource}"></ComboBox>
-				
+
 				<CheckBox Margin="3" IsChecked="{Binding ElementName=comboBoxTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
 				<TextBlock FontWeight="Bold" Margin="5">SearchAutocompleteControl (left-aligned tooltip)</TextBlock>
 				<c:SearchAutocompleteControl x:Name="searchAutocomplete" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding SearchResults}" SearchItemCommand="{Binding SearchItemClickCommand}"></c:SearchAutocompleteControl>

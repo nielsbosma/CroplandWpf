@@ -1,4 +1,5 @@
-﻿using CroplandWpf.Components;
+﻿using CroplandWpf.Attached;
+using CroplandWpf.Components;
 using CroplandWpf.MVVM;
 using System;
 using System.Collections.Generic;
@@ -160,6 +161,25 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty CommandTextBoxStringProperty =
 			DependencyProperty.Register("CommandTextBoxString", typeof(string), typeof(MainWindow), new PropertyMetadata());
 		#endregion
+		#endregion
+
+		#region PasswordBox
+
+		public PasswordController UserPasswordController
+		{
+			get { return (PasswordController)GetValue(UserPasswordControllerProperty); }
+			private set { SetValue(UserPasswordControllerProperty, value); }
+		}
+		public static readonly DependencyProperty UserPasswordControllerProperty =
+			DependencyProperty.Register("UserPasswordController", typeof(PasswordController), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand UpdateUserPasswordCommand
+		{
+			get { return (DelegateCommand)GetValue(UpdateUserPasswordCommandProperty); }
+			private set { SetValue(UpdateUserPasswordCommandProperty, value); }
+		}
+		public static readonly DependencyProperty UpdateUserPasswordCommandProperty =
+			DependencyProperty.Register("UpdateUserPasswordCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
 		#region Commands
@@ -325,6 +345,10 @@ namespace CroplandWpf.Test
 				new Person{ Name = "Carinthia", IsMedic = true, InternalNumber = 3966511, PersonalityType = PersonalityType.NA }
 			};
 			#endregion
+
+			UserPasswordController = new PasswordController();
+			UserPasswordController.SetPassword("123456");
+			UpdateUserPasswordCommand = new DelegateCommand(UpdateUserPasswordCommand_Execute, UpdateUserPasswordCommand_CanExecute);
 
 			HyperlinkTestCommand = new DelegateCommand(HyperlinkTestCommand_Execute);
 			RemoveRequestTestCommand = new DelegateCommand(RemoveRequestTestCommand_Execute);
@@ -494,6 +518,16 @@ namespace CroplandWpf.Test
 		private void LaunchCommandLineCommand_Execute(object parameter)
 		{
 			Process.Start("cmd.exe");
+		}
+
+		private void UpdateUserPasswordCommand_Execute(object obj)
+		{
+			MessageBoxService.Show(new MessageBoxInfo { Content = String.Format("User password was changed to '{0}'", UserPasswordController.GetPassword()), Buttons = MessageBoxButton.OK });
+		}
+
+		private bool UpdateUserPasswordCommand_CanExecute(object arg)
+		{
+			return UserPasswordController.IsPasswordAvailable;
 		}
 		#endregion
 	}
