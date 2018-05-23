@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -91,6 +92,42 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty MessageBoxResultProperty =
 			DependencyProperty.Register("MessageBoxResult", typeof(MessageBoxResult), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+
+		#region Exceed IntegerUpDown
+		public int IntegerValueTest
+		{
+			get { return (int)GetValue(IntegerValueTestProperty); }
+			set { SetValue(IntegerValueTestProperty, value); }
+		}
+		public static readonly DependencyProperty IntegerValueTestProperty =
+			DependencyProperty.Register("IntegerValueTest", typeof(int), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+
+		#region ProgressBar
+		public double ProgressBarValueTest
+		{
+			get { return (double)GetValue(ProgressBarValueTestProperty); }
+			set { SetValue(ProgressBarValueTestProperty, value); }
+		}
+		public static readonly DependencyProperty ProgressBarValueTestProperty =
+			DependencyProperty.Register("ProgressBarValueTest", typeof(double), typeof(MainWindow), new PropertyMetadata());
+
+		public bool IsInProgress
+		{
+			get { return (bool)GetValue(IsInProgressProperty); }
+			private set { SetValue(IsInProgressProperty, value); }
+		}
+		public static readonly DependencyProperty IsInProgressProperty =
+			DependencyProperty.Register("IsInProgress", typeof(bool), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand StartProgressTestCommand
+		{
+			get { return (DelegateCommand)GetValue(StartProgressTestCommandProperty); }
+			private set { SetValue(StartProgressTestCommandProperty, value); }
+		}
+		public static readonly DependencyProperty StartProgressTestCommandProperty =
+			DependencyProperty.Register("StartProgressTestCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
 		#region Collections
@@ -414,6 +451,10 @@ namespace CroplandWpf.Test
 			Mbi_Question = new MessageBoxInfo() { Header = "FileStar", Buttons = MessageBoxButton.YesNo, Content = "Can you answer the question?..", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question };
 			Mbi_Warning = new MessageBoxInfo() { Header = "SuperTsar", Buttons = MessageBoxButton.OK, Content = "Congratulations! You received a warning!", IconBrushKey = MessageBoxIconBrushDefaultKeys.Warning };
 			#endregion
+
+			#region 
+			StartProgressTestCommand = new DelegateCommand(StartProgressTestCommand_Execute, StartProgressTestCommand_CanExecute);
+			#endregion
 		}
 
 		private void ShowMessageBoxCommand_Execute(object obj)
@@ -528,6 +569,26 @@ namespace CroplandWpf.Test
 		private bool UpdateUserPasswordCommand_CanExecute(object arg)
 		{
 			return UserPasswordController.IsPasswordAvailable;
+		}
+
+		private async void StartProgressTestCommand_Execute(object obj)
+		{
+			var progress = new Progress<int>(value => ProgressBarValueTest = value);
+			await Task.Run(() =>
+			{
+				Dispatcher.Invoke(()=> { IsInProgress = true; CommandManager.InvalidateRequerySuggested(); }, System.Windows.Threading.DispatcherPriority.Background);
+				for (int i = 0; i < 100; i++)
+				{
+					((IProgress<int>)progress).Report(i);
+					Thread.Sleep(50);
+				}
+				Dispatcher.Invoke(() => { IsInProgress = false; CommandManager.InvalidateRequerySuggested(); }, System.Windows.Threading.DispatcherPriority.Background);
+			});
+		}
+
+		private bool StartProgressTestCommand_CanExecute(object arg)
+		{
+			return !IsInProgress;
 		}
 		#endregion
 	}

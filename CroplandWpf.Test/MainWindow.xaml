@@ -5,18 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CroplandWpf.Test"
 		xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers;assembly=CroplandWpf"
-		x:Class="CroplandWpf.Test.MainWindow"
+		xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
 		xmlns:a="clr-namespace:CroplandWpf.Attached;assembly=CroplandWpf"
-		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		xmlns:c="clr-namespace:CroplandWpf.Components;assembly=CroplandWpf"
 		xmlns:conv="clr-namespace:CroplandWpf.Converters;assembly=CroplandWpf"
 		xmlns:msc="clr-namespace:System;assembly=mscorlib"
+		xmlns:Themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}"
+		x:Class="CroplandWpf.Test.MainWindow"
         mc:Ignorable="d"
 		WindowState="Normal"
         Title="Cropland Test App" Height="800" Width="1440"
 		a:MenuHelper.ItemsSource="{Binding MenuItemsTestSource}"
 		d:DesignWidth="1200"
-		d:DesignHeight="1380"
+		d:DesignHeight="1480"
 		WindowStartupLocation="CenterScreen"
 		Style="{DynamicResource styleWindow_Light}">
 	<!--Style="{DynamicResource {x:Type Window}}"-->
@@ -34,33 +36,33 @@
 				<Border x:Name="borderBackground" Background="{DynamicResource brushControl_Background_Dark}" Padding="10" CornerRadius="3" Effect="{DynamicResource effectShadow_Large}" BorderThickness="0" Margin="0,10,0,0" MinHeight="100" MinWidth="150" MaxWidth="300">
 					<Grid TextBlock.Foreground="{DynamicResource brushControl_Foreground_Light}">
 						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"></RowDefinition>
-							<RowDefinition Height="Auto"></RowDefinition>
-							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*"></ColumnDefinition>
-							<ColumnDefinition Width="Auto"></ColumnDefinition>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
 						</Grid.ColumnDefinitions>
 
-						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
-						<TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding Size_Mb, StringFormat='{}({0} mb)'}"></TextBlock>
-						<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontStyle="Italic" Text="{Binding Path}" TextTrimming="CharacterEllipsis" Margin="0,5,0,0"></TextBlock>
-						<c:HyperlinkButton Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Command="{x:Static a:ToolTipBeacon.DisableToolTipsGroupCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon)}" Foreground="{DynamicResource brushControl_Foreground_Light}">Don`t show again</c:HyperlinkButton>
-						<Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon).ToolTipCloseCommand}" HorizontalAlignment="Right" Margin="0,5,0,0" Style="{DynamicResource styleButton_Light}">Got It</Button>
+						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="{Binding Name}"/>
+						<TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding Size_Mb, StringFormat=(\{0\} mb)}"/>
+						<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontStyle="Italic" Text="{Binding Path}" TextTrimming="CharacterEllipsis" Margin="0,5,0,0"/>
+						<c:HyperlinkButton Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Command="{x:Static a:ToolTipBeacon.DisableToolTipsGroupCommand}" CommandParameter="{Binding (a:ToolTipBeacon.AttachedBeacon), RelativeSource={RelativeSource Self}}" Foreground="{DynamicResource brushControl_Foreground_Light}" Content="Don`t show again"/>
+						<Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding (a:ToolTipBeacon.AttachedBeacon).ToolTipCloseCommand, RelativeSource={RelativeSource Self}}" HorizontalAlignment="Right" Margin="0,5,0,0" Style="{DynamicResource styleButton_Light}" Content="Got It"/>
 					</Grid>
 				</Border>
-				<Polygon x:Name="polygonArrow" HorizontalAlignment="Center" VerticalAlignment="Top" Points="0,11 11,0 22,11" Width="22" Height="11" Fill="{DynamicResource brushControl_Background_Dark}" RenderTransformOrigin="0.5,0.5"></Polygon>
+				<Polygon x:Name="polygonArrow" HorizontalAlignment="Center" VerticalAlignment="Top" Points="0,11 11,0 22,11" Width="22" Height="11" Fill="{DynamicResource brushControl_Background_Dark}" RenderTransformOrigin="0.5,0.5"/>
 			</Grid>
 			<DataTemplate.Triggers>
-				<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:OverlayContentControl}, Path=CalculatedPlacement}" Value="Top">
+				<DataTrigger Binding="{Binding CalculatedPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type c:OverlayContentControl}}}" Value="Top">
 					<Setter TargetName="polygonArrow" Property="RenderTransform">
 						<Setter.Value>
-							<ScaleTransform ScaleX="1.0" ScaleY="-1.0"></ScaleTransform>
+							<ScaleTransform ScaleX="1.0" ScaleY="-1.0"/>
 						</Setter.Value>
 					</Setter>
-					<Setter TargetName="polygonArrow" Property="VerticalAlignment" Value="Bottom"></Setter>
-					<Setter TargetName="borderBackground" Property="Margin" Value="0,0,0,10"></Setter>
+					<Setter TargetName="polygonArrow" Property="VerticalAlignment" Value="Bottom"/>
+					<Setter TargetName="borderBackground" Property="Margin" Value="0,0,0,10"/>
 				</DataTrigger>
 			</DataTemplate.Triggers>
 		</DataTemplate>
@@ -70,33 +72,33 @@
 				<Border x:Name="borderBackground" Background="{DynamicResource brushControl_Background_Light}" Padding="10" CornerRadius="3" Effect="{DynamicResource effectShadow_Large}" BorderThickness="0" Margin="0,10,0,0" MinHeight="100" MinWidth="150" MaxWidth="300">
 					<Grid TextBlock.Foreground="{DynamicResource brushControl_Foreground_Dark}">
 						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"></RowDefinition>
-							<RowDefinition Height="Auto"></RowDefinition>
-							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*"></ColumnDefinition>
-							<ColumnDefinition Width="Auto"></ColumnDefinition>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
 						</Grid.ColumnDefinitions>
 
-						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
-						<TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding Size_Mb, StringFormat='{}({0} mb)'}"></TextBlock>
-						<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontStyle="Italic" Text="{Binding Path}" TextTrimming="CharacterEllipsis" Margin="0,5,0,0"></TextBlock>
-						<c:HyperlinkButton Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Command="{x:Static a:ToolTipBeacon.DisableToolTipsGroupCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon)}">Don`t show again</c:HyperlinkButton>
-						<Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon).ToolTipCloseCommand}" HorizontalAlignment="Right" Margin="0,5,0,0">Got It</Button>
+						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="{Binding Name}"/>
+						<TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding Size_Mb, StringFormat=(\{0\} mb)}"/>
+						<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontStyle="Italic" Text="{Binding Path}" TextTrimming="CharacterEllipsis" Margin="0,5,0,0"/>
+						<c:HyperlinkButton Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Command="{x:Static a:ToolTipBeacon.DisableToolTipsGroupCommand}" CommandParameter="{Binding (a:ToolTipBeacon.AttachedBeacon), RelativeSource={RelativeSource Self}}" Content="Don`t show again"/>
+						<Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding (a:ToolTipBeacon.AttachedBeacon).ToolTipCloseCommand, RelativeSource={RelativeSource Self}}" HorizontalAlignment="Right" Margin="0,5,0,0" Content="Got It"/>
 					</Grid>
 				</Border>
-				<Polygon x:Name="polygonArrow" HorizontalAlignment="Center" VerticalAlignment="Top" Points="0,11 11,0 22,11" Width="22" Height="11" Fill="{DynamicResource brushControl_Background_Light}" RenderTransformOrigin="0.5,0.5"></Polygon>
+				<Polygon x:Name="polygonArrow" HorizontalAlignment="Center" VerticalAlignment="Top" Points="0,11 11,0 22,11" Width="22" Height="11" Fill="{DynamicResource brushControl_Background_Light}" RenderTransformOrigin="0.5,0.5"/>
 			</Grid>
 			<DataTemplate.Triggers>
-				<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:OverlayContentControl}, Path=CalculatedPlacement}" Value="Top">
+				<DataTrigger Binding="{Binding CalculatedPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type c:OverlayContentControl}}}" Value="Top">
 					<Setter TargetName="polygonArrow" Property="RenderTransform">
 						<Setter.Value>
-							<ScaleTransform ScaleX="1.0" ScaleY="-1.0"></ScaleTransform>
+							<ScaleTransform ScaleX="1.0" ScaleY="-1.0"/>
 						</Setter.Value>
 					</Setter>
-					<Setter TargetName="polygonArrow" Property="VerticalAlignment" Value="Bottom"></Setter>
-					<Setter TargetName="borderBackground" Property="Margin" Value="0,0,0,10"></Setter>
+					<Setter TargetName="polygonArrow" Property="VerticalAlignment" Value="Bottom"/>
+					<Setter TargetName="borderBackground" Property="Margin" Value="0,0,0,10"/>
 				</DataTrigger>
 			</DataTemplate.Triggers>
 		</DataTemplate>
@@ -106,30 +108,30 @@
 				<Border x:Name="borderBackground" Background="{DynamicResource brushControl_Background_Light}" Padding="10" CornerRadius="3" Effect="{DynamicResource effectShadow_Large}" BorderThickness="0" Margin="0,0,10,0" MinHeight="100" MinWidth="150" MaxWidth="300">
 					<Grid TextBlock.Foreground="{DynamicResource brushControl_Foreground_Dark}">
 						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"></RowDefinition>
-							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*"></ColumnDefinition>
-							<ColumnDefinition Width="Auto"></ColumnDefinition>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
 						</Grid.ColumnDefinitions>
 
-						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="Allows to search within some collection"></TextBlock>
-						<c:HyperlinkButton Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Command="{x:Static a:ToolTipBeacon.DisableToolTipsGroupCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon)}">Don`t show again</c:HyperlinkButton>
-						<Button Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon).ToolTipCloseCommand}" HorizontalAlignment="Right" Margin="0,5,0,0">Got It</Button>
+						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="Allows to search within some collection"/>
+						<c:HyperlinkButton Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Command="{x:Static a:ToolTipBeacon.DisableToolTipsGroupCommand}" CommandParameter="{Binding (a:ToolTipBeacon.AttachedBeacon), RelativeSource={RelativeSource Self}}" Content="Don`t show again"/>
+						<Button Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding (a:ToolTipBeacon.AttachedBeacon).ToolTipCloseCommand, RelativeSource={RelativeSource Self}}" HorizontalAlignment="Right" Margin="0,5,0,0" Content="Got It"/>
 					</Grid>
 				</Border>
-				<Polygon x:Name="polygonArrow" HorizontalAlignment="Right" VerticalAlignment="Center" Points="0,0 11,11 0,22" Width="11" Height="22" Fill="{DynamicResource brushControl_Background_Light}" RenderTransformOrigin="0.5,0.5"></Polygon>
+				<Polygon x:Name="polygonArrow" HorizontalAlignment="Right" VerticalAlignment="Center" Points="0,0 11,11 0,22" Width="11" Height="22" Fill="{DynamicResource brushControl_Background_Light}" RenderTransformOrigin="0.5,0.5"/>
 			</Grid>
 			<DataTemplate.Triggers>
-				<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:OverlayContentControl}, Path=CalculatedPlacement}" Value="Right">
+				<DataTrigger Binding="{Binding CalculatedPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type c:OverlayContentControl}}}" Value="Right">
 					<Setter TargetName="polygonArrow" Property="RenderTransform">
 						<Setter.Value>
-							<ScaleTransform ScaleX="-1.0" ScaleY="1.0"></ScaleTransform>
+							<ScaleTransform ScaleX="-1.0" ScaleY="1.0"/>
 						</Setter.Value>
 					</Setter>
-					<Setter TargetName="polygonArrow" Property="HorizontalAlignment" Value="Left"></Setter>
-					<Setter TargetName="borderBackground" Property="Margin" Value="10,0,0,0"></Setter>
+					<Setter TargetName="polygonArrow" Property="HorizontalAlignment" Value="Left"/>
+					<Setter TargetName="borderBackground" Property="Margin" Value="10,0,0,0"/>
 				</DataTrigger>
 			</DataTemplate.Triggers>
 		</DataTemplate>
@@ -139,33 +141,33 @@
 				<Border x:Name="borderBackground" Background="{DynamicResource brushControl_Background_Light}" Padding="10" CornerRadius="3" Effect="{DynamicResource effectShadow_Large}" BorderThickness="0" Margin="0,10,0,0" MinHeight="100" MinWidth="150" MaxWidth="300">
 					<Grid TextBlock.Foreground="{DynamicResource brushControl_Foreground_Dark}">
 						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"></RowDefinition>
-							<RowDefinition Height="Auto"></RowDefinition>
-							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*"></ColumnDefinition>
-							<ColumnDefinition Width="Auto"></ColumnDefinition>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="Auto"/>
 						</Grid.ColumnDefinitions>
 
-						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="{Binding Name}"></TextBlock>
-						<TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding Size_Mb, StringFormat='{}({0} mb)'}"></TextBlock>
-						<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontStyle="Italic" Text="{Binding Path}" TextTrimming="CharacterEllipsis" Margin="0,5,0,0"></TextBlock>
-						<c:HyperlinkButton Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Command="{x:Static a:ToolTipBeacon.DisableToolTipsGroupCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon)}">Don`t show again</c:HyperlinkButton>
-						<Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding RelativeSource={RelativeSource Self}, Path=(a:ToolTipBeacon.AttachedBeacon).ToolTipCloseCommand}" HorizontalAlignment="Right" Margin="0,5,0,0">Got It</Button>
+						<TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="{Binding Name}"/>
+						<TextBlock Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Text="{Binding Size_Mb, StringFormat=(\{0\} mb)}"/>
+						<TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontStyle="Italic" Text="{Binding Path}" TextTrimming="CharacterEllipsis" Margin="0,5,0,0"/>
+						<c:HyperlinkButton Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Command="{x:Static a:ToolTipBeacon.DisableToolTipsGroupCommand}" CommandParameter="{Binding (a:ToolTipBeacon.AttachedBeacon), RelativeSource={RelativeSource Self}}" Content="Don`t show again"/>
+						<Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding (a:ToolTipBeacon.AttachedBeacon).ToolTipCloseCommand, RelativeSource={RelativeSource Self}}" HorizontalAlignment="Right" Margin="0,5,0,0" Content="Got It"/>
 					</Grid>
 				</Border>
-				<Polygon x:Name="polygonArrow" HorizontalAlignment="Center" VerticalAlignment="Top" Points="0,11 11,0 22,11" Width="22" Height="11" Fill="{DynamicResource brushControl_Background_Light}" RenderTransformOrigin="0.5,0.5"></Polygon>
+				<Polygon x:Name="polygonArrow" HorizontalAlignment="Center" VerticalAlignment="Top" Points="0,11 11,0 22,11" Width="22" Height="11" Fill="{DynamicResource brushControl_Background_Light}" RenderTransformOrigin="0.5,0.5"/>
 			</Grid>
 			<DataTemplate.Triggers>
-				<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:OverlayContentControl}, Path=CalculatedPlacement}" Value="Top">
+				<DataTrigger Binding="{Binding CalculatedPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type c:OverlayContentControl}}}" Value="Top">
 					<Setter TargetName="polygonArrow" Property="RenderTransform">
 						<Setter.Value>
-							<ScaleTransform ScaleX="1.0" ScaleY="-1.0"></ScaleTransform>
+							<ScaleTransform ScaleX="1.0" ScaleY="-1.0"/>
 						</Setter.Value>
 					</Setter>
-					<Setter TargetName="polygonArrow" Property="VerticalAlignment" Value="Bottom"></Setter>
-					<Setter TargetName="borderBackground" Property="Margin" Value="0,0,0,10"></Setter>
+					<Setter TargetName="polygonArrow" Property="VerticalAlignment" Value="Bottom"/>
+					<Setter TargetName="borderBackground" Property="Margin" Value="0,0,0,10"/>
 				</DataTrigger>
 			</DataTemplate.Triggers>
 		</DataTemplate>
@@ -173,17 +175,17 @@
 		<c:MessageBoxInfo x:Key="mbiFromResources" ContentTemplateKey="templateMbiFromResources_Content" Header="MessageBoxInfo defined in resources" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="MessageBoxInfo with a custom ContentTemplate defined in XAML locally. Has the footer template defined too" Footer="some random footer" FooterTemplateKey="templateMbiFromResources_Footer" Buttons="YesNoCancel">
 			<c:MessageBoxInfo.Resources>
 				<DataTemplate x:Key="templateMbiFromResources_Content">
-					<TextBlock>
-						<TextBlock Text="This MessageBox text will go in Italic style:"></TextBlock>
-						<LineBreak></LineBreak>
-						<TextBlock FontStyle="Italic" Text="{Binding}" TextWrapping="Wrap"></TextBlock>
-					</TextBlock>
+					<TextBlock><InlineUIContainer>
+							<TextBlock Text="This MessageBox text will go in Italic style:"/>
+						</InlineUIContainer><LineBreak/><InlineUIContainer>
+							<TextBlock FontStyle="Italic" Text="{Binding}" TextWrapping="Wrap"/>
+						</InlineUIContainer></TextBlock>
 				</DataTemplate>
 
 				<DataTemplate x:Key="templateMbiFromResources_Footer">
 					<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-						<TextBlock Text="{Binding}"></TextBlock>
-						<c:HyperlinkButton Padding="0" Margin="5,0,0,0">Dont Show Again</c:HyperlinkButton>
+						<TextBlock Text="{Binding}"/>
+						<c:HyperlinkButton Padding="0" Margin="5,0,0,0" Content="Dont Show Again"/>
 					</StackPanel>
 				</DataTemplate>
 			</c:MessageBoxInfo.Resources>
@@ -200,26 +202,77 @@
 		</CollectionViewSource>
 
 		<DataTemplate x:Key="templateRemovableItemTest" DataType="{x:Type local:FileItem}">
-			<TextBlock VerticalAlignment="Center">
-				<TextBlock Text="{Binding Name}"></TextBlock>
-			</TextBlock>
+			<TextBlock VerticalAlignment="Center"><InlineUIContainer>
+					<TextBlock Text="{Binding Name}"/>
+				</InlineUIContainer></TextBlock>
 		</DataTemplate>
 
 		<DataTemplate x:Key="templateRemovableList_CustomContent">
-			<Button Style="{DynamicResource styleButton_AddFile}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=AddNewFileTestCommand}" Margin="10,0,5,0" VerticalAlignment="Center"></Button>
+			<Button Style="{DynamicResource styleButton_AddFile}" Command="{Binding AddNewFileTestCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Margin="10,0,5,0" VerticalAlignment="Center"/>
 		</DataTemplate>
 
-		<Style x:Key="styleRemovableItem_Files1" TargetType="c:RemovableItemContentControl" BasedOn="{StaticResource {x:Type c:RemovableItemContentControl}}">
-			<Setter Property="a:ToolTipBeacon.ToolTipContent" Value="{Binding}"></Setter>
-			<Setter Property="a:ToolTipBeacon.ToolTipTemplateKey" Value="templateToolTip_RemovableItemContentControl"></Setter>
-			<Setter Property="a:ToolTipBeacon.PlacementPriority" Value="Top"></Setter>
+		<Style x:Key="styleRemovableItem_Files1" TargetType="{x:Type c:RemovableItemContentControl}" BasedOn="{StaticResource {x:Type c:RemovableItemContentControl}}">
+			<Setter Property="a:ToolTipBeacon.ToolTipContent" Value="{Binding}"/>
+			<Setter Property="a:ToolTipBeacon.ToolTipTemplateKey" Value="templateToolTip_RemovableItemContentControl"/>
+			<Setter Property="a:ToolTipBeacon.PlacementPriority" Value="Top"/>
 		</Style>
 
-		<Style x:Key="styleRemovableItem_Files2" TargetType="c:RemovableItemContentControl" BasedOn="{StaticResource {x:Type c:RemovableItemContentControl}}">
-			<Setter Property="a:ToolTipBeacon.ToolTipContent" Value="{Binding}"></Setter>
-			<Setter Property="a:ToolTipBeacon.ToolTipTemplateKey" Value="templateToolTip_RemovableItemContentControl_TopPlacement"></Setter>
-			<Setter Property="a:ToolTipBeacon.PlacementPriority" Value="Bottom"></Setter>
+		<Style x:Key="styleRemovableItem_Files2" TargetType="{x:Type c:RemovableItemContentControl}" BasedOn="{StaticResource {x:Type c:RemovableItemContentControl}}">
+			<Setter Property="a:ToolTipBeacon.ToolTipContent" Value="{Binding}"/>
+			<Setter Property="a:ToolTipBeacon.ToolTipTemplateKey" Value="templateToolTip_RemovableItemContentControl_TopPlacement"/>
+			<Setter Property="a:ToolTipBeacon.PlacementPriority" Value="Bottom"/>
 		</Style>
+		<Style x:Key="IntegerUpDownStyle1" TargetType="{x:Type tk:IntegerUpDown}">
+			<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+			<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlNormalBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="HorizontalContentAlignment" Value="Right"/>
+			<Setter Property="IsTabStop" Value="False"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="TextAlignment" Value="Right"/>
+			<Setter Property="WatermarkTemplate">
+				<Setter.Value>
+					<DataTemplate>
+						<ContentControl Content="{Binding}" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Focusable="False" Margin="0,0,3,0"/>
+					</DataTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type tk:IntegerUpDown}">
+						<tk:ButtonSpinner x:Name="PART_Spinner" AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" HorizontalContentAlignment="Stretch" IsTabStop="False" ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}" VerticalContentAlignment="Stretch">
+							<tk:WatermarkTextBox x:Name="PART_TextBox" AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}" AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}" AcceptsReturn="False" BorderThickness="0" Background="Transparent" ContextMenu="{TemplateBinding ContextMenu}" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsUndoEnabled="True" MinWidth="20" Padding="{TemplateBinding Padding}" TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}" TextWrapping="NoWrap" TabIndex="{TemplateBinding TabIndex}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}" Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}"/>
+						</tk:ButtonSpinner>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlMouseOverBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+							</Trigger>
+							<MultiDataTrigger>
+								<MultiDataTrigger.Conditions>
+									<Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False"/>
+									<Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False"/>
+								</MultiDataTrigger.Conditions>
+								<Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+							</MultiDataTrigger>
+							<DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+								<Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+							</DataTrigger>
+							<Trigger Property="IsKeyboardFocusWithin" Value="True">
+								<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="False">
+								<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+							</Trigger>
+							<Trigger Property="IsFocused" Value="True">
+								<Setter Property="FocusManager.FocusedElement" TargetName="PART_TextBox" Value="{Binding ElementName=PART_TextBox}"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
 	</Window.Resources>
 
 	<Border>
@@ -230,36 +283,36 @@
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"></RowDefinition>
-				<RowDefinition Height="Auto"></RowDefinition>
-				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
 			<Grid Grid.Column="0" Grid.RowSpan="3">
 				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"></RowDefinition>
-					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
-				<TextBlock Grid.Row="0" FontWeight="Bold">Common Controls</TextBlock>
+				<TextBlock Grid.Row="0" FontWeight="Bold"><Run Text="Common Controls"/></TextBlock>
 				<ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
 					<StackPanel Orientation="Vertical">
-						<TextBlock Margin="5">Button</TextBlock>
+						<TextBlock Margin="5"><Run Text="Button"/></TextBlock>
 						<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left" Content="NORMAL"/>
 						<StackPanel Orientation="Horizontal">
 							<Button x:Name="buttonTest" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5" Content="DISABLED"/>
-							<CheckBox Margin="24,0,0,0" IsChecked="{Binding ElementName=buttonTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+							<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonTest, Mode=TwoWay}" Content="IsEnabled"/>
 						</StackPanel>
-						<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left"></Button>
+						<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left"/>
 						<StackPanel Orientation="Horizontal">
-							<Button Margin="5" Style="{DynamicResource styleButton_AddFile}"></Button>
-							<Button x:Name="buttonRemoveTest" Margin="0,5,5,5" Style="{DynamicResource styleButton_RemoveFile}"></Button>
-							<CheckBox IsChecked="{Binding ElementName=buttonRemoveTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+							<Button Margin="5" Style="{DynamicResource styleButton_AddFile}"/>
+							<Button x:Name="buttonRemoveTest" Margin="0,5,5,5" Style="{DynamicResource styleButton_RemoveFile}"/>
+							<CheckBox IsChecked="{Binding IsEnabled, ElementName=buttonRemoveTest, Mode=TwoWay}" Content="IsEnabled"/>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
-							<c:HyperlinkButton x:Name="hyperlinkTest" Command="{Binding HyperlinkTestCommand}" CommandParameter="{Binding HyperlinkTest}">Hyperlink</c:HyperlinkButton>
-							<CheckBox Margin="24,0,0,0" IsChecked="{Binding ElementName=hyperlinkTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+							<c:HyperlinkButton x:Name="hyperlinkTest" Command="{Binding HyperlinkTestCommand}" CommandParameter="{Binding HyperlinkTest}" Content="Hyperlink"/>
+							<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=hyperlinkTest, Mode=TwoWay}" Content="IsEnabled"/>
 						</StackPanel>
-						<c:HyperlinkButton IsUnderlined="False" HorizontalAlignment="Left">no underline</c:HyperlinkButton>
-						<Button Margin="5" HorizontalAlignment="Left" Style="{DynamicResource styleButton_RemoveRequest}"></Button>
+						<c:HyperlinkButton IsUnderlined="False" HorizontalAlignment="Left" Content="no underline"/>
+						<Button Margin="5" HorizontalAlignment="Left" Style="{DynamicResource styleButton_RemoveRequest}"/>
 						<Rectangle Fill="DarkGray" Height="1"/>
 						<CheckBox Margin="5" FontSize="9.5pt" Content="CheckBox"/>
 						<CheckBox Margin="5" IsEnabled="False" Content="CheckBox (disabled)"/>
@@ -269,34 +322,46 @@
 						<RadioButton Margin="5,0,5,5" IsEnabled="False" Content="RadioButton 3 (disabled)"/>
 						<StackPanel Orientation="Horizontal">
 							<RadioButton x:Name="radioButtonTest" Margin="5,0,5,5" IsEnabled="False" IsChecked="True" Content="RadioButton 4 (checked/disabled)"/>
-							<CheckBox Margin="5,0" IsChecked="{Binding ElementName=radioButtonTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+							<CheckBox Margin="5,0" IsChecked="{Binding IsEnabled, ElementName=radioButtonTest, Mode=TwoWay}" Content="IsEnabled"/>
 						</StackPanel>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="Auto"></ColumnDefinition>
+							</Grid.ColumnDefinitions>
+							<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" Value="{Binding ProgressBarValueTest}" Margin="5,0,0,0"></ProgressBar>
+							<Button Grid.Column="1" Margin="5,0" Command="{Binding StartProgressTestCommand}">Start</Button>
+						</Grid>
 						<Rectangle Fill="DarkGray" Height="1"/>
+						<TextBlock Margin="5" Text="Xceed IntegerUpDown"/>
+						<tk:IntegerUpDown Value="{Binding IntegerValueTest}" Style="{DynamicResource IntegerUpDownStyle1}"/>
+						<TextBlock Margin="20,5,5,5" Text="{Binding IntegerValueTest}"></TextBlock>
 						<TextBox Margin="5" Text="TextBox"/>
 						<TextBox Margin="5" IsEnabled="False" Text="TextBox (disabled)"/>
-						<TextBlock Margin="5" Text="PasswordBox"></TextBlock>
+						<TextBlock Margin="5" Text="PasswordBox"/>
 						<StackPanel Orientation="Horizontal" Margin="5">
-							<PasswordBox a:PasswordHelper.AttachedController="{Binding UserPasswordController}" MinWidth="150"></PasswordBox>
-							<Button Margin="5,0" Command="{Binding UpdateUserPasswordCommand}">OK</Button>
+							<PasswordBox a:PasswordHelper.AttachedController="{Binding UserPasswordController}" MinWidth="150"/>
+							<Button Margin="5,0" Command="{Binding UpdateUserPasswordCommand}" Content="OK"/>
 						</StackPanel>
-						<TextBlock Margin="5">CommandTextBox</TextBlock>
-						<c:CommandTextBox x:Name="commandTextBox" Command="{Binding CommandTextBoxCommand}" ButtonStyle="{DynamicResource styleButton_CommandTextBox_Green}" ButtonContent="REGISTER"></c:CommandTextBox>
-						<TextBlock Margin="20,5,5,5"><Run>CommandTextBox output:</Run><Run Text="{Binding CommandTextBoxString}"></Run></TextBlock>
-						<CheckBox Margin="5,0,5,5" IsChecked="{Binding ElementName=commandTextBox, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
-						<c:CommandTextBox Margin="5" x:Name="commandTextBox1" ButtonStyle="{DynamicResource styleButton_Arrow_Right}"></c:CommandTextBox>
-						<CheckBox Margin="5,0,5,5" IsChecked="{Binding ElementName=commandTextBox1, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
-						<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Arrow_Up}"></c:CommandTextBox>
-						<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Cross}"></c:CommandTextBox>
-						<TextBlock Margin="5,10,5,5">CommandTextBox with IsButtonFisible = False:</TextBlock>
-						<c:CommandTextBox ButtonStyle="{DynamicResource styleButton_Cross}" IsButtonVisible="False"></c:CommandTextBox>
+
+						<TextBlock Margin="5"><Run Text="CommandTextBox"/></TextBlock>
+						<c:CommandTextBox x:Name="commandTextBox" Command="{Binding CommandTextBoxCommand}" ButtonStyle="{DynamicResource styleButton_CommandTextBox_Green}" ButtonContent="REGISTER"/>
+						<TextBlock Margin="20,5,5,5"><Run Text="CommandTextBox output:"/><Run Text="{Binding CommandTextBoxString}"/></TextBlock>
+						<CheckBox Margin="5,0,5,5" IsChecked="{Binding IsEnabled, ElementName=commandTextBox, Mode=TwoWay}" Content="IsEnabled"/>
+						<c:CommandTextBox Margin="5" x:Name="commandTextBox1" ButtonStyle="{DynamicResource styleButton_Arrow_Right}"/>
+						<CheckBox Margin="5,0,5,5" IsChecked="{Binding IsEnabled, ElementName=commandTextBox1, Mode=TwoWay}" Content="IsEnabled"/>
+						<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Arrow_Up}"/>
+						<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Cross}"/>
+						<TextBlock Margin="5,10,5,5"><Run Text="CommandTextBox with IsButtonFisible = False:"/></TextBlock>
+						<c:CommandTextBox ButtonStyle="{DynamicResource styleButton_Cross}" IsButtonVisible="False"/>
 					</StackPanel>
 				</ScrollViewer>
 			</Grid>
 			<StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Top">
-				<TextBlock FontWeight="Bold">ItemsControls</TextBlock>
-				<TextBlock Margin="5">ListBox</TextBlock>
+				<TextBlock FontWeight="Bold"><Run Text="ItemsControls"/></TextBlock>
+				<TextBlock Margin="5"><Run Text="ListBox"/></TextBlock>
 				<ListBox x:Name="listBoxTest" Height="150" ItemsSource="{Binding TestItemsSource}"/>
-				<CheckBox Margin="3" IsChecked="{Binding ElementName=listBoxTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=listBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
 				<Grid>
 					<!--<ContentControl Margin="5">
 						<ContentControl.Style>
@@ -345,46 +410,44 @@
 						</ContentControl.Style>
 					</ContentControl>-->
 				</Grid>
-				<TextBlock Margin="5">ComboBox</TextBlock>
+				<TextBlock Margin="5"><Run Text="ComboBox"/></TextBlock>
 				<ComboBox x:Name="comboBoxTest" ItemsSource="{Binding TestItemsSource}" />
-				<TextBlock Margin="5">ComboBox (light)</TextBlock>
-				<ComboBox Margin="3" Style="{DynamicResource styleComboBox_Light}"  ItemsSource="{Binding TestItemsSource}"></ComboBox>
+				<TextBlock Margin="5"><Run Text="ComboBox (light)"/></TextBlock>
+				<ComboBox Margin="3" Style="{DynamicResource styleComboBox_Light}"  ItemsSource="{Binding TestItemsSource}"/>
 
-				<CheckBox Margin="3" IsChecked="{Binding ElementName=comboBoxTest, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
-				<TextBlock FontWeight="Bold" Margin="5">SearchAutocompleteControl (left-aligned tooltip)</TextBlock>
-				<c:SearchAutocompleteControl x:Name="searchAutocomplete" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding SearchResults}" SearchItemCommand="{Binding SearchItemClickCommand}"></c:SearchAutocompleteControl>
-				<TextBlock Margin="15,3,0,3">
-					<Run>clicked search item:</Run>
-					<Run Text="{Binding ClickedSearchItem}" FontWeight="Bold"></Run>
-				</TextBlock>
-				<CheckBox Margin="3" IsChecked="{Binding ElementName=searchAutocomplete, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=comboBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
+				<TextBlock FontWeight="Bold" Margin="5"><Run Text="SearchAutocompleteControl (left-aligned tooltip)"/></TextBlock>
+				<c:SearchAutocompleteControl x:Name="searchAutocomplete" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding SearchResults}" SearchItemCommand="{Binding SearchItemClickCommand}"/>
+				<TextBlock Margin="15,3,0,3"><Run Text="clicked search item:"/><Run Text=" "/><Run Text="{Binding ClickedSearchItem}" FontWeight="Bold"/></TextBlock>
+				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=searchAutocomplete, Mode=TwoWay}" Content="IsEnabled"/>
 			</StackPanel>
 			<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Top">
-				<TextBlock Margin="5">Removable items ItemsControl (with item tooltips)</TextBlock>
-				<c:RemovableItemsItemsControl Margin="0,0,0,0" a:ToolTipBeacon.InheritedGroupName="files" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}" ItemContainerStyle="{StaticResource styleRemovableItem_Files1}"></c:RemovableItemsItemsControl>
-				<c:RemovableItemsItemsControl Margin="0,50,0,0" a:ToolTipBeacon.InheritedGroupName="files2" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:ItemsControlHelper.Orientation="Horizontal" a:ToolTipBeacon.PlacementPriority="Top" ItemContainerStyle="{StaticResource styleRemovableItem_Files2}"></c:RemovableItemsItemsControl>
+				<TextBlock Margin="5"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>
+				<c:RemovableItemsItemsControl Margin="0,0,0,0" a:ToolTipBeacon.InheritedGroupName="files" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}" ItemContainerStyle="{StaticResource styleRemovableItem_Files1}"/>
+				<c:RemovableItemsItemsControl Margin="0,50,0,0" a:ToolTipBeacon.InheritedGroupName="files2" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:ItemsControlHelper.Orientation="Horizontal" a:ToolTipBeacon.PlacementPriority="Top" ItemContainerStyle="{StaticResource styleRemovableItem_Files2}"/>
 			</StackPanel>
 			<StackPanel Grid.Column="2" Grid.RowSpan="3" Orientation="Vertical">
-				<TextBlock Margin="5" FontWeight="Bold">MessageBox</TextBlock>
+				<TextBlock Margin="5" FontWeight="Bold"><Run Text="MessageBox"/></TextBlock>
 				<StackPanel Orientation="Horizontal">
-					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Exception}">Simple Exception (OK)</Button>
-					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Question}">Simple Question (Yes/No)</Button>
-					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}">Simple Warning (OK)</Button>
-					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}">From Resources</Button>
+					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Exception}" Content="Simple Exception (OK)"/>
+					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Question}" Content="Simple Question (Yes/No)"/>
+					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
+					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
 				</StackPanel>
-				<TextBlock Margin="20,5,0,5">
-					<TextBlock Text="MessageBoxResult:"></TextBlock>
-					<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"></TextBlock>
-				</TextBlock>
-				<TextBlock Margin="5" FontWeight="Bold">DatePicker</TextBlock>
-				<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" ></DatePicker>
-				<TextBlock Margin="5" FontWeight="Bold">DataGrid</TextBlock>
+				<TextBlock Margin="20,5,0,5"><InlineUIContainer>
+						<TextBlock Text="MessageBoxResult:"/>
+					</InlineUIContainer><Run Text=" "/><InlineUIContainer>
+						<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/>
+					</InlineUIContainer></TextBlock>
+				<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
+				<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
+				<TextBlock Margin="5" FontWeight="Bold"><Run Text="DataGrid"/></TextBlock>
 				<DataGrid Margin="5" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False">
 					<DataGrid.Columns>
-						<DataGridTextColumn Header="Person Name" Binding="{Binding Name, Mode=TwoWay}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}" EditingElementStyle="{DynamicResource styleTextBox_DataGridTextColumn}"></DataGridTextColumn>
-						<DataGridTextColumn Header="Internal Number" IsReadOnly="True" Binding="{Binding InternalNumber}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}"></DataGridTextColumn>
-						<DataGridCheckBoxColumn Header="Has Medical License" IsReadOnly="False" Binding="{Binding IsMedic, Mode=TwoWay}" ElementStyle="{DynamicResource styleCheckBox_DataGridCheckBoxColumn}" EditingElementStyle="{DynamicResource styleCheckBox_DataGridCheckBoxColumn}"></DataGridCheckBoxColumn>
-						<DataGridComboBoxColumn Header="Personality Type" SelectedItemBinding="{Binding PersonalityType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource sourcePersonalityType}}" EditingElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}" ElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}"></DataGridComboBoxColumn>
+						<DataGridTextColumn Header="Person Name" Binding="{Binding Name, Mode=TwoWay}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}" EditingElementStyle="{DynamicResource styleTextBox_DataGridTextColumn}"/>
+						<DataGridTextColumn Header="Internal Number" IsReadOnly="True" Binding="{Binding InternalNumber}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}"/>
+						<DataGridCheckBoxColumn Header="Has Medical License" IsReadOnly="False" Binding="{Binding IsMedic, Mode=TwoWay}" ElementStyle="{DynamicResource styleCheckBox_DataGridCheckBoxColumn}" EditingElementStyle="{DynamicResource styleCheckBox_DataGridCheckBoxColumn}"/>
+						<DataGridComboBoxColumn Header="Personality Type" SelectedItemBinding="{Binding PersonalityType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource sourcePersonalityType}}" EditingElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}" ElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}"/>
 					</DataGrid.Columns>
 				</DataGrid>
 			</StackPanel>

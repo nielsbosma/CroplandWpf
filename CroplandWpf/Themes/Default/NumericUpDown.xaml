@@ -1,0 +1,250 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
+					xmlns:Themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit">
+
+	<Style x:Key="styleRepeatButton_Spinner_Increase" TargetType="RepeatButton">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="RepeatButton">
+					
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="styleRepeatButton_Spinner_Decrease" TargetType="RepeatButton">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="RepeatButton">
+
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="{x:Type tk:WatermarkTextBox}" TargetType="{x:Type tk:WatermarkTextBox}">
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlNormalBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="Padding" Value="3"/>
+		<Setter Property="AllowDrop" Value="True"/>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+		<Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+		<Setter Property="WatermarkTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<ContentControl Content="{Binding}" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Focusable="False"/>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type tk:WatermarkTextBox}">
+					<Grid>
+						<Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0">
+							<Grid>
+								<ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+								<ContentPresenter x:Name="PART_WatermarkHost" Content="{TemplateBinding Watermark}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="{TemplateBinding Padding}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+									<ContentPresenter.ContentTemplate>
+										<Binding Path="WatermarkTemplate" RelativeSource="{RelativeSource TemplatedParent}">
+											<Binding.TargetNullValue>
+												<DataTemplate>
+													<ContentControl Content="{Binding}" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Focusable="False"/>
+												</DataTemplate>
+											</Binding.TargetNullValue>
+										</Binding>
+									</ContentPresenter.ContentTemplate>
+								</ContentPresenter>
+							</Grid>
+						</Border>
+						<Border x:Name="MouseOverVisual" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="1" Opacity="0">
+							<Border.BorderBrush>
+								<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+									<GradientStop Color="#FF5794BF" Offset="0.05"/>
+									<GradientStop Color="#FFB7D5EA" Offset="0.07"/>
+									<GradientStop Color="#FFC7E2F1" Offset="1"/>
+								</LinearGradientBrush>
+							</Border.BorderBrush>
+						</Border>
+						<Border x:Name="FocusVisual" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="1" Opacity="0">
+							<Border.BorderBrush>
+								<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+									<GradientStop Color="#FF3D7BAD" Offset="0.05"/>
+									<GradientStop Color="#FFA4C9E3" Offset="0.07"/>
+									<GradientStop Color="#FFB7D9ED" Offset="1"/>
+								</LinearGradientBrush>
+							</Border.BorderBrush>
+						</Border>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="KeepWatermarkOnGotFocus" Value="False"/>
+								<Condition Property="IsFocused" Value="False"/>
+								<Condition Property="Text" Value=""/>
+							</MultiTrigger.Conditions>
+							<Setter Property="Visibility" TargetName="PART_WatermarkHost" Value="Visible"/>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="KeepWatermarkOnGotFocus" Value="True"/>
+								<Condition Property="Text" Value=""/>
+							</MultiTrigger.Conditions>
+							<Setter Property="Visibility" TargetName="PART_WatermarkHost" Value="Visible"/>
+						</MultiTrigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlMouseOverBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+						</Trigger>
+						<Trigger Property="IsKeyboardFocusWithin" Value="True">
+							<Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+	
+	<Style x:Key="{x:Type tk:ButtonSpinner}" TargetType="{x:Type tk:ButtonSpinner}">
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
+		<Setter Property="FontSize" Value="9.5pt"></Setter>
+		<Setter Property="MinHeight" Value="36"></Setter>
+		<Setter Property="MinWidth" Value="40"></Setter>
+		<Setter Property="Padding" Value="0"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+		<Setter Property="IsTabStop" Value="True"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type tk:ButtonSpinner}">
+					<Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition x:Name="firstContentColumn" Width="*"/>
+								<ColumnDefinition x:Name="secondContentColumn" Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="2"></Border>
+							<Border x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}" CornerRadius="2"></Border>
+							<ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+							<Grid x:Name="gridContent" Grid.Column="1" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<Grid.Visibility>
+									<TemplateBinding Property="ShowButtonSpinner">
+										<TemplateBinding.Converter>
+											<BooleanToVisibilityConverter/>
+										</TemplateBinding.Converter>
+									</TemplateBinding>
+								</Grid.Visibility>
+								<RepeatButton x:Name="PART_IncreaseButton" IsTabStop="{TemplateBinding IsTabStop}" Style="{StaticResource styleRepeatButton_Spinner_Increas}">
+									<RepeatButton.ContentTemplate>
+										<DataTemplate>
+											<Path Data="M0,5L4.5,0.5 9,5 6,5 4.5,3.5 3,5z" Focusable="False" Fill="{DynamicResource {ComponentResourceKey ResourceId=GlyphNormalForegroundKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}" HorizontalAlignment="Center" Height="5" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="9"/>
+										</DataTemplate>
+									</RepeatButton.ContentTemplate>
+								</RepeatButton>
+								<RepeatButton x:Name="PART_DecreaseButton" IsTabStop="{TemplateBinding IsTabStop}" Grid.Row="1" Style="{DynamicResource {ComponentResourceKey ResourceId=SpinnerButtonStyleKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}">
+									<RepeatButton.ContentTemplate>
+										<DataTemplate>
+											<Path Data="M0,0L3,0 4.5,1.5 6,0 9,0 4.5,4.5z" Focusable="False" Fill="{DynamicResource {ComponentResourceKey ResourceId=GlyphNormalForegroundKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}" HorizontalAlignment="Center" Height="5" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="9"/>
+										</DataTemplate>
+									</RepeatButton.ContentTemplate>
+								</RepeatButton>
+							</Grid>
+						</Grid>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlMouseOverBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+						</Trigger>
+						<Trigger Property="IsKeyboardFocusWithin" Value="True">
+							<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Background" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlDisabledBackgroundKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" SourceName="PART_IncreaseButton" Value="False">
+							<Setter Property="ContentTemplate" TargetName="PART_IncreaseButton">
+								<Setter.Value>
+									<DataTemplate>
+										<Path Data="M0,5L4.5,0.5 9,5 6,5 4.5,3.5 3,5z" Focusable="False" Fill="{DynamicResource {ComponentResourceKey ResourceId=GlyphDisabledForegroundKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}" HorizontalAlignment="Center" Height="5" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="9"/>
+									</DataTemplate>
+								</Setter.Value>
+							</Setter>
+						</Trigger>
+						<Trigger Property="IsEnabled" SourceName="PART_DecreaseButton" Value="False">
+							<Setter Property="ContentTemplate" TargetName="PART_DecreaseButton">
+								<Setter.Value>
+									<DataTemplate>
+										<Path Data="M0,0L3,0 4.5,1.5 6,0 9,0 4.5,4.5z" Focusable="False" Fill="{DynamicResource {ComponentResourceKey ResourceId=GlyphDisabledForegroundKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}" HorizontalAlignment="Center" Height="5" SnapsToDevicePixels="True" VerticalAlignment="Center" Width="9"/>
+									</DataTemplate>
+								</Setter.Value>
+							</Setter>
+						</Trigger>
+						<Trigger Property="ButtonSpinnerLocation" Value="Left">
+							<Setter Property="Width" TargetName="firstContentColumn" Value="Auto"/>
+							<Setter Property="Width" TargetName="secondContentColumn" Value="*"/>
+							<Setter Property="Grid.Column" TargetName="contentPresenter" Value="1"/>
+							<Setter Property="Grid.Column" TargetName="gridContent" Value="0"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	
+	<Style x:Key="{x:Type tk:IntegerUpDown}" TargetType="tk:IntegerUpDown">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="HorizontalContentAlignment" Value="Right"/>
+		<Setter Property="IsTabStop" Value="False"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="TextAlignment" Value="Right"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="tk:IntegerUpDown">
+					<tk:ButtonSpinner x:Name="PART_Spinner" AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" HorizontalContentAlignment="Stretch" IsTabStop="False" ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}" VerticalContentAlignment="Stretch">
+						<tk:WatermarkTextBox x:Name="PART_TextBox" AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}" AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}" AcceptsReturn="False" BorderThickness="0" Background="Transparent" ContextMenu="{TemplateBinding ContextMenu}" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsUndoEnabled="True" MinWidth="20" Padding="{TemplateBinding Padding}" TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}" TextWrapping="NoWrap" TabIndex="{TemplateBinding TabIndex}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}" Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}"/>
+					</tk:ButtonSpinner>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlMouseOverBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+						</Trigger>
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False"/>
+								<Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False"/>
+							</MultiDataTrigger.Conditions>
+							<Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+						</MultiDataTrigger>
+						<DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+							<Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+						</DataTrigger>
+						<Trigger Property="IsKeyboardFocusWithin" Value="True">
+							<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+						</Trigger>
+						<Trigger Property="IsFocused" Value="True">
+							<Setter Property="FocusManager.FocusedElement" TargetName="PART_TextBox" Value="{Binding ElementName=PART_TextBox}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+    
+</ResourceDictionary>
