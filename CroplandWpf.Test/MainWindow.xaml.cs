@@ -189,7 +189,10 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty ClickedSearchItemProperty =
 			DependencyProperty.Register("ClickedSearchItem", typeof(object), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+		#endregion
 
+		#region CommandTextBox
 		public string CommandTextBoxString
 		{
 			get { return (string)GetValue(CommandTextBoxStringProperty); }
@@ -197,7 +200,6 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty CommandTextBoxStringProperty =
 			DependencyProperty.Register("CommandTextBoxString", typeof(string), typeof(MainWindow), new PropertyMetadata());
-		#endregion
 		#endregion
 
 		#region PasswordBox

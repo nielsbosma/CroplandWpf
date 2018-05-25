@@ -24,6 +24,7 @@
 		<ResourceDictionary Source="Default/MessageBoxWindow.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/OverlayHost.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/ProgressBar.xaml"></ResourceDictionary>
+		<ResourceDictionary Source="Default/NumericUpDown.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/WindowMessageBoxTemplates.xaml"></ResourceDictionary>
 	</ResourceDictionary.MergedDictionaries>
 

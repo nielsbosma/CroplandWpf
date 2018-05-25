@@ -171,4 +171,9 @@
 		<GradientStop Offset="1.0" Color="#FF2a9159"></GradientStop>
 	</LinearGradientBrush>
 
+	<StreamGeometry x:Key="geometryNumericUpDown_Arrow_Up">M0,6 L6,0 12,6 0,6z</StreamGeometry>
+
+	<SolidColorBrush x:Key="brushNumericUpDown_Arrow_Background">#FF757575</SolidColorBrush>
+
+
 </ResourceDictionary> 

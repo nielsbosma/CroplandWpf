@@ -18,12 +18,20 @@ namespace CroplandWpf.Components
 	public class SearchAutocmpleteItem : Button
 	{
 		#region Routed events
-		public static readonly RoutedEvent SearchAutocompleteItemClickedEvent =
-			EventManager.RegisterRoutedEvent("SearchAutocompleteItemClickedEvent", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SearchAutocmpleteItem));
-		public event RoutedEventHandler SelectionRequest
+		public static readonly RoutedEvent ClickedEvent =
+			EventManager.RegisterRoutedEvent("Clicked", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SearchAutocmpleteItem));
+		public event RoutedEventHandler Clicked
 		{
-			add { AddHandler(SearchAutocompleteItemClickedEvent, value); }
-			remove { RemoveHandler(SearchAutocompleteItemClickedEvent, value); }
+			add { AddHandler(ClickedEvent, value); }
+			remove { RemoveHandler(ClickedEvent, value); }
+		}
+
+		public static readonly RoutedEvent FocusedEvent =
+			EventManager.RegisterRoutedEvent("Focused", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SearchAutocmpleteItem));
+		public event RoutedEventHandler Focused
+		{
+			add { AddHandler(FocusedEvent, value); }
+			remove { RemoveHandler(FocusedEvent, value); }
 		}
 		#endregion
 
@@ -120,7 +128,7 @@ namespace CroplandWpf.Components
 		protected override void OnClick()
 		{
 			base.OnClick();
-			Dispatcher.Invoke(new Action(() => RaiseEvent(new RoutedEventArgs(SearchAutocompleteItemClickedEvent, this))), TimeSpan.FromMilliseconds(100));
+			Dispatcher.Invoke(new Action(() => RaiseEvent(new RoutedEventArgs(ClickedEvent, this))), TimeSpan.FromMilliseconds(100));
 		}
 
 		private void RefreshHighlight()

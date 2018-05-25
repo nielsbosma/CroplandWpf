@@ -320,6 +320,7 @@
 						<RadioButton Margin="5,5,5,3" GroupName="rbtest" IsChecked="True" Content="RadioButton 1 (group: rbtest)"/>
 						<RadioButton Margin="5,0,5,5" GroupName="rbtest" Content="RadioButton 2 (group: rbtest)"/>
 						<RadioButton Margin="5,0,5,5" IsEnabled="False" Content="RadioButton 3 (disabled)"/>
+						<Path Width="12" Height="6" Data="M0,6 L6,0 12,6 0,6z" Fill="Black"></Path>
 						<StackPanel Orientation="Horizontal">
 							<RadioButton x:Name="radioButtonTest" Margin="5,0,5,5" IsEnabled="False" IsChecked="True" Content="RadioButton 4 (checked/disabled)"/>
 							<CheckBox Margin="5,0" IsChecked="{Binding IsEnabled, ElementName=radioButtonTest, Mode=TwoWay}" Content="IsEnabled"/>
@@ -334,8 +335,17 @@
 						</Grid>
 						<Rectangle Fill="DarkGray" Height="1"/>
 						<TextBlock Margin="5" Text="Xceed IntegerUpDown"/>
-						<tk:IntegerUpDown Value="{Binding IntegerValueTest}" Style="{DynamicResource IntegerUpDownStyle1}"/>
-						<TextBlock Margin="20,5,5,5" Text="{Binding IntegerValueTest}"></TextBlock>
+						<StackPanel Orientation="Horizontal">
+							<tk:IntegerUpDown x:Name="integerUpDown" Margin="5,5,0,5" HorizontalAlignment="Left" Width="80" Value="{Binding IntegerValueTest}" Style="{DynamicResource IntegerUpDownStyle1}"/>
+							<Grid Margin="15,5,5,5">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"></RowDefinition>
+									<RowDefinition Height="Auto"></RowDefinition>
+								</Grid.RowDefinitions>
+								<TextBlock Grid.Row="0" Text="{Binding IntegerValueTest, StringFormat='IntegerValueTest: {0}'}"></TextBlock>
+								<CheckBox Grid.Row="1" IsChecked="{Binding ElementName=integerUpDown, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+							</Grid>
+						</StackPanel>
 						<TextBox Margin="5" Text="TextBox"/>
 						<TextBox Margin="5" IsEnabled="False" Text="TextBox (disabled)"/>
 						<TextBlock Margin="5" Text="PasswordBox"/>

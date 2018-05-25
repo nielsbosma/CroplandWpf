@@ -186,7 +186,7 @@ namespace CroplandWpf.Components
 				_editableTextBox.PreviewKeyDown += _editableTextBox_PreviewKeyDown;
 				refreshTimer.Tick += RefreshTimer_Tick;
 			}
-			AddHandler(SearchAutocmpleteItem.SearchAutocompleteItemClickedEvent, new RoutedEventHandler(OnSearchAutocompleteItemClicked));
+			AddHandler(SearchAutocmpleteItem.ClickedEvent, new RoutedEventHandler(OnSearchAutocompleteItemClicked));
 		}
 
 		private void SearchAutocompleteControl_Unloaded(object sender, RoutedEventArgs e)
