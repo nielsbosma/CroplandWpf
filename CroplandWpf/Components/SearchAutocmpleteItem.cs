@@ -67,6 +67,14 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty HighlightStringProperty =
 			DependencyProperty.Register("HighlightString", typeof(string), typeof(SearchAutocmpleteItem), new PropertyMetadata());
 
+		public bool IsSelected
+		{
+			get { return (bool)GetValue(IsSelectedProperty); }
+			set { SetValue(IsSelectedProperty, value); }
+		}
+		public static readonly DependencyProperty IsSelectedProperty =
+			DependencyProperty.Register("IsSelected", typeof(bool), typeof(SearchAutocmpleteItem), new PropertyMetadata());
+
 		private TextBlock displayTextBlock;
 
 		private List<Run> runsToRender
@@ -123,12 +131,19 @@ namespace CroplandWpf.Components
 			}
 			if (e.Property == DisplayStringProperty || e.Property == HighlightStringProperty)
 				RefreshHighlight();
+			if (e.Property == IsMouseOverProperty && (bool)e.NewValue)
+				IsSelected = true;
+			if (e.Property == IsSelectedProperty && (bool)e.NewValue)
+			{
+				RaiseEvent(new RoutedEventArgs(FocusedEvent, this));
+				BringIntoView();
+			}
 		}
 
 		protected override void OnClick()
 		{
 			base.OnClick();
-			Dispatcher.Invoke(new Action(() => RaiseEvent(new RoutedEventArgs(ClickedEvent, this))), TimeSpan.FromMilliseconds(100));
+			Dispatcher.Invoke(new Action(() => RaiseEvent(new RoutedEventArgs(ClickedEvent, this))));
 		}
 
 		private void RefreshHighlight()
@@ -137,20 +152,20 @@ namespace CroplandWpf.Components
 			if (DisplayString != null && HighlightString != null)
 			{
 				string displayStringLower = DisplayString.ToLower();
-				string highlightStringLower = HighlightString.ToLower();
+				string highlightStringLower = HighlightString.ToLower().Trim();
 				int highlightStartIndex = displayStringLower.IndexOf(highlightStringLower);
 				if (highlightStartIndex > 0)
 				{
 					runs.Add(GenerateRun(DisplayString.Substring(0, highlightStartIndex)));
-					runs.Add(GenerateRun(DisplayString.Substring(highlightStartIndex, HighlightString.Length), true));
-					if (highlightStartIndex + HighlightString.Length <= DisplayString.Length)
-						runs.Add(GenerateRun(DisplayString.Substring(highlightStartIndex + HighlightString.Length, DisplayString.Length - highlightStartIndex - HighlightString.Length)));
+					runs.Add(GenerateRun(DisplayString.Substring(highlightStartIndex, highlightStringLower.Length), true));
+					if (highlightStartIndex + highlightStringLower.Length <= DisplayString.Length)
+						runs.Add(GenerateRun(DisplayString.Substring(highlightStartIndex + highlightStringLower.Length, DisplayString.Length - highlightStartIndex - highlightStringLower.Length)));
 				}
 				else if (highlightStartIndex == 0)
 				{
-					runs.Add(GenerateRun(DisplayString.Substring(0, HighlightString.Length), true));
+					runs.Add(GenerateRun(DisplayString.Substring(0, highlightStringLower.Length), true));
 					if (highlightStringLower.Length + highlightStartIndex < displayStringLower.Length)
-						runs.Add(GenerateRun(DisplayString.Substring(HighlightString.Length, DisplayString.Length - HighlightString.Length)));
+						runs.Add(GenerateRun(DisplayString.Substring(highlightStringLower.Length, DisplayString.Length - highlightStringLower.Length)));
 				}
 			}
 			runsToRender = runs;

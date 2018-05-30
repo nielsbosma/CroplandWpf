@@ -427,8 +427,8 @@
 
 				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=comboBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
 				<TextBlock FontWeight="Bold" Margin="5"><Run Text="SearchAutocompleteControl (left-aligned tooltip)"/></TextBlock>
-				<c:SearchAutocompleteControl x:Name="searchAutocomplete" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding SearchResults}" SearchItemCommand="{Binding SearchItemClickCommand}"/>
-				<TextBlock Margin="15,3,0,3"><Run Text="clicked search item:"/><Run Text=" "/><Run Text="{Binding ClickedSearchItem}" FontWeight="Bold"/></TextBlock>
+				<c:SearchAutocompleteControl x:Name="searchAutocomplete" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding SearchResults}" SearchItemCommand="{Binding SearchItemClickCommand}" NoMatchesButtonCommand="{Binding NoMatchesFoundCommand}" SeeAllOptionsCommand="{Binding SeeMoreSearchOptionsCommand}"/>
+				<TextBlock Margin="15,3,0,3"><Run Text="selected search item:"/><Run Text=" "/><Run Text="{Binding ClickedSearchItem}" FontWeight="Bold"/></TextBlock>
 				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=searchAutocomplete, Mode=TwoWay}" Content="IsEnabled"/>
 			</StackPanel>
 			<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Top">
@@ -444,11 +444,11 @@
 					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
 					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
 				</StackPanel>
-				<TextBlock Margin="20,5,0,5"><InlineUIContainer>
-						<TextBlock Text="MessageBoxResult:"/>
-					</InlineUIContainer><Run Text=" "/><InlineUIContainer>
-						<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/>
-					</InlineUIContainer></TextBlock>
+				<TextBlock Margin="20,5,0,5">
+					<TextBlock Text="MessageBoxResult:"/>
+					<Run Text=" "/>
+					<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/>
+					</TextBlock>
 				<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
 				<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
 				<TextBlock Margin="5" FontWeight="Bold"><Run Text="DataGrid"/></TextBlock>
@@ -460,6 +460,13 @@
 						<DataGridComboBoxColumn Header="Personality Type" SelectedItemBinding="{Binding PersonalityType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource sourcePersonalityType}}" EditingElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}" ElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}"/>
 					</DataGrid.Columns>
 				</DataGrid>
+				<!--<ItemsControl ItemsSource="{Binding SearchResults}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}"></TextBlock>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>-->
 			</StackPanel>
 		</Grid>
 	</Border>

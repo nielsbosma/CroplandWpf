@@ -19,14 +19,6 @@ namespace CroplandWpf.Components
 	public class SearchAutocompleteControl : ItemsControl
 	{
 		#region Dps
-		public int SearchRefreshTimeout
-		{
-			get { return (int)GetValue(SearchRefreshTimeoutProperty); }
-			set { SetValue(SearchRefreshTimeoutProperty, value); }
-		}
-		public static readonly DependencyProperty SearchRefreshTimeoutProperty =
-			DependencyProperty.Register("SearchRefreshTimeout", typeof(int), typeof(SearchAutocompleteControl), new PropertyMetadata(500));
-
 		public string SearchString
 		{
 			get { return (string)GetValue(SearchStringProperty); }
@@ -51,21 +43,37 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty IsPopupOpenProperty =
 			DependencyProperty.Register("IsPopupOpen", typeof(bool), typeof(SearchAutocompleteControl), new PropertyMetadata());
 
-		public SearchAutocmpleteItem HighlightedItem
+		public SearchAutocmpleteItem SelectedItem
 		{
-			get { return (SearchAutocmpleteItem)GetValue(HighlightedItemProperty); }
-			private set { SetValue(HighlightedItemProperty, value); }
+			get { return (SearchAutocmpleteItem)GetValue(SelectedItemProperty); }
+			private set { SetValue(SelectedItemProperty, value); }
 		}
-		public static readonly DependencyProperty HighlightedItemProperty =
-			DependencyProperty.Register("HighlightedItem", typeof(SearchAutocmpleteItem), typeof(SearchAutocompleteControl), new PropertyMetadata());
+		public static readonly DependencyProperty SelectedItemProperty =
+			DependencyProperty.Register("SelectedItem", typeof(SearchAutocmpleteItem), typeof(SearchAutocompleteControl), new PropertyMetadata());
 
-		public string HighlightedSearchString
+		public bool HasNoMatchesButtonCommand
 		{
-			get { return (string)GetValue(HighlightedSearchStringProperty); }
-			private set { SetValue(HighlightedSearchStringProperty, value); }
+			get { return (bool)GetValue(HasNoMatchesButtonCommandProperty); }
+			private set { SetValue(HasNoMatchesButtonCommandProperty, value); }
 		}
-		public static readonly DependencyProperty HighlightedSearchStringProperty =
-			DependencyProperty.Register("HighlightedSearchString", typeof(string), typeof(SearchAutocompleteControl), new PropertyMetadata());
+		public static readonly DependencyProperty HasNoMatchesButtonCommandProperty =
+			DependencyProperty.Register("HasNoMatchesButtonCommand", typeof(bool), typeof(SearchAutocompleteControl), new PropertyMetadata());
+
+		public string NoMatchesFoundButtonText
+		{
+			get { return (string)GetValue(NoMatchesFoundButtonTextProperty); }
+			set { SetValue(NoMatchesFoundButtonTextProperty, value); }
+		}
+		public static readonly DependencyProperty NoMatchesFoundButtonTextProperty =
+			DependencyProperty.Register("NoMatchesFoundButtonText", typeof(string), typeof(SearchAutocompleteControl), new PropertyMetadata("[no matches found]"));
+
+		public string SeeAllOptionsButtonText
+		{
+			get { return (string)GetValue(SeeAllOptionsButtonTextProperty); }
+			set { SetValue(SeeAllOptionsButtonTextProperty, value); }
+		}
+		public static readonly DependencyProperty SeeAllOptionsButtonTextProperty =
+			DependencyProperty.Register("SeeAllOptionsButtonText", typeof(string), typeof(SearchAutocompleteControl), new PropertyMetadata("See All Options"));
 
 		#region Commands
 		public ICommand SearchResultRefreshCommand
@@ -83,16 +91,38 @@ namespace CroplandWpf.Components
 		}
 		public static readonly DependencyProperty SearchItemCommandProperty =
 			DependencyProperty.Register("SearchItemCommand", typeof(ICommand), typeof(SearchAutocompleteControl), new PropertyMetadata());
+
+		public ICommand NoMatchesButtonCommand
+		{
+			get { return (ICommand)GetValue(NoMatchesButtonCommandProperty); }
+			set { SetValue(NoMatchesButtonCommandProperty, value); }
+		}
+		public static readonly DependencyProperty NoMatchesButtonCommandProperty =
+			DependencyProperty.Register("NoMatchesButtonCommand", typeof(ICommand), typeof(SearchAutocompleteControl), new PropertyMetadata());
+
+		public ICommand SeeAllOptionsCommand
+		{
+			get { return (ICommand)GetValue(SeeAllOptionsCommandProperty); }
+			set { SetValue(SeeAllOptionsCommandProperty, value); }
+		}
+		public static readonly DependencyProperty SeeAllOptionsCommandProperty =
+			DependencyProperty.Register("SeeAllOptionsCommand", typeof(ICommand), typeof(SearchAutocompleteControl), new PropertyMetadata());
+
+		public DelegateCommand PopupButtonCommandInternal
+		{
+			get { return (DelegateCommand)GetValue(PopupButtonCommandInternalProperty); }
+			set { SetValue(PopupButtonCommandInternalProperty, value); }
+		}
+		public static readonly DependencyProperty PopupButtonCommandInternalProperty =
+			DependencyProperty.Register("PopupButtonCommandInternal", typeof(DelegateCommand), typeof(SearchAutocompleteControl), new PropertyMetadata());
 		#endregion
 		#endregion
 
 		#region Fields
 		private TextBox _editableTextBox;
 		private Popup _popup;
-		private DispatcherTimer refreshTimer;
 		private List<SearchAutocmpleteItem> focusableItems;
-		private string searchStringBackup;
-		private Action awaitingHighlightAction = null;
+		private bool refreshHighlightString = false;
 		#endregion
 
 		#region Properties
@@ -113,7 +143,7 @@ namespace CroplandWpf.Components
 			focusableItems = new List<SearchAutocmpleteItem>();
 			Loaded += SearchAutocompleteControl_Loaded;
 			Unloaded += SearchAutocompleteControl_Unloaded;
-			refreshTimer = new DispatcherTimer(DispatcherPriority.Send) { Interval = TimeSpan.FromMilliseconds(SearchRefreshTimeout) };
+			PopupButtonCommandInternal = new DelegateCommand(PopupButtonCommandInternal_Execute);
 		}
 		#endregion
 
@@ -124,38 +154,18 @@ namespace CroplandWpf.Components
 			if (e.Property == SearchStringProperty)
 			{
 				IsPopupOpen = !String.IsNullOrEmpty(e.NewValue as string);
-				if (IsPopupOpen)
-					focusableItems.ForEach(fi => SetBinding(SearchAutocmpleteItem.HighlightStringProperty, new Binding { Source = this, Path = new PropertyPath(SearchStringProperty), Mode = BindingMode.OneWay }));
-				IsIconVisible = String.IsNullOrEmpty(SearchString);
 			}
-			if (e.Property == HighlightedItemProperty)
+			if (e.Property == SelectedItemProperty)
 			{
-				if (e.OldValue == null && e.NewValue != null)
-				{
-					searchStringBackup = _editableTextBox.Text;
-					BindingOperations.ClearBinding(_editableTextBox, TextBox.TextProperty);
-					focusableItems.ForEach(fi =>
-					{
-						BindingOperations.ClearBinding(fi, SearchAutocmpleteItem.HighlightStringProperty);
-						fi.HighlightString = searchStringBackup;
-					});
-				}
 				if (e.OldValue != null)
-					FocusHelper.SetIsFocused(e.OldValue as SearchAutocmpleteItem, false);
+					(e.OldValue as SearchAutocmpleteItem).IsSelected = false;
 				if (e.NewValue != null)
-				{
-					FocusHelper.SetIsFocused(e.NewValue as SearchAutocmpleteItem, true);
-					(e.NewValue as SearchAutocmpleteItem).BringIntoView();
-					_editableTextBox.Text = (e.NewValue as SearchAutocmpleteItem).DisplayString;
-				}
-				if (e.NewValue == null)
-				{
-					SetBinding(SearchStringProperty, new Binding { Source = _editableTextBox, Path = new PropertyPath(TextBox.TextProperty), Mode = BindingMode.TwoWay, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged });
-					focusableItems.ForEach(fi => SetBinding(SearchAutocmpleteItem.HighlightStringProperty, new Binding { Source = this, Path = new PropertyPath(SearchStringProperty), Mode = BindingMode.OneWay }));
-					_editableTextBox.Text = searchStringBackup;
-					searchStringBackup = null;
-				}
+					(e.NewValue as SearchAutocmpleteItem).IsSelected = true;
+				if (e.OldValue == null && e.NewValue != null)
+					SearchString = _editableTextBox.Text;
 			}
+			if (e.Property == NoMatchesButtonCommandProperty)
+				HasNoMatchesButtonCommand = e.NewValue != null;
 		}
 
 		public override void OnApplyTemplate()
@@ -165,155 +175,10 @@ namespace CroplandWpf.Components
 			_editableTextBox = Template.FindName("PART_EditableTextBox", this) as TextBox;
 			if (_editableTextBox == null)
 				throw new TemplatePartNotFoundException("PART_EditableTextBox", GetType());
-			SetBinding(SearchStringProperty, new Binding { Source = _editableTextBox, Path = new PropertyPath(TextBox.TextProperty), Mode = BindingMode.TwoWay, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged });
-
 			_popup = Template.FindName("PART_Popup", this) as Popup;
 			if (_popup == null)
 				throw new TemplatePartNotFoundException("PART_Popup", GetType());
 			SetBinding(IsPopupOpenProperty, new Binding { Source = _popup, Path = new PropertyPath(Popup.IsOpenProperty), Mode = BindingMode.TwoWay });
-		}
-		#endregion
-
-		#region Init/deinit
-		private void SearchAutocompleteControl_Loaded(object sender, RoutedEventArgs e)
-		{
-			if (DesignerProperties.GetIsInDesignMode(this))
-				return;
-			Window.GetWindow(this).PreviewMouseLeftButtonDown += SearchAutocompleteControl_PreviewMouseLeftButtonDown;
-			if (_editableTextBox != null)
-			{
-				_editableTextBox.TextChanged += EditableTextBox_TextChanged;
-				_editableTextBox.PreviewKeyDown += _editableTextBox_PreviewKeyDown;
-				refreshTimer.Tick += RefreshTimer_Tick;
-			}
-			AddHandler(SearchAutocmpleteItem.ClickedEvent, new RoutedEventHandler(OnSearchAutocompleteItemClicked));
-		}
-
-		private void SearchAutocompleteControl_Unloaded(object sender, RoutedEventArgs e)
-		{
-			if (DesignerProperties.GetIsInDesignMode(this))
-				return;
-			Window.GetWindow(this).PreviewMouseLeftButtonDown -= SearchAutocompleteControl_PreviewMouseLeftButtonDown;
-			if (_editableTextBox != null)
-			{
-				_editableTextBox.TextChanged -= EditableTextBox_TextChanged;
-				_editableTextBox.PreviewKeyDown -= _editableTextBox_PreviewKeyDown;
-				refreshTimer.Tick += RefreshTimer_Tick;
-			}
-		}
-		#endregion
-
-		private void _editableTextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-		{
-			if (e.Key == System.Windows.Input.Key.Escape)
-				Unfocus();
-			if (e.Key == Key.Down)
-				HighlightNextItem();
-			if (e.Key == Key.Up)
-				HighlightPreviousItem();
-			if (e.Key == Key.Enter)
-			{
-				if (searchStringBackup != null)
-				{
-					if (SearchItemCommand.CanExecute(_editableTextBox.Text))
-						SearchItemCommand.Execute(_editableTextBox.Text);
-					Unfocus();
-				}
-			}
-		}
-
-		private void HighlightNextItem()
-		{
-			if (refreshTimer.IsEnabled)
-			{
-				awaitingHighlightAction = HighlightNextItem;
-				return;
-			}
-			if (!IsPopupOpen || focusableItems.Count == 0)
-				return;
-			blockRefresh = true;
-			SearchAutocmpleteItem hItem = focusableItems.FirstOrDefault(sai => FocusHelper.GetIsFocused(sai));
-			if (hItem == null)
-				HighlightedItem = focusableItems.First();
-			else if (focusableItems.Last() == hItem)
-			{
-				HighlightedItem = null;
-				//_editableTextBox.Text = searchStringBackup;
-			}
-			else
-				HighlightedItem = focusableItems[focusableItems.IndexOf(hItem) + 1];
-			if (HighlightedItem != null)
-				HighlightedSearchString = HighlightedItem.DisplayString;
-			_editableTextBox.CaretIndex = _editableTextBox.Text.Length;
-			blockRefresh = false;
-		}
-
-		private void HighlightPreviousItem()
-		{
-			if(refreshTimer.IsEnabled)
-			{
-				awaitingHighlightAction = HighlightPreviousItem;
-				return;
-			}
-			if (!IsPopupOpen || focusableItems.Count == 0)
-				return;
-			blockRefresh = true;
-			SearchAutocmpleteItem hItem = focusableItems.FirstOrDefault(sai => FocusHelper.GetIsFocused(sai));
-			if (hItem == null)
-				HighlightedItem = focusableItems.Last();
-			else if (focusableItems.First() == hItem)
-				HighlightedItem = null;
-			else
-				HighlightedItem = focusableItems[focusableItems.IndexOf(hItem) - 1];
-			if (HighlightedItem != null)
-				HighlightedSearchString = HighlightedItem.DisplayString;
-			_editableTextBox.CaretIndex = _editableTextBox.Text.Length;
-			blockRefresh = false;
-		}
-
-		private void SearchAutocompleteControl_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-		{
-			if (!IsMouseOver && _popup.IsOpen)
-				Unfocus();
-		}
-
-		private void OnSearchAutocompleteItemClicked(object sender, RoutedEventArgs e)
-		{
-			Unfocus();
-		}
-
-		private bool blockRefresh = false;
-
-		private void EditableTextBox_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			refreshTimer.Stop();
-			if (!blockRefresh)
-			{
-				refreshTimer.Start();
-			}
-		}
-
-		private void RefreshTimer_Tick(object sender, EventArgs e)
-		{
-			refreshTimer.Stop();
-			if (blockRefresh)
-				return;
-			if (SearchResultRefreshCommand != null)
-				SearchResultRefreshCommand.Execute(_editableTextBox.Text);
-			if (awaitingHighlightAction != null)
-			{
-				awaitingHighlightAction.Invoke();
-				awaitingHighlightAction = null;
-			}
-		}
-
-		private void Unfocus()
-		{
-			focusableItems.Clear();
-			HighlightedItem = null;
-			IsPopupOpen = false;
-			//SearchString = null;
-			Keyboard.ClearFocus();
 		}
 
 		protected override DependencyObject GetContainerForItemOverride()
@@ -326,8 +191,7 @@ namespace CroplandWpf.Components
 			SearchAutocmpleteItem itemContainer = element as SearchAutocmpleteItem;
 			if (itemContainer != null)
 			{
-				FocusHelper.SetIsFocusable(itemContainer, false);
-				FocusHelper.SetIsFocused(itemContainer, false);
+				itemContainer.IsSelected = false;
 				if (focusableItems.Contains(itemContainer))
 					focusableItems.Remove(itemContainer);
 			}
@@ -338,11 +202,196 @@ namespace CroplandWpf.Components
 		{
 			SearchAutocmpleteItem saItem = element as SearchAutocmpleteItem;
 			saItem.Content = item;
-			saItem.SetBinding(SearchAutocmpleteItem.HighlightStringProperty, new Binding { Source = this, Path = new PropertyPath(SearchStringProperty), Mode = BindingMode.OneWay });
 			saItem.SetBinding(SearchAutocmpleteItem.CommandProperty, new Binding { Source = this, Path = new PropertyPath(SearchItemCommandProperty), Mode = BindingMode.OneWay });
-			FocusHelper.SetIsFocusable(saItem, true);
 			focusableItems.Add(saItem);
+			saItem.HighlightString = SearchString;
 			base.PrepareContainerForItemOverride(element, item);
+		}
+		#endregion
+
+		#region Init/deinit
+		private void SearchAutocompleteControl_Loaded(object sender, RoutedEventArgs e)
+		{
+			if (DesignerProperties.GetIsInDesignMode(this))
+				return;
+			Window.GetWindow(this).PreviewMouseLeftButtonDown += SearchAutocompleteControl_PreviewMouseLeftButtonDown;
+			if (_editableTextBox != null)
+			{
+				_editableTextBox.TextChanged += EditableTextBox_TextChanged;
+				_editableTextBox.PreviewKeyDown += EditableTextBox_PreviewKeyDown;
+				_editableTextBox.PreviewTextInput += EditableTextBox_PreviewTextInput;
+			}
+			AddHandler(SearchAutocmpleteItem.ClickedEvent, new RoutedEventHandler(OnSearchAutocompleteItemClicked));
+			AddHandler(SearchAutocmpleteItem.FocusedEvent, new RoutedEventHandler(OnSearchAutocompleteItemFocused));
+			Window.GetWindow(this).Deactivated += OwnerWindow_Deactivated;
+		}
+
+		private void SearchAutocompleteControl_Unloaded(object sender, RoutedEventArgs e)
+		{
+			if (DesignerProperties.GetIsInDesignMode(this))
+				return;
+			Window.GetWindow(this).PreviewMouseLeftButtonDown -= SearchAutocompleteControl_PreviewMouseLeftButtonDown;
+			if (_editableTextBox != null)
+			{
+				_editableTextBox.TextChanged -= EditableTextBox_TextChanged;
+				_editableTextBox.PreviewKeyDown -= EditableTextBox_PreviewKeyDown;
+				_editableTextBox.PreviewTextInput -= EditableTextBox_PreviewTextInput;
+			}
+			RemoveHandler(SearchAutocmpleteItem.ClickedEvent, new RoutedEventHandler(OnSearchAutocompleteItemClicked));
+			RemoveHandler(SearchAutocmpleteItem.FocusedEvent, new RoutedEventHandler(OnSearchAutocompleteItemFocused));
+			Window.GetWindow(this).Deactivated -= OwnerWindow_Deactivated;
+		}
+		#endregion
+
+		private void EditableTextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		{
+			if (e.Key == Key.Space && String.IsNullOrWhiteSpace(_editableTextBox.Text))
+				e.Handled = true;
+			if (e.Key == Key.Delete || e.Key == Key.Back)
+				refreshHighlightString = true;
+			if (e.Key == Key.Escape)
+				Unfocus(true);
+			if (e.Key == Key.Down)
+				HighlightNextItem();
+			if (e.Key == Key.Up)
+				HighlightPreviousItem();
+			if (e.Key == Key.Enter)
+				SearchCompleted();
+		}
+
+		private void EditableTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			refreshHighlightString = true;
+			if (String.IsNullOrEmpty(_editableTextBox.Text) && e.Text == " ")
+				e.Handled = true;
+		}
+
+		private void EditableTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			if (refreshHighlightString)
+			{
+				SelectedItem = null;
+				SearchResultRefreshCommand.Execute(_editableTextBox.Text.Trim());
+				refreshHighlightString = false;
+				focusableItems.ForEach(sai => sai.HighlightString = _editableTextBox.Text);
+				SearchString = _editableTextBox.Text;
+			}
+		}
+
+		private void OwnerWindow_Deactivated(object sender, EventArgs e)
+		{
+			Unfocus(true);
+		}
+
+		private void HighlightNextItem()
+		{
+			if (!IsPopupOpen || focusableItems.Count == 0)
+				return;
+
+			if (SelectedItem == null)
+				SelectItem(focusableItems.First());
+			else if (focusableItems.Last() == SelectedItem)
+				SelectItem(null);
+			else
+				SelectItem(focusableItems[focusableItems.IndexOf(SelectedItem) + 1]);
+		}
+
+		private void HighlightPreviousItem()
+		{
+			if (!IsPopupOpen || focusableItems.Count == 0)
+				return;
+			if (SelectedItem == null)
+				SelectItem(focusableItems.Last());
+			else if (focusableItems.First() == SelectedItem)
+				SelectItem(null);
+			else
+				SelectItem(focusableItems[focusableItems.IndexOf(SelectedItem) - 1]);
+		}
+
+		private void SelectItem(SearchAutocmpleteItem item)
+		{
+			if (item == null)
+			{
+				refreshHighlightString = false;
+				SelectedItem = null;
+				_editableTextBox.Text = SearchString;
+				refreshHighlightString = true;
+			}
+			else
+			{
+				SelectedItem = item;
+				refreshHighlightString = false;
+				_editableTextBox.Text = SelectedItem.DisplayString;
+				refreshHighlightString = true;
+				_editableTextBox.CaretIndex = _editableTextBox.Text.Length;
+			}
+		}
+
+		private void SearchAutocompleteControl_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			//if (!IsMouseOver && _popup.IsOpen)
+			//	Unfocus();
+		}
+
+		private void OnSearchAutocompleteItemClicked(object sender, RoutedEventArgs e)
+		{
+			SearchAutocmpleteItem clickedItem = e.OriginalSource as SearchAutocmpleteItem;
+			if (SearchItemCommand != null)
+			{
+				object selectedItemData = null;
+				if (SelectedItem != null)
+				{
+					selectedItemData = SelectedItem.DataContext;
+					_editableTextBox.Text = SelectedItem.DisplayString;
+				}
+				SearchItemCommand.Execute(selectedItemData);
+			}
+			Unfocus(false);
+		}
+
+		private void OnSearchAutocompleteItemFocused(object sender, RoutedEventArgs e)
+		{
+			SelectedItem = e.OriginalSource as SearchAutocmpleteItem;
+		}
+
+		private void ClearFocusedItem()
+		{
+			focusableItems.ForEach(sai => sai.IsSelected = false);
+		}
+
+		private void Unfocus(bool clearText = false)
+		{
+			focusableItems.Clear();
+			if (clearText)
+			{
+				SelectedItem = null;
+				refreshHighlightString = false;
+				_editableTextBox.Text = "";
+				SearchString = "";
+				refreshHighlightString = true;
+				if (SearchItemCommand != null)
+					SearchItemCommand.Execute(null);
+			}
+			IsPopupOpen = false;
+			Keyboard.ClearFocus();
+		}
+
+		private void SearchCompleted()
+		{
+			if (SelectedItem != null && SearchItemCommand != null)
+				SearchItemCommand.Execute(SelectedItem.Content);
+			Unfocus();
+		}
+
+		private void PopupButtonCommandInternal_Execute(object obj)
+		{
+			if (obj == null)
+				return;
+			Unfocus(true);
+			if (obj.ToString() == "PART_ButtonNoMatches" && NoMatchesButtonCommand != null)
+				Dispatcher.BeginInvoke(new Action(() => { NoMatchesButtonCommand.Execute(null); }), DispatcherPriority.Background);
+			if (obj.ToString() == "PART_ButtonShowAllOptions" && SeeAllOptionsCommand != null)
+				Dispatcher.BeginInvoke(new Action(() => { SeeAllOptionsCommand.Execute(null); }), DispatcherPriority.Background);
 		}
 	}
 }

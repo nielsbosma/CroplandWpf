@@ -70,7 +70,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attached\FocusHelper.cs" />
     <Compile Include="Attached\FontLoader.cs" />
     <Compile Include="Attached\ItemsControlHelper.cs" />
     <Compile Include="Attached\MenuHelper.cs" />

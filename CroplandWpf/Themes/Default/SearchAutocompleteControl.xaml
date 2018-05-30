@@ -37,7 +37,7 @@
 						<TextBlock x:Name="PART_TextBlock" Padding="{TemplateBinding Padding}"></TextBlock>
 					</Grid>
 					<ControlTemplate.Triggers>
-						<Trigger Property="IsMouseOver" Value="True">
+						<!--<Trigger Property="IsMouseOver" Value="True">
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
@@ -52,8 +52,8 @@
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
-						</Trigger>
-						<Trigger Property="a:FocusHelper.IsFocused" Value="True">
+						</Trigger>-->
+						<Trigger Property="IsSelected" Value="True">
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
@@ -79,21 +79,64 @@
 		<StackPanel Orientation="Vertical" KeyboardNavigation.DirectionalNavigation="Cycle"></StackPanel>
 	</ItemsPanelTemplate>
 
+	<Style x:Key="styleButton_NoMatchesFound" TargetType="Button">
+		<Setter Property="Foreground" Value="Black"></Setter>
+		<Setter Property="IsEnabled" Value="False"></Setter>
+		<Setter Property="Opacity" Value="0.0"></Setter>
+		<Setter Property="Content" Value="[no matches found]"></Setter>
+		<Setter Property="Padding" Value="10,6"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid>
+						<Border x:Name="borderBackground_Overlap_MouseOver" IsHitTestVisible="False" Opacity="0.0" Background="{DynamicResource brushListBoxItem_MouseOver_Background}" Margin="1" CornerRadius="1"></Border>
+						<TextBlock Margin="{TemplateBinding Padding}" Padding="0" TextAlignment="Left" VerticalAlignment="Center" Text="{TemplateBinding Content}"></TextBlock>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="True">
+							<Setter Property="Opacity" Value="0.3"></Setter>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.150" From="0.0" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.150" From="1.0" To="0.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<Style x:Key="{x:Type c:SearchAutocompleteControl}" TargetType="c:SearchAutocompleteControl">
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="BorderBrush" Value="{DynamicResource brushItemsControl_Border}"></Setter>
 		<Setter Property="BorderThickness" Value="1"></Setter>
-		<Setter Property="Padding" Value="12"></Setter>
+		<Setter Property="Padding" Value="0,12,12,12"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:SearchAutocompleteControl">
 					<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2" Effect="{DynamicResource effectShadow_Small}">
 						<Grid>
-							<a:ToolTipBeacon></a:ToolTipBeacon>
-							<Rectangle x:Name="rectanglePopupWidth"></Rectangle>
-							<TextBox x:Name="PART_EditableTextBox" Margin="{TemplateBinding Padding}" Style="{StaticResource styleTextBox_SearchAutocompleteControl}"></TextBox>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"></ColumnDefinition>
+								<ColumnDefinition></ColumnDefinition>
+							</Grid.ColumnDefinitions>
+							<a:ToolTipBeacon Grid.ColumnSpan="2"></a:ToolTipBeacon>
+							<Rectangle Grid.ColumnSpan="2" x:Name="rectanglePopupWidth"></Rectangle>
 							<Path x:Name="pathLoupe" Opacity="1.0" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0" Fill="{DynamicResource brushIconFill}" Width="16" Height="16" Stretch="Fill" Data="{DynamicResource geometryIcon_Lens}" RenderTransformOrigin="0.5,0.5" RenderTransform="{DynamicResource transformScale_VerticalFlip}"></Path>
+							<TextBox Grid.Column="1" x:Name="PART_EditableTextBox" Margin="{TemplateBinding Padding}" Style="{StaticResource styleTextBox_SearchAutocompleteControl}" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"></TextBox>
 							<Popup x:Name="PART_Popup" AllowsTransparency="True" StaysOpen="True" Placement="Bottom" HorizontalOffset="-3">
 								<Grid>
 									<Border Margin="3,0,3,4" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="0,0,2,2"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,1,0,0" Width="{Binding ElementName=rectanglePopupWidth, Path=ActualWidth}">
@@ -105,8 +148,8 @@
 											<ScrollViewer Grid.Row="0" MinHeight="50" MaxHeight="250" Background="Transparent">
 												<ItemsPresenter></ItemsPresenter>
 											</ScrollViewer>
-											<TextBlock x:Name="textBlock_NoItems" IsHitTestVisible="False" Margin="10,6" VerticalAlignment="Top" HorizontalAlignment="Left" Opacity="0.0" Text="[no matches found]" Foreground="Black"></TextBlock>
-											<Button Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="6" Style="{DynamicResource styleButton_Util}">See All Options</Button>
+											<Button Grid.Row="0" x:Name="PART_ButtonNoMatches" IsHitTestVisible="False" VerticalAlignment="Top" Style="{StaticResource styleButton_NoMatchesFound}" Command="{TemplateBinding PopupButtonCommandInternal}" CommandParameter="PART_ButtonNoMatches" Content="{TemplateBinding NoMatchesFoundButtonText}"></Button>
+											<Button Grid.Row="1" x:Name="PART_ButtonShowAllOptions" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="6" Style="{DynamicResource styleButton_Util}" Command="{TemplateBinding PopupButtonCommandInternal}" CommandParameter="PART_ButtonShowAllOptions" Content="{TemplateBinding SeeAllOptionsButtonText}"></Button>
 										</Grid>
 									</Border>
 								</Grid>
@@ -114,6 +157,9 @@
 						</Grid>
 					</Border>
 					<ControlTemplate.Triggers>
+						<Trigger Property="SeeAllOptionsCommand" Value="{x:Null}">
+							<Setter TargetName="PART_ButtonShowAllOptions" Property="Visibility" Value="Collapsed"></Setter>
+						</Trigger>
 						<Trigger SourceName="PART_Popup" Property="IsOpen" Value="True">
 							<Setter TargetName="borderBackground" Property="CornerRadius" Value="2,2,0,0"></Setter>
 						</Trigger>
@@ -133,22 +179,6 @@
 								</BeginStoryboard>
 							</Trigger.ExitActions>
 						</Trigger>
-						<!--<Trigger SourceName="PART_EditableTextBox" Property="IsKeyboardFocused" Value="True">
-							<Trigger.EnterActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="pathLoupe" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.EnterActions>
-							<Trigger.ExitActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="pathLoupe" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.100"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.ExitActions>
-						</Trigger>-->
 						<Trigger Property="IsIconVisible" Value="False">
 							<Trigger.EnterActions>
 								<BeginStoryboard>
@@ -165,23 +195,22 @@
 								</BeginStoryboard>
 							</Trigger.ExitActions>
 						</Trigger>
-							<Trigger Property="HasItems" Value="False">
-							<Trigger.EnterActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="textBlock_NoItems" Storyboard.TargetProperty="Opacity" From="0.0" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.EnterActions>
-							<Trigger.ExitActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="textBlock_NoItems" Storyboard.TargetProperty="Opacity" From="0.3" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.ExitActions>
-						</Trigger>
-						<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ItemsSource.Count}" Value="0"></DataTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="HasItems" Value="False"></Condition>
+								<Condition Property="HasNoMatchesButtonCommand" Value="True"></Condition>
+							</MultiTrigger.Conditions>
+							<Setter TargetName="PART_ButtonNoMatches" Property="IsEnabled" Value="True"></Setter>
+							<Setter TargetName="PART_ButtonNoMatches" Property="IsHitTestVisible" Value="True"></Setter>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="HasItems" Value="False"></Condition>
+								<Condition Property="HasNoMatchesButtonCommand" Value="False"></Condition>
+							</MultiTrigger.Conditions>
+							<Setter TargetName="PART_ButtonNoMatches" Property="IsEnabled" Value="True"></Setter>
+							<Setter TargetName="PART_ButtonNoMatches" Property="IsHitTestVisible" Value="True"></Setter>
+						</MultiTrigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>

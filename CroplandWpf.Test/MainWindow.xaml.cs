@@ -246,6 +246,15 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty AddNewFileTestCommandProperty =
 			DependencyProperty.Register("AddNewFileTestCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 
+		public DelegateCommand CommandTextBoxCommand
+		{
+			get { return (DelegateCommand)GetValue(CommandTextBoxCommandProperty); }
+			private set { SetValue(CommandTextBoxCommandProperty, value); }
+		}
+		public static readonly DependencyProperty CommandTextBoxCommandProperty =
+			DependencyProperty.Register("CommandTextBoxCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		#region SearchAutocompleteControl
 		public DelegateCommand ConversionSearchResultRefreshCommand
 		{
 			get { return (DelegateCommand)GetValue(ConversionSearchResultRefreshCommandProperty); }
@@ -262,13 +271,22 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty SearchItemClickCommandProperty =
 			DependencyProperty.Register("SearchItemClickCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 
-		public DelegateCommand CommandTextBoxCommand
+		public DelegateCommand SeeMoreSearchOptionsCommand
 		{
-			get { return (DelegateCommand)GetValue(CommandTextBoxCommandProperty); }
-			private set { SetValue(CommandTextBoxCommandProperty, value); }
+			get { return (DelegateCommand)GetValue(SeeMoreSearchOptionsCommandProperty); }
+			private set { SetValue(SeeMoreSearchOptionsCommandProperty, value); }
 		}
-		public static readonly DependencyProperty CommandTextBoxCommandProperty =
-			DependencyProperty.Register("CommandTextBoxCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+		public static readonly DependencyProperty SeeMoreSearchOptionsCommandProperty =
+			DependencyProperty.Register("SeeMoreSearchOptionsCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand NoMatchesFoundCommand
+		{
+			get { return (DelegateCommand)GetValue(NoMatchesFoundCommandProperty); }
+			private set { SetValue(NoMatchesFoundCommandProperty, value); }
+		}
+		public static readonly DependencyProperty NoMatchesFoundCommandProperty =
+			DependencyProperty.Register("NoMatchesFoundCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata()); 
+		#endregion
 
 		#region Menu commands
 		public DelegateCommand OpenCommand
@@ -369,8 +387,20 @@ namespace CroplandWpf.Test
 				"Convert to xsl",
 				"Cnovetr to pdf",
 				"Convert to cs",
-				"Convert to jpg"
+				"Convert to jpg",
+				"Remove ID3 Tags",
+				"Rasterize Vector Format",
+				"Ask a Question",
+				"Get an Answer",
+				"Get Multiple Answers",
+				"Get Two Answers",
+				"Conversion FAQ",
+				"Send Conversion Request",
+				"Convert",
+				"Convert to"
 			};
+			NoMatchesFoundCommand = new DelegateCommand((o) => { MessageBoxService.Show(new MessageBoxInfo { Buttons = MessageBoxButton.OK, Content = "No matches found command executed." });  });
+			SeeMoreSearchOptionsCommand = new DelegateCommand((o) => { MessageBoxService.Show(new MessageBoxInfo { Buttons = MessageBoxButton.OK, Content = "See more search options command executed." }); });
 
 			PersonsTestSource = new ObservableCollection<Person>()
 			{
@@ -459,6 +489,7 @@ namespace CroplandWpf.Test
 			#endregion
 		}
 
+		#region Commanding
 		private void ShowMessageBoxCommand_Execute(object obj)
 		{
 			MessageBoxResult = MessageBoxService.Show(obj as MessageBoxInfo);
@@ -469,7 +500,6 @@ namespace CroplandWpf.Test
 			return arg as MessageBoxInfo != null;
 		}
 
-		#region Commanding
 		private void ConversionSearchResultRefreshCommand_Execute(object obj)
 		{
 			string searchString = obj as string;
@@ -578,7 +608,7 @@ namespace CroplandWpf.Test
 			var progress = new Progress<int>(value => ProgressBarValueTest = value);
 			await Task.Run(() =>
 			{
-				Dispatcher.Invoke(()=> { IsInProgress = true; CommandManager.InvalidateRequerySuggested(); }, System.Windows.Threading.DispatcherPriority.Background);
+				Dispatcher.Invoke(() => { IsInProgress = true; CommandManager.InvalidateRequerySuggested(); }, System.Windows.Threading.DispatcherPriority.Background);
 				for (int i = 0; i < 100; i++)
 				{
 					((IProgress<int>)progress).Report(i);
