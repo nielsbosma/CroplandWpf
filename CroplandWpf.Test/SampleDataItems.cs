@@ -95,4 +95,15 @@ namespace CroplandWpf.Test
 
 		public FileItem() { }
 	}
+
+	public class CustomSearchItem : ViewModelBase
+	{
+		public string Name { get; set; }
+
+		public string Description { get; set; }
+
+		public bool HasBeenFoundBefore { get; set; }
+
+		public CustomSearchItem() { }
+	}
 }

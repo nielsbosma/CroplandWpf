@@ -222,57 +222,6 @@
 			<Setter Property="a:ToolTipBeacon.ToolTipTemplateKey" Value="templateToolTip_RemovableItemContentControl_TopPlacement"/>
 			<Setter Property="a:ToolTipBeacon.PlacementPriority" Value="Bottom"/>
 		</Style>
-		<Style x:Key="IntegerUpDownStyle1" TargetType="{x:Type tk:IntegerUpDown}">
-			<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
-			<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlNormalBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
-			<Setter Property="BorderThickness" Value="1"/>
-			<Setter Property="HorizontalContentAlignment" Value="Right"/>
-			<Setter Property="IsTabStop" Value="False"/>
-			<Setter Property="VerticalContentAlignment" Value="Center"/>
-			<Setter Property="TextAlignment" Value="Right"/>
-			<Setter Property="WatermarkTemplate">
-				<Setter.Value>
-					<DataTemplate>
-						<ContentControl Content="{Binding}" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Focusable="False" Margin="0,0,3,0"/>
-					</DataTemplate>
-				</Setter.Value>
-			</Setter>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type tk:IntegerUpDown}">
-						<tk:ButtonSpinner x:Name="PART_Spinner" AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" HorizontalContentAlignment="Stretch" IsTabStop="False" ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}" VerticalContentAlignment="Stretch">
-							<tk:WatermarkTextBox x:Name="PART_TextBox" AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}" AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}" AcceptsReturn="False" BorderThickness="0" Background="Transparent" ContextMenu="{TemplateBinding ContextMenu}" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsUndoEnabled="True" MinWidth="20" Padding="{TemplateBinding Padding}" TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}" TextWrapping="NoWrap" TabIndex="{TemplateBinding TabIndex}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}" Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}"/>
-						</tk:ButtonSpinner>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsMouseOver" Value="True">
-								<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlMouseOverBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
-							</Trigger>
-							<MultiDataTrigger>
-								<MultiDataTrigger.Conditions>
-									<Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False"/>
-									<Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False"/>
-								</MultiDataTrigger.Conditions>
-								<Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
-							</MultiDataTrigger>
-							<DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
-								<Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
-							</DataTrigger>
-							<Trigger Property="IsKeyboardFocusWithin" Value="True">
-								<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
-							</Trigger>
-							<Trigger Property="IsEnabled" Value="False">
-								<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-							</Trigger>
-							<Trigger Property="IsFocused" Value="True">
-								<Setter Property="FocusManager.FocusedElement" TargetName="PART_TextBox" Value="{Binding ElementName=PART_TextBox}"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
 	</Window.Resources>
 
 	<Border>
@@ -336,10 +285,10 @@
 						<Rectangle Fill="DarkGray" Height="1"/>
 						<TextBlock Margin="5" Text="Xceed IntegerUpDown"/>
 						<StackPanel Orientation="Horizontal">
-							<tk:IntegerUpDown x:Name="integerUpDown" Margin="5,5,0,5" HorizontalAlignment="Left" Width="80" Value="{Binding IntegerValueTest}" Style="{DynamicResource IntegerUpDownStyle1}"/>
+							<tk:IntegerUpDown x:Name="integerUpDown" Margin="5,5,0,5" HorizontalAlignment="Left" Width="80" Value="{Binding IntegerValueTest}" />
 							<Grid Margin="15,5,5,5">
 								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto"></RowDefinition>
+									<RowDefinition/>
 									<RowDefinition Height="Auto"></RowDefinition>
 								</Grid.RowDefinitions>
 								<TextBlock Grid.Row="0" Text="{Binding IntegerValueTest, StringFormat='IntegerValueTest: {0}'}"></TextBlock>
@@ -426,10 +375,22 @@
 				<ComboBox Margin="3" Style="{DynamicResource styleComboBox_Light}"  ItemsSource="{Binding TestItemsSource}"/>
 
 				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=comboBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
-				<TextBlock FontWeight="Bold" Margin="5"><Run Text="SearchAutocompleteControl (left-aligned tooltip)"/></TextBlock>
-				<c:SearchAutocompleteControl x:Name="searchAutocomplete" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding SearchResults}" SearchItemCommand="{Binding SearchItemClickCommand}" NoMatchesButtonCommand="{Binding NoMatchesFoundCommand}" SeeAllOptionsCommand="{Binding SeeMoreSearchOptionsCommand}"/>
-				<TextBlock Margin="15,3,0,3"><Run Text="selected search item:"/><Run Text=" "/><Run Text="{Binding ClickedSearchItem}" FontWeight="Bold"/></TextBlock>
-				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=searchAutocomplete, Mode=TwoWay}" Content="IsEnabled"/>
+				<TextBlock FontWeight="Bold" Margin="5" TextWrapping="Wrap">SearchAutocompleteControl (left-aligned tooltip)</TextBlock>
+				<c:SearchAutocompleteControl x:Name="searchAutocomplete_String" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding StringSearchResults}" SearchItemCommand="{Binding StringSearchItemClickCommand}" NoMatchesButtonCommand="{Binding NoMatchesFoundCommand}" SeeAllOptionsCommand="{Binding SeeMoreSearchOptionsCommand}"/>
+				<TextBlock Margin="15,3,0,3" TextWrapping="Wrap">
+					<Run Text="selected search item:"/>
+					<Run Text=" "/>
+					<Run Text="{Binding ClickedStringSearchItem}" FontWeight="Bold"/>
+				</TextBlock>
+				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=searchAutocomplete_String, Mode=TwoWay}" Content="IsEnabled"/>
+				<c:SearchAutocompleteControl x:Name="searchAutocomplete_SearchItem" AutoFocusOnLoad="True" SearchPropertyBindingPath="Description"  SearchResultRefreshCommand="{Binding CustomSearchItemSearchResultRefreshCommand}" ItemsSource="{Binding CustomItemSearchResults}" SearchItemCommand="{Binding CustomSearchItemClickCommand}"/>
+				<TextBlock Margin="15,3,0,3" TextWrapping="Wrap">
+					<Run Text="selected search item:"/>
+					<LineBreak></LineBreak>
+					<Run Text="{Binding ClickedCustomSearchItem.Name}" FontWeight="Bold"/>
+					<Run> </Run>
+					<Run Text="{Binding ClickedCustomSearchItem.Description}" FontWeight="Normal"/>
+				</TextBlock>
 			</StackPanel>
 			<StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Top">
 				<TextBlock Margin="5"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>
@@ -460,7 +421,7 @@
 						<DataGridComboBoxColumn Header="Personality Type" SelectedItemBinding="{Binding PersonalityType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource sourcePersonalityType}}" EditingElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}" ElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}"/>
 					</DataGrid.Columns>
 				</DataGrid>
-				<!--<ItemsControl ItemsSource="{Binding SearchResults}">
+				<!--<ItemsControl ItemsSource="{Binding StringSearchResults}">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
 							<TextBlock Text="{Binding}"></TextBlock>

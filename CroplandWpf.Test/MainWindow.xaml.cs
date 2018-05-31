@@ -19,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using tk = Xceed.Wpf.Toolkit;
 
 namespace CroplandWpf.Test
 {
@@ -166,29 +167,53 @@ namespace CroplandWpf.Test
 		#endregion
 
 		#region SearchAutocompleteControl
-		public ObservableCollection<string> SearchAutocompleteTestSource
+		public ObservableCollection<string> SearchAutocompleteTestSource_String
 		{
-			get { return (ObservableCollection<string>)GetValue(SearchAutocompleteTestSourceProperty); }
-			private set { SetValue(SearchAutocompleteTestSourceProperty, value); }
+			get { return (ObservableCollection<string>)GetValue(SearchAutocompleteTestSource_StringProperty); }
+			private set { SetValue(SearchAutocompleteTestSource_StringProperty, value); }
 		}
-		public static readonly DependencyProperty SearchAutocompleteTestSourceProperty =
-			DependencyProperty.Register("SearchAutocompleteTestSource", typeof(ObservableCollection<string>), typeof(MainWindow), new PropertyMetadata());
+		public static readonly DependencyProperty SearchAutocompleteTestSource_StringProperty =
+			DependencyProperty.Register("SearchAutocompleteTestSource_String", typeof(ObservableCollection<string>), typeof(MainWindow), new PropertyMetadata());
 
-		public ObservableCollection<string> SearchResults
+		public ObservableCollection<CustomSearchItem> SearchAutocompleteTestSource_SearchItem
 		{
-			get { return (ObservableCollection<string>)GetValue(SearchResultsProperty); }
-			private set { SetValue(SearchResultsProperty, value); }
+			get { return (ObservableCollection<CustomSearchItem>)GetValue(SearchAutocompleteTestSource_SearchItemProperty); }
+			private set { SetValue(SearchAutocompleteTestSource_SearchItemProperty, value); }
 		}
-		public static readonly DependencyProperty SearchResultsProperty =
-			DependencyProperty.Register("SearchResults", typeof(ObservableCollection<string>), typeof(MainWindow), new PropertyMetadata());
+		public static readonly DependencyProperty SearchAutocompleteTestSource_SearchItemProperty =
+			DependencyProperty.Register("SearchAutocompleteTestSource_SearchItem", typeof(ObservableCollection<CustomSearchItem>), typeof(MainWindow), new PropertyMetadata());
 
-		public object ClickedSearchItem
+		public ObservableCollection<string> StringSearchResults
 		{
-			get { return (object)GetValue(ClickedSearchItemProperty); }
-			set { SetValue(ClickedSearchItemProperty, value); }
+			get { return (ObservableCollection<string>)GetValue(StringSearchResultsProperty); }
+			private set { SetValue(StringSearchResultsProperty, value); }
 		}
-		public static readonly DependencyProperty ClickedSearchItemProperty =
-			DependencyProperty.Register("ClickedSearchItem", typeof(object), typeof(MainWindow), new PropertyMetadata());
+		public static readonly DependencyProperty StringSearchResultsProperty =
+			DependencyProperty.Register("StringSearchResults", typeof(ObservableCollection<string>), typeof(MainWindow), new PropertyMetadata());
+
+		public ObservableCollection<CustomSearchItem> CustomItemSearchResults
+		{
+			get { return (ObservableCollection<CustomSearchItem>)GetValue(CustomItemSearchResultsProperty); }
+			private set { SetValue(CustomItemSearchResultsProperty, value); }
+		}
+		public static readonly DependencyProperty CustomItemSearchResultsProperty =
+			DependencyProperty.Register("CustomItemSearchResults", typeof(ObservableCollection<CustomSearchItem>), typeof(MainWindow), new PropertyMetadata());
+
+		public object ClickedStringSearchItem
+		{
+			get { return (object)GetValue(ClickedStringSearchItemProperty); }
+			set { SetValue(ClickedStringSearchItemProperty, value); }
+		}
+		public static readonly DependencyProperty ClickedStringSearchItemProperty =
+			DependencyProperty.Register("ClickedStringSearchItem", typeof(object), typeof(MainWindow), new PropertyMetadata());
+
+		public CustomSearchItem ClickedCustomSearchItem
+		{
+			get { return (CustomSearchItem)GetValue(ClickedCustomSearchItemProperty); }
+			set { SetValue(ClickedCustomSearchItemProperty, value); }
+		}
+		public static readonly DependencyProperty ClickedCustomSearchItemProperty =
+			DependencyProperty.Register("ClickedCustomSearchItem", typeof(CustomSearchItem), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 		#endregion
 
@@ -263,13 +288,29 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty ConversionSearchResultRefreshCommandProperty =
 			DependencyProperty.Register("ConversionSearchResultRefreshCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 
-		public DelegateCommand SearchItemClickCommand
+		public DelegateCommand CustomSearchItemSearchResultRefreshCommand
 		{
-			get { return (DelegateCommand)GetValue(SearchItemClickCommandProperty); }
-			set { SetValue(SearchItemClickCommandProperty, value); }
+			get { return (DelegateCommand)GetValue(CustomSearchItemSearchResultRefreshCommandProperty); }
+			private set { SetValue(CustomSearchItemSearchResultRefreshCommandProperty, value); }
 		}
-		public static readonly DependencyProperty SearchItemClickCommandProperty =
-			DependencyProperty.Register("SearchItemClickCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+		public static readonly DependencyProperty CustomSearchItemSearchResultRefreshCommandProperty =
+			DependencyProperty.Register("CustomSearchItemSearchResultRefreshCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand StringSearchItemClickCommand
+		{
+			get { return (DelegateCommand)GetValue(StringSearchItemClickCommandProperty); }
+			private set { SetValue(StringSearchItemClickCommandProperty, value); }
+		}
+		public static readonly DependencyProperty StringSearchItemClickCommandProperty =
+			DependencyProperty.Register("StringSearchItemClickCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand CustomSearchItemClickCommand
+		{
+			get { return (DelegateCommand)GetValue(CustomSearchItemClickCommandProperty); }
+			private set { SetValue(CustomSearchItemClickCommandProperty, value); }
+		}
+		public static readonly DependencyProperty CustomSearchItemClickCommandProperty =
+			DependencyProperty.Register("CustomSearchItemClickCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 
 		public DelegateCommand SeeMoreSearchOptionsCommand
 		{
@@ -285,7 +326,7 @@ namespace CroplandWpf.Test
 			private set { SetValue(NoMatchesFoundCommandProperty, value); }
 		}
 		public static readonly DependencyProperty NoMatchesFoundCommandProperty =
-			DependencyProperty.Register("NoMatchesFoundCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata()); 
+			DependencyProperty.Register("NoMatchesFoundCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
 		#region Menu commands
@@ -374,7 +415,7 @@ namespace CroplandWpf.Test
 				new FileItem{ Name = "File6.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) }
 			};
 
-			SearchAutocompleteTestSource = new ObservableCollection<string>
+			SearchAutocompleteTestSource_String = new ObservableCollection<string>
 			{
 				"Convert to bmp",
 				"Convert to psd",
@@ -399,7 +440,34 @@ namespace CroplandWpf.Test
 				"Convert",
 				"Convert to"
 			};
-			NoMatchesFoundCommand = new DelegateCommand((o) => { MessageBoxService.Show(new MessageBoxInfo { Buttons = MessageBoxButton.OK, Content = "No matches found command executed." });  });
+
+			SearchAutocompleteTestSource_SearchItem = new ObservableCollection<CustomSearchItem>
+			{
+				new CustomSearchItem{ Name = "Convert to bmp", Description = "Conversion to BMP raster image format" },
+				new CustomSearchItem{ Name = "Convert to psd", Description = "Conversion to Photoshop format" },
+				new CustomSearchItem{ Name = "Convert to 3ds", Description = "Conversion to 3DS Max format" },
+				new CustomSearchItem{ Name = "Convert to ai", Description = "Conversion to Adobe Illustrator format" },
+				new CustomSearchItem{ Name = "Convert to max", Description = "Conversion to 3DS Max Format" },
+				new CustomSearchItem{ Name = "Convert to xml", Description = "Conversion to BMP raster image format" },
+				new CustomSearchItem{ Name = "Convert to jpeg", Description = "Conversion to JPEG raster image format" },
+				new CustomSearchItem{ Name = "Convert to doc", Description = "Conversion to MS Word document format" },
+				new CustomSearchItem{ Name = "Convert to xls", Description = "Conversion to MS Excel spreadsheet format" },
+				new CustomSearchItem{ Name = "Cnovetr to pdf", Description = "Cnoversion to Adobe PDF document format" },
+				new CustomSearchItem{ Name = "Convert to cs", Description = "Conversion to C# code file format" },
+				new CustomSearchItem{ Name = "Convert to jpg", Description = "Conversion to JPG raster image format" },
+				new CustomSearchItem{ Name = "Remove ID3 Tags", Description = "Removing of tags from MP3 audio file" },
+				new CustomSearchItem{ Name = "Rasterize Vector Format", Description = "Rasterizing of vector image" },
+				new CustomSearchItem{ Name = "Ask a Question", Description = "Ask some question, apparently" },
+				new CustomSearchItem{ Name = "Get an Answer", Description = "Getting an answer to your question" },
+				new CustomSearchItem{ Name = "Get Multiple Answers", Description = "The more you know..." },
+				new CustomSearchItem{ Name = "Get Two Answers", Description = "Only two answers available" },
+				new CustomSearchItem{ Name = "Conversion FAQ", Description = "General answers and questions about conversion process" },
+				new CustomSearchItem{ Name = "Send Conversion Request", Description = "Send conversion rquest if you are not proficient enough to do that" },
+				new CustomSearchItem{ Name = "Convert", Description = "Just convert it" },
+				new CustomSearchItem{ Name = "Convert to", Description = "Just convert it to something" },
+			};
+
+			NoMatchesFoundCommand = new DelegateCommand((o) => { MessageBoxService.Show(new MessageBoxInfo { Buttons = MessageBoxButton.OK, Content = "No matches found command executed." }); });
 			SeeMoreSearchOptionsCommand = new DelegateCommand((o) => { MessageBoxService.Show(new MessageBoxInfo { Buttons = MessageBoxButton.OK, Content = "See more search options command executed." }); });
 
 			PersonsTestSource = new ObservableCollection<Person>()
@@ -423,7 +491,9 @@ namespace CroplandWpf.Test
 			RemoveRequestTestCommand = new DelegateCommand(RemoveRequestTestCommand_Execute);
 			AddNewFileTestCommand = new DelegateCommand(AddNewFileTestCommand_Execute);
 			ConversionSearchResultRefreshCommand = new DelegateCommand(ConversionSearchResultRefreshCommand_Execute);
-			SearchItemClickCommand = new DelegateCommand(SearchItemClickCommand_Execute);
+			CustomSearchItemSearchResultRefreshCommand = new DelegateCommand(CustomSearchItemSearchResultRefreshCommand_Execute);
+			StringSearchItemClickCommand = new DelegateCommand(StringSearchItemClickCommand_Execute);
+			CustomSearchItemClickCommand = new DelegateCommand(CustomSearchItemClickCommand_Execute);
 			CommandTextBoxCommand = new DelegateCommand(CommandTextBoxCommand_Execute, CommandTextBoxCommand_CanExecute);
 
 			#region Menu
@@ -504,12 +574,26 @@ namespace CroplandWpf.Test
 		{
 			string searchString = obj as string;
 			if (String.IsNullOrWhiteSpace(searchString))
-				SearchResults = new ObservableCollection<string>();
+				StringSearchResults = new ObservableCollection<string>();
 			else
 			{
 				searchString = searchString.ToLower();
-				SearchResults = new ObservableCollection<string>(from cs in SearchAutocompleteTestSource
+				StringSearchResults = new ObservableCollection<string>(from cs in SearchAutocompleteTestSource_String
 																 where cs != null && cs.ToLower().Contains(searchString)
+																 select cs);
+			}
+		}
+
+		private void CustomSearchItemSearchResultRefreshCommand_Execute(object obj)
+		{
+			string searchString = obj as string;
+			if (String.IsNullOrWhiteSpace(searchString))
+				CustomItemSearchResults = new ObservableCollection<CustomSearchItem>();
+			else
+			{
+				searchString = searchString.ToLower();
+				CustomItemSearchResults = new ObservableCollection<CustomSearchItem>(from cs in SearchAutocompleteTestSource_SearchItem
+																 where cs != null && cs.Description.ToLower().Contains(searchString)
 																 select cs);
 			}
 		}
@@ -535,9 +619,14 @@ namespace CroplandWpf.Test
 			}
 		}
 
-		private void SearchItemClickCommand_Execute(object parameter)
+		private void StringSearchItemClickCommand_Execute(object parameter)
 		{
-			ClickedSearchItem = parameter;
+			ClickedStringSearchItem = parameter;
+		}
+
+		private void CustomSearchItemClickCommand_Execute(object obj)
+		{
+			ClickedCustomSearchItem = obj as CustomSearchItem;
 		}
 
 		private bool CommandTextBoxCommand_CanExecute(object parameter)

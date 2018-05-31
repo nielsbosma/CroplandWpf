@@ -37,22 +37,6 @@
 						<TextBlock x:Name="PART_TextBlock" Padding="{TemplateBinding Padding}"></TextBlock>
 					</Grid>
 					<ControlTemplate.Triggers>
-						<!--<Trigger Property="IsMouseOver" Value="True">
-							<Trigger.EnterActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.150" From="0.0" To="1.0"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.EnterActions>
-							<Trigger.ExitActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.150" From="1.0" To="0.0"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.ExitActions>
-						</Trigger>-->
 						<Trigger Property="IsSelected" Value="True">
 							<Trigger.EnterActions>
 								<BeginStoryboard>
@@ -136,10 +120,10 @@
 							<a:ToolTipBeacon Grid.ColumnSpan="2"></a:ToolTipBeacon>
 							<Rectangle Grid.ColumnSpan="2" x:Name="rectanglePopupWidth"></Rectangle>
 							<Path x:Name="pathLoupe" Opacity="1.0" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0" Fill="{DynamicResource brushIconFill}" Width="16" Height="16" Stretch="Fill" Data="{DynamicResource geometryIcon_Lens}" RenderTransformOrigin="0.5,0.5" RenderTransform="{DynamicResource transformScale_VerticalFlip}"></Path>
-							<TextBox Grid.Column="1" x:Name="PART_EditableTextBox" Margin="{TemplateBinding Padding}" Style="{StaticResource styleTextBox_SearchAutocompleteControl}" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"></TextBox>
+							<TextBox Grid.Column="1" x:Name="PART_EditableTextBox" Margin="{TemplateBinding Padding}" Style="{StaticResource styleTextBox_SearchAutocompleteControl}"></TextBox>
 							<Popup x:Name="PART_Popup" AllowsTransparency="True" StaysOpen="True" Placement="Bottom" HorizontalOffset="-3">
 								<Grid>
-									<Border Margin="3,0,3,4" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="0,0,2,2"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,1,0,0" Width="{Binding ElementName=rectanglePopupWidth, Path=ActualWidth}">
+									<Border Margin="3,0,3,4" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="0,0,2,2"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,1,0,0" MinWidth="{Binding ElementName=rectanglePopupWidth, Path=ActualWidth}">
 										<Grid>
 											<Grid.RowDefinitions>
 												<RowDefinition Height="*"></RowDefinition>
@@ -157,6 +141,9 @@
 						</Grid>
 					</Border>
 					<ControlTemplate.Triggers>
+						<Trigger Property="AutoFocusOnLoad" Value="True">
+							<Setter TargetName="PART_EditableTextBox" Property="FocusManager.FocusedElement" Value="{Binding RelativeSource={RelativeSource Self}}"></Setter>
+						</Trigger>
 						<Trigger Property="SeeAllOptionsCommand" Value="{x:Null}">
 							<Setter TargetName="PART_ButtonShowAllOptions" Property="Visibility" Value="Collapsed"></Setter>
 						</Trigger>

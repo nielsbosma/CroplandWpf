@@ -117,7 +117,7 @@ namespace CroplandWpf.Components
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
 		{
 			base.OnPropertyChanged(e);
-			if (e.Property == ContentProperty)
+			if (e.Property == DataContextProperty)
 			{
 				if (e.NewValue != null)
 				{
@@ -128,6 +128,16 @@ namespace CroplandWpf.Components
 				}
 				else
 					DisplayString = "";
+			}
+			if(e.Property == BindingPathProperty)
+			{
+				if(DataContext != null)
+				{
+					if (e.NewValue != null)
+						SetBinding(DisplayStringProperty, new Binding { Source = DataContext, Path = new PropertyPath(BindingPath) });
+					else
+						SetBinding(DisplayStringProperty, new Binding { Source = DataContext });
+				}
 			}
 			if (e.Property == DisplayStringProperty || e.Property == HighlightStringProperty)
 				RefreshHighlight();
@@ -181,6 +191,7 @@ namespace CroplandWpf.Components
 				result.FontWeight = FontWeights.Bold;
 			return result;
 		}
+
 		public override string ToString()
 		{
 			return String.Format("{0} -> {1} ({2})", Content, DisplayString, runsToRender.Count);

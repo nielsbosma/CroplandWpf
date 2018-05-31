@@ -220,7 +220,7 @@
 							<ColumnDefinition x:Name="firstContentColumn" Width="*"/>
 							<ColumnDefinition x:Name="secondContentColumn" Width="Auto"/>
 						</Grid.ColumnDefinitions>
-						<Border Grid.ColumnSpan="2" x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
+						<Border Grid.ColumnSpan="2" x:Name="borderEffectHost" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_Small}"></Border>
 						<Border Grid.ColumnSpan="2" x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}"></Border>
 						<ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
 						<Grid x:Name="gridContent" Grid.Column="1">
@@ -313,7 +313,6 @@
 		<Setter Property="IsTabStop" Value="False"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 		<Setter Property="TextAlignment" Value="Right"/>
-		<Setter Property="IsReadOnly" Value="True"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="tk:IntegerUpDown">
