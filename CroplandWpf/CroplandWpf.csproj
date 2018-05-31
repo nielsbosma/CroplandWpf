@@ -100,7 +100,7 @@
     <Compile Include="PresentationHelpers\DataContextBridge.cs" />
     <Compile Include="PresentationHelpers\DataGridComboBoxHelper.cs" />
     <Compile Include="PresentationHelpers\DynamicColorAnimator.cs" />
-    <Content Include="ColorsOverride.xaml">
+    <Content Include="CroplandColors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
