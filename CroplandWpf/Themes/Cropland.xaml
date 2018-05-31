@@ -26,6 +26,7 @@
 		<ResourceDictionary Source="Default/ProgressBar.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/NumericUpDown.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/WindowMessageBoxTemplates.xaml"></ResourceDictionary>
+		<ResourceDictionary Source="Default/BusyIndicator.xaml"></ResourceDictionary>
 	</ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

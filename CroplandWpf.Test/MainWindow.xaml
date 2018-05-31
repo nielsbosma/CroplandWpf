@@ -244,6 +244,11 @@
 				<TextBlock Grid.Row="0" FontWeight="Bold"><Run Text="Common Controls"/></TextBlock>
 				<ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
 					<StackPanel Orientation="Vertical">
+						<TextBlock>BusyIndicator</TextBlock>
+						<StackPanel Orientation="Horizontal">
+							<c:BusyIndicator x:Name="busyIndicator" Margin="5"></c:BusyIndicator>
+							<CheckBox Margin="15,0,0,0" IsChecked="{Binding ElementName=busyIndicator, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+						</StackPanel>
 						<TextBlock Margin="5"><Run Text="Button"/></TextBlock>
 						<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left" Content="NORMAL"/>
 						<StackPanel Orientation="Horizontal">

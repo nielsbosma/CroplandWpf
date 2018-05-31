@@ -78,6 +78,7 @@
     <Compile Include="Attached\ToolTipBeacon.cs" />
     <Compile Include="Attached\VisualHelper.cs" />
     <Compile Include="Attached\WindowMaximizeFix.cs" />
+    <Compile Include="Components\BusyIndicator.cs" />
     <Compile Include="Components\ClippingBorder.cs" />
     <Compile Include="Components\CommandTextBox.cs" />
     <Compile Include="Components\Overlay.cs" />
@@ -108,6 +109,10 @@
     <Page Include="Themes\Cropland.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Default\BusyIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Default\Button.xaml">
       <Generator>MSBuild:Compile</Generator>
