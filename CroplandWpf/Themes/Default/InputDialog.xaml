@@ -1,13 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:c="clr-namespace:CroplandWpf.Components"
-                    xmlns:local="clr-namespace:CroplandWpf.Themes.Default">
+                    xmlns:c="clr-namespace:CroplandWpf.Components">
 
-	<DataTemplate x:Key="templateMessageBoxContent_Default">
-		<TextBlock Text="{Binding}"></TextBlock>
-	</DataTemplate>
-	
-	<Style x:Key="styleButton_MessageBox" TargetType="Button">
+	<Style x:Key="styleButton_InputDialog_Control" TargetType="Button">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
@@ -48,7 +43,6 @@
 								</BeginStoryboard>
 							</Trigger.ExitActions>
 						</Trigger>
-
 						<Trigger Property="IsEnabled" Value="False">
 							<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Disabled_Dark}"></Setter>
 							<Setter TargetName="border_EffectHost" Property="Visibility" Value="Collapsed"></Setter>
@@ -68,7 +62,6 @@
 								</BeginStoryboard>
 							</Trigger.ExitActions>
 						</Trigger>
-
 						<Trigger Property="IsMouseOver" Value="True">
 							<Trigger.EnterActions>
 								<BeginStoryboard>
@@ -91,7 +84,7 @@
 		</Setter>
 	</Style>
 
-	<Style x:Key="styleButton_MessageBoxPresenter_Close" TargetType="Button">
+	<Style x:Key="styleButton_InputDialog_Close" TargetType="Button">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="Transparent"></Setter>
 		<Setter Property="MinWidth" Value="40"></Setter>
@@ -125,11 +118,11 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
-	<Style x:Key="{x:Type c:MessageBoxWindow}" TargetType="c:MessageBoxWindow">
-		<Setter Property="AllowsTransparency" Value="True"></Setter>
+
+	<Style x:Key="{x:Type c:InputDialog}" TargetType="c:InputDialog">
 		<Setter Property="ResizeMode" Value="NoResize"></Setter>
 		<Setter Property="WindowStyle" Value="None"></Setter>
+		<Setter Property="AllowsTransparency" Value="True"></Setter>
 		<Setter Property="WindowState" Value="Normal"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
@@ -139,7 +132,7 @@
 		<Setter Property="SizeToContent" Value="WidthAndHeight"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
-				<ControlTemplate TargetType="c:MessageBoxWindow">
+				<ControlTemplate TargetType="c:InputDialog">
 					<Grid>
 						<Border x:Name="border_EffectHost" Margin="{Binding ElementName=borderClip, Path=Margin}" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window_Light}" CornerRadius="{Binding ElementName=borderClip, Path=CornerRadius}">
 						</Border>
@@ -158,40 +151,20 @@
 								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderHeader" Background="{DynamicResource brushControl_Background_Dark}" CornerRadius="1"></Border>
 								<c:WindowControlThumb Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource styleThumb_Window_Move}" Role="Move" AllowMaximize="False"></c:WindowControlThumb>
 								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="13,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt"></TextBlock>
-								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_MessageBoxPresenter_Close}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxControlButtonActionType.Close}"></Button>
+								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_InputDialog_Close}" CommandParameter="{x:Static c:InputDialogResultActionType.Close}" Command="{TemplateBinding ControlButtonCommand}"></Button>
 
-								<Grid Grid.Row="1" Grid.ColumnSpan="2" MaxWidth="500">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto"></ColumnDefinition>
-										<ColumnDefinition></ColumnDefinition>
-									</Grid.ColumnDefinitions>
-									<Rectangle Grid.Column="0" x:Name="rectangleIcon" Margin="16,16,0,16" Fill="{TemplateBinding IconBrush}" Stretch="Uniform" Width="32" Height="32" VerticalAlignment="Top"></Rectangle>
-									<ContentPresenter Grid.Column="1" Margin="{TemplateBinding Padding}" ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>
-								</Grid>
+								<ContentPresenter Grid.Row="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}" ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>
 
-								<Grid Grid.Row="2" Grid.ColumnSpan="2" Background="#FFeaeaea">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto"></ColumnDefinition>
-										<ColumnDefinition></ColumnDefinition>
-									</Grid.ColumnDefinitions>
-									<ContentControl Grid.Column="0" Margin="15,0" Content="{TemplateBinding Footer}" ContentTemplate="{TemplateBinding FooterTemplate}"></ContentControl>
-									<StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-										<Button Style="{StaticResource styleButton_MessageBox}" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PositiveActionButtonHeader}" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PositiveActionButtonVisibility}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxControlButtonActionType.Positive}"></Button>
-										<Button Style="{StaticResource styleButton_MessageBox}" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NegativeActionButtonHeader}" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NegativeActionButtonVisibility}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxControlButtonActionType.Negative}"></Button>
-										<Button Style="{StaticResource styleButton_MessageBox}" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CancelActionButtonVisibility}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxControlButtonActionType.Close}">Cancel</Button>
-									</StackPanel>
-								</Grid>
+								<StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="15" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+									<Button Style="{StaticResource styleButton_InputDialog_Control}" Margin="0,0,15,0" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NegativeActionButtonHeader}" CommandParameter="{x:Static c:InputDialogResultActionType.Negative}" Command="{TemplateBinding ControlButtonCommand}" VerticalAlignment="Center"></Button>
+									<Button Style="{StaticResource styleButton_InputDialog_Control}" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PositiveActionButtonHeader}" CommandParameter="{x:Static c:InputDialogResultActionType.Positive}" Command="{TemplateBinding ControlButtonCommand}" VerticalAlignment="Center"></Button>
+								</StackPanel>
 							</Grid>
 						</c:ClippingBorder>
 					</Grid>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IconBrush" Value="{x:Null}">
-							<Setter TargetName="rectangleIcon" Property="Visibility" Value="Collapsed"></Setter>
-						</Trigger>
-					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
-    
+
 </ResourceDictionary>

@@ -2,6 +2,7 @@
 using CroplandWpf.Components;
 using CroplandWpf.MVVM;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -246,7 +247,49 @@ namespace CroplandWpf.Test
 			DependencyProperty.Register("UpdateUserPasswordCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
+		#region InputWindow
+		public InputDialogInfo NewFileInputDialogInfo
+		{
+			get { return (InputDialogInfo)GetValue(NewFileInputDialogInfoProperty); }
+			set { SetValue(NewFileInputDialogInfoProperty, value); }
+		}
+		public static readonly DependencyProperty NewFileInputDialogInfoProperty =
+			DependencyProperty.Register("NewFileInputDialogInfo", typeof(InputDialogInfo), typeof(MainWindow), new PropertyMetadata());
+
+		public Func<InputDialogResultActionType, object, bool> NewFileItemValidator
+		{
+			get { return (Func<InputDialogResultActionType, object, bool>)GetValue(NewFileItemValidatorProperty); }
+			set { SetValue(NewFileItemValidatorProperty, value); }
+		}
+		public static readonly DependencyProperty NewFileItemValidatorProperty =
+			DependencyProperty.Register("NewFileItemValidator", typeof(Func<InputDialogResultActionType, object, bool>), typeof(MainWindow), new PropertyMetadata());
+
+		public vmSearchInputDialog SearchInputDialogViewModel
+		{
+			get { return (vmSearchInputDialog)GetValue(SearchInputDialogViewModelProperty); }
+			private set { SetValue(SearchInputDialogViewModelProperty, value); }
+		}
+		public static readonly DependencyProperty SearchInputDialogViewModelProperty =
+			DependencyProperty.Register("SearchInputDialogViewModel", typeof(vmSearchInputDialog), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand ShowSearchInputBoxCommand
+		{
+			get { return (DelegateCommand)GetValue(ShowSearchInputBoxCommandProperty); }
+			private set { SetValue(ShowSearchInputBoxCommandProperty, value); }
+		}
+		public static readonly DependencyProperty ShowSearchInputBoxCommandProperty =
+			DependencyProperty.Register("ShowSearchInputBoxCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+
 		#region Commands
+		public DelegateCommand ShowAddNewFileInputDialogCommand
+		{
+			get { return (DelegateCommand)GetValue(ShowAddNewFileInputDialogCommandProperty); }
+			private set { SetValue(ShowAddNewFileInputDialogCommandProperty, value); }
+		}
+		public static readonly DependencyProperty ShowAddNewFileInputDialogCommandProperty =
+			DependencyProperty.Register("ShowAddNewFileInputDialogCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
 		public DelegateCommand HyperlinkTestCommand
 		{
 			get { return (DelegateCommand)GetValue(HyperlinkTestCommandProperty); }
@@ -547,6 +590,35 @@ namespace CroplandWpf.Test
 			MenuItemsTestSource = mic;
 			#endregion
 
+			#region InputDialog
+			NewFileInputDialogInfo = new InputDialogInfo() { Content = new FileItem(), ContentTemplateKey = "templateInputDialog_FileItem" };
+			ShowAddNewFileInputDialogCommand = new DelegateCommand(ShowAddNewFileInputDialogCommand_Execute);
+			NewFileItemValidator = new Func<InputDialogResultActionType, object, bool>((at, fi) =>
+			{
+				FileItem item = fi as FileItem;
+				if (at == InputDialogResultActionType.Positive)
+					return item != null && !String.IsNullOrWhiteSpace(item.Name) && item.Size_Mb > 0;
+				else
+					return true;
+			});
+			SearchInputDialogViewModel = new vmSearchInputDialog();
+			SearchInputDialogViewModel.RefreshSearchResults_ExecuteFunction = new Func<object, IEnumerable, IEnumerable>((parameter, itemsSource) =>
+			{
+				string searchString = parameter as string;
+				if (String.IsNullOrWhiteSpace(searchString))
+					return null;
+				else
+				{
+					searchString = searchString.ToLower();
+					return (from cs in itemsSource as IEnumerable<string>
+							where cs != null && cs.ToLower().Contains(searchString)
+							select cs);
+				}
+			});
+			SearchInputDialogViewModel.ItemsSource = SearchAutocompleteTestSource_String;
+			ShowSearchInputBoxCommand = new DelegateCommand(ShowSearchInputBoxCommand_Execute);
+			#endregion
+
 			#region MessageBox
 			ShowMessageBoxCommand = new DelegateCommand(ShowMessageBoxCommand_Execute, ShowMessageBoxCommand_CanExecute);
 			Mbi_Exception = new MessageBoxInfo() { Header = "SeoTool", Buttons = MessageBoxButton.OK, Content = new ExceptionInfo { Name = "XPathonUrl", Exception = "ArgumentException", Message = "Missing the 'Url' argument. Check if you supplied the URL, or nothing good will happen." }, IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception, ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception };
@@ -579,8 +651,8 @@ namespace CroplandWpf.Test
 			{
 				searchString = searchString.ToLower();
 				StringSearchResults = new ObservableCollection<string>(from cs in SearchAutocompleteTestSource_String
-																 where cs != null && cs.ToLower().Contains(searchString)
-																 select cs);
+																	   where cs != null && cs.ToLower().Contains(searchString)
+																	   select cs);
 			}
 		}
 
@@ -593,14 +665,32 @@ namespace CroplandWpf.Test
 			{
 				searchString = searchString.ToLower();
 				CustomItemSearchResults = new ObservableCollection<CustomSearchItem>(from cs in SearchAutocompleteTestSource_SearchItem
-																 where cs != null && cs.Description.ToLower().Contains(searchString)
-																 select cs);
+																					 where cs != null && cs.Description.ToLower().Contains(searchString)
+																					 select cs);
 			}
 		}
 
 		private void AddNewFileTestCommand_Execute(object parameter)
 		{
 			TestRemovableItemsItemsSource.Add(new FileItem() { Name = "new file #" + TestRemovableItemsItemsSource.Count, Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(256000, 512000) });
+		}
+
+		private void ShowAddNewFileInputDialogCommand_Execute(object arg)
+		{
+			InputDialogResult result = InputDialog.Show(arg as InputDialogInfo);
+			if (result.ResultAction == InputDialogResultActionType.Positive)
+				TestRemovableItemsItemsSource.Add(result.Value as FileItem);
+		}
+
+		private void ShowSearchInputBoxCommand_Execute(object arg)
+		{
+			InputDialogResult result = InputDialog.Show(arg as InputDialogInfo);
+			if (result.ResultAction == InputDialogResultActionType.Positive)
+			{
+				vmSearchInputDialog resultValue = result.GetValueRefrenceAs<vmSearchInputDialog>();
+				if (resultValue != null && resultValue.HasSearchResult)
+					ClickedStringSearchItem = resultValue.SearchResult.ToString();
+			}
 		}
 
 		private void HyperlinkTestCommand_Execute(object parameter)

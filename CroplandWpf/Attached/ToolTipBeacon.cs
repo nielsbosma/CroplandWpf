@@ -240,11 +240,17 @@ namespace CroplandWpf.Attached
 
 		private void ToolTipBeacon_LayoutUpdated(object sender, EventArgs e)
 		{
+			TargetRect = GetTargetRect();
+		}
+
+		private Rect GetTargetRect()
+		{
 			OverlayHost host = OverlayHost.GetOverlay();
 			if (host == null || Target == null)
-				return;
+				return default(Rect);
 			Point leftTopCornerPoint = Target.TranslatePoint(new Point(0, 0), host);
-			TargetRect = new Rect(leftTopCornerPoint, new Size(Target.ActualWidth, Target.ActualHeight));
+			Rect result = new Rect(leftTopCornerPoint, new Size(Target.ActualWidth, Target.ActualHeight));
+			return result;
 		}
 
 		private void ToolTipBeacon_Loaded(object sender, RoutedEventArgs e)
@@ -332,7 +338,7 @@ namespace CroplandWpf.Attached
 			if (overlayHost != null)
 			{
 				overlayHost.OwnerWindow.Deactivated += OwnerWindow_Deactivated;
-				tooltipPresenter = overlayHost.ShowContent(GetToolTipContent(Target), TargetRect, GetToolTipTemplateKey(Target));
+				tooltipPresenter = overlayHost.ShowContent(GetToolTipContent(Target), GetTargetRect(), GetToolTipTemplateKey(Target));
 				tooltipPresenter.PlacementPriority = GetPlacementPriority(Target);
 				SetAttachedBeacon(tooltipPresenter, this);
 				//occ.SetBinding(TargetRectProperty, new Binding { Source = this, Path = new PropertyPath(TargetRectProperty), Mode = BindingMode.OneWay });

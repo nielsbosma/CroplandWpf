@@ -185,6 +185,8 @@ namespace CroplandWpf.Components
 						CancelActionButtonVisibility = Visibility.Visible;
 					}
 				}
+				if (e.OldValue != null)
+					Resources.Clear();
 			}
 		}
 

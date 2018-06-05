@@ -12,6 +12,7 @@ namespace CroplandWpf.PresentationHelpers
 	public class DataContextBridge : FrameworkElement
 	{
 		private static List<DataContextBridge> registeredBridges = new List<DataContextBridge>();
+		private static List<FrameworkElement> registeredTargets = new List<FrameworkElement>();
 
 		public FrameworkElement Source
 		{
@@ -54,48 +55,53 @@ namespace CroplandWpf.PresentationHelpers
 			string name = e.NewValue as string;
 			if (target != null && !String.IsNullOrWhiteSpace(name))
 			{
-
+				DataContextBridge bridge = registeredBridges.FirstOrDefault(b => b.ScopeName == name);
+				if (bridge != null)
+					target.SetBinding(DataContextProperty, new Binding { Source = bridge, Path = new PropertyPath(DataContextProperty), Mode = BindingMode.OneWay });
+				else
+					registeredTargets.Add(target);
 			}
 		}
 
 		public DataContextBridge()
 		{
-			Loaded += DataContextBridge_Loaded;
+			registeredBridges.Add(this);
 			Unloaded += DataContextBridge_Unloaded;
 		}
 
 		private void DataContextBridge_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (!String.IsNullOrEmpty(ScopeName))
-				Register(this);
+			Register(this);
 		}
 
 		private void DataContextBridge_Unloaded(object sender, RoutedEventArgs e)
 		{
-			if (!String.IsNullOrEmpty(ScopeName))
-				Unregister(this);
+			Unregister(this);
 		}
 
 		private static void Register(DataContextBridge bridge)
 		{
-
+			if (!registeredBridges.Contains(bridge))
+				registeredBridges.Add(bridge);
 		}
 
 		private static void Unregister(DataContextBridge bridge)
 		{
-
+			if (registeredBridges.Contains(bridge))
+				registeredBridges.Remove(bridge);
 		}
 
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
 		{
 			base.OnPropertyChanged(e);
-			if (e.Property == SourceProperty || e.Property == TargetProperty)
+			if (e.Property == DataContextProperty && ScopeName != null && e.NewValue != null || e.Property == ScopeNameProperty && DataContext != null && e.NewValue != null)
 			{
-				if (Source != null && Target != null)
-					Target.SetBinding(DataContextProperty, new Binding { Source = Source, Path = new PropertyPath(DataContextProperty) });
+				List<FrameworkElement> targets = registeredTargets.Where(rt => GetSourceScopeName(rt) == ScopeName).ToList();
+				targets.ForEach(rt =>
+				{
+					rt.SetBinding(DataContextProperty, new Binding { Source = this, Path = new PropertyPath(DataContextProperty), Mode = BindingMode.OneWay }); registeredTargets.Remove(rt);
+				});
 			}
 		}
-
-
 	}
 }

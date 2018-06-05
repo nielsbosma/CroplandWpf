@@ -23,15 +23,15 @@ namespace CroplandWpf.Components
 			return window.Result;
 		}
 
-		public static DelegateCommand ShowCommand
-		{
-			get { return _showCommand; }
-		}
-		private static DelegateCommand _showCommand = new DelegateCommand(ShowCommand_Execute);
+		//public static DelegateCommand ShowCommand
+		//{
+		//	get { return _showCommand; }
+		//}
+		//private static DelegateCommand _showCommand = new DelegateCommand(ShowCommand_Execute);
 
-		private static void ShowCommand_Execute(object obj)
-		{
+		//private static void ShowCommand_Execute(object obj)
+		//{
 
-		}
+		//}
 	}
 }

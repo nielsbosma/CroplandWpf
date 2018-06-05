@@ -59,6 +59,14 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty HasNoMatchesButtonCommandProperty =
 			DependencyProperty.Register("HasNoMatchesButtonCommand", typeof(bool), typeof(SearchAutocompleteControl), new PropertyMetadata());
 
+		public bool AutoClear
+		{
+			get { return (bool)GetValue(AutoClearProperty); }
+			set { SetValue(AutoClearProperty, value); }
+		}
+		public static readonly DependencyProperty AutoClearProperty =
+			DependencyProperty.Register("AutoClear", typeof(bool), typeof(SearchAutocompleteControl), new PropertyMetadata());
+
 		public string NoMatchesFoundButtonText
 		{
 			get { return (string)GetValue(NoMatchesFoundButtonTextProperty); }
@@ -140,6 +148,23 @@ namespace CroplandWpf.Components
 		private List<SearchAutocmpleteItem> focusableItems;
 		private bool refreshHighlightString = false;
 		private Window ownerWindow;
+		private bool textBoxAcquired
+		{
+			get
+			{
+				return _textBoxAcquired;
+			}
+			set
+			{
+				if (_textBoxAcquired == value)
+					return;
+				_textBoxAcquired = value;
+				if (value && IsLoaded && !_isLoaded)
+					OnLoad();
+			}
+		}
+		private bool _textBoxAcquired;
+		private bool _isLoaded = false;
 		#endregion
 
 		#region Properties
@@ -195,6 +220,7 @@ namespace CroplandWpf.Components
 			if (_popup == null)
 				throw new TemplatePartNotFoundException("PART_Popup", GetType());
 			SetBinding(IsPopupOpenProperty, new Binding { Source = _popup, Path = new PropertyPath(Popup.IsOpenProperty), Mode = BindingMode.TwoWay });
+			textBoxAcquired = true;
 		}
 
 		protected override DependencyObject GetContainerForItemOverride()
@@ -229,7 +255,14 @@ namespace CroplandWpf.Components
 		#region Init/deinit
 		private void SearchAutocompleteControl_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (DesignerProperties.GetIsInDesignMode(this))
+			if (DesignerProperties.GetIsInDesignMode(this) || !textBoxAcquired)
+				return;
+			OnLoad();
+		}
+
+		private void OnLoad()
+		{
+			if (!IsLoaded || _isLoaded)
 				return;
 			Window.GetWindow(this).PreviewMouseLeftButtonDown += SearchAutocompleteControl_PreviewMouseLeftButtonDown;
 			if (_editableTextBox != null)
@@ -242,6 +275,7 @@ namespace CroplandWpf.Components
 			AddHandler(SearchAutocmpleteItem.FocusedEvent, new RoutedEventHandler(OnSearchAutocompleteItemFocused));
 			ownerWindow = Window.GetWindow(this);
 			ownerWindow.Deactivated += OwnerWindow_Deactivated;
+			_isLoaded = true;
 		}
 
 		private void SearchAutocompleteControl_Unloaded(object sender, RoutedEventArgs e)
@@ -261,6 +295,10 @@ namespace CroplandWpf.Components
 			{
 				ownerWindow.Deactivated -= OwnerWindow_Deactivated;
 				ownerWindow = null;
+			}
+			if(AutoClear)
+			{
+				_editableTextBox.Text = "";
 			}
 		}
 		#endregion
@@ -384,11 +422,11 @@ namespace CroplandWpf.Components
 
 		private void Unfocus(bool clearText = false)
 		{
+			refreshHighlightString = false;
 			focusableItems.Clear();
 			if (clearText)
 			{
 				SelectedItem = null;
-				refreshHighlightString = false;
 				_editableTextBox.Text = "";
 				SearchString = "";
 				refreshHighlightString = true;
