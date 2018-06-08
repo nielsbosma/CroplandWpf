@@ -83,6 +83,11 @@ namespace CroplandWpf.Test
 		{
 
 		}
+
+		public override string ToString()
+		{
+			return String.Format("{0} ({1})", Name, InternalNumber);
+		}
 	}
 
 	public class FileItem : ViewModelBase

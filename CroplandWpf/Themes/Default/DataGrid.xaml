@@ -109,6 +109,91 @@
 		</Style.Triggers>
 	</Style>
 
+	<Style x:Key="styleButton_DataGridRowControl" TargetType="Button">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Focusable" Value="False"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+		<Setter Property="Background" Value="Transparent"></Setter>
+		<Setter Property="Padding" Value="5"></Setter>
+		<Setter Property="Foreground" Value="Black"></Setter>
+		<Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+		<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid>
+						<Border Background="{TemplateBinding Background}"></Border>
+						<Border x:Name="borderBackground_MouseOver" Opacity="0.0" Background="{DynamicResource brushListBoxItem_MouseOver_Background}"></Border>
+						<ContentPresenter Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"></ContentPresenter>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_MouseOver" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.100"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_MouseOver" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.3" To="1.0" Duration="00:00:00.100"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="styleButton_DataGridRow_MoveUp" TargetType="Button" BasedOn="{StaticResource styleButton_DataGridRowControl}">
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Path Width="12" Height="6" Data="M0,6 L6,0 12,6 0,6z" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=Foreground}" Stretch="Fill"></Path>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="styleButton_DataGridRow_MoveDown" TargetType="Button" BasedOn="{StaticResource styleButton_DataGridRowControl}">
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Path Width="12" Height="6" Data="M0,0 L12,0 6,6 0,0z" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=Foreground}" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Fill"></Path>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="styleButton_DataGridRow_Remove" TargetType="Button" BasedOn="{StaticResource styleButton_DataGridRowControl}">
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Path Width="10" Height="10" Data="{DynamicResource geometryCross}" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=Foreground}" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Fill"></Path>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
 	<Style x:Key="{x:Type DataGridRow}" TargetType="{x:Type DataGridRow}">
 		<Setter Property="Background" Value="{DynamicResource brushDataGrid_Background	}"/>
@@ -125,20 +210,63 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type DataGridRow}">
 					<Border x:Name="DGR_Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-						<SelectiveScrollingGrid>
-							<SelectiveScrollingGrid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"/>
-								<ColumnDefinition Width="*"/>
-							</SelectiveScrollingGrid.ColumnDefinitions>
-							<SelectiveScrollingGrid.RowDefinitions>
-								<RowDefinition Height="*"/>
-								<RowDefinition Height="Auto"/>
-							</SelectiveScrollingGrid.RowDefinitions>
-							<DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-							<DataGridDetailsPresenter Grid.Column="1" Grid.Row="1" SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Visibility="{TemplateBinding DetailsVisibility}"/>
-							<DataGridRowHeader Grid.RowSpan="2" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
-						</SelectiveScrollingGrid>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition></ColumnDefinition>
+								<ColumnDefinition Width="Auto"></ColumnDefinition>
+							</Grid.ColumnDefinitions>
+							<SelectiveScrollingGrid Grid.Column="0">
+								<SelectiveScrollingGrid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*"/>
+								</SelectiveScrollingGrid.ColumnDefinitions>
+								<SelectiveScrollingGrid.RowDefinitions>
+									<RowDefinition Height="*"/>
+									<RowDefinition Height="Auto"/>
+								</SelectiveScrollingGrid.RowDefinitions>
+								<DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+								<DataGridDetailsPresenter Grid.Column="1" Grid.Row="1" SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Visibility="{TemplateBinding DetailsVisibility}"/>
+								<DataGridRowHeader Grid.RowSpan="2" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+							</SelectiveScrollingGrid>
+							<Border Grid.Column="1" x:Name="borderControlsHost" IsHitTestVisible="False" BorderBrush="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}, Path=HorizontalGridLinesBrush}">
+								<StackPanel x:Name="panelControlsHost" Orientation="Horizontal" Opacity="0.0">
+									<c:DataGridHelper x:Name="dataGridHelper" Grid.Column="1"></c:DataGridHelper>
+									<Button Style="{StaticResource styleButton_DataGridRow_MoveUp}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Command="{Binding ElementName=dataGridHelper, Path=MoveRowUpCommand}"></Button>
+									<Button Style="{StaticResource styleButton_DataGridRow_MoveDown}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Command="{Binding ElementName=dataGridHelper, Path=MoveRowDownCommand}"></Button>
+									<Button Style="{StaticResource styleButton_DataGridRow_Remove}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Command="{Binding ElementName=dataGridHelper, Path=RemoveRowCommand}"></Button>
+								</StackPanel>
+							</Border>
+						</Grid>
 					</Border>
+					<ControlTemplate.Triggers>
+						<!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}" Value=""-->
+						<!--<Trigger Property="IsNewItem" Value="True">
+							<Setter TargetName="borderControlsHost" Property="Visibility" Value="Collapsed"></Setter>
+						</Trigger>-->
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="borderControlsHost" Property="IsHitTestVisible" Value="True"></Setter>
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="panelControlsHost" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.050"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="panelControlsHost" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.050"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}, Path=GridLinesVisibility}" Value="All">
+							<Setter TargetName="borderControlsHost" Property="BorderThickness" Value="0,0,0,1"></Setter>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}, Path=GridLinesVisibility}" Value="Horizontal">
+							<Setter TargetName="borderControlsHost" Property="BorderThickness" Value="0,0,0,1"></Setter>
+						</DataTrigger>
+					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -162,6 +290,7 @@
 		<Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource brushDataGrid_Border_Inner}"></Setter>
 		<Setter Property="VerticalGridLinesBrush" Value="{DynamicResource brushDataGrid_Border_Inner}"></Setter>
 		<Setter Property="HeadersVisibility" Value="Column"></Setter>
+		<Setter Property="RowDetailsVisibilityMode" Value="Visible"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type DataGrid}">

@@ -81,6 +81,7 @@
     <Compile Include="Components\BusyIndicator.cs" />
     <Compile Include="Components\ClippingBorder.cs" />
     <Compile Include="Components\CommandTextBox.cs" />
+    <Compile Include="Components\DataGridHelper.cs" />
     <Compile Include="Components\InputDialog.cs" />
     <Compile Include="Components\Overlay.cs" />
     <Compile Include="Components\HyperlinkButton.cs" />

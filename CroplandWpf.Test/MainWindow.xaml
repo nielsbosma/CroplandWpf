@@ -447,7 +447,7 @@
 			<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
 			<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
 			<TextBlock Margin="5" FontWeight="Bold"><Run Text="DataGrid"/></TextBlock>
-			<DataGrid Margin="5" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False">
+			<DataGrid Margin="5" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False" c:DataGridHelper.MoveRowUpCommandOverride="{Binding PersonItemMoveUpCommand}" c:DataGridHelper.MoveRowDownCommandOverride="{Binding PersonItemMoveDownCommand}" c:DataGridHelper.RemoveRowCommandOverride="{Binding RemovePersonItemCommand}" c:DataGridHelper.ShowDefaultRemoveConfirmation="True">
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Person Name" Binding="{Binding Name, Mode=TwoWay}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}" EditingElementStyle="{DynamicResource styleTextBox_DataGridTextColumn}"/>
 					<DataGridTextColumn Header="Internal Number" IsReadOnly="True" Binding="{Binding InternalNumber}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}"/>

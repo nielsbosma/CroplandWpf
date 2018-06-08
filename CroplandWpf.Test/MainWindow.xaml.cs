@@ -322,6 +322,30 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty CommandTextBoxCommandProperty =
 			DependencyProperty.Register("CommandTextBoxCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 
+		public DelegateCommand PersonItemMoveUpCommand
+		{
+			get { return (DelegateCommand)GetValue(PersonItemMoveUpCommandProperty); }
+			private set { SetValue(PersonItemMoveUpCommandProperty, value); }
+		}
+		public static readonly DependencyProperty PersonItemMoveUpCommandProperty =
+			DependencyProperty.Register("PersonItemMoveUpCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand PersonItemMoveDownCommand
+		{
+			get { return (DelegateCommand)GetValue(PersonItemMoveDownCommandProperty); }
+			private set { SetValue(PersonItemMoveDownCommandProperty, value); }
+		}
+		public static readonly DependencyProperty PersonItemMoveDownCommandProperty =
+			DependencyProperty.Register("PersonItemMoveDownCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand RemovePersonItemCommand
+		{
+			get { return (DelegateCommand)GetValue(RemovePersonItemCommandProperty); }
+			private set { SetValue(RemovePersonItemCommandProperty, value); }
+		}
+		public static readonly DependencyProperty RemovePersonItemCommandProperty =
+			DependencyProperty.Register("RemovePersonItemCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
 		#region SearchAutocompleteControl
 		public DelegateCommand ConversionSearchResultRefreshCommand
 		{
@@ -524,6 +548,9 @@ namespace CroplandWpf.Test
 				new Person{ Name = "Crystal Clear Table-Top Epoxy Resin", IsMedic = false, InternalNumber = 6097661, PersonalityType = PersonalityType.NA },
 				new Person{ Name = "Carinthia", IsMedic = true, InternalNumber = 3966511, PersonalityType = PersonalityType.NA }
 			};
+			PersonItemMoveUpCommand = new DelegateCommand(PersonItemMoveUpCommand_Execute, PersonItemMoveUpCommand_CanExecute);
+			PersonItemMoveDownCommand = new DelegateCommand(PersonItemMoveDownCommand_Execute, PersonItemMoveDownCommand_CanExecute);
+			RemovePersonItemCommand = new DelegateCommand(RemovePersonItemCommand_Execute, RemovePersonItemCommand_CanExecute);
 			#endregion
 
 			UserPasswordController = new PasswordController();
@@ -632,6 +659,52 @@ namespace CroplandWpf.Test
 		}
 
 		#region Commanding
+		#region DataGrid
+		private void RemovePersonItemCommand_Execute(object parameter)
+		{
+			Person person = parameter as Person;
+			if (person != null && PersonsTestSource.Contains(person))
+				PersonsTestSource.Remove(person);
+		}
+
+		private bool RemovePersonItemCommand_CanExecute(object parameter)
+		{
+			return parameter as Person != null;
+		}
+
+		private bool PersonItemMoveDownCommand_CanExecute(object parameter)
+		{
+			Person person = parameter as Person;
+			if (person == null)
+				return false;
+			int currentIndex = PersonsTestSource.IndexOf(person);
+			return currentIndex < PersonsTestSource.Count - 1;
+		}
+
+		private void PersonItemMoveDownCommand_Execute(object parameter)
+		{
+			Person person = parameter as Person;
+			if (person == null)
+				return;
+			int currentIndex = PersonsTestSource.IndexOf(person);
+			PersonsTestSource.Move(currentIndex, currentIndex + 1);
+		}
+
+		private void PersonItemMoveUpCommand_Execute(object parameter)
+		{
+			Person p = parameter as Person;
+			if (p == null)
+				return;
+			int currentIndex = PersonsTestSource.IndexOf(p);
+				PersonsTestSource.Move(currentIndex, currentIndex - 1);
+		}
+
+		private bool PersonItemMoveUpCommand_CanExecute(object arg)
+		{
+			return arg as Person != null && PersonsTestSource.IndexOf((Person)arg) > 0;
+		} 
+		#endregion
+
 		private void ShowMessageBoxCommand_Execute(object obj)
 		{
 			MessageBoxResult = MessageBoxService.Show(obj as MessageBoxInfo);
