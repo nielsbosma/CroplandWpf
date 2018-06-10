@@ -447,7 +447,7 @@
 			<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
 			<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
 			<TextBlock Margin="5" FontWeight="Bold"><Run Text="DataGrid"/></TextBlock>
-			<DataGrid Margin="5" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False" c:DataGridHelper.MoveRowUpCommandOverride="{Binding PersonItemMoveUpCommand}" c:DataGridHelper.MoveRowDownCommandOverride="{Binding PersonItemMoveDownCommand}" c:DataGridHelper.RemoveRowCommandOverride="{Binding RemovePersonItemCommand}" c:DataGridHelper.ShowDefaultRemoveConfirmation="True">
+			<DataGrid Margin="5" x:Name="dataGrid" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False" c:DataGridHelper.MoveRowUpCommandOverride="{Binding PersonItemMoveUpCommand}" c:DataGridHelper.MoveRowDownCommandOverride="{Binding PersonItemMoveDownCommand}" c:DataGridHelper.RemoveRowCommandOverride="{Binding RemovePersonItemCommand}" c:DataGridHelper.ShowDefaultRemoveConfirmation="True" c:DataGridHelper.ShowRowControls="False">
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Person Name" Binding="{Binding Name, Mode=TwoWay}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}" EditingElementStyle="{DynamicResource styleTextBox_DataGridTextColumn}"/>
 					<DataGridTextColumn Header="Internal Number" IsReadOnly="True" Binding="{Binding InternalNumber}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}"/>
@@ -455,6 +455,9 @@
 					<DataGridComboBoxColumn Header="Personality Type" SelectedItemBinding="{Binding PersonalityType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource sourcePersonalityType}}" EditingElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}" ElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}"/>
 				</DataGrid.Columns>
 			</DataGrid>
+			<StackPanel Margin="20,5,5,5" Orientation="Horizontal">
+				<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.ShowRowControls), Mode=TwoWay}">ShowRowControls</CheckBox>
+			</StackPanel>
 			<StackPanel Orientation="Vertical" VerticalAlignment="Top">
 				<TextBlock Margin="5"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>
 				<c:RemovableItemsItemsControl Margin="0,0,0,0" a:ToolTipBeacon.InheritedGroupName="files" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}" ItemContainerStyle="{StaticResource styleRemovableItem_Files1}"/>

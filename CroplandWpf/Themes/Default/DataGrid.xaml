@@ -230,7 +230,7 @@
 							</SelectiveScrollingGrid>
 							<Border Grid.Column="1" x:Name="borderControlsHost" IsHitTestVisible="False" BorderBrush="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}, Path=HorizontalGridLinesBrush}">
 								<StackPanel x:Name="panelControlsHost" Orientation="Horizontal" Opacity="0.0">
-									<c:DataGridHelper x:Name="dataGridHelper" Grid.Column="1"></c:DataGridHelper>
+									<c:DataGridHelper x:Name="dataGridHelper"></c:DataGridHelper>
 									<Button Style="{StaticResource styleButton_DataGridRow_MoveUp}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Command="{Binding ElementName=dataGridHelper, Path=MoveRowUpCommand}"></Button>
 									<Button Style="{StaticResource styleButton_DataGridRow_MoveDown}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Command="{Binding ElementName=dataGridHelper, Path=MoveRowDownCommand}"></Button>
 									<Button Style="{StaticResource styleButton_DataGridRow_Remove}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Command="{Binding ElementName=dataGridHelper, Path=RemoveRowCommand}"></Button>
@@ -243,6 +243,9 @@
 						<!--<Trigger Property="IsNewItem" Value="True">
 							<Setter TargetName="borderControlsHost" Property="Visibility" Value="Collapsed"></Setter>
 						</Trigger>-->
+						<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}, Path=(c:DataGridHelper.ShowRowControls)}" Value="False">
+							<Setter TargetName="borderControlsHost" Property="Visibility" Value="Collapsed"></Setter>
+						</DataTrigger>
 						<Trigger Property="IsMouseOver" Value="True">
 							<Setter TargetName="borderControlsHost" Property="IsHitTestVisible" Value="True"></Setter>
 							<Trigger.EnterActions>

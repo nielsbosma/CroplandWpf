@@ -15,12 +15,6 @@ namespace CroplandWpf.Components
 {
 	public class DataGridHelper : FrameworkElement
 	{
-		private enum ItemMoveDirection
-		{
-			Up,
-			Down
-		}
-
 		#region APs
 		public static ICommand GetMoveRowUpCommandOverride(DependencyObject obj)
 		{
@@ -65,6 +59,17 @@ namespace CroplandWpf.Components
 		}
 		public static readonly DependencyProperty ShowDefaultRemoveConfirmationProperty =
 			DependencyProperty.RegisterAttached("ShowDefaultRemoveConfirmation", typeof(bool), typeof(DataGridHelper), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
+
+		public static bool GetShowRowControls(DependencyObject obj)
+		{
+			return (bool)obj.GetValue(ShowRowControlsProperty);
+		}
+		public static void SetShowRowControls(DependencyObject obj, bool value)
+		{
+			obj.SetValue(ShowRowControlsProperty, value);
+		}
+		public static readonly DependencyProperty ShowRowControlsProperty =
+			DependencyProperty.RegisterAttached("ShowRowControls", typeof(bool), typeof(DataGridHelper), new PropertyMetadata(true));
 
 		public static bool GetLastColumnFill(DependencyObject obj)
 		{
