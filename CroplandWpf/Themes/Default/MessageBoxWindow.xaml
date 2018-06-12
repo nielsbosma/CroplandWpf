@@ -6,7 +6,7 @@
 	<DataTemplate x:Key="templateMessageBoxContent_Default">
 		<TextBlock Text="{Binding}"></TextBlock>
 	</DataTemplate>
-	
+
 	<Style x:Key="styleButton_MessageBox" TargetType="Button">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
@@ -125,7 +125,43 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
+
+	<Style x:Key="styleToggleButton_MessageBox_ShowDetails" TargetType="ToggleButton">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Background" Value="Transparent"></Setter>
+		<Setter Property="Foreground" Value="{DynamicResource brushToggleButton_MessageBoxWindow_ShowDetails_Foreground}"></Setter>
+		<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+		<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+		<Setter Property="Padding" Value="7,0"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ToggleButton">
+					<Grid Background="{TemplateBinding Background}">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+							<ColumnDefinition></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<Path Grid.Column="0" Margin="7,0" x:Name="pathIndicator" Data="{DynamicResource geometryComboBox_SingleArrow}" Width="10" Height="5" RenderTransformOrigin="0.5,0.5" Fill="{DynamicResource brushToggleButton_MessageBoxWindow_ShowDetails_Arrow_Background}" Stretch="Fill">
+							<Path.RenderTransform>
+								<ScaleTransform ScaleX="1.0" ScaleY="-1.0"></ScaleTransform>
+							</Path.RenderTransform>
+						</Path>
+						<ContentPresenter Grid.Column="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="pathIndicator" Property="RenderTransform">
+								<Setter.Value>
+									<ScaleTransform ScaleX="1.0" ScaleY="1.0"></ScaleTransform>
+								</Setter.Value>
+							</Setter>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<Style x:Key="{x:Type c:MessageBoxWindow}" TargetType="c:MessageBoxWindow">
 		<Setter Property="AllowsTransparency" Value="True"></Setter>
 		<Setter Property="ResizeMode" Value="NoResize"></Setter>
@@ -133,7 +169,7 @@
 		<Setter Property="WindowState" Value="Normal"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
-		<Setter Property="MinHeight" Value="200"></Setter>
+		<Setter Property="MinHeight" Value="150"></Setter>
 		<Setter Property="MinWidth" Value="350"></Setter>
 		<Setter Property="Padding" Value="15"></Setter>
 		<Setter Property="SizeToContent" Value="WidthAndHeight"></Setter>
@@ -147,7 +183,7 @@
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="40"></RowDefinition>
-									<RowDefinition></RowDefinition>
+									<RowDefinition Height="Auto"></RowDefinition>
 									<RowDefinition Height="Auto" MinHeight="31"></RowDefinition>
 								</Grid.RowDefinitions>
 								<Grid.ColumnDefinitions>
@@ -160,13 +196,22 @@
 								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="13,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt"></TextBlock>
 								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_MessageBoxPresenter_Close}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxControlButtonActionType.Close}"></Button>
 
-								<Grid Grid.Row="1" Grid.ColumnSpan="2" MaxWidth="500">
+								<Grid Grid.Row="1" Grid.ColumnSpan="2" MaxWidth="600">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="Auto"></ColumnDefinition>
 										<ColumnDefinition></ColumnDefinition>
 									</Grid.ColumnDefinitions>
-									<Rectangle Grid.Column="0" x:Name="rectangleIcon" Margin="16,16,0,16" Fill="{TemplateBinding IconBrush}" Stretch="Uniform" Width="32" Height="32" VerticalAlignment="Top"></Rectangle>
-									<ContentPresenter Grid.Column="1" Margin="{TemplateBinding Padding}" ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"></RowDefinition>
+										<RowDefinition Height="*"></RowDefinition>
+									</Grid.RowDefinitions>
+									<Rectangle Grid.Row="0" Grid.Column="0" x:Name="rectangleIcon" Margin="16,16,0,16" Fill="{TemplateBinding IconBrush}" Stretch="Uniform" Width="32" Height="32" VerticalAlignment="Top"></Rectangle>
+									<ScrollViewer x:Name="scrollViewer_ContentHost" VerticalScrollBarVisibility="Disabled"  HorizontalScrollBarVisibility="Disabled" Grid.Row="0" Grid.Column="1" MaxHeight="400">
+										<StackPanel Orientation="Vertical">
+											<ContentPresenter Margin="{TemplateBinding Padding}" ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>
+											<ContentPresenter x:Name="PART_AdditionalContentHost" Visibility="Collapsed" Content="{TemplateBinding Content}" Margin="15,0,0,10" ContentTemplate="{TemplateBinding AdditionalContentTemplate}"></ContentPresenter>
+										</StackPanel>
+									</ScrollViewer>
 								</Grid>
 
 								<Grid Grid.Row="2" Grid.ColumnSpan="2" Background="#FFeaeaea">
@@ -174,7 +219,11 @@
 										<ColumnDefinition Width="Auto"></ColumnDefinition>
 										<ColumnDefinition></ColumnDefinition>
 									</Grid.ColumnDefinitions>
-									<ContentControl Grid.Column="0" Margin="15,0" Content="{TemplateBinding Footer}" ContentTemplate="{TemplateBinding FooterTemplate}"></ContentControl>
+									
+									<!--<ContentControl Grid.Column="0" Margin="15,0" Content="{TemplateBinding Footer}" ContentTemplate="{TemplateBinding FooterTemplate}"></ContentControl>-->
+
+									<ToggleButton Grid.Column="0" x:Name="toggeButton_AdditionalContentVisibility" Visibility="Collapsed" Style="{StaticResource styleToggleButton_MessageBox_ShowDetails}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=AdditionalContentVisible, Mode=TwoWay}" Margin="15,0,0,0">Show Details</ToggleButton>
+
 									<StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
 										<Button Style="{StaticResource styleButton_MessageBox}" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PositiveActionButtonHeader}" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PositiveActionButtonVisibility}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxControlButtonActionType.Positive}"></Button>
 										<Button Style="{StaticResource styleButton_MessageBox}" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NegativeActionButtonHeader}" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NegativeActionButtonVisibility}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxControlButtonActionType.Negative}"></Button>
@@ -188,10 +237,17 @@
 						<Trigger Property="IconBrush" Value="{x:Null}">
 							<Setter TargetName="rectangleIcon" Property="Visibility" Value="Collapsed"></Setter>
 						</Trigger>
+						<Trigger Property="AdditionalContentAvailable" Value="True">
+							<Setter TargetName="scrollViewer_ContentHost" Property="VerticalScrollBarVisibility" Value="Auto"></Setter>
+							<Setter TargetName="toggeButton_AdditionalContentVisibility" Property="Visibility" Value="Visible"></Setter>
+						</Trigger>
+						<Trigger Property="AdditionalContentVisible" Value="True">
+							<Setter TargetName="PART_AdditionalContentHost" Property="Visibility" Value="Visible"></Setter>
+						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
-    
+
 </ResourceDictionary>

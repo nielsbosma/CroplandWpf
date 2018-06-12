@@ -264,6 +264,14 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty NewFileItemValidatorProperty =
 			DependencyProperty.Register("NewFileItemValidator", typeof(Func<InputDialogResultActionType, object, bool>), typeof(MainWindow), new PropertyMetadata());
 
+		public Func<InputDialogResultActionType, object, bool> TextInputDialogValidator
+		{
+			get { return (Func<InputDialogResultActionType, object, bool>)GetValue(TextInputDialogValidatorProperty); }
+			set { SetValue(TextInputDialogValidatorProperty, value); }
+		}
+		public static readonly DependencyProperty TextInputDialogValidatorProperty =
+			DependencyProperty.Register("TextInputDialogValidator", typeof(Func<InputDialogResultActionType, object, bool>), typeof(MainWindow), new PropertyMetadata());
+
 		public vmSearchInputDialog SearchInputDialogViewModel
 		{
 			get { return (vmSearchInputDialog)GetValue(SearchInputDialogViewModelProperty); }
@@ -272,6 +280,22 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty SearchInputDialogViewModelProperty =
 			DependencyProperty.Register("SearchInputDialogViewModel", typeof(vmSearchInputDialog), typeof(MainWindow), new PropertyMetadata());
 
+		public vmTextInputDialog TextInputDialogViewModel
+		{
+			get { return (vmTextInputDialog)GetValue(TextInputDialogViewModelProperty); }
+			private set { SetValue(TextInputDialogViewModelProperty, value); }
+		}
+		public static readonly DependencyProperty TextInputDialogViewModelProperty =
+			DependencyProperty.Register("TextInputDialogViewModel", typeof(vmTextInputDialog), typeof(MainWindow), new PropertyMetadata());
+
+		public string TextInputDialogResult
+		{
+			get { return (string)GetValue(TextInputDialogResultProperty); }
+			set { SetValue(TextInputDialogResultProperty, value); }
+		}
+		public static readonly DependencyProperty TextInputDialogResultProperty =
+			DependencyProperty.Register("TextInputDialogResult", typeof(string), typeof(MainWindow), new PropertyMetadata());
+
 		public DelegateCommand ShowSearchInputBoxCommand
 		{
 			get { return (DelegateCommand)GetValue(ShowSearchInputBoxCommandProperty); }
@@ -279,6 +303,14 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty ShowSearchInputBoxCommandProperty =
 			DependencyProperty.Register("ShowSearchInputBoxCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand ShowTextInputDialogCommand
+		{
+			get { return (DelegateCommand)GetValue(ShowTextInputDialogCommandProperty); }
+			private set { SetValue(ShowTextInputDialogCommandProperty, value); }
+		}
+		public static readonly DependencyProperty ShowTextInputDialogCommandProperty =
+			DependencyProperty.Register("ShowTextInputDialogCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
 		#region Commands
@@ -510,28 +542,28 @@ namespace CroplandWpf.Test
 
 			SearchAutocompleteTestSource_SearchItem = new ObservableCollection<CustomSearchItem>
 			{
-				new CustomSearchItem{ Name = "Convert to bmp", Description = "Conversion to BMP raster image format" },
-				new CustomSearchItem{ Name = "Convert to psd", Description = "Conversion to Photoshop format" },
-				new CustomSearchItem{ Name = "Convert to 3ds", Description = "Conversion to 3DS Max format" },
-				new CustomSearchItem{ Name = "Convert to ai", Description = "Conversion to Adobe Illustrator format" },
-				new CustomSearchItem{ Name = "Convert to max", Description = "Conversion to 3DS Max Format" },
-				new CustomSearchItem{ Name = "Convert to xml", Description = "Conversion to BMP raster image format" },
-				new CustomSearchItem{ Name = "Convert to jpeg", Description = "Conversion to JPEG raster image format" },
-				new CustomSearchItem{ Name = "Convert to doc", Description = "Conversion to MS Word document format" },
-				new CustomSearchItem{ Name = "Convert to xls", Description = "Conversion to MS Excel spreadsheet format" },
-				new CustomSearchItem{ Name = "Cnovetr to pdf", Description = "Cnoversion to Adobe PDF document format" },
-				new CustomSearchItem{ Name = "Convert to cs", Description = "Conversion to C# code file format" },
-				new CustomSearchItem{ Name = "Convert to jpg", Description = "Conversion to JPG raster image format" },
-				new CustomSearchItem{ Name = "Remove ID3 Tags", Description = "Removing of tags from MP3 audio file" },
-				new CustomSearchItem{ Name = "Rasterize Vector Format", Description = "Rasterizing of vector image" },
-				new CustomSearchItem{ Name = "Ask a Question", Description = "Ask some question, apparently" },
-				new CustomSearchItem{ Name = "Get an Answer", Description = "Getting an answer to your question" },
-				new CustomSearchItem{ Name = "Get Multiple Answers", Description = "The more you know..." },
-				new CustomSearchItem{ Name = "Get Two Answers", Description = "Only two answers available" },
-				new CustomSearchItem{ Name = "Conversion FAQ", Description = "General answers and questions about conversion process" },
-				new CustomSearchItem{ Name = "Send Conversion Request", Description = "Send conversion rquest if you are not proficient enough to do that" },
-				new CustomSearchItem{ Name = "Convert", Description = "Just convert it" },
-				new CustomSearchItem{ Name = "Convert to", Description = "Just convert it to something" },
+				new CustomSearchItem { Name = "Convert to bmp", Description = "Conversion to BMP raster image format" },
+				new CustomSearchItem { Name = "Convert to psd", Description = "Conversion to Photoshop format" },
+				new CustomSearchItem { Name = "Convert to 3ds", Description = "Conversion to 3DS Max format" },
+				new CustomSearchItem { Name = "Convert to ai", Description = "Conversion to Adobe Illustrator format" },
+				new CustomSearchItem { Name = "Convert to max", Description = "Conversion to 3DS Max Format" },
+				new CustomSearchItem { Name = "Convert to xml", Description = "Conversion to BMP raster image format" },
+				new CustomSearchItem { Name = "Convert to jpeg", Description = "Conversion to JPEG raster image format" },
+				new CustomSearchItem { Name = "Convert to doc", Description = "Conversion to MS Word document format" },
+				new CustomSearchItem { Name = "Convert to xls", Description = "Conversion to MS Excel spreadsheet format" },
+				new CustomSearchItem { Name = "Cnovetr to pdf", Description = "Cnoversion to Adobe PDF document format" },
+				new CustomSearchItem { Name = "Convert to cs", Description = "Conversion to C# code file format" },
+				new CustomSearchItem { Name = "Convert to jpg", Description = "Conversion to JPG raster image format" },
+				new CustomSearchItem { Name = "Remove ID3 Tags", Description = "Removing of tags from MP3 audio file" },
+				new CustomSearchItem { Name = "Rasterize Vector Format", Description = "Rasterizing of vector image" },
+				new CustomSearchItem { Name = "Ask a Question", Description = "Ask some question, apparently" },
+				new CustomSearchItem { Name = "Get an Answer", Description = "Getting an answer to your question" },
+				new CustomSearchItem { Name = "Get Multiple Answers", Description = "The more you know..." },
+				new CustomSearchItem { Name = "Get Two Answers", Description = "Only two answers available" },
+				new CustomSearchItem { Name = "Conversion FAQ", Description = "General answers and questions about conversion process" },
+				new CustomSearchItem { Name = "Send Conversion Request", Description = "Send conversion rquest if you are not proficient enough to do that" },
+				new CustomSearchItem { Name = "Convert", Description = "Just convert it" },
+				new CustomSearchItem { Name = "Convert to", Description = "Just convert it to something" },
 			};
 
 			NoMatchesFoundCommand = new DelegateCommand((o) => { MessageBoxService.Show(new MessageBoxInfo { Buttons = MessageBoxButton.OK, Content = "No matches found command executed." }); });
@@ -644,11 +676,33 @@ namespace CroplandWpf.Test
 			});
 			SearchInputDialogViewModel.ItemsSource = SearchAutocompleteTestSource_String;
 			ShowSearchInputBoxCommand = new DelegateCommand(ShowSearchInputBoxCommand_Execute);
+			TextInputDialogViewModel = new vmTextInputDialog();
+			ShowTextInputDialogCommand = new DelegateCommand(ShowTextInputDialogCommand_Execute);
+			TextInputDialogValidator = new Func<InputDialogResultActionType, object, bool>((at, tid) =>
+			{
+				return tid as vmTextInputDialog != null && !String.IsNullOrEmpty((tid as vmTextInputDialog).Text);
+			});
 			#endregion
 
 			#region MessageBox
 			ShowMessageBoxCommand = new DelegateCommand(ShowMessageBoxCommand_Execute, ShowMessageBoxCommand_CanExecute);
-			Mbi_Exception = new MessageBoxInfo() { Header = "SeoTool", Buttons = MessageBoxButton.OK, Content = new ExceptionInfo { Name = "XPathonUrl", Exception = "ArgumentException", Message = "Missing the 'Url' argument. Check if you supplied the URL, or nothing good will happen." }, IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception, ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception };
+			Mbi_Exception = new MessageBoxInfo()
+			{
+				Header = "SeoTool",
+				Buttons = MessageBoxButton.OK,
+				Content = new ExceptionInfo
+				{
+					Name = "XPathonUrl",
+					Exception = "ArgumentException",
+					Message = "Missing the 'Url' argument. Check if you supplied the URL, or nothing good will happen.",
+					#region StackTrace
+					StackTrace = "at CroplandWpf.Components.InputDialog.Show(InputDialogInfo info) in D:\\Visual Studio Projects\\Cropland\\CroplandWpf\\CroplandWpf\\Components\\InputDialog.cs:line 105\r\n   at CroplandWpf.Test.MainWindow.ShowSearchInputBoxCommand_Execute(Object arg) in D:\\Visual Studio Projects\\Cropland\\CroplandWpf\\CroplandWpf.Test\\MainWindow.xaml.cs:line 798\r\n   at CroplandWpf.MVVM.DelegateCommand.Execute(Object parameter) in D:\\Visual Studio Projects\\Cropland\\CroplandWpf\\CroplandWpf\\MVVM\\DelegateCommand.cs:line 72\r\n   at MS.Internal.Commands.CommandHelpers.CriticalExecuteCommandSource(ICommandSource commandSource, Boolean userInitiated)\r\n   at System.Windows.Controls.Primitives.ButtonBase.OnClick()\r\n   at System.Windows.Controls.Button.OnClick()\r\n   at System.Windows.Controls.Primitives.ButtonBase.OnMouseLeftButtonUp(MouseButtonEventArgs e)\r\n   at System.Windows.UIElement.OnMouseLeftButtonUpThunk(Object sender, MouseButtonEventArgs e)\r\n   at System.Windows.Input.MouseButtonEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)\r\n   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)\r\n   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)\r\n   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)\r\n   at System.Windows.UIElement.ReRaiseEventAs(DependencyObject sender, RoutedEventArgs args, RoutedEvent newEvent)\r\n   at System.Windows.UIElement.OnMouseUpThunk(Object sender, MouseButtonEventArgs e)\r\n   at System.Windows.Input.MouseButtonEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)\r\n   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)\r\n   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)\r\n   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)\r\n   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)\r\n   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)\r\n   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)\r\n   at System.Windows.Input.InputManager.ProcessStagingArea()\r\n   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)\r\n   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)\r\n   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)\r\n   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean & handled)\r\n   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean & handled)\r\n   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean & handled)\r\n   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)\r\n   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)\r\n   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)\r\n   at System.Windows.Threading.Dispatcher.LegacyInvokeImpl(DispatcherPriority priority, TimeSpan timeout, Delegate method, Object args, Int32 numArgs)\r\n   at MS.Win32.HwndSubclass.SubclassWndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam)\r\n   at MS.Win32.UnsafeNativeMethods.DispatchMessage(MSG & msg)\r\n   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)\r\n   at System.Windows.Threading.Dispatcher.PushFrame(DispatcherFrame frame)\r\n   at System.Windows.Application.RunDispatcher(Object ignore)\r\n   at System.Windows.Application.RunInternal(Window window)\r\n   at System.Windows.Application.Run(Window window)\r\n   at System.Windows.Application.Run()\r\n   at CroplandWpf.Test.App.Main()"
+					#endregion
+				},
+				AdditionalContentTemplateKey = "templateMessageBoxContent_Exception_AdditionalContent",
+				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
+				ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception
+			};
 			Mbi_Question = new MessageBoxInfo() { Header = "FileStar", Buttons = MessageBoxButton.YesNo, Content = "Can you answer the question?..", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question };
 			Mbi_Warning = new MessageBoxInfo() { Header = "SuperTsar", Buttons = MessageBoxButton.OK, Content = "Congratulations! You received a warning!", IconBrushKey = MessageBoxIconBrushDefaultKeys.Warning };
 			#endregion
@@ -696,13 +750,13 @@ namespace CroplandWpf.Test
 			if (p == null)
 				return;
 			int currentIndex = PersonsTestSource.IndexOf(p);
-				PersonsTestSource.Move(currentIndex, currentIndex - 1);
+			PersonsTestSource.Move(currentIndex, currentIndex - 1);
 		}
 
 		private bool PersonItemMoveUpCommand_CanExecute(object arg)
 		{
 			return arg as Person != null && PersonsTestSource.IndexOf((Person)arg) > 0;
-		} 
+		}
 		#endregion
 
 		private void ShowMessageBoxCommand_Execute(object obj)
@@ -763,6 +817,17 @@ namespace CroplandWpf.Test
 				vmSearchInputDialog resultValue = result.GetValueRefrenceAs<vmSearchInputDialog>();
 				if (resultValue != null && resultValue.HasSearchResult)
 					ClickedStringSearchItem = resultValue.SearchResult.ToString();
+			}
+		}
+
+		private void ShowTextInputDialogCommand_Execute(object parameter)
+		{
+			InputDialogResult result = InputDialog.Show(parameter as InputDialogInfo);
+			if (result.ResultAction == InputDialogResultActionType.Positive)
+			{
+				vmTextInputDialog resultValue = result.GetValueRefrenceAs<vmTextInputDialog>();
+				if (resultValue != null)
+					TextInputDialogResult = resultValue.Text;
 			}
 		}
 

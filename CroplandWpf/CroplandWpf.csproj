@@ -101,6 +101,7 @@
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="MVVM\vmMenuItem.cs" />
     <Compile Include="MVVM\vmSearchInputDialog.cs" />
+    <Compile Include="MVVM\vmTextInputDialog.cs" />
     <Compile Include="PresentationHelpers\DataContextBridge.cs" />
     <Compile Include="PresentationHelpers\DataGridComboBoxHelper.cs" />
     <Compile Include="PresentationHelpers\DynamicColorAnimator.cs" />

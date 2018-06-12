@@ -74,6 +74,22 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty CloseRequestCommandProperty =
 			DependencyProperty.Register("CloseRequestCommand", typeof(DelegateCommand), typeof(MessageBoxWindow), new PropertyMetadata());
 
+		public object AdditionalContent
+		{
+			get { return (object)GetValue(AdditionalContentProperty); }
+			set { SetValue(AdditionalContentProperty, value); }
+		}
+		public static readonly DependencyProperty AdditionalContentProperty =
+			DependencyProperty.Register("AdditionalContent", typeof(object), typeof(MessageBoxWindow), new PropertyMetadata());
+
+		public DataTemplate AdditionalContentTemplate
+		{
+			get { return (DataTemplate)GetValue(AdditionalContentTemplateProperty); }
+			set { SetValue(AdditionalContentTemplateProperty, value); }
+		}
+		public static readonly DependencyProperty AdditionalContentTemplateProperty =
+			DependencyProperty.Register("AdditionalContentTemplate", typeof(DataTemplate), typeof(MessageBoxWindow), new PropertyMetadata());
+
 		#region Control buttons properties
 		public Visibility PositiveActionButtonVisibility
 		{
@@ -98,6 +114,22 @@ namespace CroplandWpf.Components
 		}
 		public static readonly DependencyProperty CancelActionButtonVisibilityProperty =
 			DependencyProperty.Register("CancelActionButtonVisibility", typeof(Visibility), typeof(MessageBoxWindow), new PropertyMetadata());
+
+		public bool AdditionalContentAvailable
+		{
+			get { return (bool)GetValue(AdditionalContentAvailableProperty); }
+			private set { SetValue(AdditionalContentAvailableProperty, value); }
+		}
+		public static readonly DependencyProperty AdditionalContentAvailableProperty =
+			DependencyProperty.Register("AdditionalContentAvailable", typeof(bool), typeof(MessageBoxWindow), new PropertyMetadata());
+
+		public bool AdditionalContentVisible
+		{
+			get { return (bool)GetValue(AdditionalContentVisibleProperty); }
+			set { SetValue(AdditionalContentVisibleProperty, value); }
+		}
+		public static readonly DependencyProperty AdditionalContentVisibleProperty =
+			DependencyProperty.Register("AdditionalContentVisible", typeof(bool), typeof(MessageBoxWindow), new PropertyMetadata());
 
 		public string PositiveActionButtonHeader
 		{
@@ -138,9 +170,9 @@ namespace CroplandWpf.Components
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
 		{
 			base.OnPropertyChanged(e);
-			if(e.Property == InfoProperty)
+			if (e.Property == InfoProperty)
 			{
-				if(e.NewValue != null)
+				if (e.NewValue != null)
 				{
 					if (Info.Resources.Count > 0)
 						foreach (object key in Info.Resources.Keys)
@@ -154,21 +186,23 @@ namespace CroplandWpf.Components
 						SetResourceReference(ContentTemplateProperty, Info.ContentTemplateKey);
 					if (Info.FooterTemplateKey != null)
 						SetResourceReference(FooterTemplateProperty, Info.FooterTemplateKey);
-					if(Info.Buttons == MessageBoxButton.OK)
+					if (Info.AdditionalContentTemplateKey != null)
+						SetResourceReference(AdditionalContentTemplateProperty, Info.AdditionalContentTemplateKey);
+					if (Info.Buttons == MessageBoxButton.OK)
 					{
 						PositiveActionButtonVisibility = Visibility.Visible;
 						NegativeActionButtonVisibility = Visibility.Collapsed;
 						CancelActionButtonVisibility = Visibility.Collapsed;
 						PositiveActionButtonHeader = "OK";
 					}
-					else if(Info.Buttons == MessageBoxButton.OKCancel)
+					else if (Info.Buttons == MessageBoxButton.OKCancel)
 					{
 						PositiveActionButtonVisibility = Visibility.Visible;
 						CancelActionButtonVisibility = Visibility.Visible;
 						NegativeActionButtonVisibility = Visibility.Collapsed;
 						PositiveActionButtonHeader = "OK";
 					}
-					else if(Info.Buttons == MessageBoxButton.YesNo)
+					else if (Info.Buttons == MessageBoxButton.YesNo)
 					{
 						PositiveActionButtonHeader = "Yes";
 						PositiveActionButtonVisibility = Visibility.Visible;
@@ -176,7 +210,7 @@ namespace CroplandWpf.Components
 						NegativeActionButtonVisibility = Visibility.Visible;
 						CancelActionButtonVisibility = Visibility.Collapsed;
 					}
-					else if(Info.Buttons == MessageBoxButton.YesNoCancel)
+					else if (Info.Buttons == MessageBoxButton.YesNoCancel)
 					{
 						PositiveActionButtonHeader = "Yes";
 						PositiveActionButtonVisibility = Visibility.Visible;
@@ -188,6 +222,8 @@ namespace CroplandWpf.Components
 				if (e.OldValue != null)
 					Resources.Clear();
 			}
+			if (e.Property == AdditionalContentTemplateProperty)
+				AdditionalContentAvailable = e.NewValue != null;
 		}
 
 		private bool ControlButtonCommand_CanExecute(object arg)
@@ -240,6 +276,7 @@ namespace CroplandWpf.Components
 	{
 		public string Header { get; set; }
 		public object Content { get; set; }
+		public object AdditionalContentTemplateKey { get; set; }
 		public object Footer { get; set; }
 		public object FooterTemplateKey { get; set; }
 		public object ContentTemplateKey { get; set; }
@@ -284,9 +321,9 @@ namespace CroplandWpf.Components
 
 	public static class MessageBoxIconBrushDefaultKeys
 	{
-		public static string Warning { get; } = "brushIcon_MessageBox_Info";
+		public static string Warning { get; } = "brushIcon_MessageBox_Warning";
 		public static string Error { get; } = "brushIcon_MessageBox_Error";
-		public static string Exception { get; } = "brushIcon_MessageBox_Error";
+		public static string Exception { get; } = "brushIcon_MessageBox_Exception";
 		public static string Question { get; } = "brushIcon_MessageBox_Question";
 	}
 
@@ -304,5 +341,6 @@ namespace CroplandWpf.Components
 		public string Name { get; set; }
 		public string Exception { get; set; }
 		public string Message { get; set; }
+		public string StackTrace { get; set; }
 	}
 }

@@ -28,4 +28,11 @@
 		</StackPanel>
 	</DataTemplate>
 
+	<DataTemplate x:Key="templateMessageBoxContent_Exception_AdditionalContent" DataType="{x:Type c:ExceptionInfo}">
+		<StackPanel Orientation="Vertical">
+			<TextBlock Text="Stack Trace" FontWeight="Bold"></TextBlock>
+			<TextBlock Text="{Binding StackTrace}" TextWrapping="Wrap"></TextBlock>
+		</StackPanel>
+	</DataTemplate>
+
 </ResourceDictionary>

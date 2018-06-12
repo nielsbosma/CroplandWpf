@@ -84,6 +84,89 @@
 		</Setter>
 	</Style>
 
+	<Style x:Key="styleButton_InputDialog_Control_NegativeAction" TargetType="Button">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushButton_InputDialog_Cancel_Background}"></Setter>
+		<Setter Property="Foreground" Value="{DynamicResource brushButton_InputDialog_Cancel_Foreground}"></Setter>
+		<Setter Property="FontSize" Value="10.5pt"></Setter>
+		<Setter Property="Padding" Value="13,6"></Setter>
+		<Setter Property="BorderBrush" Value="Transparent"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+		<Setter Property="Margin" Value="0,10,10,10"></Setter>
+		<Setter Property="MinWidth" Value="80"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid>
+						<Border x:Name="border_EffectHost" Effect="{DynamicResource effectShadow_Small}" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}" Background="{Binding ElementName=borderBackground, Path=Background}"></Border>
+						<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3"></Border>
+						<Border x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="#FFa5a5a5" Margin="1" CornerRadius="3"></Border>
+						<Border x:Name="borderBackground_Overlap_Disabled" Opacity="0.0" Background="{DynamicResource brushControl_Background_Disabled_Dark}" CornerRadius="3"></Border>
+						<ContentPresenter x:Name="presenter" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}"></ContentPresenter>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsPressed" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.2" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.3" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Disabled_Dark}"></Setter>
+							<Setter TargetName="border_EffectHost" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="presenter" Property="Opacity" Value="0.26"></Setter>
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<Style x:Key="styleButton_InputDialog_Close" TargetType="Button">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="Transparent"></Setter>
@@ -156,7 +239,7 @@
 								<ContentPresenter Grid.Row="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}" ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>
 
 								<StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="15" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-									<Button Style="{StaticResource styleButton_InputDialog_Control}" Margin="0,0,15,0" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NegativeActionButtonHeader}" CommandParameter="{x:Static c:InputDialogResultActionType.Negative}" Command="{TemplateBinding ControlButtonCommand}" VerticalAlignment="Center"></Button>
+									<Button Style="{StaticResource styleButton_InputDialog_Control_NegativeAction}" Margin="0,0,15,0" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NegativeActionButtonHeader}" CommandParameter="{x:Static c:InputDialogResultActionType.Negative}" Command="{TemplateBinding ControlButtonCommand}" VerticalAlignment="Center"></Button>
 									<Button Style="{StaticResource styleButton_InputDialog_Control}" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PositiveActionButtonHeader}" CommandParameter="{x:Static c:InputDialogResultActionType.Positive}" Command="{TemplateBinding ControlButtonCommand}" VerticalAlignment="Center"></Button>
 								</StackPanel>
 							</Grid>

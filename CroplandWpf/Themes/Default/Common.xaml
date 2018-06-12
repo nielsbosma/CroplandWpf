@@ -2,27 +2,27 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 	<DropShadowEffect x:Key="effectShadow_Small" Direction="270" ShadowDepth="1.2" Color="#FF000000" Opacity="0.3" BlurRadius="4"></DropShadowEffect>
-	
+
 	<DropShadowEffect x:Key="effectShadow_Large" Direction="270" ShadowDepth="4" Color="#FF000000" Opacity="0.2" BlurRadius="10"></DropShadowEffect>
-	
+
 	<DropShadowEffect x:Key="effectShadow_Calendar" Direction="270" ShadowDepth="10" Color="#FF000000" Opacity="0.3" BlurRadius="15"></DropShadowEffect>
-	
+
 	<DropShadowEffect x:Key="effectShadow_Window" Direction="270" ShadowDepth="13" Color="#FF000000" Opacity="0.5" BlurRadius="28"></DropShadowEffect>
 
 	<DropShadowEffect x:Key="effectShadow_Window_Light" Direction="270" ShadowDepth="13" Color="#FF000000" Opacity="0.5" BlurRadius="30"></DropShadowEffect>
 
 	<SolidColorBrush x:Key="brushControl_Background_Dark" Color="{DynamicResource colorControl_Background_Dark}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushControl_Background_Light" Color="{DynamicResource colorControl_Background_Light}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushControl_Foreground_Light" Color="{DynamicResource colorControl_Foreground_Light}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushControl_Foreground_Dark" Color="{DynamicResource colorControl_Foreground_Dark}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushControl_Background_Disabled_Dark" Color="{DynamicResource colorControl_Background_Disabled_Dark}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushControl_Foreground_Disabled_Light" Color="{DynamicResource colorControl_Foreground_Disabled_Light}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushControl_Foreground_Disabled_Dark" Color="{DynamicResource colorControl_Foreground_Disabled_Dark}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushControl_Background_MouseOver" Color="{DynamicResource colorControl_Background_MouseOver}"></SolidColorBrush>
@@ -38,7 +38,7 @@
 	<SolidColorBrush x:Key="brushListBoxItem_IsSelected_Background" Color="{DynamicResource colorListBoxItem_IsSelected_Background}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushListBox_Background" Color="{DynamicResource colorListBox_Background}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushListBox_Border" Color="{DynamicResource colorListBox_Border}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushHyperlink_Foreground" Color="{DynamicResource colorHyperlink_Foreground}"></SolidColorBrush>
@@ -46,34 +46,34 @@
 	<SolidColorBrush x:Key="brushHyperlink_Foreground_MouseOver" Color="{DynamicResource colorHyperlink_Foreground_MouseOver}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushItemsControl_Background" Color="{DynamicResource colorItemsControl_Background}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushItemsControl_Border" Color="{DynamicResource colorItemsControl_Border}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushItemsControl_Foreground" Color="{DynamicResource colorItemsControl_Foreground}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushItemsControl_Item_Background" Color="{DynamicResource colorItemsControl_Item_Background}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushSearchAutocompleteComboBox_Foreground" Color="{DynamicResource colorSearchAutocompleteComboBox_Foreground}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushSearchAutocompleteComboBox_Foreground_Highlight" Color="{DynamicResource colorSearchAutocompleteComboBoxItem_Foreground_Highlight}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushIconFill" Color="{DynamicResource colorSearchAutocompleteComboBoxItem_Foreground_Highlight}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushButtonUtil_Background" Color="{DynamicResource colorButtonUtil_Background}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushButtonUtil_Foreground" Color="{DynamicResource colorButtonUtil_Foreground}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushButtonUtil_Foreground_MouseOver" Color="{DynamicResource colorButtonUtil_Foreground_MouseOver}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushButton_Arrow_Background" Color="{DynamicResource colorButton_Arrow_Background}"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushButton_Cross_Background" Color="{DynamicResource colorButton_Cross_Background}"></SolidColorBrush>
 
 	<LinearGradientBrush x:Key="brushMenu_Separator_Background" EndPoint="0,1">
 		<GradientStop Offset="0.0" Color="#FFe6e6e6"></GradientStop>
 		<GradientStop Offset="1.0" Color="#FFfafafa"></GradientStop>
 	</LinearGradientBrush>
-	
+
 	<SolidColorBrush x:Key="brushMenuItem_MouseOver_Background" Color="{DynamicResource colorMenuItem_MouseOver_Background}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushMenuItem_MouseOver_Background_Light" Color="#FFf3f3f3"></SolidColorBrush>
@@ -87,13 +87,13 @@
 	<SolidColorBrush x:Key="brushMenuItem_Arrow_Background_MouseOver" Color="{DynamicResource colorMenuItem_Arrow_Background_MouseOver}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushCalendar_Icon_Background">#FFececec</SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushCalendar_Icon_Background_Active">#FF58595B</SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushCalendar_NavigationButton_Background">#FF777777</SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushCalendarDayButton_Background_MouseOver">#FFe7e7e7</SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushCalendarDayButton_Foreground_MouseOver">#FF222222</SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushWindowBackground_Dark">#FFf3f3f3</SolidColorBrush>
@@ -101,11 +101,11 @@
 	<SolidColorBrush x:Key="brushMenuItem_Foreground_Dark">#FF515151</SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushWindow_Title_Foreground_Dark">#FF227347</SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushButton_WindowClose_Background_Light">#FFeeeeee</SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushButton_WindowClose_Icon_Background">#FF9b9b9b</SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushMenuItem_TopLevelheader_Border_IsActive">#FFcccccc</SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushDataGrid_Background">#FFfafafa</SolidColorBrush>
@@ -132,7 +132,7 @@
 	</VisualBrush>
 
 	<SolidColorBrush x:Key="brushToggleButton_ComboBox_DataGridComboBoxColumn_Background">#FFebebeb</SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushToggleButton_ComboBox_DataGridComboBoxColumn_Arrow_Background">#FF000000</SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushCheckBox_DataGridCheckBoxColumn_Border">#FFe5e5e5</SolidColorBrush>
@@ -141,6 +141,23 @@
 	<SolidColorBrush x:Key="brushIcon_LoadingIndicator_InnerRing" Color="#FF227347"></SolidColorBrush>
 
 	<VisualBrush x:Key="brushIcon_MessageBox_Error" Stretch="Uniform">
+		<VisualBrush.Visual>
+			<Border Width="30" Height="30" Background="#FFdb2e45" CornerRadius="15">
+				<Path Data="{DynamicResource geometryCross}" Fill="White" Stretch="Fill" Margin="9" StrokeThickness="1" Stroke="White" VerticalAlignment="Center" HorizontalAlignment="Center"></Path>
+			</Border>
+		</VisualBrush.Visual>
+	</VisualBrush>
+
+	<VisualBrush x:Key="brushIcon_MessageBox_Warning" Stretch="Uniform">
+		<VisualBrush.Visual>
+			<Grid Width="30" Height="30">
+				<Path Data="M0,30 L15,0 30,30 0,30z" Fill="Yellow" Stretch="Fill" StrokeThickness="1" Stroke="#33000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Path>
+				<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" FontSize="11pt" FontWeight="Bold" Margin="0,6,0,0">!</TextBlock>
+			</Grid>
+		</VisualBrush.Visual>
+	</VisualBrush>
+
+	<VisualBrush x:Key="brushIcon_MessageBox_Exception" Stretch="Uniform">
 		<VisualBrush.Visual>
 			<Border Width="30" Height="30" Background="#FFdb2e45" CornerRadius="15">
 				<Path Data="{DynamicResource geometryCross}" Fill="White" Stretch="Fill" Margin="9" StrokeThickness="1" Stroke="White" VerticalAlignment="Center" HorizontalAlignment="Center"></Path>
@@ -174,6 +191,14 @@
 	<StreamGeometry x:Key="geometryNumericUpDown_Arrow_Up">M0,6 L6,0 12,6 0,6z</StreamGeometry>
 
 	<SolidColorBrush x:Key="brushNumericUpDown_Arrow_Background">#FF757575</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushButton_InputDialog_Cancel_Background">#FFd7d8d7</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushButton_InputDialog_Cancel_Foreground">#FFa5a5a5</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushToggleButton_MessageBoxWindow_ShowDetails_Foreground">#FF3c495c</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushToggleButton_MessageBoxWindow_ShowDetails_Arrow_Background">#FF747474</SolidColorBrush>
 
 
 </ResourceDictionary> 

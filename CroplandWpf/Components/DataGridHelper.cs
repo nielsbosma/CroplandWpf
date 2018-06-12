@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -259,5 +260,121 @@ namespace CroplandWpf.Components
 				return -1;
 		}
 		#endregion
+	}
+
+	public class DataGridColumnHelper : FrameworkElement
+	{
+		public DataGrid TargetDataGrid
+		{
+			get { return (DataGrid)GetValue(TargetDataGridProperty); }
+			set { SetValue(TargetDataGridProperty, value); }
+		}
+		public static readonly DependencyProperty TargetDataGridProperty =
+			DependencyProperty.Register("TargetDataGrid", typeof(DataGrid), typeof(DataGridColumnHelper), new PropertyMetadata());
+
+		public IEnumerable TargetItemsSource
+		{
+			get { return (IEnumerable)GetValue(TargetItemsSourceProperty); }
+			set { SetValue(TargetItemsSourceProperty, value); }
+		}
+		public static readonly DependencyProperty TargetItemsSourceProperty =
+			DependencyProperty.Register("TargetItemsSource", typeof(IEnumerable), typeof(DataGridColumnHeader), new PropertyMetadata());
+
+		private bool columnsChangedSubscribed = false;
+		private DataGridColumn lastColumn;
+		private DataGridLength lastColumnWidthBackup;
+
+		public DataGridColumnHelper()
+		{
+			IsEnabled = false;
+			IsHitTestVisible = false;
+			Visibility = Visibility.Collapsed;
+			Loaded += DataGridColumnHelper_Loaded;
+			Unloaded += DataGridColumnHelper_Unloaded;
+		}
+
+		private void DataGridColumnHelper_Unloaded(object sender, RoutedEventArgs e)
+		{
+			UnsubscribeColumnsChanged();
+		}
+
+		private void DataGridColumnHelper_Loaded(object sender, RoutedEventArgs e)
+		{
+			if (TargetDataGrid == null)
+				SetBinding(TargetDataGridProperty, new Binding { RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(DataGrid), 1) });
+		}
+
+		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+		{
+			base.OnPropertyChanged(e);
+			if (e.Property == TargetDataGridProperty)
+			{
+				if (e.NewValue != null)
+				{
+					AcquireLastColumn();
+					SetBinding(IsEnabledProperty, new Binding { Source = TargetDataGrid, Path = new PropertyPath(DataGridHelper.LastColumnFillProperty), Mode = BindingMode.OneWay });
+				}
+				else
+					UnsubscribeColumnsChanged();
+			}
+			if(e.Property == IsEnabledProperty)
+			{
+				if ((bool)e.NewValue)
+					AcquireLastColumn();
+				else
+					RestoreLastColumn();
+			}
+		}
+
+		private void SubscribeColumnsChanged()
+		{
+			if (!columnsChangedSubscribed && TargetDataGrid != null)
+			{
+				TargetDataGrid.Columns.CollectionChanged += Columns_CollectionChanged;
+				columnsChangedSubscribed = true;
+			}
+		}
+
+		private void UnsubscribeColumnsChanged()
+		{
+			if(columnsChangedSubscribed && TargetDataGrid != null)
+			{
+				TargetDataGrid.Columns.CollectionChanged -= Columns_CollectionChanged;
+				columnsChangedSubscribed = false;
+			}
+		}
+
+		private void RestoreLastColumn()
+		{
+			if(lastColumn != null)
+			{
+				lastColumn.Width = lastColumnWidthBackup;
+				lastColumn = null;
+				lastColumnWidthBackup = default(DataGridLength);
+			}
+		}
+
+		private void Columns_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			if (!IsEnabled)
+				return;
+			if(lastColumn != null)
+			{
+				RestoreLastColumn();
+				AcquireLastColumn();
+			}
+		}
+
+		private void AcquireLastColumn()
+		{
+			if (!IsEnabled)
+				return;
+			lastColumn = TargetDataGrid.Columns.LastOrDefault();
+			if (lastColumn != null)
+			{
+				lastColumnWidthBackup = lastColumn.Width;
+				lastColumn.Width = new DataGridLength(100.0, DataGridLengthUnitType.Star);
+			}
+		}
 	}
 }

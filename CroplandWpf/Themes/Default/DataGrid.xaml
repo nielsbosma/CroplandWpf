@@ -215,6 +215,7 @@
 								<ColumnDefinition></ColumnDefinition>
 								<ColumnDefinition Width="Auto"></ColumnDefinition>
 							</Grid.ColumnDefinitions>
+							<c:DataGridHelper x:Name="dataGridHelper"></c:DataGridHelper>
 							<SelectiveScrollingGrid Grid.Column="0">
 								<SelectiveScrollingGrid.ColumnDefinitions>
 									<ColumnDefinition Width="Auto"/>
@@ -230,7 +231,6 @@
 							</SelectiveScrollingGrid>
 							<Border Grid.Column="1" x:Name="borderControlsHost" IsHitTestVisible="False" BorderBrush="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}, Path=HorizontalGridLinesBrush}">
 								<StackPanel x:Name="panelControlsHost" Orientation="Horizontal" Opacity="0.0">
-									<c:DataGridHelper x:Name="dataGridHelper"></c:DataGridHelper>
 									<Button Style="{StaticResource styleButton_DataGridRow_MoveUp}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Command="{Binding ElementName=dataGridHelper, Path=MoveRowUpCommand}"></Button>
 									<Button Style="{StaticResource styleButton_DataGridRow_MoveDown}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Command="{Binding ElementName=dataGridHelper, Path=MoveRowDownCommand}"></Button>
 									<Button Style="{StaticResource styleButton_DataGridRow_Remove}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" Command="{Binding ElementName=dataGridHelper, Path=RemoveRowCommand}"></Button>
@@ -314,6 +314,7 @@
 										</Grid.RowDefinitions>
 										<Button Command="{x:Static DataGrid.SelectAllCommand}" Focusable="false" Style="{DynamicResource {ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}}" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.All}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
 										<DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" Grid.Column="1" Grid.ColumnSpan="2" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+										<c:DataGridColumnHelper></c:DataGridColumnHelper>
 										<ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" Grid.ColumnSpan="2" Grid.Row="1"/>
 										<ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="2" Maximum="{TemplateBinding ScrollableHeight}" Orientation="Vertical" Grid.Row="1" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}"/>
 										<Grid Grid.Column="1" Grid.Row="2">
@@ -391,6 +392,59 @@
 
 	<Style x:Key="styleCheckBox_DataGridCheckBoxColumn" TargetType="CheckBox">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+		<Setter Property="Height" Value="21"></Setter>
+		<Setter Property="Width" Value="21"></Setter>
+		<Setter Property="Background" Value="Transparent"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="CheckBox">
+					<Grid Background="{TemplateBinding Background}">
+						<Path x:Name="pathTickFrame" Data="{DynamicResource geometryCheckBox}" Stretch="Fill" Fill="#FF6e6e6e"></Path>
+						<Path x:Name="pathTickFrame_Overlap_IsChecked" Opacity="0.0" Data="{DynamicResource geometryCheckBox}" Stretch="Fill" Fill="{DynamicResource brushControl_Background_Dark}"></Path>
+						<Path x:Name="pathTick" Opacity="0.0" Data="{DynamicResource geometryCheckBox_Tick}" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Fill" Fill="{DynamicResource brushControl_Background_Dark}" Margin="4,5"></Path>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="pathTickFrame" Property="Fill" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="pathTick" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="pathTickFrame_Overlap_IsChecked" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="pathTick" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="pathTickFrame_Overlap_IsChecked" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.6"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.6" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<!--<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="BorderBrush" Value="{DynamicResource brushCheckBox_DataGridCheckBoxColumn_Border}"></Setter>
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Height" Value="17"></Setter>
@@ -410,7 +464,9 @@
 								<BeginStoryboard>
 									<Storyboard>
 										<DoubleAnimation Storyboard.TargetName="pathTick" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
-										<!--<DoubleAnimation Storyboard.TargetName="pathTickFrame_Overlap_IsChecked" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>-->
+										-->
+		<!--<DoubleAnimation Storyboard.TargetName="pathTickFrame_Overlap_IsChecked" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>-->
+		<!--
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
@@ -418,7 +474,9 @@
 								<BeginStoryboard>
 									<Storyboard>
 										<DoubleAnimation Storyboard.TargetName="pathTick" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
-										<!--<DoubleAnimation Storyboard.TargetName="pathTickFrame_Overlap_IsChecked" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>-->
+										-->
+		<!--<DoubleAnimation Storyboard.TargetName="pathTickFrame_Overlap_IsChecked" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>-->
+		<!--
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -452,7 +510,7 @@
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
-		</Setter>
+		</Setter>-->
 	</Style>
 
 

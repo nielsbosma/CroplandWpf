@@ -176,20 +176,11 @@ namespace CroplandWpf.Components
 				actionType = (InputDialogResultActionType)arg;
 			}
 			catch { }
-			if (PositiveActionCanExecute != null && !PositiveActionCanExecute(actionType, Content))
+
+			if (actionType == InputDialogResultActionType.Positive && PositiveActionCanExecute != null && !PositiveActionCanExecute(actionType, Content))
 				return false;
-			switch (actionType)
-			{
-				//TODO
-				//case InputDialogResultActionType.NA:
-				//	return true;
-				//case InputDialogResultActionType.Positive:
-				//	return true;
-				//case InputDialogResultActionType.Negative:
-				//	return true;
-				default:
-					return true;
-			}
+
+			return true;
 		}
 		#endregion
 	}
@@ -259,20 +250,7 @@ namespace CroplandWpf.Components
 		public InputDialogInfo()
 		{
 			PositiveActionButtonHeader = "OK";
-			NegativeActionButtonHeader = "Cancel";
-		}
-
-		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-		{
-			base.OnPropertyChanged(e);
-			//if (e.Property == ContentTemplateKeyProperty && e.NewValue != null && Content != null)
-			//{
-			//	throw new InvalidOperationException(String.Format("Cannot set {0} value because {1} property value is already set", ContentTemplateKeyProperty.Name, ContentProperty.Name));
-			//}
-			//if (e.Property == ContentProperty && e.NewValue != null && ContentTemplateKey != null)
-			//{
-			//	throw new InvalidOperationException(String.Format("Cannot set {0} value because {1} property value is already set", ContentProperty.Name, ContentTemplateKeyProperty.Name));
-			//}
+			NegativeActionButtonHeader = "CANCEL";
 		}
 
 		public object GetContentInstance()

@@ -185,13 +185,84 @@
 	</Style>
 
 
-	<Style x:Key="styleButton_RemoveRequest" TargetType="Button" BasedOn="{StaticResource styleButton_Round}">
-		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
-		<Setter Property="ContentTemplate">
+	<Style x:Key="styleButton_RemoveRequest" TargetType="Button">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Width" Value="18"></Setter>
+		<Setter Property="Height" Value="18"></Setter>
+		<Setter Property="Foreground" Value="#FF555555"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushItemsControl_Item_Background}"></Setter>
+		<Setter Property="FontSize" Value="13pt"></Setter>
+		<Setter Property="FontWeight" Value="Light"></Setter>
+		<Setter Property="Padding" Value="0"></Setter>
+		<Setter Property="Template">
 			<Setter.Value>
-				<DataTemplate>
-					<Path Data="{DynamicResource geometryCross}" Width="6" Height="6" Stretch="Fill" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=Foreground}" VerticalAlignment="Center" HorizontalAlignment="Center"></Path>
-				</DataTemplate>
+				<ControlTemplate TargetType="Button">
+					<Grid Background="{x:Null}">
+						<Ellipse x:Name="ellipse_EffectHost" Opacity="0.0" Effect="{DynamicResource effectShadow_Small}" Fill="{TemplateBinding Background}"></Ellipse>
+						<Ellipse x:Name="ellipseBackground" Fill="{TemplateBinding Background}"></Ellipse>
+						<Ellipse x:Name="ellipseBackground_Overlap_MouseOver" Opacity="0.0" Fill="#FFadadad"></Ellipse>
+						<Path Data="{DynamicResource geometryCross}" Width="8" Height="8" Stretch="Fill" Fill="{TemplateBinding Foreground}" VerticalAlignment="Center" HorizontalAlignment="Center"></Path>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsPressed" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="ellipse_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.050"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="ellipse_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.050"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="ellipse_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.0" To="0.2" Duration="00:00:00.050"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="ellipse_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.050"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="ellipse_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.050"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="ellipse_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.0" Duration="00:00:00.050"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+
+						<Trigger Property="IsEnabled" Value="False">
+							<!--<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Disabled_Dark}"></Setter>-->
+							<Setter TargetName="ellipse_EffectHost" Property="Visibility" Value="Collapsed"></Setter>
+							<!--<Setter TargetName="presenter" Property="Opacity" Value="0.26"></Setter>-->
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.3"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.3" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+
+						<Trigger Property="IsMouseOver" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>

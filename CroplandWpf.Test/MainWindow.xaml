@@ -11,6 +11,7 @@
 		xmlns:conv="clr-namespace:CroplandWpf.Converters;assembly=CroplandWpf"
 		xmlns:msc="clr-namespace:System;assembly=mscorlib"
 		xmlns:Themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
+		xmlns:mvvm="clr-namespace:CroplandWpf.MVVM;assembly=CroplandWpf"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		x:Class="CroplandWpf.Test.MainWindow"
         mc:Ignorable="d"
@@ -220,9 +221,17 @@
 			</c:InputDialogInfo.Resources>
 		</c:InputDialogInfo>
 
+		<c:InputDialogInfo x:Key="inputDialogInfo_TextInput" ph:DataContextBridge.SourceScopeName="vm_main" PositiveActionButtonHeader="YES" NegativeActionButtonHeader="NO" CanPositiveActionExecute="{Binding TextInputDialogValidator}" ContentType="{x:Type mvvm:vmTextInputDialog}" ContentTemplateKey="templateInputDialog_TextInput">
+			<c:InputDialogInfo.Resources>
+				<DataTemplate x:Key="templateInputDialog_TextInput">
+					<TextBox Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+				</DataTemplate>
+			</c:InputDialogInfo.Resources>
+		</c:InputDialogInfo>
+
 		<CollectionViewSource x:Key="sourcePersonalityType">
 			<CollectionViewSource.Source>
-				<ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type msc:Enum}">
+				<ObjectDataProvider ObjectType="{x:Type msc:Enum}" MethodName="GetValues">
 					<ObjectDataProvider.MethodParameters>
 						<x:Type TypeName="local:PersonalityType"/>
 					</ObjectDataProvider.MethodParameters>
@@ -305,7 +314,6 @@
 					<RadioButton Margin="5,5,5,3" GroupName="rbtest" IsChecked="True" Content="RadioButton 1 (group: rbtest)"/>
 					<RadioButton Margin="5,0,5,5" GroupName="rbtest" Content="RadioButton 2 (group: rbtest)"/>
 					<RadioButton Margin="5,0,5,5" IsEnabled="False" Content="RadioButton 3 (disabled)"/>
-					<Path Width="12" Height="6" Data="M0,6 L6,0 12,6 0,6z" Fill="Black"></Path>
 					<StackPanel Orientation="Horizontal">
 						<RadioButton x:Name="radioButtonTest" Margin="5,0,5,5" IsEnabled="False" IsChecked="True" Content="RadioButton 4 (checked/disabled)"/>
 						<CheckBox Margin="5,0" IsChecked="{Binding IsEnabled, ElementName=radioButtonTest, Mode=TwoWay}" Content="IsEnabled"/>
@@ -421,6 +429,11 @@
 					<Run Text="{Binding ClickedStringSearchItem}" FontWeight="Bold"/>
 			</TextBlock>
 			<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=searchAutocomplete_String, Mode=TwoWay}" Content="IsEnabled"/>
+			<Button Command="{Binding ShowTextInputDialogCommand}" CommandParameter="{StaticResource inputDialogInfo_TextInput}">Show Text Input Box</Button>
+			<TextBlock>
+				<Run Text="text input box result: "></Run>
+				<Run Text="{Binding TextInputDialogResult}" FontWeight="Bold"></Run>
+			</TextBlock>
 			<c:SearchAutocompleteControl x:Name="searchAutocomplete_SearchItem" AutoFocusOnLoad="True" SearchPropertyBindingPath="Description"  SearchResultRefreshCommand="{Binding CustomSearchItemSearchResultRefreshCommand}" ItemsSource="{Binding CustomItemSearchResults}" SearchItemCommand="{Binding CustomSearchItemClickCommand}"/>
 			<TextBlock Margin="15,3,0,3" TextWrapping="Wrap">
 					<Run Text="selected search item:"/>
@@ -447,7 +460,7 @@
 			<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
 			<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
 			<TextBlock Margin="5" FontWeight="Bold"><Run Text="DataGrid"/></TextBlock>
-			<DataGrid Margin="5" x:Name="dataGrid" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False" c:DataGridHelper.MoveRowUpCommandOverride="{Binding PersonItemMoveUpCommand}" c:DataGridHelper.MoveRowDownCommandOverride="{Binding PersonItemMoveDownCommand}" c:DataGridHelper.RemoveRowCommandOverride="{Binding RemovePersonItemCommand}" c:DataGridHelper.ShowDefaultRemoveConfirmation="True" c:DataGridHelper.ShowRowControls="False">
+			<DataGrid Margin="5" x:Name="dataGrid" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False" c:DataGridHelper.MoveRowUpCommandOverride="{Binding PersonItemMoveUpCommand}" c:DataGridHelper.MoveRowDownCommandOverride="{Binding PersonItemMoveDownCommand}" c:DataGridHelper.RemoveRowCommandOverride="{Binding RemovePersonItemCommand}" c:DataGridHelper.ShowDefaultRemoveConfirmation="True" c:DataGridHelper.ShowRowControls="False" c:DataGridHelper.LastColumnFill="False">
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Person Name" Binding="{Binding Name, Mode=TwoWay}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}" EditingElementStyle="{DynamicResource styleTextBox_DataGridTextColumn}"/>
 					<DataGridTextColumn Header="Internal Number" IsReadOnly="True" Binding="{Binding InternalNumber}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}"/>
@@ -457,6 +470,7 @@
 			</DataGrid>
 			<StackPanel Margin="20,5,5,5" Orientation="Horizontal">
 				<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.ShowRowControls), Mode=TwoWay}">ShowRowControls</CheckBox>
+				<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.LastColumnFill), Mode=TwoWay}">Last column fill</CheckBox>
 			</StackPanel>
 			<StackPanel Orientation="Vertical" VerticalAlignment="Top">
 				<TextBlock Margin="5"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>
