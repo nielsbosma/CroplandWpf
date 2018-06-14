@@ -260,6 +260,7 @@
 			<Setter Property="a:ToolTipBeacon.ToolTipTemplateKey" Value="templateToolTip_RemovableItemContentControl_TopPlacement"/>
 			<Setter Property="a:ToolTipBeacon.PlacementPriority" Value="Bottom"/>
 		</Style>
+
 	</Window.Resources>
 
 	<Grid Margin="10">
@@ -318,6 +319,11 @@
 						<RadioButton x:Name="radioButtonTest" Margin="5,0,5,5" IsEnabled="False" IsChecked="True" Content="RadioButton 4 (checked/disabled)"/>
 						<CheckBox Margin="5,0" IsChecked="{Binding IsEnabled, ElementName=radioButtonTest, Mode=TwoWay}" Content="IsEnabled"/>
 					</StackPanel>
+					<TextBlock Margin="5">ToggleButton</TextBlock>
+					<StackPanel Orientation="Horizontal">
+						<ToggleButton x:Name="toggleButton" a:ToggleButtonHelper.CheckedContent="Yes">No</ToggleButton>
+						<ToggleButton Margin="20,0,0,0" IsChecked="{Binding ElementName=toggleButton, Path=IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" a:ToggleButtonHelper.CheckedContent="Enabled">Disabled</ToggleButton>
+					</StackPanel>
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*"></ColumnDefinition>
@@ -360,60 +366,12 @@
 				</StackPanel>
 			</ScrollViewer>
 		</Grid>
-		
+
 		<StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Top">
 			<TextBlock FontWeight="Bold"><Run Text="ItemsControls"/></TextBlock>
 			<TextBlock Margin="5"><Run Text="ListBox"/></TextBlock>
 			<ListBox x:Name="listBoxTest" Height="150" ItemsSource="{Binding TestItemsSource}"/>
 			<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=listBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
-			<Grid>
-				<!--<ContentControl Margin="5">
-						<ContentControl.Style>
-							<Style TargetType="ContentControl">
-								<Setter Property="Template">
-									<Setter.Value>
-										<ControlTemplate TargetType="ContentControl">
-											<Grid>
-												<Path x:Name="pathInner" Stretch="Fill" Stroke="{DynamicResource brushIcon_LoadingIndicator_InnerRing}" Width="32" Height="32" RenderTransformOrigin="0.5,0.5">
-													<Path.Data>
-														<EllipseGeometry RadiusX="16" RadiusY="16" Center="16,16" />
-													</Path.Data>
-													<Path.RenderTransform>
-														<ScaleTransform x:Name="stInner" ScaleX="1.0" ScaleY="1.0"></ScaleTransform>
-													</Path.RenderTransform>
-												</Path>
-												<Path x:Name="pathOuter" Stretch="Fill" Stroke="{DynamicResource brushIcon_LoadingIndicator_OuterRing}" Width="64" Height="64" RenderTransformOrigin="0.5,0.5">
-													<Path.Data>
-														<EllipseGeometry RadiusX="28.9492" RadiusY="28.9492" Center="50,50" />
-													</Path.Data>
-													<Path.RenderTransform>
-														<ScaleTransform x:Name="stOuter" ScaleX="1.0" ScaleY="1.0"></ScaleTransform>
-													</Path.RenderTransform>
-												</Path>
-											</Grid>
-											<ControlTemplate.Triggers>
-												<EventTrigger RoutedEvent="Loaded">
-													<EventTrigger.Actions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="pathInner" Storyboard.TargetProperty="Opacity" To="0.0" Duration="00:00:01" RepeatBehavior="Forever"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="stInner" Storyboard.TargetProperty="ScaleX" To="2.0" Duration="00:00:01" RepeatBehavior="Forever"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="stInner" Storyboard.TargetProperty="ScaleY" To="2.0" Duration="00:00:01" RepeatBehavior="Forever"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="pathOuter" Storyboard.TargetProperty="Opacity" To="0.0" Duration="00:00:01" RepeatBehavior="Forever" BeginTime="-00:00:00.5"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="stOuter" Storyboard.TargetProperty="ScaleX" To="2.0" Duration="00:00:01" RepeatBehavior="Forever" BeginTime="-00:00:00.5"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="stOuter" Storyboard.TargetProperty="ScaleY" To="2.0" Duration="00:00:01" RepeatBehavior="Forever" BeginTime="-00:00:00.5"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</EventTrigger.Actions>
-												</EventTrigger>
-											</ControlTemplate.Triggers>
-										</ControlTemplate>
-									</Setter.Value>
-								</Setter>
-							</Style>
-						</ContentControl.Style>
-					</ContentControl>-->
-			</Grid>
 			<TextBlock Margin="5"><Run Text="ComboBox"/></TextBlock>
 			<ComboBox x:Name="comboBoxTest" ItemsSource="{Binding TestItemsSource}" />
 			<TextBlock Margin="5"><Run Text="ComboBox (light)"/></TextBlock>
@@ -443,7 +401,7 @@
 					<Run Text="{Binding ClickedCustomSearchItem.Description}" FontWeight="Normal"/>
 			</TextBlock>
 		</StackPanel>
-		
+
 		<StackPanel Grid.Column="2" Grid.RowSpan="3" Orientation="Vertical">
 			<TextBlock Margin="5" FontWeight="Bold"><Run Text="MessageBox"/></TextBlock>
 			<StackPanel Orientation="Horizontal">
@@ -453,12 +411,17 @@
 				<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
 			</StackPanel>
 			<TextBlock Margin="20,5,0,5">
-					<TextBlock Text="MessageBoxResult:"/>
-					<Run Text=" "/>
-					<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/>
-					</TextBlock>
+				<TextBlock Text="MessageBoxResult:"/>
+				<Run Text=" "/>
+				<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/>
+			</TextBlock>
 			<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
 			<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
+			<TextBlock Margin="5" FontWeight="Bold">TimePicker (Xceed)</TextBlock>
+			<StackPanel Orientation="Horizontal">
+				<tk:TimePicker x:Name="timePicker" Margin="5" HorizontalAlignment="Left" MinWidth="100" Value="{Binding TimeValue, Mode=TwoWay}" StartTime="00:00:00" EndTime="23:59:59" AllowSpin="True" AllowTextInput="True" Minimum="00:00:00" Maximum="23:59:59"></tk:TimePicker>
+				<CheckBox IsChecked="{Binding ElementName=timePicker, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
+			</StackPanel>
 			<TextBlock Margin="5" FontWeight="Bold"><Run Text="DataGrid"/></TextBlock>
 			<DataGrid Margin="5" x:Name="dataGrid" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False" c:DataGridHelper.MoveRowUpCommandOverride="{Binding PersonItemMoveUpCommand}" c:DataGridHelper.MoveRowDownCommandOverride="{Binding PersonItemMoveDownCommand}" c:DataGridHelper.RemoveRowCommandOverride="{Binding RemovePersonItemCommand}" c:DataGridHelper.ShowDefaultRemoveConfirmation="True" c:DataGridHelper.ShowRowControls="False" c:DataGridHelper.LastColumnFill="False">
 				<DataGrid.Columns>

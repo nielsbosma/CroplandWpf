@@ -138,6 +138,7 @@
 	<SolidColorBrush x:Key="brushCheckBox_DataGridCheckBoxColumn_Border">#FFe5e5e5</SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushIcon_LoadingIndicator_OuterRing" Color="#FF257F4E"></SolidColorBrush>
+	
 	<SolidColorBrush x:Key="brushIcon_LoadingIndicator_InnerRing" Color="#FF227347"></SolidColorBrush>
 
 	<VisualBrush x:Key="brushIcon_MessageBox_Error" Stretch="Uniform">
@@ -200,5 +201,18 @@
 
 	<SolidColorBrush x:Key="brushToggleButton_MessageBoxWindow_ShowDetails_Arrow_Background">#FF747474</SolidColorBrush>
 
+	<SolidColorBrush x:Key="brushToggleButton_Background">#FFdfe1e5</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushToggleButton_Background_Checked">#FF177147</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushToggleButton_Tick_Background">#FFffffff</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushToggleButton_Background_Disabled">#FFe8edf1</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushToggleButton_Foreground">#FF1f2d41</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushToggleButton_Foreground_Disabled">#FF8d949d</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushToggleButton_Tick_Backround_Disabled">#FFf4f6f8</SolidColorBrush>
 
 </ResourceDictionary> 

@@ -26,12 +26,12 @@ namespace CroplandWpf.Components
 			remove { RemoveHandler(ClickedEvent, value); }
 		}
 
-		public static readonly RoutedEvent FocusedEvent =
-			EventManager.RegisterRoutedEvent("Focused", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SearchAutocmpleteItem));
-		public event RoutedEventHandler Focused
+		public static readonly RoutedEvent SelectedEvent =
+			EventManager.RegisterRoutedEvent("Selected", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SearchAutocmpleteItem));
+		public event RoutedEventHandler Selected
 		{
-			add { AddHandler(FocusedEvent, value); }
-			remove { RemoveHandler(FocusedEvent, value); }
+			add { AddHandler(SelectedEvent, value); }
+			remove { RemoveHandler(SelectedEvent, value); }
 		}
 		#endregion
 
@@ -145,7 +145,7 @@ namespace CroplandWpf.Components
 				IsSelected = true;
 			if (e.Property == IsSelectedProperty && (bool)e.NewValue)
 			{
-				RaiseEvent(new RoutedEventArgs(FocusedEvent, this));
+				RaiseEvent(new RoutedEventArgs(SelectedEvent, this));
 				BringIntoView();
 			}
 		}

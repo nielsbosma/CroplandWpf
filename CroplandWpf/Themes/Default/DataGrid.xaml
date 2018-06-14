@@ -4,17 +4,6 @@
 					xmlns:c="clr-namespace:CroplandWpf.Components"
                     xmlns:local="clr-namespace:CroplandWpf.Themes.Default">
 
-	<!--<Style x:Key="{x:Type DataGrid}" TargetType="DataGrid">
-		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="DataGrid">
-
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>-->
-
 	<Style x:Key="styleThumb_ColumnHeaderGripper" TargetType="Thumb">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Cursor" Value="SizeWE"></Setter>

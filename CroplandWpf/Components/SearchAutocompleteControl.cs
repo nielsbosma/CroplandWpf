@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Windows.Threading;
 using System.Windows.Data;
 using CroplandWpf.Attached;
+using CroplandWpf.Helpers;
 
 namespace CroplandWpf.Components
 {
@@ -264,7 +265,6 @@ namespace CroplandWpf.Components
 		{
 			if (!IsLoaded || _isLoaded)
 				return;
-			Window.GetWindow(this).PreviewMouseLeftButtonDown += SearchAutocompleteControl_PreviewMouseLeftButtonDown;
 			if (_editableTextBox != null)
 			{
 				_editableTextBox.TextChanged += EditableTextBox_TextChanged;
@@ -272,17 +272,17 @@ namespace CroplandWpf.Components
 				_editableTextBox.PreviewTextInput += EditableTextBox_PreviewTextInput;
 			}
 			AddHandler(SearchAutocmpleteItem.ClickedEvent, new RoutedEventHandler(OnSearchAutocompleteItemClicked));
-			AddHandler(SearchAutocmpleteItem.FocusedEvent, new RoutedEventHandler(OnSearchAutocompleteItemFocused));
+			AddHandler(SearchAutocmpleteItem.SelectedEvent, new RoutedEventHandler(OnSearchAutocompleteItemFocused));
 			ownerWindow = Window.GetWindow(this);
 			ownerWindow.Deactivated += OwnerWindow_Deactivated;
 			_isLoaded = true;
+			WindowHelper.RegisterHandler(this, Window.PreviewMouseDownEvent, WindowMouseDownHandler);
 		}
 
 		private void SearchAutocompleteControl_Unloaded(object sender, RoutedEventArgs e)
 		{
 			if (DesignerProperties.GetIsInDesignMode(this))
 				return;
-			Window.GetWindow(this).PreviewMouseLeftButtonDown -= SearchAutocompleteControl_PreviewMouseLeftButtonDown;
 			if (_editableTextBox != null)
 			{
 				_editableTextBox.TextChanged -= EditableTextBox_TextChanged;
@@ -290,7 +290,7 @@ namespace CroplandWpf.Components
 				_editableTextBox.PreviewTextInput -= EditableTextBox_PreviewTextInput;
 			}
 			RemoveHandler(SearchAutocmpleteItem.ClickedEvent, new RoutedEventHandler(OnSearchAutocompleteItemClicked));
-			RemoveHandler(SearchAutocmpleteItem.FocusedEvent, new RoutedEventHandler(OnSearchAutocompleteItemFocused));
+			RemoveHandler(SearchAutocmpleteItem.SelectedEvent, new RoutedEventHandler(OnSearchAutocompleteItemFocused));
 			if (ownerWindow != null)
 			{
 				ownerWindow.Deactivated -= OwnerWindow_Deactivated;
@@ -299,6 +299,16 @@ namespace CroplandWpf.Components
 			if(AutoClear)
 			{
 				_editableTextBox.Text = "";
+			}
+			WindowHelper.UnregisterHandler(this, Window.PreviewMouseDownEvent);
+		}
+
+		private void WindowMouseDownHandler(object sender, RoutedEventArgs e)
+		{
+			if (!IsMouseOver && !_popup.IsMouseOver && _popup.IsOpen)
+			{
+				Unfocus(true);
+				Keyboard.ClearFocus();
 			}
 		}
 		#endregion

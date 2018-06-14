@@ -313,6 +313,16 @@ namespace CroplandWpf.Test
 			DependencyProperty.Register("ShowTextInputDialogCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
+		#region TimePicker
+		public DateTime? TimeValue
+		{
+			get { return (DateTime?)GetValue(TimeValueProperty); }
+			set { SetValue(TimeValueProperty, value); }
+		}
+		public static readonly DependencyProperty TimeValueProperty =
+			DependencyProperty.Register("TimeValue", typeof(DateTime?), typeof(MainWindow), new PropertyMetadata(DateTime.Now));
+		#endregion
+
 		#region Commands
 		public DelegateCommand ShowAddNewFileInputDialogCommand
 		{
@@ -712,6 +722,17 @@ namespace CroplandWpf.Test
 			#endregion
 		}
 
+		#region Overrides
+		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+		{
+			base.OnPropertyChanged(e);
+			if(e.Property == TimeValueProperty)
+			{
+				DateTime? dt = (DateTime)e.NewValue;
+			}
+		}
+		#endregion
+
 		#region Commanding
 		#region DataGrid
 		private void RemovePersonItemCommand_Execute(object parameter)
@@ -759,6 +780,7 @@ namespace CroplandWpf.Test
 		}
 		#endregion
 
+		#region MessageBox
 		private void ShowMessageBoxCommand_Execute(object obj)
 		{
 			MessageBoxResult = MessageBoxService.Show(obj as MessageBoxInfo);
@@ -768,7 +790,9 @@ namespace CroplandWpf.Test
 		{
 			return arg as MessageBoxInfo != null;
 		}
+		#endregion
 
+		#region SearchAutocompleteControl
 		private void ConversionSearchResultRefreshCommand_Execute(object obj)
 		{
 			string searchString = obj as string;
@@ -797,11 +821,18 @@ namespace CroplandWpf.Test
 			}
 		}
 
-		private void AddNewFileTestCommand_Execute(object parameter)
+		private void StringSearchItemClickCommand_Execute(object parameter)
 		{
-			TestRemovableItemsItemsSource.Add(new FileItem() { Name = "new file #" + TestRemovableItemsItemsSource.Count, Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(256000, 512000) });
+			ClickedStringSearchItem = parameter;
 		}
 
+		private void CustomSearchItemClickCommand_Execute(object obj)
+		{
+			ClickedCustomSearchItem = obj as CustomSearchItem;
+		}
+		#endregion
+
+		#region InputDialog
 		private void ShowAddNewFileInputDialogCommand_Execute(object arg)
 		{
 			InputDialogResult result = InputDialog.Show(arg as InputDialogInfo);
@@ -830,10 +861,19 @@ namespace CroplandWpf.Test
 					TextInputDialogResult = resultValue.Text;
 			}
 		}
+		#endregion
 
+		#region HyperlinkButton
 		private void HyperlinkTestCommand_Execute(object parameter)
 		{
 			MessageBox.Show(parameter as string);
+		}
+		#endregion
+
+		#region RemovableItemItemsControl
+		private void AddNewFileTestCommand_Execute(object parameter)
+		{
+			TestRemovableItemsItemsSource.Add(new FileItem() { Name = "new file #" + TestRemovableItemsItemsSource.Count, Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(256000, 512000) });
 		}
 
 		private void RemoveRequestTestCommand_Execute(object parameter)
@@ -846,17 +886,9 @@ namespace CroplandWpf.Test
 					TestRemovableItemsItemsSource.Remove(parameter as FileItem);
 			}
 		}
+		#endregion
 
-		private void StringSearchItemClickCommand_Execute(object parameter)
-		{
-			ClickedStringSearchItem = parameter;
-		}
-
-		private void CustomSearchItemClickCommand_Execute(object obj)
-		{
-			ClickedCustomSearchItem = obj as CustomSearchItem;
-		}
-
+		#region CommandTextBox
 		private bool CommandTextBoxCommand_CanExecute(object parameter)
 		{
 			bool result = parameter != null && !String.IsNullOrWhiteSpace(parameter.ToString());
@@ -866,6 +898,40 @@ namespace CroplandWpf.Test
 		private void CommandTextBoxCommand_Execute(object parameter)
 		{
 			CommandTextBoxString = parameter.ToString();
+		}
+		#endregion
+
+		#region PasswordBox
+		private void UpdateUserPasswordCommand_Execute(object obj)
+		{
+			MessageBoxService.Show(new MessageBoxInfo { Content = String.Format("User password was changed to '{0}'", UserPasswordController.GetPassword()), Buttons = MessageBoxButton.OK });
+		}
+
+		private bool UpdateUserPasswordCommand_CanExecute(object arg)
+		{
+			return UserPasswordController.IsPasswordAvailable;
+		}
+		#endregion
+
+		#region ProgressBar
+		private async void StartProgressTestCommand_Execute(object obj)
+		{
+			var progress = new Progress<int>(value => ProgressBarValueTest = value);
+			await Task.Run(() =>
+			{
+				Dispatcher.Invoke(() => { IsInProgress = true; CommandManager.InvalidateRequerySuggested(); }, System.Windows.Threading.DispatcherPriority.Background);
+				for (int i = 0; i < 100; i++)
+				{
+					((IProgress<int>)progress).Report(i);
+					Thread.Sleep(50);
+				}
+				Dispatcher.Invoke(() => { IsInProgress = false; CommandManager.InvalidateRequerySuggested(); }, System.Windows.Threading.DispatcherPriority.Background);
+			});
+		}
+
+		private bool StartProgressTestCommand_CanExecute(object arg)
+		{
+			return !IsInProgress;
 		}
 		#endregion
 
@@ -909,36 +975,7 @@ namespace CroplandWpf.Test
 		{
 			Process.Start("cmd.exe");
 		}
-
-		private void UpdateUserPasswordCommand_Execute(object obj)
-		{
-			MessageBoxService.Show(new MessageBoxInfo { Content = String.Format("User password was changed to '{0}'", UserPasswordController.GetPassword()), Buttons = MessageBoxButton.OK });
-		}
-
-		private bool UpdateUserPasswordCommand_CanExecute(object arg)
-		{
-			return UserPasswordController.IsPasswordAvailable;
-		}
-
-		private async void StartProgressTestCommand_Execute(object obj)
-		{
-			var progress = new Progress<int>(value => ProgressBarValueTest = value);
-			await Task.Run(() =>
-			{
-				Dispatcher.Invoke(() => { IsInProgress = true; CommandManager.InvalidateRequerySuggested(); }, System.Windows.Threading.DispatcherPriority.Background);
-				for (int i = 0; i < 100; i++)
-				{
-					((IProgress<int>)progress).Report(i);
-					Thread.Sleep(50);
-				}
-				Dispatcher.Invoke(() => { IsInProgress = false; CommandManager.InvalidateRequerySuggested(); }, System.Windows.Threading.DispatcherPriority.Background);
-			});
-		}
-
-		private bool StartProgressTestCommand_CanExecute(object arg)
-		{
-			return !IsInProgress;
-		}
+		#endregion
 		#endregion
 	}
 }

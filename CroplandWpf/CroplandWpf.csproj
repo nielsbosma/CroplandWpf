@@ -75,9 +75,9 @@
     <Compile Include="Attached\MenuHelper.cs" />
     <Compile Include="Attached\PasswordHelper.cs" />
     <Compile Include="Attached\RemoveRequestHelper.cs" />
+    <Compile Include="Attached\ToggleButtonHelper.cs" />
     <Compile Include="Attached\ToolTipBeacon.cs" />
     <Compile Include="Attached\VisualHelper.cs" />
-    <Compile Include="Attached\WindowMaximizeFix.cs" />
     <Compile Include="Components\BusyIndicator.cs" />
     <Compile Include="Components\ClippingBorder.cs" />
     <Compile Include="Components\CommandTextBox.cs" />
@@ -204,6 +204,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Default\Geometry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Default\TimePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Default\ToggleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
