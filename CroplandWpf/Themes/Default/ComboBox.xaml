@@ -199,7 +199,6 @@
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="MinHeight" Value="36"></Setter>
 		<Setter Property="MinWidth" Value="60"></Setter>
-		<Setter Property="Padding" Value="10,6,30,6"></Setter>
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
 		<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
 		<Setter Property="Template">
@@ -211,7 +210,7 @@
 							<ColumnDefinition Width="Auto"></ColumnDefinition>
 						</Grid.ColumnDefinitions>
 						<ToggleButton Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource styleToggleButton_ComboBox}"></ToggleButton>
-						<ContentPresenter Grid.Column="0" TextBlock.Foreground="{DynamicResource brushControl_Foreground_Light}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
+						<ContentPresenter Grid.Column="0" TextBlock.Foreground="{DynamicResource brushControl_Foreground_Light}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="15,0,30,0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
 						<Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}" Placement="Bottom">
 							<Border Margin="2,0,2,4" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="0,0,2,2">
 								<ScrollViewer MinHeight="50" MaxHeight="250" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}">
@@ -248,7 +247,6 @@
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="MinHeight" Value="36"></Setter>
 		<Setter Property="MinWidth" Value="60"></Setter>
-		<Setter Property="Padding" Value="10,6,30,6"></Setter>
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
 		<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
 		<Setter Property="Template">
@@ -267,7 +265,7 @@
 							</Border>
 						</Popup>
 						<ToggleButton Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource styleToggleButton_ComboBox_Light}"></ToggleButton>
-						<ContentPresenter Grid.Column="0" TextBlock.Foreground="{DynamicResource brushControl_Foreground_Dark}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
+						<ContentPresenter Grid.Column="0" TextBlock.Foreground="{DynamicResource brushControl_Foreground_Dark}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="15,0,30,0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
 					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsEnabled" Value="False">

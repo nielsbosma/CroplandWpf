@@ -54,7 +54,7 @@
 						</Border>
 					</Grid>
 					<ControlTemplate.Triggers>
-						
+
 						<Trigger Property="Orientation" Value="Horizontal">
 							<Setter Property="Width" Value="NaN"></Setter>
 							<Setter TargetName="PART_Track" Property="IsDirectionReversed" Value="False"></Setter>
@@ -65,7 +65,7 @@
 							<Setter TargetName="repeatButton_ScrollDecrease" Property="Command" Value="{x:Static ScrollBar.PageLeftCommand}"></Setter>
 							<Setter TargetName="repeatButton_ScrollIncrease" Property="Command" Value="{x:Static ScrollBar.PageRightCommand}"></Setter>
 						</Trigger>
-						
+
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
 								<Condition Property="IsMouseOver" Value="True"></Condition>
@@ -165,21 +165,21 @@
 		</Setter>
 	</Style>
 
-	
+
 	<Style x:Key="styleScrollViewer_TextBox" TargetType="ScrollViewer">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="VerticalScrollBarVisibility" Value="Disabled"></Setter>
 		<Setter Property="HorizontalScrollBarVisibility" Value="Disabled"></Setter>
-		<Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
-		<Setter Property="Padding" Value="10,0"></Setter>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+		<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+		<Setter Property="VerticalAlignment" Value="Center"></Setter>
+		<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+		<Setter Property="Padding" Value="0"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ScrollViewer">
 					<Grid>
-						<Grid>
-							<ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
-						</Grid>
-						<!--<ScrollBar x:Name="PART_VerticalScrollBar" HorizontalAlignment="Right" Orientation="Vertical" Margin="4,4,4,6" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=VerticalOffset, Mode=OneWay}" ViewportSize="{TemplateBinding ViewportHeight}"/>-->
+						<ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>

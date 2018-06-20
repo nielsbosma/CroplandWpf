@@ -200,21 +200,21 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty CustomItemSearchResultsProperty =
 			DependencyProperty.Register("CustomItemSearchResults", typeof(ObservableCollection<CustomSearchItem>), typeof(MainWindow), new PropertyMetadata());
 
-		public object ClickedStringSearchItem
+		public SearchResultInfo StringSearchResultInfo
 		{
-			get { return (object)GetValue(ClickedStringSearchItemProperty); }
-			set { SetValue(ClickedStringSearchItemProperty, value); }
+			get { return (SearchResultInfo)GetValue(StringSearchResultInfoProperty); }
+			set { SetValue(StringSearchResultInfoProperty, value); }
 		}
-		public static readonly DependencyProperty ClickedStringSearchItemProperty =
-			DependencyProperty.Register("ClickedStringSearchItem", typeof(object), typeof(MainWindow), new PropertyMetadata());
+		public static readonly DependencyProperty StringSearchResultInfoProperty =
+			DependencyProperty.Register("StringSearchResultInfo", typeof(SearchResultInfo), typeof(MainWindow), new PropertyMetadata());
 
-		public CustomSearchItem ClickedCustomSearchItem
+		public SearchResultInfo CustomItemSearchResult
 		{
-			get { return (CustomSearchItem)GetValue(ClickedCustomSearchItemProperty); }
-			set { SetValue(ClickedCustomSearchItemProperty, value); }
+			get { return (SearchResultInfo)GetValue(CustomItemSearchResultProperty); }
+			set { SetValue(CustomItemSearchResultProperty, value); }
 		}
-		public static readonly DependencyProperty ClickedCustomSearchItemProperty =
-			DependencyProperty.Register("ClickedCustomSearchItem", typeof(CustomSearchItem), typeof(MainWindow), new PropertyMetadata());
+		public static readonly DependencyProperty CustomItemSearchResultProperty =
+			DependencyProperty.Register("CustomItemSearchResult", typeof(SearchResultInfo), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 		#endregion
 
@@ -405,21 +405,21 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty CustomSearchItemSearchResultRefreshCommandProperty =
 			DependencyProperty.Register("CustomSearchItemSearchResultRefreshCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 
-		public DelegateCommand StringSearchItemClickCommand
+		public DelegateCommand StringSearchCompleteCommand
 		{
-			get { return (DelegateCommand)GetValue(StringSearchItemClickCommandProperty); }
-			private set { SetValue(StringSearchItemClickCommandProperty, value); }
+			get { return (DelegateCommand)GetValue(StringSearchCompleteCommandProperty); }
+			private set { SetValue(StringSearchCompleteCommandProperty, value); }
 		}
-		public static readonly DependencyProperty StringSearchItemClickCommandProperty =
-			DependencyProperty.Register("StringSearchItemClickCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+		public static readonly DependencyProperty StringSearchCompleteCommandProperty =
+			DependencyProperty.Register("StringSearchCompleteCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 
-		public DelegateCommand CustomSearchItemClickCommand
+		public DelegateCommand CustomSearchCompleteCommand
 		{
-			get { return (DelegateCommand)GetValue(CustomSearchItemClickCommandProperty); }
-			private set { SetValue(CustomSearchItemClickCommandProperty, value); }
+			get { return (DelegateCommand)GetValue(CustomSearchCompleteCommandProperty); }
+			private set { SetValue(CustomSearchCompleteCommandProperty, value); }
 		}
-		public static readonly DependencyProperty CustomSearchItemClickCommandProperty =
-			DependencyProperty.Register("CustomSearchItemClickCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+		public static readonly DependencyProperty CustomSearchCompleteCommandProperty =
+			DependencyProperty.Register("CustomSearchCompleteCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 
 		public DelegateCommand SeeMoreSearchOptionsCommand
 		{
@@ -604,8 +604,8 @@ namespace CroplandWpf.Test
 			AddNewFileTestCommand = new DelegateCommand(AddNewFileTestCommand_Execute);
 			ConversionSearchResultRefreshCommand = new DelegateCommand(ConversionSearchResultRefreshCommand_Execute);
 			CustomSearchItemSearchResultRefreshCommand = new DelegateCommand(CustomSearchItemSearchResultRefreshCommand_Execute);
-			StringSearchItemClickCommand = new DelegateCommand(StringSearchItemClickCommand_Execute);
-			CustomSearchItemClickCommand = new DelegateCommand(CustomSearchItemClickCommand_Execute);
+			StringSearchCompleteCommand = new DelegateCommand(StringSearchCompleteCommand_Execute);
+			CustomSearchCompleteCommand = new DelegateCommand(CustomSearchCompleteCommand_Execute);
 			CommandTextBoxCommand = new DelegateCommand(CommandTextBoxCommand_Execute, CommandTextBoxCommand_CanExecute);
 
 			#region Menu
@@ -821,14 +821,16 @@ namespace CroplandWpf.Test
 			}
 		}
 
-		private void StringSearchItemClickCommand_Execute(object parameter)
+		private void StringSearchCompleteCommand_Execute(object parameter)
 		{
-			ClickedStringSearchItem = parameter;
+			SearchResultInfo info = (SearchResultInfo)parameter;
+			StringSearchResultInfo = info;
 		}
 
-		private void CustomSearchItemClickCommand_Execute(object obj)
+		private void CustomSearchCompleteCommand_Execute(object parameter)
 		{
-			ClickedCustomSearchItem = obj as CustomSearchItem;
+			SearchResultInfo info = (SearchResultInfo)parameter;
+			CustomItemSearchResult = info;
 		}
 		#endregion
 
@@ -847,7 +849,7 @@ namespace CroplandWpf.Test
 			{
 				vmSearchInputDialog resultValue = result.GetValueRefrenceAs<vmSearchInputDialog>();
 				if (resultValue != null && resultValue.HasSearchResult)
-					ClickedStringSearchItem = resultValue.SearchResult.ToString();
+					StringSearchResultInfo = resultValue.SearchResult;
 			}
 		}
 

@@ -5,6 +5,7 @@
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="Default/CustomColorsDefault.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/Geometry.xaml"></ResourceDictionary>
+		<ResourceDictionary Source="Default/KeyboardFocusRedirectControl.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/Fonts.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/Common.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/Window.xaml"></ResourceDictionary>

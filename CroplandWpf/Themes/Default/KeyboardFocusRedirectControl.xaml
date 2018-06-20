@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers">
+
+	<Style x:Key="{x:Type ph:KeyboardFocusRedirectControl}" TargetType="ph:KeyboardFocusRedirectControl">
+		<Setter Property="Cursor" Value="IBeam"></Setter>
+		<Setter Property="Background" Value="Transparent"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ph:KeyboardFocusRedirectControl">
+					<Border Background="{TemplateBinding Background}"></Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+</ResourceDictionary>

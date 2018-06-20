@@ -216,7 +216,7 @@
 		<c:InputDialogInfo x:Key="inputDialogInfo_Search" ph:DataContextBridge.SourceScopeName="vm_main" PositiveActionButtonHeader="Maybe.." NegativeActionButtonHeader="Probably not" ContentTemplateKey="templateInputDialog_Search" Content="{Binding SearchInputDialogViewModel}">
 			<c:InputDialogInfo.Resources>
 				<DataTemplate x:Key="templateInputDialog_Search">
-					<c:SearchAutocompleteControl AutoClear="True" AutoFocusOnLoad="True" ItemsSource="{Binding SearchResults}" SearchItemCommand="{Binding SearchCompleteCommand}" SearchResultRefreshCommand="{Binding RefreshSearchResultsCommand}"></c:SearchAutocompleteControl>
+					<c:SearchAutocompleteControl AutoClear="True" AutoFocusOnLoad="True" ItemsSource="{Binding SearchResults}" SearchCompleteCommand="{Binding SearchCompleteCommand}" SearchResultRefreshCommand="{Binding RefreshSearchResultsCommand}"></c:SearchAutocompleteControl>
 				</DataTemplate>
 			</c:InputDialogInfo.Resources>
 		</c:InputDialogInfo>
@@ -308,6 +308,14 @@
 					</StackPanel>
 					<c:HyperlinkButton IsUnderlined="False" HorizontalAlignment="Left" Content="no underline"/>
 					<Button Margin="5" HorizontalAlignment="Left" Style="{DynamicResource styleButton_RemoveRequest}"/>
+					<Grid HorizontalAlignment="Left" Width="19" Height="19">
+						<Ellipse Stroke="#FF1a6e41" StrokeThickness="1.5"></Ellipse>
+						<TextBlock Text="i" Foreground="#FF1a6e41" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0" FontSize="10pt" FontWeight="Bold"></TextBlock>
+					</Grid>
+					<Grid HorizontalAlignment="Left" Width="19" Height="19">
+						<Ellipse Stroke="#FF1a6e41" StrokeThickness="1.5"></Ellipse>
+						<TextBlock Text="i" Foreground="#FF1a6e41" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0" FontSize="10pt" FontWeight="Bold"></TextBlock>
+					</Grid>
 					<Rectangle Fill="DarkGray" Height="1"/>
 					<CheckBox Margin="5" FontSize="9.5pt" Content="CheckBox"/>
 					<CheckBox Margin="5" IsEnabled="False" Content="CheckBox (disabled)"/>
@@ -354,7 +362,7 @@
 					</StackPanel>
 
 					<TextBlock Margin="5"><Run Text="CommandTextBox"/></TextBlock>
-					<c:CommandTextBox x:Name="commandTextBox" Command="{Binding CommandTextBoxCommand}" ButtonStyle="{DynamicResource styleButton_CommandTextBox_Green}" ButtonContent="REGISTER"/>
+					<c:CommandTextBox x:Name="commandTextBox" Margin="5" Command="{Binding CommandTextBoxCommand}" ButtonStyle="{DynamicResource styleButton_CommandTextBox_Green}" ButtonContent="REGISTER"/>
 					<TextBlock Margin="20,5,5,5"><Run Text="CommandTextBox output:"/><Run Text="{Binding CommandTextBoxString}"/></TextBlock>
 					<CheckBox Margin="5,0,5,5" IsChecked="{Binding IsEnabled, ElementName=commandTextBox, Mode=TwoWay}" Content="IsEnabled"/>
 					<c:CommandTextBox Margin="5" x:Name="commandTextBox1" ButtonStyle="{DynamicResource styleButton_Arrow_Right}"/>
@@ -362,46 +370,73 @@
 					<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Arrow_Up}"/>
 					<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Cross}"/>
 					<TextBlock Margin="5,10,5,5"><Run Text="CommandTextBox with IsButtonFisible = False:"/></TextBlock>
-					<c:CommandTextBox ButtonStyle="{DynamicResource styleButton_Cross}" IsButtonVisible="False"/>
+					<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Cross}" IsButtonVisible="False"/>
 				</StackPanel>
 			</ScrollViewer>
 		</Grid>
 
-		<StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Top">
-			<TextBlock FontWeight="Bold"><Run Text="ItemsControls"/></TextBlock>
-			<TextBlock Margin="5"><Run Text="ListBox"/></TextBlock>
-			<ListBox x:Name="listBoxTest" Height="150" ItemsSource="{Binding TestItemsSource}"/>
-			<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=listBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
-			<TextBlock Margin="5"><Run Text="ComboBox"/></TextBlock>
-			<ComboBox x:Name="comboBoxTest" ItemsSource="{Binding TestItemsSource}" />
-			<TextBlock Margin="5"><Run Text="ComboBox (light)"/></TextBlock>
-			<ComboBox Margin="3" Style="{DynamicResource styleComboBox_Light}"  ItemsSource="{Binding TestItemsSource}"/>
+		<ScrollViewer Grid.Column="1" Grid.RowSpan="3" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+			<StackPanel Orientation="Vertical">
+				<TextBlock FontWeight="Bold"><Run Text="ItemsControls"/></TextBlock>
+				<TextBlock Margin="5"><Run Text="ListBox"/></TextBlock>
+				<ListBox x:Name="listBoxTest" Height="150" ItemsSource="{Binding TestItemsSource}"/>
+				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=listBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
+				<TextBlock Margin="5"><Run Text="ComboBox"/></TextBlock>
+				<ComboBox x:Name="comboBoxTest" ItemsSource="{Binding TestItemsSource}" />
+				<TextBlock Margin="5"><Run Text="ComboBox (light)"/></TextBlock>
+				<ComboBox Margin="3" Style="{DynamicResource styleComboBox_Light}"  ItemsSource="{Binding TestItemsSource}"/>
 
-			<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=comboBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
-			<TextBlock FontWeight="Bold" Margin="5" TextWrapping="Wrap">SearchAutocompleteControl (left-aligned tooltip)</TextBlock>
-			<c:SearchAutocompleteControl x:Name="searchAutocomplete_String" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding StringSearchResults}" SearchItemCommand="{Binding StringSearchItemClickCommand}" NoMatchesButtonCommand="{Binding NoMatchesFoundCommand}" SeeAllOptionsCommand="{Binding SeeMoreSearchOptionsCommand}"/>
-			<Button Content="Show search input dialog" Command="{Binding ShowSearchInputBoxCommand}" CommandParameter="{StaticResource inputDialogInfo_Search}" HorizontalAlignment="Left" Margin="10,5,0,10"></Button>
-			<TextBlock Margin="15,3,0,3" TextWrapping="Wrap">
-					<Run Text="selected search item:"/>
-					<Run Text=" "/>
-					<Run Text="{Binding ClickedStringSearchItem}" FontWeight="Bold"/>
-			</TextBlock>
-			<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=searchAutocomplete_String, Mode=TwoWay}" Content="IsEnabled"/>
-			<Button Command="{Binding ShowTextInputDialogCommand}" CommandParameter="{StaticResource inputDialogInfo_TextInput}">Show Text Input Box</Button>
-			<TextBlock>
+				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=comboBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
+				<TextBlock FontWeight="Bold" Margin="5" TextWrapping="Wrap">SearchAutocompleteControl (left-aligned tooltip)</TextBlock>
+				<c:SearchAutocompleteControl x:Name="searchAutocomplete_String" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding StringSearchResults}" SearchCompleteCommand="{Binding StringSearchCompleteCommand}" NoMatchesButtonCommand="{Binding NoMatchesFoundCommand}" SeeAllOptionsCommand="{Binding SeeMoreSearchOptionsCommand}"/>
+				<Button Content="Show search input dialog" Command="{Binding ShowSearchInputBoxCommand}" CommandParameter="{StaticResource inputDialogInfo_Search}" HorizontalAlignment="Left" Margin="10,5,0,10"></Button>
+				<Label Content="{Binding StringSearchResultInfo}">
+					<Label.ContentTemplate>
+						<DataTemplate DataType="{x:Type c:SearchResultInfo}">
+							<TextBlock>
+								<TextBlock>String Search Result: </TextBlock>
+								<LineBreak></LineBreak>
+								<TextBlock x:Name="textBlock_TextPresenter" Text="{Binding SearchResult}" FontWeight="Bold"></TextBlock>
+							</TextBlock>
+							<DataTemplate.Triggers>
+								<DataTrigger Binding="{Binding ResultKind}" Value="Empty">
+								<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="[empty]"></Setter>
+							</DataTrigger>
+						</DataTemplate.Triggers>
+						</DataTemplate>
+					</Label.ContentTemplate>
+				</Label>
+				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=searchAutocomplete_String, Mode=TwoWay}" Content="IsEnabled"/>
+				<Button Command="{Binding ShowTextInputDialogCommand}" CommandParameter="{StaticResource inputDialogInfo_TextInput}">Show Text Input Box</Button>
+				<TextBlock>
 				<Run Text="text input box result: "></Run>
 				<Run Text="{Binding TextInputDialogResult}" FontWeight="Bold"></Run>
-			</TextBlock>
-			<c:SearchAutocompleteControl x:Name="searchAutocomplete_SearchItem" AutoFocusOnLoad="True" SearchPropertyBindingPath="Description"  SearchResultRefreshCommand="{Binding CustomSearchItemSearchResultRefreshCommand}" ItemsSource="{Binding CustomItemSearchResults}" SearchItemCommand="{Binding CustomSearchItemClickCommand}"/>
-			<TextBlock Margin="15,3,0,3" TextWrapping="Wrap">
-					<Run Text="selected search item:"/>
-					<LineBreak></LineBreak>
-					<Run Text="{Binding ClickedCustomSearchItem.Name}" FontWeight="Bold"/>
-					<Run> </Run>
-					<Run Text="{Binding ClickedCustomSearchItem.Description}" FontWeight="Normal"/>
-			</TextBlock>
-		</StackPanel>
-
+				</TextBlock>
+				<c:SearchAutocompleteControl x:Name="searchAutocomplete_SearchItem" AutoFocusOnLoad="True" SearchPropertyBindingPath="Description"  SearchResultRefreshCommand="{Binding CustomSearchItemSearchResultRefreshCommand}" ItemsSource="{Binding CustomItemSearchResults}" SearchCompleteCommand="{Binding CustomSearchCompleteCommand}"/>
+				<Label Content="{Binding CustomItemSearchResult}">
+					<Label.ContentTemplate>
+						<DataTemplate DataType="{x:Type c:SearchResultInfo}">
+							<TextBlock>
+							<TextBlock>Custom Item Search Result: </TextBlock>
+							<LineBreak></LineBreak>
+							<TextBlock x:Name="textBlock_TextPresenter" Text="{Binding SearchResult.Name}" FontWeight="Bold"></TextBlock>
+							<LineBreak></LineBreak>
+							<TextBlock Text="{Binding SearchResult.Description}" FontWeight="Normal"></TextBlock>
+						</TextBlock>
+							<DataTemplate.Triggers>
+								<DataTrigger Binding="{Binding HasResultInstance}" Value="False">
+									<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="{Binding SearchResult}"></Setter>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding ResultKind}" Value="Empty">
+									<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="[empty]"></Setter>
+								</DataTrigger>
+							</DataTemplate.Triggers>
+						</DataTemplate>
+					</Label.ContentTemplate>
+				</Label>
+			</StackPanel>
+		</ScrollViewer>
+		
 		<StackPanel Grid.Column="2" Grid.RowSpan="3" Orientation="Vertical">
 			<TextBlock Margin="5" FontWeight="Bold"><Run Text="MessageBox"/></TextBlock>
 			<StackPanel Orientation="Horizontal">

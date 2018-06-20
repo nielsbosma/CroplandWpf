@@ -785,4 +785,16 @@
 		</Setter>
 	</Style>
 
+
+	<Style x:Key="styleButton_Info" TargetType="Button">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 </ResourceDictionary>

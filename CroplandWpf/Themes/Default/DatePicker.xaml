@@ -70,7 +70,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="DatePickerTextBox">
-					<ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" Margin="12,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" Style="{DynamicResource styleScrollViewer_TextBox}" Background="Transparent" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+					<ScrollViewer x:Name="PART_ContentHost" Margin="13,0" HorizontalContentAlignment="Stretch" Style="{DynamicResource styleScrollViewer_TextBox}" Focusable="false"/>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

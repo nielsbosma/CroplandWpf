@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CroplandWpf.Components;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -43,13 +44,13 @@ namespace CroplandWpf.MVVM
 		public static readonly DependencyProperty SearchCompleteCommandProperty =
 			DependencyProperty.Register("SearchCompleteCommand", typeof(DelegateCommand), typeof(vmSearchInputDialog), new PropertyMetadata());
 
-		public object SearchResult
+		public SearchResultInfo SearchResult
 		{
-			get { return (object)GetValue(SearchResultProperty); }
+			get { return (SearchResultInfo)GetValue(SearchResultProperty); }
 			set { SetValue(SearchResultProperty, value); }
 		}
 		public static readonly DependencyProperty SearchResultProperty =
-			DependencyProperty.Register("SearchResult", typeof(object), typeof(vmSearchInputDialog), new PropertyMetadata());
+			DependencyProperty.Register("SearchResult", typeof(SearchResultInfo), typeof(vmSearchInputDialog), new PropertyMetadata());
 
 		public Func<object, IEnumerable, IEnumerable> RefreshSearchResults_ExecuteFunction
 		{
@@ -69,7 +70,7 @@ namespace CroplandWpf.MVVM
 
 		public bool HasSearchResult
 		{
-			get { return SearchResult != null; }
+			get { return SearchResult != default(SearchResultInfo); }
 		}
 
 		public vmSearchInputDialog()
@@ -80,7 +81,7 @@ namespace CroplandWpf.MVVM
 
 		private void SearchCompleteCommand_Execute(object parameter)
 		{
-			SearchResult = parameter;
+			SearchResult = (SearchResultInfo)parameter;
 			if (SearchCompleteAction != null)
 				SearchCompleteAction.Invoke(parameter);
 		}

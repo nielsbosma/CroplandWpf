@@ -17,6 +17,67 @@ using CroplandWpf.Helpers;
 
 namespace CroplandWpf.Components
 {
+	public enum SearchResultKind
+	{
+		Empty,
+		Item,
+		RawTextInput
+	}
+
+	public struct SearchResultInfo
+	{
+		public SearchResultKind ResultKind { get; private set; }
+
+		public object SearchResult { get; private set; }
+
+		public bool HasResultInstance
+		{
+			get { return ResultKind == SearchResultKind.Item && SearchResult != null; }
+		}
+
+		public static SearchResultInfo Empty
+		{
+			get { return new SearchResultInfo(SearchResultKind.Empty, null); }
+		}
+
+		public SearchResultInfo(SearchResultKind kind, object searchResult)
+		{
+			ResultKind = kind;
+			SearchResult = searchResult;
+		}
+
+		public T GetSearchResultAs<T>()
+		{
+			return (T)SearchResult;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj is SearchResultInfo)
+			{
+				SearchResultInfo other = (SearchResultInfo)obj;
+				return ResultKind == other.ResultKind && SearchResult == other.SearchResult;
+			}
+			else
+				return false;
+		}
+
+		public static bool operator ==(SearchResultInfo info1, SearchResultInfo info2)
+		{
+			return info1.Equals(info2);
+		}
+
+		public static bool operator !=(SearchResultInfo info1, SearchResultInfo info2)
+		{
+			return !info1.Equals(info2);
+		}
+
+		public override int GetHashCode()
+		{
+			return ResultKind.GetHashCode() + (SearchResult != null ? SearchResult.GetHashCode() : 0);
+		}
+	}
+
 	public class SearchAutocompleteControl : ItemsControl
 	{
 		#region Dps
@@ -109,14 +170,6 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty SearchResultRefreshCommandProperty =
 			DependencyProperty.Register("SearchResultRefreshCommand", typeof(ICommand), typeof(SearchAutocompleteControl), new PropertyMetadata());
 
-		public ICommand SearchItemCommand
-		{
-			get { return (ICommand)GetValue(SearchItemCommandProperty); }
-			set { SetValue(SearchItemCommandProperty, value); }
-		}
-		public static readonly DependencyProperty SearchItemCommandProperty =
-			DependencyProperty.Register("SearchItemCommand", typeof(ICommand), typeof(SearchAutocompleteControl), new PropertyMetadata());
-
 		public ICommand NoMatchesButtonCommand
 		{
 			get { return (ICommand)GetValue(NoMatchesButtonCommandProperty); }
@@ -136,10 +189,18 @@ namespace CroplandWpf.Components
 		public DelegateCommand PopupButtonCommandInternal
 		{
 			get { return (DelegateCommand)GetValue(PopupButtonCommandInternalProperty); }
-			set { SetValue(PopupButtonCommandInternalProperty, value); }
+			private set { SetValue(PopupButtonCommandInternalProperty, value); }
 		}
 		public static readonly DependencyProperty PopupButtonCommandInternalProperty =
 			DependencyProperty.Register("PopupButtonCommandInternal", typeof(DelegateCommand), typeof(SearchAutocompleteControl), new PropertyMetadata());
+
+		public ICommand SearchCompleteCommand
+		{
+			get { return (ICommand)GetValue(SearchCompleteCommandProperty); }
+			set { SetValue(SearchCompleteCommandProperty, value); }
+		}
+		public static readonly DependencyProperty SearchCompleteCommandProperty =
+			DependencyProperty.Register("SearchCompleteCommand", typeof(ICommand), typeof(SearchAutocompleteControl), new PropertyMetadata());
 		#endregion
 		#endregion
 
@@ -246,7 +307,6 @@ namespace CroplandWpf.Components
 			SearchAutocmpleteItem saItem = element as SearchAutocmpleteItem;
 			saItem.DataContext = item;
 			saItem.BindingPath = SearchPropertyBindingPath;
-			saItem.SetBinding(SearchAutocmpleteItem.CommandProperty, new Binding { Source = this, Path = new PropertyPath(SearchItemCommandProperty), Mode = BindingMode.OneWay });
 			focusableItems.Add(saItem);
 			saItem.HighlightString = SearchString;
 			base.PrepareContainerForItemOverride(element, item);
@@ -296,7 +356,7 @@ namespace CroplandWpf.Components
 				ownerWindow.Deactivated -= OwnerWindow_Deactivated;
 				ownerWindow = null;
 			}
-			if(AutoClear)
+			if (AutoClear)
 			{
 				_editableTextBox.Text = "";
 			}
@@ -386,6 +446,7 @@ namespace CroplandWpf.Components
 				refreshHighlightString = false;
 				SelectedItem = null;
 				_editableTextBox.Text = SearchString;
+				_editableTextBox.CaretIndex = _editableTextBox.Text.Length;
 				refreshHighlightString = true;
 			}
 			else
@@ -398,26 +459,24 @@ namespace CroplandWpf.Components
 			}
 		}
 
-		private void SearchAutocompleteControl_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-		{
-			//if (!IsMouseOver && _popup.IsOpen)
-			//	Unfocus();
-		}
-
 		private void OnSearchAutocompleteItemClicked(object sender, RoutedEventArgs e)
 		{
+			SelectedItem = e.OriginalSource as SearchAutocmpleteItem;
+			_editableTextBox.Text = SelectedItem.DisplayString;
+			SearchCompleted();
+			return;
 			SearchAutocmpleteItem clickedItem = e.OriginalSource as SearchAutocmpleteItem;
-			if (SearchItemCommand != null)
-			{
-				object selectedItemData = null;
-				if (SelectedItem != null)
-				{
-					selectedItemData = SelectedItem.DataContext;
-					_editableTextBox.Text = SelectedItem.DisplayString;
-				}
-				SearchItemCommand.Execute(selectedItemData);
-			}
-			Unfocus(false);
+			//if (SearchItemCommand != null)
+			//{
+			//	object selectedItemData = null;
+			//	if (SelectedItem != null)
+			//	{
+			//		selectedItemData = SelectedItem.DataContext;
+			//		_editableTextBox.Text = SelectedItem.DisplayString;
+			//	}
+			//	SearchItemCommand.Execute(selectedItemData);
+			//}
+			//Unfocus(false);
 		}
 
 		private void OnSearchAutocompleteItemFocused(object sender, RoutedEventArgs e)
@@ -440,8 +499,6 @@ namespace CroplandWpf.Components
 				_editableTextBox.Text = "";
 				SearchString = "";
 				refreshHighlightString = true;
-				if (SearchItemCommand != null)
-					SearchItemCommand.Execute(null);
 			}
 			IsPopupOpen = false;
 			Keyboard.ClearFocus();
@@ -449,8 +506,13 @@ namespace CroplandWpf.Components
 
 		private void SearchCompleted()
 		{
-			if (SelectedItem != null && SearchItemCommand != null)
-				SearchItemCommand.Execute(SelectedItem.Content);
+			SearchResultInfo result = SearchResultInfo.Empty;
+			if (SelectedItem != null)
+				result = new SearchResultInfo(SearchResultKind.Item, SelectedItem.DataContext);
+			else if (!String.IsNullOrWhiteSpace(_editableTextBox.Text))
+				result = new SearchResultInfo(SearchResultKind.RawTextInput, _editableTextBox.Text);
+			if (SearchCompleteCommand != null)
+				SearchCompleteCommand.Execute(result);
 			Unfocus();
 		}
 
