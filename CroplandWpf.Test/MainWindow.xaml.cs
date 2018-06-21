@@ -115,6 +115,22 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty ProgressBarValueTestProperty =
 			DependencyProperty.Register("ProgressBarValueTest", typeof(double), typeof(MainWindow), new PropertyMetadata());
 
+		public bool IsLongOperationInProgress
+		{
+			get { return (bool)GetValue(IsLongOperationInProgressProperty); }
+			private set { SetValue(IsLongOperationInProgressProperty, value); }
+		}
+		public static readonly DependencyProperty IsLongOperationInProgressProperty =
+			DependencyProperty.Register("IsLongOperationInProgress", typeof(bool), typeof(MainWindow), new PropertyMetadata());
+
+		public bool IsVeryLongOperationInProgress
+		{
+			get { return (bool)GetValue(IsVeryLongOperationInProgressProperty); }
+			private set { SetValue(IsVeryLongOperationInProgressProperty, value); }
+		}
+		public static readonly DependencyProperty IsVeryLongOperationInProgressProperty =
+			DependencyProperty.Register("IsVeryLongOperationInProgress", typeof(bool), typeof(MainWindow), new PropertyMetadata());
+
 		public bool IsInProgress
 		{
 			get { return (bool)GetValue(IsInProgressProperty); }
@@ -130,6 +146,23 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty StartProgressTestCommandProperty =
 			DependencyProperty.Register("StartProgressTestCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand StartLongOperationCommand
+		{
+			get { return (DelegateCommand)GetValue(StartLongOperationCommandProperty); }
+			private set { SetValue(StartLongOperationCommandProperty, value); }
+		}
+		public static readonly DependencyProperty StartLongOperationCommandProperty =
+			DependencyProperty.Register("StartLongOperationCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand StartVeryLongOperationCommand
+		{
+			get { return (DelegateCommand)GetValue(StartVeryLongOperationCommandProperty); }
+			private set { SetValue(StartVeryLongOperationCommandProperty, value); }
+		}
+		public static readonly DependencyProperty StartVeryLongOperationCommandProperty =
+			DependencyProperty.Register("StartVeryLongOperationCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
 		#endregion
 
 		#region Collections
@@ -719,6 +752,8 @@ namespace CroplandWpf.Test
 
 			#region 
 			StartProgressTestCommand = new DelegateCommand(StartProgressTestCommand_Execute, StartProgressTestCommand_CanExecute);
+			StartLongOperationCommand = new DelegateCommand(StartLongOperationCommand_Execute, StartLongOperationCommand_CanExecute);
+			StartVeryLongOperationCommand = new DelegateCommand(StartVeryLongOperationCommand_Execute, StartVeryLongOperationCommand_CanExecute);
 			#endregion
 		}
 
@@ -934,6 +969,38 @@ namespace CroplandWpf.Test
 		private bool StartProgressTestCommand_CanExecute(object arg)
 		{
 			return !IsInProgress;
+		}
+
+		private async void StartLongOperationCommand_Execute(object obj)
+		{
+			IsLongOperationInProgress = true;
+			CommandManager.InvalidateRequerySuggested();
+			await Task.Run(() =>
+			{
+				Thread.Sleep(random.Next(5000, 8000));
+				Dispatcher.Invoke(() => { IsLongOperationInProgress = false; CommandManager.InvalidateRequerySuggested(); }, System.Windows.Threading.DispatcherPriority.Background);
+			});
+		}
+
+		private bool StartLongOperationCommand_CanExecute(object arg)
+		{
+			return !IsLongOperationInProgress;
+		}
+
+		private async void StartVeryLongOperationCommand_Execute(object obj)
+		{
+			IsVeryLongOperationInProgress = true;
+			CommandManager.InvalidateRequerySuggested();
+			await Task.Run(() =>
+			{
+				Thread.Sleep(random.Next(15000, 20000));
+				Dispatcher.Invoke(() => { IsVeryLongOperationInProgress = false; CommandManager.InvalidateRequerySuggested(); }, System.Windows.Threading.DispatcherPriority.Background);
+			});
+		}
+
+		private bool StartVeryLongOperationCommand_CanExecute(object arg)
+		{
+			return !IsVeryLongOperationInProgress;
 		}
 		#endregion
 

@@ -791,7 +791,10 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
-					
+					<Grid Background="Transparent">
+						<Ellipse Stroke="#FF1a6e41" StrokeThickness="1.5"></Ellipse>
+						<TextBlock Text="i" Foreground="#FF1a6e41" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0" FontSize="9pt" FontWeight="Black"></TextBlock>
+					</Grid>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

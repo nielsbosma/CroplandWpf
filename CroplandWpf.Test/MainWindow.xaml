@@ -261,6 +261,161 @@
 			<Setter Property="a:ToolTipBeacon.PlacementPriority" Value="Bottom"/>
 		</Style>
 
+
+		<Style x:Key="DateTimePickerStyle1" TargetType="{x:Type tk:DateTimePicker}">
+			<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+			<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlNormalBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+			<Setter Property="BorderThickness" Value="1,1,0,1"/>
+			<Setter Property="IsTabStop" Value="False"/>
+			<Setter Property="HorizontalContentAlignment" Value="Right"/>
+			<Setter Property="TextAlignment" Value="Right"/>
+			<Setter Property="TimeWatermarkTemplate">
+				<Setter.Value>
+					<DataTemplate>
+						<ContentControl Content="{Binding}" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Focusable="False" Margin="0,0,3,0"/>
+					</DataTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="WatermarkTemplate">
+				<Setter.Value>
+					<DataTemplate>
+						<ContentControl Content="{Binding}" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" Focusable="False" Margin="0,0,3,0"/>
+					</DataTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="CalendarWidth" Value="178"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type tk:DateTimePicker}">
+						<Border>
+							<Grid>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
+									<tk:ButtonSpinner x:Name="PART_Spinner" AllowSpin="{TemplateBinding AllowSpin}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}" Background="{TemplateBinding Background}" HorizontalContentAlignment="Stretch" IsTabStop="False" ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}" VerticalContentAlignment="Stretch">
+										<tk:WatermarkTextBox x:Name="PART_TextBox" AcceptsReturn="False" BorderThickness="0" Background="Transparent" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsTabStop="True" IsUndoEnabled="True" MinWidth="20" Padding="{TemplateBinding Padding}" TextAlignment="{TemplateBinding TextAlignment}" TextWrapping="NoWrap" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" TabIndex="{TemplateBinding TabIndex}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" WatermarkTemplate="{TemplateBinding WatermarkTemplate}" Watermark="{TemplateBinding Watermark}"/>
+									</tk:ButtonSpinner>
+									<ToggleButton x:Name="_calendarToggleButton" Background="White" Grid.Column="1" Focusable="False" IsChecked="{Binding IsOpen, RelativeSource={RelativeSource TemplatedParent}}">
+										<ToggleButton.IsHitTestVisible>
+											<Binding Path="IsOpen" RelativeSource="{RelativeSource TemplatedParent}">
+												<Binding.Converter>
+													<tk:InverseBoolConverter/>
+												</Binding.Converter>
+											</Binding>
+										</ToggleButton.IsHitTestVisible>
+										<ToggleButton.IsEnabled>
+											<Binding Path="IsReadOnly" RelativeSource="{RelativeSource TemplatedParent}">
+												<Binding.Converter>
+													<tk:InverseBoolConverter/>
+												</Binding.Converter>
+											</Binding>
+										</ToggleButton.IsEnabled>
+										<ToggleButton.Style>
+											<Style TargetType="{x:Type ToggleButton}">
+												<Setter Property="Template">
+													<Setter.Value>
+														<ControlTemplate TargetType="{x:Type ToggleButton}">
+															<Grid SnapsToDevicePixels="True">
+																<tk:ButtonChrome x:Name="ToggleButtonChrome" CornerRadius="0" RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsPressed}" RenderChecked="{Binding IsOpen, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type tk:DateTimePicker}}}" RenderEnabled="{Binding IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type tk:DateTimePicker}}}">
+																	<Grid>
+																		<Grid.ColumnDefinitions>
+																			<ColumnDefinition Width="*"/>
+																			<ColumnDefinition Width="Auto"/>
+																		</Grid.ColumnDefinitions>
+																		<ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Stretch" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Stretch"/>
+																		<Grid x:Name="arrowGlyph" Grid.Column="1" IsHitTestVisible="False" Margin="5">
+																			<Path x:Name="Arrow" Data="M0,0L3,0 4.5,1.5 6,0 9,0 4.5,4.5z" Fill="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" Height="5" Margin="0,1,0,0" Width="9"/>
+																		</Grid>
+																	</Grid>
+																</tk:ButtonChrome>
+															</Grid>
+															<ControlTemplate.Triggers>
+																<Trigger Property="IsEnabled" Value="False">
+																	<Setter Property="Fill" TargetName="Arrow" Value="#FFAFAFAF"/>
+																</Trigger>
+															</ControlTemplate.Triggers>
+														</ControlTemplate>
+													</Setter.Value>
+												</Setter>
+											</Style>
+										</ToggleButton.Style>
+										<ToggleButton.Visibility>
+											<TemplateBinding Property="ShowDropDownButton">
+												<TemplateBinding.Converter>
+													<BooleanToVisibilityConverter/>
+												</TemplateBinding.Converter>
+											</TemplateBinding>
+										</ToggleButton.Visibility>
+									</ToggleButton>
+								</Grid>
+								<Popup x:Name="PART_Popup" IsOpen="{Binding IsChecked, ElementName=_calendarToggleButton}" StaysOpen="False" ToolTip="">
+									<Popup.Resources>
+										<Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}">
+											<Style.Triggers>
+												<Trigger Property="Content" Value="">
+													<Setter Property="Visibility" Value="Collapsed"/>
+												</Trigger>
+											</Style.Triggers>
+										</Style>
+									</Popup.Resources>
+									<Border BorderBrush="#FFABADB3" BorderThickness="1" Padding="3">
+										<Border.Background>
+											<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+												<GradientStop Color="#FFF0F0F0" Offset="0"/>
+												<GradientStop Color="#FFE5E5E5" Offset="1"/>
+											</LinearGradientBrush>
+										</Border.Background>
+										<StackPanel>
+											<Calendar x:Name="PART_Calendar" BorderThickness="0" DisplayMode="{Binding CalendarDisplayMode, RelativeSource={RelativeSource TemplatedParent}}" DisplayDate="2018-06-21">
+												<Calendar.Template>
+													<ControlTemplate TargetType="{x:Type Calendar}">
+														<Viewbox Width="{Binding CalendarWidth, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type tk:DateTimePicker}}}">
+															<StackPanel x:Name="PART_Root" HorizontalAlignment="Center">
+																<CalendarItem x:Name="PART_CalendarItem" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Style="{TemplateBinding CalendarItemStyle}"/>
+															</StackPanel>
+														</Viewbox>
+													</ControlTemplate>
+												</Calendar.Template>
+											</Calendar>
+											<tk:TimePicker x:Name="PART_TimeUpDown" AllowSpin="{TemplateBinding TimePickerAllowSpin}" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" ClipValueToMinMax="{Binding ClipValueToMinMax, RelativeSource={RelativeSource TemplatedParent}}" Foreground="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" FormatString="{TemplateBinding TimeFormatString}" Format="{TemplateBinding TimeFormat}" IsUndoEnabled="{Binding IsUndoEnabled, RelativeSource={RelativeSource TemplatedParent}}" Kind="{Binding Kind, RelativeSource={RelativeSource TemplatedParent}}" Maximum="{Binding Maximum, RelativeSource={RelativeSource TemplatedParent}}" Minimum="{Binding Minimum, RelativeSource={RelativeSource TemplatedParent}}" ShowButtonSpinner="{TemplateBinding TimePickerShowButtonSpinner}" Step="{TemplateBinding Step}" Text="" Visibility="{TemplateBinding TimePickerVisibility}" Value="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}" WatermarkTemplate="{TemplateBinding TimeWatermarkTemplate}" Watermark="{TemplateBinding TimeWatermark}"/>
+										</StackPanel>
+									</Border>
+								</Popup>
+							</Grid>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlMouseOverBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+							</Trigger>
+							<MultiDataTrigger>
+								<MultiDataTrigger.Conditions>
+									<Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False"/>
+									<Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False"/>
+								</MultiDataTrigger.Conditions>
+								<Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+							</MultiDataTrigger>
+							<DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
+								<Setter Property="IsReadOnly" TargetName="PART_TextBox" Value="True"/>
+							</DataTrigger>
+							<Trigger Property="IsKeyboardFocusWithin" Value="True">
+								<Setter Property="BorderBrush" Value="{DynamicResource {ComponentResourceKey ResourceId=ControlSelectedBorderKey, TypeInTargetAssembly={x:Type Themes:ResourceKeys}}}"/>
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="False">
+								<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+							</Trigger>
+							<Trigger Property="IsFocused" Value="True">
+								<Setter Property="FocusManager.FocusedElement" TargetName="PART_TextBox" Value="{Binding ElementName=PART_TextBox}"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
 	</Window.Resources>
 
 	<Grid Margin="10">
@@ -285,12 +440,12 @@
 			<TextBlock Grid.Row="0" FontWeight="Bold"><Run Text="Common Controls"/></TextBlock>
 			<ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
 				<StackPanel Orientation="Vertical">
-					<TextBlock>BusyIndicator</TextBlock>
+					<TextBlock FontWeight="Bold">BusyIndicator</TextBlock>
 					<StackPanel Orientation="Horizontal">
 						<c:BusyIndicator x:Name="busyIndicator" Margin="5"></c:BusyIndicator>
 						<CheckBox Margin="15,0,0,0" IsChecked="{Binding ElementName=busyIndicator, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
 					</StackPanel>
-					<TextBlock Margin="5"><Run Text="Button"/></TextBlock>
+					<TextBlock FontWeight="Bold" Margin="5"><Run Text="Button"/></TextBlock>
 					<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left" Content="NORMAL"/>
 					<StackPanel Orientation="Horizontal">
 						<Button x:Name="buttonTest" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5" Content="DISABLED"/>
@@ -308,14 +463,6 @@
 					</StackPanel>
 					<c:HyperlinkButton IsUnderlined="False" HorizontalAlignment="Left" Content="no underline"/>
 					<Button Margin="5" HorizontalAlignment="Left" Style="{DynamicResource styleButton_RemoveRequest}"/>
-					<Grid HorizontalAlignment="Left" Width="19" Height="19">
-						<Ellipse Stroke="#FF1a6e41" StrokeThickness="1.5"></Ellipse>
-						<TextBlock Text="i" Foreground="#FF1a6e41" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0" FontSize="10pt" FontWeight="Bold"></TextBlock>
-					</Grid>
-					<Grid HorizontalAlignment="Left" Width="19" Height="19">
-						<Ellipse Stroke="#FF1a6e41" StrokeThickness="1.5"></Ellipse>
-						<TextBlock Text="i" Foreground="#FF1a6e41" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0" FontSize="10pt" FontWeight="Bold"></TextBlock>
-					</Grid>
 					<Rectangle Fill="DarkGray" Height="1"/>
 					<CheckBox Margin="5" FontSize="9.5pt" Content="CheckBox"/>
 					<CheckBox Margin="5" IsEnabled="False" Content="CheckBox (disabled)"/>
@@ -340,8 +487,17 @@
 						<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" Value="{Binding ProgressBarValueTest}" Margin="5,0,0,0"></ProgressBar>
 						<Button Grid.Column="1" Margin="5,0" Command="{Binding StartProgressTestCommand}">Start</Button>
 					</Grid>
+					<TextBlock Margin="5" FontWeight="Bold">Indeterminate ProgressBar</TextBlock>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" IsIndeterminate="{Binding IsLongOperationInProgress}" Margin="5,0,0,0" ph:ProgressBarAnimationHelper.IndeterminateIndicatorPercentageWidth="0.6"></ProgressBar>
+						<Button Grid.Column="1" Margin="5,0" Command="{Binding StartLongOperationCommand}">Start</Button>
+					</Grid>
 					<Rectangle Fill="DarkGray" Height="1"/>
-					<TextBlock Margin="5" Text="Xceed IntegerUpDown"/>
+					<TextBlock Margin="5" Text="Xceed IntegerUpDown" FontWeight="Bold"/>
 					<StackPanel Orientation="Horizontal">
 						<tk:IntegerUpDown x:Name="integerUpDown" Margin="5,5,0,5" HorizontalAlignment="Left" Width="80" Value="{Binding IntegerValueTest}" />
 						<Grid Margin="15,5,5,5">
@@ -355,13 +511,13 @@
 					</StackPanel>
 					<TextBox Margin="5" Text="TextBox"/>
 					<TextBox Margin="5" IsEnabled="False" Text="TextBox (disabled)"/>
-					<TextBlock Margin="5" Text="PasswordBox"/>
+					<TextBlock Margin="5" Text="PasswordBox" FontWeight="Bold"/>
 					<StackPanel Orientation="Horizontal" Margin="5">
 						<PasswordBox a:PasswordHelper.AttachedController="{Binding UserPasswordController}" MinWidth="150"/>
 						<Button Margin="5,0" Command="{Binding UpdateUserPasswordCommand}" Content="OK"/>
 					</StackPanel>
 
-					<TextBlock Margin="5"><Run Text="CommandTextBox"/></TextBlock>
+					<TextBlock Margin="5" FontWeight="Bold"><Run Text="CommandTextBox"/></TextBlock>
 					<c:CommandTextBox x:Name="commandTextBox" Margin="5" Command="{Binding CommandTextBoxCommand}" ButtonStyle="{DynamicResource styleButton_CommandTextBox_Green}" ButtonContent="REGISTER"/>
 					<TextBlock Margin="20,5,5,5"><Run Text="CommandTextBox output:"/><Run Text="{Binding CommandTextBoxString}"/></TextBlock>
 					<CheckBox Margin="5,0,5,5" IsChecked="{Binding IsEnabled, ElementName=commandTextBox, Mode=TwoWay}" Content="IsEnabled"/>
@@ -369,7 +525,7 @@
 					<CheckBox Margin="5,0,5,5" IsChecked="{Binding IsEnabled, ElementName=commandTextBox1, Mode=TwoWay}" Content="IsEnabled"/>
 					<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Arrow_Up}"/>
 					<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Cross}"/>
-					<TextBlock Margin="5,10,5,5"><Run Text="CommandTextBox with IsButtonFisible = False:"/></TextBlock>
+					<TextBlock Margin="5,10,5,5" FontWeight="Bold"><Run Text="CommandTextBox with IsButtonFisible = False:"/></TextBlock>
 					<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Cross}" IsButtonVisible="False"/>
 				</StackPanel>
 			</ScrollViewer>
@@ -400,9 +556,9 @@
 							</TextBlock>
 							<DataTemplate.Triggers>
 								<DataTrigger Binding="{Binding ResultKind}" Value="Empty">
-								<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="[empty]"></Setter>
-							</DataTrigger>
-						</DataTemplate.Triggers>
+									<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="[empty]"></Setter>
+								</DataTrigger>
+							</DataTemplate.Triggers>
 						</DataTemplate>
 					</Label.ContentTemplate>
 				</Label>
@@ -436,45 +592,58 @@
 				</Label>
 			</StackPanel>
 		</ScrollViewer>
-		
-		<StackPanel Grid.Column="2" Grid.RowSpan="3" Orientation="Vertical">
-			<TextBlock Margin="5" FontWeight="Bold"><Run Text="MessageBox"/></TextBlock>
-			<StackPanel Orientation="Horizontal">
-				<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Exception}" Content="Simple Exception (OK)"/>
-				<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Question}" Content="Simple Question (Yes/No)"/>
-				<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
-				<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
-			</StackPanel>
-			<TextBlock Margin="20,5,0,5">
+
+		<ScrollViewer Grid.Column="2" Grid.RowSpan="3" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+			<StackPanel Orientation="Vertical">
+				<TextBlock Margin="5" FontWeight="Bold"><Run Text="MessageBox"/></TextBlock>
+				<StackPanel Orientation="Horizontal">
+					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Exception}" Content="Simple Exception (OK)"/>
+					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Question}" Content="Simple Question (Yes/No)"/>
+					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
+					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
+				</StackPanel>
+				<TextBlock Margin="20,5,0,5">
 				<TextBlock Text="MessageBoxResult:"/>
 				<Run Text=" "/>
 				<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/>
 			</TextBlock>
-			<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
-			<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
-			<TextBlock Margin="5" FontWeight="Bold">TimePicker (Xceed)</TextBlock>
-			<StackPanel Orientation="Horizontal">
-				<tk:TimePicker x:Name="timePicker" Margin="5" HorizontalAlignment="Left" MinWidth="100" Value="{Binding TimeValue, Mode=TwoWay}" StartTime="00:00:00" EndTime="23:59:59" AllowSpin="True" AllowTextInput="True" Minimum="00:00:00" Maximum="23:59:59"></tk:TimePicker>
-				<CheckBox IsChecked="{Binding ElementName=timePicker, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
+				<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
+				<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
+				<TextBlock Margin="5" FontWeight="Bold">TimePicker (Xceed)</TextBlock>
+				<StackPanel Orientation="Horizontal">
+					<tk:TimePicker x:Name="timePicker" Margin="5" HorizontalAlignment="Left" MinWidth="100" Value="{Binding TimeValue, Mode=TwoWay}" StartTime="00:00:00" EndTime="23:59:59" AllowSpin="True" AllowTextInput="True" Minimum="00:00:00" Maximum="23:59:59"></tk:TimePicker>
+					<CheckBox IsChecked="{Binding ElementName=timePicker, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
+				</StackPanel>
+				<TextBlock Margin="5" FontWeight="Bold">DateTimePicker (Xceed)</TextBlock>
+				<tk:DateTimePicker Margin="5" Width="200" HorizontalAlignment="Left" Style="{DynamicResource DateTimePickerStyle1}"></tk:DateTimePicker>
+				<TextBlock Margin="5" FontWeight="Bold">Long indeterminate progress bar</TextBlock>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"></ColumnDefinition>
+						<ColumnDefinition Width="Auto"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" IsIndeterminate="{Binding IsVeryLongOperationInProgress}" Margin="5,0,0,0" ph:ProgressBarAnimationHelper.IndeterminateIndicatorPercentageWidth="0.7"></ProgressBar>
+					<Button Grid.Column="1" Margin="5,0" Command="{Binding StartVeryLongOperationCommand}">Start</Button>
+				</Grid>
+				<TextBlock Margin="5" FontWeight="Bold"><Run Text="DataGrid"/></TextBlock>
+				<DataGrid Margin="5" x:Name="dataGrid" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False" c:DataGridHelper.MoveRowUpCommandOverride="{Binding PersonItemMoveUpCommand}" c:DataGridHelper.MoveRowDownCommandOverride="{Binding PersonItemMoveDownCommand}" c:DataGridHelper.RemoveRowCommandOverride="{Binding RemovePersonItemCommand}" c:DataGridHelper.ShowDefaultRemoveConfirmation="True" c:DataGridHelper.ShowRowControls="False" c:DataGridHelper.LastColumnFill="False">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Person Name" Binding="{Binding Name, Mode=TwoWay}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}" EditingElementStyle="{DynamicResource styleTextBox_DataGridTextColumn}"/>
+						<DataGridTextColumn Header="Internal Number" IsReadOnly="True" Binding="{Binding InternalNumber}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}"/>
+						<DataGridCheckBoxColumn Header="Has Medical License" IsReadOnly="False" Binding="{Binding IsMedic, Mode=TwoWay}" ElementStyle="{DynamicResource styleCheckBox_DataGridCheckBoxColumn}" EditingElementStyle="{DynamicResource styleCheckBox_DataGridCheckBoxColumn}"/>
+						<DataGridComboBoxColumn Header="Personality Type" SelectedItemBinding="{Binding PersonalityType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource sourcePersonalityType}}" EditingElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}" ElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}"/>
+					</DataGrid.Columns>
+				</DataGrid>
+				<StackPanel Margin="20,5,5,5" Orientation="Horizontal">
+					<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.ShowRowControls), Mode=TwoWay}">ShowRowControls</CheckBox>
+					<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.LastColumnFill), Mode=TwoWay}">Last column fill</CheckBox>
+				</StackPanel>
+				<StackPanel Orientation="Vertical" VerticalAlignment="Top">
+					<TextBlock Margin="5" FontWeight="Bold"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>
+					<c:RemovableItemsItemsControl Margin="0,0,0,0" a:ToolTipBeacon.InheritedGroupName="files" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}" ItemContainerStyle="{StaticResource styleRemovableItem_Files1}"/>
+					<c:RemovableItemsItemsControl Margin="0,50,0,0" a:ToolTipBeacon.InheritedGroupName="files2" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:ItemsControlHelper.Orientation="Horizontal" a:ToolTipBeacon.PlacementPriority="Top" ItemContainerStyle="{StaticResource styleRemovableItem_Files2}"/>
+				</StackPanel>
 			</StackPanel>
-			<TextBlock Margin="5" FontWeight="Bold"><Run Text="DataGrid"/></TextBlock>
-			<DataGrid Margin="5" x:Name="dataGrid" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False" c:DataGridHelper.MoveRowUpCommandOverride="{Binding PersonItemMoveUpCommand}" c:DataGridHelper.MoveRowDownCommandOverride="{Binding PersonItemMoveDownCommand}" c:DataGridHelper.RemoveRowCommandOverride="{Binding RemovePersonItemCommand}" c:DataGridHelper.ShowDefaultRemoveConfirmation="True" c:DataGridHelper.ShowRowControls="False" c:DataGridHelper.LastColumnFill="False">
-				<DataGrid.Columns>
-					<DataGridTextColumn Header="Person Name" Binding="{Binding Name, Mode=TwoWay}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}" EditingElementStyle="{DynamicResource styleTextBox_DataGridTextColumn}"/>
-					<DataGridTextColumn Header="Internal Number" IsReadOnly="True" Binding="{Binding InternalNumber}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}"/>
-					<DataGridCheckBoxColumn Header="Has Medical License" IsReadOnly="False" Binding="{Binding IsMedic, Mode=TwoWay}" ElementStyle="{DynamicResource styleCheckBox_DataGridCheckBoxColumn}" EditingElementStyle="{DynamicResource styleCheckBox_DataGridCheckBoxColumn}"/>
-					<DataGridComboBoxColumn Header="Personality Type" SelectedItemBinding="{Binding PersonalityType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource sourcePersonalityType}}" EditingElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}" ElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}"/>
-				</DataGrid.Columns>
-			</DataGrid>
-			<StackPanel Margin="20,5,5,5" Orientation="Horizontal">
-				<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.ShowRowControls), Mode=TwoWay}">ShowRowControls</CheckBox>
-				<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.LastColumnFill), Mode=TwoWay}">Last column fill</CheckBox>
-			</StackPanel>
-			<StackPanel Orientation="Vertical" VerticalAlignment="Top">
-				<TextBlock Margin="5"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>
-				<c:RemovableItemsItemsControl Margin="0,0,0,0" a:ToolTipBeacon.InheritedGroupName="files" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}" ItemContainerStyle="{StaticResource styleRemovableItem_Files1}"/>
-				<c:RemovableItemsItemsControl Margin="0,50,0,0" a:ToolTipBeacon.InheritedGroupName="files2" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:ItemsControlHelper.Orientation="Horizontal" a:ToolTipBeacon.PlacementPriority="Top" ItemContainerStyle="{StaticResource styleRemovableItem_Files2}"/>
-			</StackPanel>
-		</StackPanel>
+		</ScrollViewer>
 	</Grid>
 </Window>

@@ -151,6 +151,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <Page Include="Themes\Default\DateTimePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Default\KeyboardFocusRedirectControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -246,6 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PresentationHelpers\KeyboardFocusRedirectControl.cs" />
+    <Compile Include="PresentationHelpers\ProgressBarAnimationHelper.cs" />
     <Compile Include="PresentationHelpers\VisibilityBridge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
