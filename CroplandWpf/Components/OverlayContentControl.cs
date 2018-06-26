@@ -2,6 +2,7 @@
 using Microsoft.Windows.Themes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,14 +79,17 @@ namespace CroplandWpf.Components
 		{
 			base.OnPropertyChanged(e);
 			if (e.Property == TargetRectProperty)
-			{
-				//TODO
-			}
+				RefreshPosition();
 		}
 
 		protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
 		{
 			base.OnRenderSizeChanged(sizeInfo);
+			RefreshPosition();
+		}
+
+		private void RefreshPosition()
+		{
 			double width = RenderSize.Width;
 			double height = RenderSize.Height;
 			if (width == 0.0 || height == 0.0)

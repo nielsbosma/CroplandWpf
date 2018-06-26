@@ -96,6 +96,24 @@ namespace CroplandWpf.Test
 			DependencyProperty.Register("MessageBoxResult", typeof(MessageBoxResult), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
+		#region Slider
+		public string SliderDisplayFormat
+		{
+			get { return (string)GetValue(SliderDisplayFormatProperty); }
+			set { SetValue(SliderDisplayFormatProperty, value); }
+		}
+		public static readonly DependencyProperty SliderDisplayFormatProperty =
+			DependencyProperty.Register("SliderDisplayFormat", typeof(string), typeof(MainWindow), new PropertyMetadata());
+
+		public double SliderValue
+		{
+			get { return (double)GetValue(SliderValueProperty); }
+			set { SetValue(SliderValueProperty, value); }
+		}
+		public static readonly DependencyProperty SliderValueProperty =
+			DependencyProperty.Register("SliderValue", typeof(double), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+
 		#region Exceed IntegerUpDown
 		public int IntegerValueTest
 		{
@@ -754,6 +772,10 @@ namespace CroplandWpf.Test
 			StartProgressTestCommand = new DelegateCommand(StartProgressTestCommand_Execute, StartProgressTestCommand_CanExecute);
 			StartLongOperationCommand = new DelegateCommand(StartLongOperationCommand_Execute, StartLongOperationCommand_CanExecute);
 			StartVeryLongOperationCommand = new DelegateCommand(StartVeryLongOperationCommand_Execute, StartVeryLongOperationCommand_CanExecute);
+			#endregion
+
+			#region Slider
+			SliderValue = 67.04;
 			#endregion
 		}
 

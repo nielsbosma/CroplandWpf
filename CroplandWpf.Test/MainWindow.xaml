@@ -496,6 +496,21 @@
 						<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" IsIndeterminate="{Binding IsLongOperationInProgress}" Margin="5,0,0,0" ph:ProgressBarAnimationHelper.IndeterminateIndicatorPercentageWidth="0.6"></ProgressBar>
 						<Button Grid.Column="1" Margin="5,0" Command="{Binding StartLongOperationCommand}">Start</Button>
 					</Grid>
+					<StackPanel Orientation="Vertical">
+						<Slider x:Name="slider1" Margin="5" Minimum="0.0" Maximum="100.0" Value="{Binding SliderValue, Mode=TwoWay}" a:Slider.ValueStringFormat="{}{0:0}%"></Slider>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="ToolTip format" Margin="5"></TextBlock>
+							<TextBox Margin="5" Text="{Binding ElementName=slider1, Path=(a:Slider.ValueStringFormat), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+						</StackPanel>
+					</StackPanel>
+
+					<StackPanel Orientation="Vertical">
+						<Slider x:Name="slider2" Margin="5" Minimum="0.0" Maximum="100.0" Value="{Binding SliderValue, Mode=TwoWay}" a:Slider.ValueStringFormat="{}{0:#}%"></Slider>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="ToolTip format" Margin="5"></TextBlock>
+							<TextBox Margin="5" Text="{Binding ElementName=slider2, Path=(a:Slider.ValueStringFormat), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+						</StackPanel>
+					</StackPanel>
 					<Rectangle Fill="DarkGray" Height="1"/>
 					<TextBlock Margin="5" Text="Xceed IntegerUpDown" FontWeight="Bold"/>
 					<StackPanel Orientation="Horizontal">

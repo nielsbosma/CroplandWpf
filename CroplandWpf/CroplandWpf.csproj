@@ -70,11 +70,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attached\AdornerHelper.cs" />
     <Compile Include="Attached\FontLoader.cs" />
     <Compile Include="Attached\ItemsControlHelper.cs" />
     <Compile Include="Attached\MenuHelper.cs" />
     <Compile Include="Attached\PasswordHelper.cs" />
     <Compile Include="Attached\RemoveRequestHelper.cs" />
+    <Compile Include="Attached\SliderHelper.cs" />
     <Compile Include="Attached\ToggleButtonHelper.cs" />
     <Compile Include="Attached\ToolTipBeacon.cs" />
     <Compile Include="Attached\VisualHelper.cs" />
@@ -92,12 +94,14 @@
     <Compile Include="Components\RemovableItemsItemsControl.cs" />
     <Compile Include="Components\SearchAutocmpleteItem.cs" />
     <Compile Include="Components\SearchAutocompleteControl.cs" />
+    <Compile Include="Components\SliderThumb.cs" />
     <Compile Include="Components\WindowControlButton.cs" />
     <Compile Include="Components\WindowControlThumb.cs" />
     <Compile Include="Converters\EnumToValuesListConverter.cs" />
     <Compile Include="Exceptions\TemplatePartNotFoundException.cs" />
     <Compile Include="Helpers\CustomSourceResourceDictionary.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
+    <Compile Include="MVVM\SliderInfo.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="MVVM\vmMenuItem.cs" />
     <Compile Include="MVVM\vmSearchInputDialog.cs" />
@@ -207,6 +211,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Default\Slider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Default\TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -251,6 +259,7 @@
   <ItemGroup>
     <Compile Include="PresentationHelpers\KeyboardFocusRedirectControl.cs" />
     <Compile Include="PresentationHelpers\ProgressBarAnimationHelper.cs" />
+    <Compile Include="PresentationHelpers\SliderHelper.cs" />
     <Compile Include="PresentationHelpers\VisibilityBridge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

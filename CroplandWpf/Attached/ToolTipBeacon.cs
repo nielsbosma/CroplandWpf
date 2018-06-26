@@ -2,26 +2,35 @@
 using CroplandWpf.MVVM;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
 using System.Windows.Threading;
 using System.Xml;
 
 namespace CroplandWpf.Attached
-{
+{ 
 	public class ToolTipGroupVisibility
 	{
 		public string GroupName { get; set; }
 		public bool IsEnabled { get; set; }
 	}
 
-	public class ToolTipBeacon : FrameworkElement
+	public enum ToolTipHideMode
+	{
+		Timer,
+		Explicit
+	}
+
+	public class ToolTipBeacon : Control
 	{
 		#region Static commands
 		public static DelegateCommand DisableToolTipsGroupCommand { get; } = new DelegateCommand(DisableToolTipsGroupCommand_Execute);
@@ -103,7 +112,7 @@ namespace CroplandWpf.Attached
 			obj.SetValue(ToolTipContentProperty, value);
 		}
 		public static readonly DependencyProperty ToolTipContentProperty =
-			DependencyProperty.RegisterAttached("ToolTipContent", typeof(object), typeof(ToolTipBeacon), new PropertyMetadata());
+			DependencyProperty.RegisterAttached("ToolTipContent", typeof(object), typeof(ToolTipBeacon), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
 		public static object GetToolTipTemplateKey(DependencyObject obj)
 		{
@@ -114,7 +123,7 @@ namespace CroplandWpf.Attached
 			obj.SetValue(ToolTipTemplateKeyProperty, value);
 		}
 		public static readonly DependencyProperty ToolTipTemplateKeyProperty =
-			DependencyProperty.RegisterAttached("ToolTipTemplateKey", typeof(object), typeof(ToolTipBeacon), new PropertyMetadata());
+			DependencyProperty.RegisterAttached("ToolTipTemplateKey", typeof(object), typeof(ToolTipBeacon), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
 		public static string GetInheritedGroupName(DependencyObject obj)
 		{
@@ -170,6 +179,17 @@ namespace CroplandWpf.Attached
 		}
 		public static readonly DependencyProperty AttachedBeaconProperty =
 			DependencyProperty.RegisterAttached("AttachedBeacon", typeof(ToolTipBeacon), typeof(ToolTipBeacon), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+
+		public static ToolTipHideMode GetHideMode(DependencyObject obj)
+		{
+			return (ToolTipHideMode)obj.GetValue(HideModeProperty);
+		}
+		public static void SetHideMode(DependencyObject obj, ToolTipHideMode value)
+		{
+			obj.SetValue(HideModeProperty, value);
+		}
+		public static readonly DependencyProperty HideModeProperty =
+			DependencyProperty.RegisterAttached("HideMode", typeof(ToolTipHideMode), typeof(ToolTipBeacon), new FrameworkPropertyMetadata(ToolTipHideMode.Timer, FrameworkPropertyMetadataOptions.Inherits));
 		#endregion
 
 		#region DPs
@@ -220,27 +240,27 @@ namespace CroplandWpf.Attached
 		public static readonly DependencyProperty ToolTipCloseCommandProperty =
 			DependencyProperty.Register("ToolTipCloseCommand", typeof(DelegateCommand), typeof(ToolTipBeacon), new PropertyMetadata());
 
+		static ToolTipBeacon()
+		{
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(ToolTipBeacon), new FrameworkPropertyMetadata(typeof(ToolTipBeacon)));
+		}
+
 		public ToolTipBeacon()
 		{
-			Opacity = 0.0;
+			Opacity = 1.0;
+			Visibility = Visibility.Visible;
 			IsHitTestVisible = false;
 			showTimer = new DispatcherTimer();
 			hideTimer = new DispatcherTimer();
 			stayOpenTimer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(300) };
 			Loaded += ToolTipBeacon_Loaded;
 			Unloaded += ToolTipBeacon_Unloaded;
-			LayoutUpdated += ToolTipBeacon_LayoutUpdated;
 			ToolTipCloseCommand = new DelegateCommand(ToolTipCloseCommand_Execute);
 		}
 
 		private void ToolTipCloseCommand_Execute(object obj)
 		{
 			HideToolTip();
-		}
-
-		private void ToolTipBeacon_LayoutUpdated(object sender, EventArgs e)
-		{
-			TargetRect = GetTargetRect();
 		}
 
 		private Rect GetTargetRect()
@@ -260,6 +280,7 @@ namespace CroplandWpf.Attached
 			stayOpenTimer.Tick += StayOpenTimer_Tick;
 			if (TemplatedParent as FrameworkElement != null && Target == null)
 				Target = TemplatedParent as FrameworkElement;
+			overlayHost = OverlayHost.GetOverlay();
 		}
 
 		private void ToolTipBeacon_Unloaded(object sender, RoutedEventArgs e)
@@ -279,7 +300,7 @@ namespace CroplandWpf.Attached
 					showTimer.Interval = TimeSpan.FromMilliseconds(GetShowDelay(Target));
 					showTimer.Start();
 				}
-				else
+				else if(GetHideMode(Target) == ToolTipHideMode.Timer)
 				{
 					showTimer.Stop();
 					stayOpenTimer.Start();
@@ -341,7 +362,6 @@ namespace CroplandWpf.Attached
 				tooltipPresenter = overlayHost.ShowContent(GetToolTipContent(Target), GetTargetRect(), GetToolTipTemplateKey(Target));
 				tooltipPresenter.PlacementPriority = GetPlacementPriority(Target);
 				SetAttachedBeacon(tooltipPresenter, this);
-				//occ.SetBinding(TargetRectProperty, new Binding { Source = this, Path = new PropertyPath(TargetRectProperty), Mode = BindingMode.OneWay });
 				SetBinding(ToolTipHasMouseOverProperty, new Binding { Source = tooltipPresenter, Path = new PropertyPath(IsMouseOverProperty), Mode = BindingMode.OneWay });
 				tooltipPresenter.MouseLeftButtonDown += OverlayControl_MouseLeftButtonDown;
 				hideTimer.Interval = TimeSpan.FromMilliseconds(GetGetHideDelay(Target));
@@ -380,5 +400,57 @@ namespace CroplandWpf.Attached
 			hideTimer.Stop();
 			stayOpenTimer.Stop();
 		}
+	}
+
+	public class ToolTipTimerShowTrigger : ToolTipShowTrigger
+	{
+
+	}
+
+	public class ToolTipShowTrigger : ToolTipTriggerBase
+	{
+
+	}
+
+	public class ToolTipHideTrigger : ToolTipTriggerBase
+	{
+
+	}
+
+	public class ToolTipTriggerBase : FrameworkElement
+	{
+
+		public static ToolTipHideTrigger GetAttachedHideTrigger(DependencyObject obj)
+		{
+			return (ToolTipHideTrigger)obj.GetValue(AttachedHideTriggerProperty);
+		}
+		public static void SetAttachedHideTrigger(DependencyObject obj, ToolTipHideTrigger value)
+		{
+			obj.SetValue(AttachedHideTriggerProperty, value);
+		}
+		public static readonly DependencyProperty AttachedHideTriggerProperty =
+			DependencyProperty.RegisterAttached("AttachedHideTrigger", typeof(ToolTipHideTrigger), typeof(ToolTipTriggerBase), new PropertyMetadata());
+
+		public static ToolTipShowTrigger GetAttachedShowTrigger(DependencyObject obj)
+		{
+			return (ToolTipShowTrigger)obj.GetValue(AttachedShowTriggerProperty);
+		}
+		public static void SetAttachedShowTrigger(DependencyObject obj, ToolTipShowTrigger value)
+		{
+			obj.SetValue(AttachedShowTriggerProperty, value);
+		}
+		public static readonly DependencyProperty AttachedShowTriggerProperty =
+			DependencyProperty.RegisterAttached("AttachedShowTrigger", typeof(ToolTipShowTrigger), typeof(ToolTipTriggerBase), new PropertyMetadata());
+
+		public UIElement Target
+		{
+			get { return (UIElement)GetValue(TargetProperty); }
+			set { SetValue(TargetProperty, value); }
+		}
+		public static readonly DependencyProperty TargetProperty =
+			DependencyProperty.Register("Target", typeof(UIElement), typeof(ToolTipShowTrigger), new PropertyMetadata());
+
+		public Action Action { get; set; }
+
 	}
 }

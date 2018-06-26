@@ -1,0 +1,88 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers"
+					xmlns:a="clr-namespace:CroplandWpf.Attached"
+					xmlns:c="clr-namespace:CroplandWpf.Components">
+
+	<Style x:Key="styleRepeatButton_Slider_Decrease" TargetType="RepeatButton">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="VerticalAlignment" Value="Center"></Setter>
+		<Setter Property="Height" Value="6"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="RepeatButton">
+					<Border BorderBrush="#FF0f673c" BorderThickness="1" CornerRadius="2,0,0,2" Background="#1e7048"></Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="styleRepeatButton_Slider_Increase" TargetType="RepeatButton">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="VerticalAlignment" Value="Center"></Setter>
+		<Setter Property="Height" Value="6"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="RepeatButton">
+					<Border Background="#FFe2e7ee" CornerRadius="0,2,2,0"></Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<DataTemplate x:Key="toolTipTemplate_Slider" DataType="{x:Type ph:SliderHelper}">
+		<Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ContentControl}, Path=DataContext}">
+			<Border x:Name="borderBackground" Background="{DynamicResource brushControl_Background_Dark}" Padding="10" CornerRadius="3" BorderThickness="0" Margin="0,0,0,10" MinWidth="40" MinHeight="20">
+				<TextBlock Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="8pt" FontWeight="Bold" Text="{Binding FormattedValue}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0"></TextBlock>
+			</Border>
+			<Polygon x:Name="polygonArrow" HorizontalAlignment="Center" VerticalAlignment="Bottom" Points="0,11 11,0 22,11" Width="22" Height="11" Fill="{DynamicResource brushControl_Background_Dark}" RenderTransformOrigin="0.5,0.5">
+				<Polygon.RenderTransform>
+					<ScaleTransform ScaleX="1.0" ScaleY="-1.0"></ScaleTransform>
+				</Polygon.RenderTransform>
+			</Polygon>
+		</Grid>
+	</DataTemplate>
+
+	<Style x:Key="styleThumb_Slider" TargetType="c:SliderThumb">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="SliderHelper" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Slider}, Path=(ph:SliderHelper.AttachedHelper)}"></Setter>
+		<Setter Property="ValueToolTipTemplate" Value="{StaticResource toolTipTemplate_Slider}"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="c:SliderThumb">
+					<Grid Height="18" Width="18" Background="Transparent">
+						<Border Background="#FFfcfcfc" BorderBrush="#FF5a9578" BorderThickness="1" CornerRadius="3"></Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="{x:Type Slider}" TargetType="Slider">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="MinHeight" Value="18"></Setter>
+		<Setter Property="MinWidth" Value="48"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Slider">
+					<Grid Background="Transparent">
+						<ph:SliderHelper x:Name="helper" Target="{Binding RelativeSource={RelativeSource TemplatedParent}}" ></ph:SliderHelper>
+						<Track x:Name="PART_Track" VerticalAlignment="Center">
+							<Track.DecreaseRepeatButton>
+								<RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource styleRepeatButton_Slider_Decrease}"/>
+							</Track.DecreaseRepeatButton>
+							<Track.IncreaseRepeatButton>
+								<RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource styleRepeatButton_Slider_Increase}"/>
+							</Track.IncreaseRepeatButton>
+							<Track.Thumb>
+								<c:SliderThumb x:Name="Thumb" Focusable="False" Style="{StaticResource styleThumb_Slider}" VerticalAlignment="Center"/>
+							</Track.Thumb>
+						</Track>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>
