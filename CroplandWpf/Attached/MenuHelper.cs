@@ -93,10 +93,9 @@ namespace CroplandWpf.Attached
 					}
 					if (e.OldValue != null)
 					{
-
+						//TODO
 					}
 				}
-				//TODO
 			}));
 
 		public static HierarchicalDataTemplate GetHierarchicalTemplate(DependencyObject obj)
