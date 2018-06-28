@@ -374,6 +374,24 @@ namespace CroplandWpf.Test
 			DependencyProperty.Register("TimeValue", typeof(DateTime?), typeof(MainWindow), new PropertyMetadata(DateTime.Now));
 		#endregion
 
+		#region AlignmentEditor
+		public VerticalAlignment VerticalAlignmentValue
+		{
+			get { return (VerticalAlignment)GetValue(VerticalAlignmentValueProperty); }
+			set { SetValue(VerticalAlignmentValueProperty, value); }
+		}
+		public static readonly DependencyProperty VerticalAlignmentValueProperty =
+			DependencyProperty.Register("VerticalAlignmentValue", typeof(VerticalAlignment), typeof(MainWindow), new PropertyMetadata(VerticalAlignment.Center));
+
+		public HorizontalAlignment HorizontalAlignmentValue
+		{
+			get { return (HorizontalAlignment)GetValue(HorizontalAlignmentValueProperty); }
+			set { SetValue(HorizontalAlignmentValueProperty, value); }
+		}
+		public static readonly DependencyProperty HorizontalAlignmentValueProperty =
+			DependencyProperty.Register("HorizontalAlignmentValue", typeof(HorizontalAlignment), typeof(MainWindow), new PropertyMetadata(HorizontalAlignment.Right));
+		#endregion
+
 		#region Commands
 		public DelegateCommand ShowAddNewFileInputDialogCommand
 		{
@@ -783,10 +801,6 @@ namespace CroplandWpf.Test
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
 		{
 			base.OnPropertyChanged(e);
-			if(e.Property == TimeValueProperty)
-			{
-				DateTime? dt = (DateTime)e.NewValue;
-			}
 		}
 		#endregion
 

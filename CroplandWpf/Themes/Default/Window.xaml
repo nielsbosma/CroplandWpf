@@ -106,7 +106,7 @@
 						<Border x:Name="border_EffectHost" Margin="{Binding ElementName=borderClip, Path=Margin}" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window}" CornerRadius="{Binding ElementName=borderClip, Path=CornerRadius}">
 						</Border>
 
-						<AdornerDecorator Name="adorner" Margin="24,5,24,30">
+						<AdornerDecorator Name="adornerDecorator" Margin="24,5,24,30">
 							<c:ClippingBorder x:Name="borderClip" CornerRadius="6">
 								<Grid x:Name="gridRoot">
 									<Grid.RowDefinitions>
@@ -142,7 +142,7 @@
 					<ControlTemplate.Triggers>
 						<Trigger Property="WindowState" Value="Maximized">
 							<Setter TargetName="gridRoot" Property="Margin" Value="0"></Setter>
-							<Setter TargetName="borderClip" Property="Margin" Value="0"></Setter>
+							<Setter TargetName="adornerDecorator" Property="Margin" Value="0"></Setter>
 							<Setter TargetName="borderClip" Property="CornerRadius" Value="0,0,0,0"></Setter>
 						</Trigger>
 					</ControlTemplate.Triggers>
@@ -170,8 +170,8 @@
 						<Border x:Name="border_EffectHost" Margin="{Binding ElementName=borderClip, Path=Margin}" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window_Light}" CornerRadius="{Binding ElementName=borderClip, Path=CornerRadius}">
 						</Border>
 						
-						<AdornerDecorator Margin="24,5,24,37">
-							<c:ClippingBorder x:Name="borderClip" CornerRadius="6" Background="{TemplateBinding Background}">
+						<AdornerDecorator x:Name="adornerDecorator">
+							<c:ClippingBorder x:Name="borderClip" CornerRadius="6" Background="{TemplateBinding Background}" Margin="24,5,24,37">
 								<Grid x:Name="gridRoot">
 									<Grid.RowDefinitions>
 										<RowDefinition Height="69"></RowDefinition>

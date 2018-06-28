@@ -464,19 +464,6 @@ namespace CroplandWpf.Components
 			SelectedItem = e.OriginalSource as SearchAutocmpleteItem;
 			_editableTextBox.Text = SelectedItem.DisplayString;
 			SearchCompleted();
-			return;
-			SearchAutocmpleteItem clickedItem = e.OriginalSource as SearchAutocmpleteItem;
-			//if (SearchItemCommand != null)
-			//{
-			//	object selectedItemData = null;
-			//	if (SelectedItem != null)
-			//	{
-			//		selectedItemData = SelectedItem.DataContext;
-			//		_editableTextBox.Text = SelectedItem.DisplayString;
-			//	}
-			//	SearchItemCommand.Execute(selectedItemData);
-			//}
-			//Unfocus(false);
 		}
 
 		private void OnSearchAutocompleteItemFocused(object sender, RoutedEventArgs e)
