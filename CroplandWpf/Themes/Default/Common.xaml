@@ -215,4 +215,8 @@
 
 	<SolidColorBrush x:Key="brushToggleButton_Tick_Backround_Disabled">#FFf4f6f8</SolidColorBrush>
 
+	<StreamGeometry x:Key="geometryIcon_Star">M0,88 L94,88 123,0 153,88 249,88 172,146 201,237 123,181 47,237 76,146 0,88z</StreamGeometry>
+
+	<SolidColorBrush x:Key="brushButton_Background_Star">#FFd01e1a</SolidColorBrush>
+	
 </ResourceDictionary> 

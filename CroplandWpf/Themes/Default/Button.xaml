@@ -267,6 +267,64 @@
 		</Setter>
 	</Style>
 
+	
+	<Style x:Key="styleButton_Star" TargetType="Button">
+		<Setter Property="MinWidth" Value="24"></Setter>
+		<Setter Property="MinHeight" Value="24"></Setter>
+		<Setter Property="Width" Value="34"></Setter>
+		<Setter Property="Height" Value="34"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushButton_Background_Star}"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid>
+						<Ellipse Fill="Transparent"></Ellipse>
+						<Grid x:Name="grid">
+							<Grid.Effect>
+								<DropShadowEffect ShadowDepth="0" Color="#FF000000" Opacity="0.0"></DropShadowEffect>
+							</Grid.Effect>
+							<Ellipse StrokeThickness="3" Stroke="{TemplateBinding Background}"></Ellipse>
+							<Path Margin="10" Data="{DynamicResource geometryIcon_Star}" Stretch="Fill" Fill="{TemplateBinding Background}" />
+						</Grid>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.0" To="0.3" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
 	<DataTemplate x:Key="templateHyperlinkContent">
 		<TextBlock x:Name="textBlock_Presenter" Text="{Binding}" TextDecorations="Underline"></TextBlock>
