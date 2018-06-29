@@ -464,8 +464,12 @@
 					<c:HyperlinkButton IsUnderlined="False" HorizontalAlignment="Left" Content="no underline"/>
 					<Button Margin="5" HorizontalAlignment="Left" Style="{DynamicResource styleButton_RemoveRequest}"/>
 					<StackPanel Orientation="Horizontal">
-						<Button x:Name="buttonStar" Style="{DynamicResource styleButton_Star}" HorizontalAlignment="Left" Margin="5"></Button>
+						<Button x:Name="buttonStar" Style="{DynamicResource styleButton_Star}" Margin="5"></Button>
 						<CheckBox IsChecked="{Binding ElementName=buttonStar, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<Button x:Name="buttonInfo" Style="{DynamicResource styleButton_Info}" Margin="5"></Button>
+						<CheckBox IsChecked="{Binding ElementName=buttonInfo, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
 					</StackPanel>
 					<Rectangle Fill="DarkGray" Height="1"/>
 					<CheckBox Margin="5" FontSize="9.5pt" Content="CheckBox"/>
