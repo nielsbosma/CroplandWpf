@@ -23,6 +23,7 @@
 		<ResourceDictionary Source="Default/SearchAutocompleteControl.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/Menu.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/DatePicker.xaml"></ResourceDictionary>
+		<ResourceDictionary Source="Default/DateTimePicker.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/DataGrid.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/MessageBoxWindow.xaml"></ResourceDictionary>
 		<ResourceDictionary Source="Default/OverlayHost.xaml"></ResourceDictionary>

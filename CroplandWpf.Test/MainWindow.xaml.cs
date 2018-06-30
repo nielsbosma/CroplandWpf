@@ -372,6 +372,14 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty TimeValueProperty =
 			DependencyProperty.Register("TimeValue", typeof(DateTime?), typeof(MainWindow), new PropertyMetadata(DateTime.Now));
+
+		public DateTime? SelectedDateTime
+		{
+			get { return (DateTime?)GetValue(SelectedDateTimeProperty); }
+			set { SetValue(SelectedDateTimeProperty, value); }
+		}
+		public static readonly DependencyProperty SelectedDateTimeProperty =
+			DependencyProperty.Register("SelectedDateTime", typeof(DateTime?), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
 		#region AlignmentEditor
@@ -795,12 +803,20 @@ namespace CroplandWpf.Test
 			#region Slider
 			SliderValue = 67.04;
 			#endregion
+
+			#region DateTimePicker
+			SelectedDateTime = DateTime.Now;
+			#endregion
 		}
 
 		#region Overrides
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
 		{
 			base.OnPropertyChanged(e);
+			if(e.Property == SelectedDateTimeProperty)
+			{
+				DateTime? dt = (DateTime?)e.NewValue;
+			}
 		}
 		#endregion
 

@@ -120,7 +120,7 @@
 									</Grid.ColumnDefinitions>
 
 									<a:RootAdornerLayerHelper Window="{Binding RelativeSource={RelativeSource TemplatedParent}}"></a:RootAdornerLayerHelper>
-									
+
 									<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="{DynamicResource brushControl_Background_Dark}" CornerRadius="1"></Border>
 
 									<c:WindowControlThumb Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource styleThumb_Window_Move}" Role="Move"></c:WindowControlThumb>
@@ -137,7 +137,6 @@
 								</Grid>
 							</c:ClippingBorder>
 						</AdornerDecorator>
-						<!--<AdornedElementPlaceholder x:Name="adorner"></AdornedElementPlaceholder>-->
 					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="WindowState" Value="Maximized">
