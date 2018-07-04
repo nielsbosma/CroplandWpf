@@ -103,6 +103,7 @@
     <Compile Include="Components\TextInputModifier.cs" />
     <Compile Include="Components\WindowControlButton.cs" />
     <Compile Include="Components\WindowControlThumb.cs" />
+    <Compile Include="Converters\ColorToSolidColorBrushValueConverter.cs" />
     <Compile Include="Converters\EnumToValuesListConverter.cs" />
     <Compile Include="Exceptions\TemplatePartNotFoundException.cs" />
     <Compile Include="Helpers\CustomSourceResourceDictionary.cs" />
