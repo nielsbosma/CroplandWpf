@@ -261,6 +261,7 @@
 			<Setter Property="a:ToolTipBeacon.PlacementPriority" Value="Bottom"/>
 		</Style>
 
+		<c:DoubleTextModifier x:Key="doubleModifier"></c:DoubleTextModifier>
 	</Window.Resources>
 
 	<Grid Margin="10">
@@ -296,7 +297,12 @@
 						<Button x:Name="buttonTest" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5" Content="DISABLED"/>
 						<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonTest, Mode=TwoWay}" Content="IsEnabled"/>
 					</StackPanel>
+					<StackPanel Orientation="Horizontal">
+						<Button x:Name="buttonLight" Margin="5" Style="{DynamicResource styleButton_Light}">ABORT</Button>
+						<CheckBox Margin="20,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonLight, Mode=TwoWay}" Content="IsEnabled"/>
+					</StackPanel>
 					<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left"/>
+					<c:ModifiedInputTextBox InputModifierType="{x:Type c:DoubleTextModifier}"></c:ModifiedInputTextBox>
 					<StackPanel Orientation="Horizontal">
 						<Button Margin="5" Style="{DynamicResource styleButton_AddFile}"/>
 						<Button x:Name="buttonRemoveTest" Margin="0,5,5,5" Style="{DynamicResource styleButton_RemoveFile}"/>
@@ -413,7 +419,7 @@
 				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=comboBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
 				<TextBlock FontWeight="Bold" Margin="5" TextWrapping="Wrap">SearchAutocompleteControl (left-aligned tooltip)</TextBlock>
 				<c:SearchAutocompleteControl x:Name="searchAutocomplete_String" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding StringSearchResults}" SearchCompleteCommand="{Binding StringSearchCompleteCommand}" NoMatchesButtonCommand="{Binding NoMatchesFoundCommand}" SeeAllOptionsCommand="{Binding SeeMoreSearchOptionsCommand}"/>
-				<Button Content="Show search input dialog" Command="{Binding ShowSearchInputBoxCommand}" CommandParameter="{StaticResource inputDialogInfo_Search}" HorizontalAlignment="Left" Margin="10,5,0,10"></Button>
+				<Button Content="Show search input dialog" Command="{Binding ShowSearchInputBoxCommand}" CommandParameter="{StaticResource inputDialogInfo_Search}" HorizontalAlignment="Left" Margin="10,5,0,10" Style="{DynamicResource styleButton_Light}"></Button>
 				<Label Content="{Binding StringSearchResultInfo}">
 					<Label.ContentTemplate>
 						<DataTemplate DataType="{x:Type c:SearchResultInfo}">
@@ -471,10 +477,10 @@
 					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
 				</StackPanel>
 				<TextBlock Margin="20,5,0,5">
-				<TextBlock Text="MessageBoxResult:"/>
-				<Run Text=" "/>
-				<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/>
-			</TextBlock>
+					<TextBlock Text="MessageBoxResult:"/>
+					<Run Text=" "/>
+					<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/>
+				</TextBlock>
 				<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
 				<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
 				<TextBlock Margin="5" FontWeight="Bold">TimePicker (Xceed)</TextBlock>
@@ -487,23 +493,37 @@
 				<TextBlock Margin="5" FontWeight="Bold">Alignment Editor</TextBlock>
 				<Grid Margin="5,5,100,5">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition></ColumnDefinition>
+						<ColumnDefinition Width="Auto"></ColumnDefinition>
 						<ColumnDefinition></ColumnDefinition>
 					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition></RowDefinition>
+					</Grid.RowDefinitions>
 					<StackPanel Grid.Column="0" Orientation="Vertical">
-						<c:AlignmentEditor Margin="5" HorizontalAlignment="Left" VerticalAlignmentValue="{Binding VerticalAlignmentValue, Mode=TwoWay}" HorizontalAlignmentValue="{Binding HorizontalAlignmentValue, Mode=TwoWay}"></c:AlignmentEditor>
+						<StackPanel Orientation="Horizontal">
+							<c:AlignmentEditor x:Name="alignmentEditor1" Margin="5" HorizontalAlignment="Left" VerticalAlignmentValue="{Binding VerticalAlignmentValue, Mode=TwoWay}" HorizontalAlignmentValue="{Binding HorizontalAlignmentValue, Mode=TwoWay}" MarginValue="{Binding MarginValue, Mode=TwoWay}" ShowMarginEditors="True"></c:AlignmentEditor>
+							<CheckBox Margin="20,0,0,0" VerticalAlignment="Center" IsChecked="{Binding ElementName=alignmentEditor1, Path=ShowMarginEditors, Mode=TwoWay}">ShowMarginEditors</CheckBox>
+						</StackPanel>
 						<TextBlock>
 							<Run Text="HorizontalAlignment "></Run>
 							<Run FontWeight="Bold" Text="{Binding HorizontalAlignmentValue}"></Run>
 							<LineBreak></LineBreak>
 							<Run Text="VerticalAlignment "></Run>
 							<Run FontWeight="Bold" Text="{Binding VerticalAlignmentValue}"></Run>
+							<LineBreak></LineBreak>
+							<Run Text="Margin "></Run>
+							<Run Text="{Binding MarginValue}"></Run>
 						</TextBlock>
 					</StackPanel>
 					<StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
-						<c:AlignmentEditor x:Name="alignmentEditor2" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalAlignmentValue="{Binding VerticalAlignmentValue, Mode=TwoWay}" HorizontalAlignmentValue="{Binding HorizontalAlignmentValue, Mode=TwoWay}"></c:AlignmentEditor>
+						<c:AlignmentEditor x:Name="alignmentEditor2" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalAlignmentValue="{Binding VerticalAlignmentValue, Mode=TwoWay}" HorizontalAlignmentValue="{Binding HorizontalAlignmentValue, Mode=TwoWay}" ShowMarginEditors="{Binding ElementName=alignmentEditor1, Path=ShowMarginEditors, Mode=OneWay}" MarginValue="{Binding ElementName=rectangleAlignmentEditorTest, Path=Margin, Mode=TwoWay}"></c:AlignmentEditor>
 						<CheckBox Margin="5" IsChecked="{Binding ElementName=alignmentEditor2, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
 					</StackPanel>
+					<Grid Grid.Row="1" Grid.ColumnSpan="2" MinHeight="200" Background="Yellow">
+						<Rectangle x:Name="rectangleAlignmentEditorTest" Width="40" Height="30" Fill="Red" VerticalAlignment="{Binding VerticalAlignmentValue, Mode=OneWay}" HorizontalAlignment="{Binding HorizontalAlignmentValue, Mode=OneWay}" Margin="{Binding MarginValue, Mode=TwoWay}"></Rectangle>
+						<!--Margin="{Binding MarginValue, Mode=OneWay}"-->
+					</Grid>
 				</Grid>
 
 				<TextBlock Margin="5" FontWeight="Bold">Long indeterminate progress bar</TextBlock>

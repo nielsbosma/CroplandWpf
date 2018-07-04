@@ -104,6 +104,54 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty CombinedAlignmentProperty =
 			DependencyProperty.Register("CombinedAlignment", typeof(CombinedAlignment), typeof(AlignmentEditor), new PropertyMetadata());
 
+		public Thickness MarginValue
+		{
+			get { return (Thickness)GetValue(MarginValueProperty); }
+			set { SetValue(MarginValueProperty, value); }
+		}
+		public static readonly DependencyProperty MarginValueProperty =
+			DependencyProperty.Register("MarginValue", typeof(Thickness), typeof(AlignmentEditor), new PropertyMetadata());
+
+		public double ThicknessLeft
+		{
+			get { return (double)GetValue(ThicknessLeftProperty); }
+			set { SetValue(ThicknessLeftProperty, value); }
+		}
+		public static readonly DependencyProperty ThicknessLeftProperty =
+			DependencyProperty.Register("ThicknessLeft", typeof(double), typeof(AlignmentEditor), new PropertyMetadata());
+
+		public double ThicknessTop
+		{
+			get { return (double)GetValue(ThicknessTopProperty); }
+			set { SetValue(ThicknessTopProperty, value); }
+		}
+		public static readonly DependencyProperty ThicknessTopProperty =
+			DependencyProperty.Register("ThicknessTop", typeof(double), typeof(AlignmentEditor), new PropertyMetadata());
+
+		public double ThicknessRight
+		{
+			get { return (double)GetValue(ThicknessRightProperty); }
+			set { SetValue(ThicknessRightProperty, value); }
+		}
+		public static readonly DependencyProperty ThicknessRightProperty =
+			DependencyProperty.Register("ThicknessRight", typeof(double), typeof(AlignmentEditor), new PropertyMetadata());
+
+		public double ThicknessBottom
+		{
+			get { return (double)GetValue(ThicknessBottomProperty); }
+			set { SetValue(ThicknessBottomProperty, value); }
+		}
+		public static readonly DependencyProperty ThicknessBottomProperty =
+			DependencyProperty.Register("ThicknessBottom", typeof(double), typeof(AlignmentEditor), new PropertyMetadata());
+
+		public bool ShowMarginEditors
+		{
+			get { return (bool)GetValue(ShowMarginEditorsProperty); }
+			set { SetValue(ShowMarginEditorsProperty, value); }
+		}
+		public static readonly DependencyProperty ShowMarginEditorsProperty =
+			DependencyProperty.Register("ShowMarginEditors", typeof(bool), typeof(AlignmentEditor), new PropertyMetadata());
+
 		#region Commands
 		public DelegateCommand SwitchValueCommand
 		{
@@ -115,6 +163,7 @@ namespace CroplandWpf.Components
 		#endregion
 
 		private bool blockActiveRadioButtonRefresh = false;
+		private bool blockMarginValuesRefresh = false;
 
 		static AlignmentEditor()
 		{
@@ -139,6 +188,19 @@ namespace CroplandWpf.Components
 			base.OnPropertyChanged(e);
 			if (!blockActiveRadioButtonRefresh && (e.Property == HorizontalAlignmentValueProperty || e.Property == VerticalAlignmentValueProperty))
 				CheckTargetForCurrentAlignmentValues();
+			if(e.Property == MarginValueProperty)
+			{
+				blockMarginValuesRefresh = true;
+				ThicknessLeft = MarginValue.Left;
+				ThicknessTop = MarginValue.Top;
+				ThicknessRight = MarginValue.Right;
+				ThicknessBottom = MarginValue.Bottom;
+				blockMarginValuesRefresh = false;
+			}
+			if((e.Property == ThicknessLeftProperty || e.Property == ThicknessTopProperty || e.Property == ThicknessRightProperty || e.Property == ThicknessBottomProperty) && !blockMarginValuesRefresh )
+			{
+				MarginValue = new Thickness(ThicknessLeft, ThicknessTop, ThicknessRight, ThicknessBottom);
+			}
 		}
 
 		public void CheckTargetForCurrentAlignmentValues()

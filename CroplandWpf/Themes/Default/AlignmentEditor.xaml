@@ -15,6 +15,8 @@
 		<Setter Property="GroupName" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:AlignmentEditor}, Path=LocalGroupName}"></Setter>
 		<Setter Property="HorizontalAlignment" Value="Center"></Setter>
 		<Setter Property="VerticalAlignment" Value="Center"></Setter>
+		<Setter Property="Focusable" Value="False"></Setter>
+		<Setter Property="KeyboardNavigation.IsTabStop" Value="False"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="RadioButton">
@@ -71,10 +73,21 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:AlignmentEditor">
-					<Grid>
-						<Border x:Name="border_EffectHost" Effect="{DynamicResource effectShadow_Small}" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}" Background="{Binding ElementName=borderBackground, Path=Background}"></Border>
-						<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
-							<UniformGrid Rows="3" Columns="3" Margin="2">
+					<Grid KeyboardNavigation.TabNavigation="Cycle" Effect="{DynamicResource effectShadow_Small}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="*"></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+							<ColumnDefinition Width="Auto"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<c:ModifiedInputTextBox Grid.Row="0" Grid.Column="1" x:Name="textBox_MarginTop" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ThicknessTop, Mode=TwoWay, UpdateSourceTrigger=Explicit}" InputModifierType="{x:Type c:DoubleTextModifier}" Margin="0,0,0,1" KeyboardNavigation.IsTabStop="True" KeyboardNavigation.TabIndex="0"></c:ModifiedInputTextBox>
+						<c:ModifiedInputTextBox Grid.RowSpan="3" Grid.Column="0" x:Name="textBox_MarginLeft" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ThicknessLeft, Mode=TwoWay, UpdateSourceTrigger=Explicit}" InputModifierType="{x:Type c:DoubleTextModifier}" Margin="0,0,1,0" Width="50" VerticalAlignment="Center" KeyboardNavigation.IsTabStop="True" KeyboardNavigation.TabIndex="1"></c:ModifiedInputTextBox>
+						<Border Grid.Row="1" Grid.Column="1" Panel.ZIndex="1" x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+							<UniformGrid Rows="3" Columns="3" Margin="2" Focusable="False" KeyboardNavigation.IsTabStop="False">
 								<RadioButton Grid.Row="0" Grid.Column="0" c:AlignmentEditor.EditorRole="LeftTop" Style="{StaticResource styleRadioButton_AlignmentEditor}"></RadioButton>
 								<RadioButton Grid.Row="0" Grid.Column="1" c:AlignmentEditor.EditorRole="CenterTop" Style="{StaticResource styleRadioButton_AlignmentEditor}"></RadioButton>
 								<RadioButton Grid.Row="0" Grid.Column="2" c:AlignmentEditor.EditorRole="RightTop" Style="{StaticResource styleRadioButton_AlignmentEditor}"></RadioButton>
@@ -86,8 +99,16 @@
 								<RadioButton Grid.Row="2" Grid.Column="2" c:AlignmentEditor.EditorRole="RightBottom" Style="{StaticResource styleRadioButton_AlignmentEditor}"></RadioButton>
 							</UniformGrid>
 						</Border>
+						<c:ModifiedInputTextBox Grid.Row="1" Grid.Column="2" x:Name="textBox_MarginRight" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ThicknessRight, Mode=TwoWay, UpdateSourceTrigger=Explicit}" InputModifierType="{x:Type c:DoubleTextModifier}" Width="50" Margin="1,0,0,0" VerticalAlignment="Center" KeyboardNavigation.IsTabStop="True" KeyboardNavigation.TabIndex="2"></c:ModifiedInputTextBox>
+						<c:ModifiedInputTextBox Grid.Row="2" Grid.Column="1" x:Name="textBox_MarginBottom" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ThicknessBottom, Mode=TwoWay, UpdateSourceTrigger=Explicit}" InputModifierType="{x:Type c:DoubleTextModifier}" Margin="0,1,0,0" KeyboardNavigation.IsTabStop="True" KeyboardNavigation.TabIndex="3"></c:ModifiedInputTextBox>
 					</Grid>
 					<ControlTemplate.Triggers>
+						<Trigger Property="ShowMarginEditors" Value="False">
+							<Setter TargetName="textBox_MarginTop" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="textBox_MarginLeft" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="textBox_MarginRight" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="textBox_MarginBottom" Property="Visibility" Value="Collapsed"></Setter>
+						</Trigger>
 						<Trigger Property="IsEnabled" Value="False">
 							<Trigger.EnterActions>
 								<BeginStoryboard>

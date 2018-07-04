@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attached\AlignmentControlHelper.cs" />
+    <Compile Include="Attached\EditorBinding.cs" />
     <Compile Include="Attached\RadioButtonHelper.cs" />
     <Compile Include="Attached\RootAdornerLayerHelper.cs" />
     <Compile Include="Attached\FontLoader.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Components\CommandTextBox.cs" />
     <Compile Include="Components\DataGridHelper.cs" />
     <Compile Include="Components\InputDialog.cs" />
+    <Compile Include="Components\ModifiedInputTextBox.cs" />
     <Compile Include="Components\Overlay.cs" />
     <Compile Include="Components\HyperlinkButton.cs" />
     <Compile Include="Components\OverlayContentControl.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Components\SearchAutocmpleteItem.cs" />
     <Compile Include="Components\SearchAutocompleteControl.cs" />
     <Compile Include="Components\SliderThumb.cs" />
+    <Compile Include="Components\TextInputModifier.cs" />
     <Compile Include="Components\WindowControlButton.cs" />
     <Compile Include="Components\WindowControlThumb.cs" />
     <Compile Include="Converters\EnumToValuesListConverter.cs" />

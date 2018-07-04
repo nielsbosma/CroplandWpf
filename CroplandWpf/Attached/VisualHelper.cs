@@ -49,5 +49,16 @@ namespace CroplandWpf.Attached
 				double dValue = (double)e.NewValue;
 				SetRightColumnGap(o, new GridLength(dValue, GridUnitType.Pixel));
 			}));
+
+		public static CornerRadius GetCornerRadius(DependencyObject obj)
+		{
+			return (CornerRadius)obj.GetValue(CornerRadiusProperty);
+		}
+		public static void SetCornerRadius(DependencyObject obj, CornerRadius value)
+		{
+			obj.SetValue(CornerRadiusProperty, value);
+		}
+		public static readonly DependencyProperty CornerRadiusProperty =
+			DependencyProperty.RegisterAttached("CornerRadius", typeof(CornerRadius), typeof(VisualHelper), new PropertyMetadata());
 	}
 }

@@ -133,10 +133,5 @@ namespace CroplandWpf.Attached
 				RemoveLocalTarget(LocalTargetsHost, Target);
 			}
 		}
-
-		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-		{
-			base.OnPropertyChanged(e);
-		}
 	}
 }

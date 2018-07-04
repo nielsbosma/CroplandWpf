@@ -219,4 +219,20 @@
 
 	<SolidColorBrush x:Key="brushButton_Background_Star">#FFd01e1a</SolidColorBrush>
 	
+	<VisualBrush x:Key="brushIcon_ButtonInfo" AlignmentX="Center" AlignmentY="Center" Stretch="None">
+		<VisualBrush.Visual>
+			<TextBlock Text="i" Foreground="#FF1a6e41" FontSize="10pt" FontWeight="Black"></TextBlock>
+		</VisualBrush.Visual>
+	</VisualBrush>
+
+	<VisualBrush x:Key="brushIcon_ButtonStar" AlignmentX="Center" AlignmentY="Center" Stretch="None">
+		<VisualBrush.Visual>
+			<Path Data="{DynamicResource geometryIcon_Star}" Stretch="Uniform" Fill="{DynamicResource brushButton_Background_Star}" Width="12" Height="12" />
+		</VisualBrush.Visual>
+	</VisualBrush>
+
+	<SolidColorBrush x:Key="brushButtonLight_Foreground">#FF7e7e7e</SolidColorBrush>
+
+	<SolidColorBrush x:Key="brushButtonLight_Foreground_MouseOver">#FF2b784e</SolidColorBrush>
+	
 </ResourceDictionary> 

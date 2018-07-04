@@ -398,6 +398,15 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty HorizontalAlignmentValueProperty =
 			DependencyProperty.Register("HorizontalAlignmentValue", typeof(HorizontalAlignment), typeof(MainWindow), new PropertyMetadata(HorizontalAlignment.Right));
+
+		public Thickness MarginValue
+		{
+			get { return (Thickness)GetValue(MarginValueProperty); }
+			set { SetValue(MarginValueProperty, value); }
+		}
+		public static readonly DependencyProperty MarginValueProperty =
+			DependencyProperty.Register("MarginValue", typeof(Thickness), typeof(MainWindow), new PropertyMetadata());
+
 		#endregion
 
 		#region Commands
@@ -804,6 +813,10 @@ namespace CroplandWpf.Test
 			SliderValue = 67.04;
 			#endregion
 
+			#region AlignmentEditor
+			MarginValue = new Thickness(10, 20, 30, 40);
+			#endregion
+
 			#region DateTimePicker
 			SelectedDateTime = DateTime.Now;
 			#endregion
@@ -816,6 +829,10 @@ namespace CroplandWpf.Test
 			if(e.Property == SelectedDateTimeProperty)
 			{
 				DateTime? dt = (DateTime?)e.NewValue;
+			}
+			if(e.Property == MarginValueProperty)
+			{
+				Thickness t = (Thickness)e.NewValue;
 			}
 		}
 		#endregion
