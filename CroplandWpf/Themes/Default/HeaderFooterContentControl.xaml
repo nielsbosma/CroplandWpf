@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:c="clr-namespace:CroplandWpf.Components"
+					xmlns:a="clr-namespace:CroplandWpf.Attached">
+
+	<DataTemplate x:Key="templateHeader_Default">
+		<TextBlock Text="{Binding}" Margin="5"></TextBlock>
+	</DataTemplate>
+
+	<DataTemplate x:Key="templateFooter_Default">
+		<TextBlock Text="{Binding}" Margin="5"></TextBlock>
+	</DataTemplate>
+
+	<Style x:Key="{x:Type c:HeaderFooterContentControl}" TargetType="c:HeaderFooterContentControl">
+		<Setter Property="Focusable" Value="False"></Setter>
+		<Setter Property="IsTabStop" Value="False"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="c:HeaderFooterContentControl">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" x:Name="rowTop" SharedSizeGroup="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.HeaderSharedGroupName)}"></RowDefinition>
+							<RowDefinition Height="*"></RowDefinition>
+							<RowDefinition Height="Auto" x:Name="rowBottom" SharedSizeGroup="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.FooterSharedGroupName)}"></RowDefinition>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" x:Name="columnLeft"></ColumnDefinition>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+							<ColumnDefinition Width="Auto" x:Name="columnRight"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<ContentControl Grid.Row="0" Grid.Column="1" x:Name="contentControl_Header" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.Header)}" HorizontalAlignment="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.HeaderHorizontalAlignment)}" VerticalAlignment="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.HeaderVerticalAlignment)}" ContentTemplate="{StaticResource templateHeader_Default}"></ContentControl>
+						<ContentPresenter Grid.Row="1" Grid.Column="1"></ContentPresenter>
+						<ContentControl Grid.Row="2" Grid.Column="1" x:Name="contentControl_Footer" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.Footer)}" HorizontalAlignment="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.FooterHorizontalAlignment)}" VerticalAlignment="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.FooterVerticalAlignment)}" ContentTemplate="{StaticResource templateFooter_Default}"></ContentControl>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="a:VisualHelper.Header" Value="{x:Null}">
+							<Setter TargetName="contentControl_Header" Property="Visibility" Value="Collapsed"></Setter>
+						</Trigger>
+						<Trigger Property="a:VisualHelper.Footer" Value="{x:Null}">
+							<Setter TargetName="contentControl_Footer" Property="Visibility" Value="Collapsed"></Setter>
+						</Trigger>
+						<Trigger Property="a:VisualHelper.HeaderAlignment" Value="Left">
+							<Setter TargetName="contentControl_Header" Property="Grid.Row" Value="1"></Setter>
+							<Setter TargetName="contentControl_Header" Property="Grid.Column" Value="0"></Setter>
+							<Setter TargetName="rowTop" Property="SharedSizeGroup" Value="{x:Null}"></Setter>
+							<Setter TargetName="columnLeft" Property="SharedSizeGroup" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.HeaderSharedGroupName)}"></Setter>
+						</Trigger>
+						<Trigger Property="a:VisualHelper.HeaderAlignment" Value="Left">
+							<!--<Setter TargetName="rowTop"-->
+						</Trigger>
+						<Trigger Property="a:VisualHelper.FooterAlignment" Value="Right">
+							<Setter TargetName="contentControl_Footer" Property="Grid.Row" Value="1"></Setter>
+							<Setter TargetName="contentControl_Footer" Property="Grid.Column" Value="2"></Setter>
+							<Setter TargetName="rowBottom" Property="SharedSizeGroup" Value="{x:Null}"></Setter>
+							<Setter TargetName="columnRight" Property="SharedSizeGroup" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.FooterSharedGroupName)}"></Setter>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+    
+</ResourceDictionary>

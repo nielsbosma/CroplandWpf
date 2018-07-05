@@ -11,6 +11,18 @@ using System.Windows.Media;
 
 namespace CroplandWpf.Attached
 {
+	public enum HeaderAlignment
+	{
+		Left,
+		Top
+	}
+
+	public enum FooterAlignment
+	{
+		Right,
+		Bottom
+	}
+
 	public sealed class VisualHelper
 	{
 		public static Transform GetInheritedTransform(DependencyObject obj)
@@ -60,5 +72,116 @@ namespace CroplandWpf.Attached
 		}
 		public static readonly DependencyProperty CornerRadiusProperty =
 			DependencyProperty.RegisterAttached("CornerRadius", typeof(CornerRadius), typeof(VisualHelper), new PropertyMetadata());
+
+		public static object GetHeader(DependencyObject obj)
+		{
+			return (object)obj.GetValue(HeaderProperty);
+		}
+		public static void SetHeader(DependencyObject obj, object value)
+		{
+			obj.SetValue(HeaderProperty, value);
+		}
+		public static readonly DependencyProperty HeaderProperty =
+			DependencyProperty.RegisterAttached("Header", typeof(object), typeof(VisualHelper), new PropertyMetadata());
+
+		public static HeaderAlignment GetHeaderAlignment(DependencyObject obj)
+		{
+			return (HeaderAlignment)obj.GetValue(HeaderAlignmentProperty);
+		}
+		public static void SetHeaderAlignment(DependencyObject obj, HeaderAlignment value)
+		{
+			obj.SetValue(HeaderAlignmentProperty, value);
+		}
+		public static readonly DependencyProperty HeaderAlignmentProperty =
+			DependencyProperty.RegisterAttached("HeaderAlignment", typeof(HeaderAlignment), typeof(VisualHelper), new PropertyMetadata(HeaderAlignment.Top));
+
+		public static string GetHeaderSharedGroupName(DependencyObject obj)
+		{
+			return (string)obj.GetValue(HeaderSharedGroupNameProperty);
+		}
+		public static void SetHeaderSharedGroupName(DependencyObject obj, string value)
+		{
+			obj.SetValue(HeaderSharedGroupNameProperty, value);
+		}
+		public static readonly DependencyProperty HeaderSharedGroupNameProperty =
+			DependencyProperty.RegisterAttached("HeaderSharedGroupName", typeof(string), typeof(VisualHelper), new PropertyMetadata());
+
+		public static VerticalAlignment GetHeaderVerticalAlignment(DependencyObject obj)
+		{
+			return (VerticalAlignment)obj.GetValue(HeaderVerticalAlignmentProperty);
+		}
+		public static void SetHeaderVerticalAlignment(DependencyObject obj, VerticalAlignment value)
+		{
+			obj.SetValue(HeaderVerticalAlignmentProperty, value);
+		}
+		public static readonly DependencyProperty HeaderVerticalAlignmentProperty =
+			DependencyProperty.RegisterAttached("HeaderVerticalAlignment", typeof(VerticalAlignment), typeof(VisualHelper), new PropertyMetadata());
+
+		public static HorizontalAlignment GetHeaderHorizontalAlignment(DependencyObject obj)
+		{
+			return (HorizontalAlignment)obj.GetValue(HeaderHorizontalAlignmentProperty);
+		}
+		public static void SetHeaderHorizontalAlignment(DependencyObject obj, HorizontalAlignment value)
+		{
+			obj.SetValue(HeaderHorizontalAlignmentProperty, value);
+		}
+		public static readonly DependencyProperty HeaderHorizontalAlignmentProperty =
+			DependencyProperty.RegisterAttached("HeaderHorizontalAlignment", typeof(HorizontalAlignment), typeof(VisualHelper), new PropertyMetadata());
+
+		public static string GetFooter(DependencyObject obj)
+		{
+			return (string)obj.GetValue(FooterProperty);
+		}
+		public static void SetFooter(DependencyObject obj, string value)
+		{
+			obj.SetValue(FooterProperty, value);
+		}
+		public static readonly DependencyProperty FooterProperty =
+			DependencyProperty.RegisterAttached("Footer", typeof(string), typeof(VisualHelper), new PropertyMetadata());
+
+		public static FooterAlignment GetFooterAlignment(DependencyObject obj)
+		{
+			return (FooterAlignment)obj.GetValue(FooterAlignmentProperty);
+		}
+		public static void SetFooterAlignment(DependencyObject obj, FooterAlignment value)
+		{
+			obj.SetValue(FooterAlignmentProperty, value);
+		}
+		public static readonly DependencyProperty FooterAlignmentProperty =
+			DependencyProperty.RegisterAttached("FooterAlignment", typeof(FooterAlignment), typeof(VisualHelper), new PropertyMetadata(FooterAlignment.Bottom));
+
+		public static string GetFooterSharedGroupName(DependencyObject obj)
+		{
+			return (string)obj.GetValue(FooterSharedGroupNameProperty);
+		}
+		public static void SetFooterSharedGroupName(DependencyObject obj, string value)
+		{
+			obj.SetValue(FooterSharedGroupNameProperty, value);
+		}
+		public static readonly DependencyProperty FooterSharedGroupNameProperty =
+			DependencyProperty.RegisterAttached("FooterSharedGroupName", typeof(string), typeof(VisualHelper), new PropertyMetadata());
+
+		public static VerticalAlignment GetFooterVerticalAlignment(DependencyObject obj)
+		{
+			return (VerticalAlignment)obj.GetValue(FooterVerticalAlignmentProperty);
+		}
+		public static void SetFooterVerticalAlignment(DependencyObject obj, VerticalAlignment value)
+		{
+			obj.SetValue(FooterVerticalAlignmentProperty, value);
+		}
+		public static readonly DependencyProperty FooterVerticalAlignmentProperty =
+			DependencyProperty.RegisterAttached("FooterVerticalAlignment", typeof(VerticalAlignment), typeof(VisualHelper), new PropertyMetadata());
+
+		public static HorizontalAlignment GetFooterHorizontalAlignment(DependencyObject obj)
+		{
+			return (HorizontalAlignment)obj.GetValue(FooterHorizontalAlignmentProperty);
+		}
+		public static void SetFooterHorizontalAlignment(DependencyObject obj, HorizontalAlignment value)
+		{
+			obj.SetValue(FooterHorizontalAlignmentProperty, value);
+		}
+		public static readonly DependencyProperty FooterHorizontalAlignmentProperty =
+			DependencyProperty.RegisterAttached("FooterHorizontalAlignment", typeof(HorizontalAlignment), typeof(VisualHelper), new PropertyMetadata());
+
 	}
 }

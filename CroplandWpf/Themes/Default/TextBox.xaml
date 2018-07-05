@@ -13,17 +13,24 @@
 		<Setter Property="MinHeight" Value="36"></Setter>
 		<Setter Property="MinWidth" Value="40"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
+		<Setter Property="a:VisualHelper.HeaderAlignment" Value="Left"></Setter>
+		<Setter Property="a:VisualHelper.FooterAlignment" Value="Right"></Setter>
+		<Setter Property="a:VisualHelper.HeaderVerticalAlignment" Value="Center"></Setter>
+		<Setter Property="a:VisualHelper.FooterVerticalAlignment" Value="Center"></Setter>
+		<Setter Property="a:VisualHelper.HeaderHorizontalAlignment" Value="Right"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="TextBox">
-					<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-						<Grid>
-							<Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
-							<Border x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}"></Border>
-							<ph:KeyboardFocusRedirectControl FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
-							<ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="15,0"></ScrollViewer>
-						</Grid>
-					</Border>
+					<c:HeaderFooterContentControl HeaderFooterPropertiesSource="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+						<Border Grid.Column="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" MinHeight="{TemplateBinding MinHeight}" MinWidth="{TemplateBinding MinWidth}">
+							<Grid>
+								<Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
+								<Border x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}"></Border>
+								<ph:KeyboardFocusRedirectControl FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
+								<ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="15,0"></ScrollViewer>
+							</Grid>
+						</Border>
+					</c:HeaderFooterContentControl>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsEnabled" Value="False">
 							<Trigger.EnterActions>
@@ -105,7 +112,6 @@
 				<ControlTemplate TargetType="TextBox">
 					<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.CornerRadius)}">
 						<Grid>
-							<!--<Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}"></Border>-->
 							<Border x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}"></Border>
 							<ph:KeyboardFocusRedirectControl FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
 							<ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="6,0"></ScrollViewer>
@@ -128,30 +134,6 @@
 								</BeginStoryboard>
 							</Trigger.ExitActions>
 						</Trigger>
-						<MultiTrigger>
-							<!--<MultiTrigger.Conditions>
-								<Condition Property="IsMouseOver" Value="True"></Condition>
-								<Condition Property="IsKeyboardFocused" Value="False"></Condition>
-							</MultiTrigger.Conditions>
-							<MultiTrigger.EnterActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.2" Duration="00:00:00.100"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</MultiTrigger.EnterActions>
-							<MultiTrigger.ExitActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</MultiTrigger.ExitActions>-->
-						</MultiTrigger>
 						<Trigger Property="IsKeyboardFocused" Value="True">
 							<Trigger.EnterActions>
 								<BeginStoryboard>
@@ -173,7 +155,7 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
+
 
 	<Style x:Key="{x:Type c:CommandTextBox}" TargetType="c:CommandTextBox">
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>

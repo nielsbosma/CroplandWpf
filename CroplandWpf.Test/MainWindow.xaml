@@ -302,7 +302,6 @@
 						<CheckBox Margin="20,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonLight, Mode=TwoWay}" Content="IsEnabled"/>
 					</StackPanel>
 					<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left"/>
-					<c:ModifiedInputTextBox InputModifierType="{x:Type c:DoubleTextModifier}"></c:ModifiedInputTextBox>
 					<StackPanel Orientation="Horizontal">
 						<Button Margin="5" Style="{DynamicResource styleButton_AddFile}"/>
 						<Button x:Name="buttonRemoveTest" Margin="0,5,5,5" Style="{DynamicResource styleButton_RemoveFile}"/>
@@ -383,8 +382,22 @@
 							<CheckBox Grid.Row="1" IsChecked="{Binding ElementName=integerUpDown, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
 						</Grid>
 					</StackPanel>
-					<TextBox Margin="5" Text="TextBox"/>
-					<TextBox Margin="5" IsEnabled="False" Text="TextBox (disabled)"/>
+					<Grid Grid.IsSharedSizeScope="True">
+						<Grid.RowDefinitions>
+							<RowDefinition></RowDefinition>
+							<RowDefinition></RowDefinition>
+							<RowDefinition Height="Auto"></RowDefinition>
+						</Grid.RowDefinitions>
+						<TextBox Grid.Row="0" a:VisualHelper.Header="Header:" a:VisualHelper.HeaderSharedGroupName="headers_test_group" a:VisualHelper.Footer="ft." Margin="0,5" Text="TextBox" a:VisualHelper.HeaderHorizontalAlignment="Left"/>
+						<TextBox Grid.Row="1" a:VisualHelper.Header="Longer header:" a:VisualHelper.HeaderSharedGroupName="headers_test_group" Margin="0,5" IsEnabled="False" Text="TextBox (disabled, no footer group)" a:VisualHelper.HeaderHorizontalAlignment="Left"/>
+						<StackPanel Grid.Row="2" Orientation="Vertical" Grid.IsSharedSizeScope="True">
+							<TextBox Margin="0,2" Text="TextBox with header 1" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header one" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
+							<TextBox Margin="0,2" Text="TextBox with header 2" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header two" a:VisualHelper.Footer="px" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
+							<TextBox Margin="0,2" Text="TextBox with header 3" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header three" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
+							<TextBox Margin="0,2" Text="TextBox with header four" a:VisualHelper.Header="Header 1 (no shared group)" a:VisualHelper.Footer="atm" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
+							<TextBox Margin="0,2" a:VisualHelper.HeaderAlignment="Top" a:VisualHelper.Header="Top Aligned Header" a:VisualHelper.HeaderHorizontalAlignment="Left">TextBox with top aligned header</TextBox>
+						</StackPanel>
+					</Grid>
 					<TextBlock Margin="5" Text="PasswordBox" FontWeight="Bold"/>
 					<StackPanel Orientation="Horizontal" Margin="5">
 						<PasswordBox a:PasswordHelper.AttachedController="{Binding UserPasswordController}" MinWidth="150"/>
