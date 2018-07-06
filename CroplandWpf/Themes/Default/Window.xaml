@@ -106,8 +106,8 @@
 						<Border x:Name="border_EffectHost" Margin="{Binding ElementName=borderClip, Path=Margin}" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window}" CornerRadius="{Binding ElementName=borderClip, Path=CornerRadius}">
 						</Border>
 
-						<AdornerDecorator Name="adornerDecorator" Margin="24,5,24,30">
-							<c:ClippingBorder x:Name="borderClip" CornerRadius="6">
+						<AdornerDecorator Name="adornerDecorator">
+							<c:ClippingBorder x:Name="borderClip" CornerRadius="6" Background="{TemplateBinding Background}" Margin="24,5,24,30">
 								<Grid x:Name="gridRoot">
 									<Grid.RowDefinitions>
 										<RowDefinition Height="52"></RowDefinition>
@@ -125,7 +125,9 @@
 
 									<c:WindowControlThumb Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource styleThumb_Window_Move}" Role="Move"></c:WindowControlThumb>
 
-									<TextBlock Grid.Row="0" Grid.Column="0" IsHitTestVisible="False" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{TemplateBinding Title}" FontSize="10.5pt" Margin="18,0" Foreground="{DynamicResource brushControl_Foreground_Light}"></TextBlock>
+									<!--<TextBlock Grid.Row="0" Grid.Column="0" IsHitTestVisible="False" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{TemplateBinding Title}" FontSize="10.5pt" Margin="18,0" Foreground="{DynamicResource brushControl_Foreground_Light}"></TextBlock>-->
+
+									<Rectangle Grid.Row="0" Grid.Column="0" Width="100" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="20,5" Fill="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.IconBrush)}"></Rectangle>
 
 									<Menu Grid.Row="0" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:MenuHelper.ItemsSource)}" HorizontalAlignment="Left"></Menu>
 
@@ -141,7 +143,7 @@
 					<ControlTemplate.Triggers>
 						<Trigger Property="WindowState" Value="Maximized">
 							<Setter TargetName="gridRoot" Property="Margin" Value="0"></Setter>
-							<Setter TargetName="adornerDecorator" Property="Margin" Value="0"></Setter>
+							<Setter TargetName="borderClip" Property="Margin" Value="0"></Setter>
 							<Setter TargetName="borderClip" Property="CornerRadius" Value="0,0,0,0"></Setter>
 						</Trigger>
 					</ControlTemplate.Triggers>
@@ -162,6 +164,7 @@
 		<Setter Property="WindowStyle" Value="None"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushWindowBackground_Dark}"></Setter>
 		<Setter Property="Padding" Value="5"></Setter>
+		<!--<Setter Property="a:VisualHelper.IconBrush" Value="{DynamicResource brushAppIcon_FileStar}"></Setter>-->
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Window">
@@ -190,7 +193,7 @@
 
 									<!--<TextBlock Grid.Row="0" Grid.Column="0" IsHitTestVisible="False" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{TemplateBinding Title}" FontSize="13.5pt" Margin="30,0" Foreground="{DynamicResource brushWindow_Title_Foreground_Dark}"></TextBlock>-->
 
-									<Rectangle Grid.Row="0" Grid.Column="0" Width="100" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="20,5" Fill="{DynamicResource brushAppIcon_FileStar}"></Rectangle>
+									<Rectangle Grid.Row="0" Grid.Column="0" Width="100" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="20,5" Fill="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.IconBrush)}"></Rectangle>
 
 									<Menu Grid.Row="0" Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:MenuHelper.ItemsSource)}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Style="{DynamicResource styleMenu_Light}" Height="69"></Menu>
 

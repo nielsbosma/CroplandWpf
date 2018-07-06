@@ -21,6 +21,7 @@
 		d:DesignWidth="1200"
 		d:DesignHeight="1480"
 		WindowStartupLocation="CenterScreen"
+		a:VisualHelper.IconBrush="{DynamicResource brushAppIcon_FileStar}"
 		Style="{DynamicResource styleWindow_Light}">
 	<!--Style="{DynamicResource {x:Type Window}}"-->
 

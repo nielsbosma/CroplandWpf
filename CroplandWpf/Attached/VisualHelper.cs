@@ -183,5 +183,15 @@ namespace CroplandWpf.Attached
 		public static readonly DependencyProperty FooterHorizontalAlignmentProperty =
 			DependencyProperty.RegisterAttached("FooterHorizontalAlignment", typeof(HorizontalAlignment), typeof(VisualHelper), new PropertyMetadata());
 
+		public static Brush GetIconBrush(DependencyObject obj)
+		{
+			return (Brush)obj.GetValue(IconBrushProperty);
+		}
+		public static void SetIconBrush(DependencyObject obj, Brush value)
+		{
+			obj.SetValue(IconBrushProperty, value);
+		}
+		public static readonly DependencyProperty IconBrushProperty =
+			DependencyProperty.RegisterAttached("IconBrush", typeof(Brush), typeof(VisualHelper), new PropertyMetadata());
 	}
 }
