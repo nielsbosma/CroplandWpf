@@ -234,5 +234,21 @@
 	<SolidColorBrush x:Key="brushButtonLight_Foreground">#FF7e7e7e</SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushButtonLight_Foreground_MouseOver">#FF2b784e</SolidColorBrush>
-	
+
+	<StreamGeometry x:Key="geometryIcon_Lock">M274.765,141.3L274.765,94.205C274.765,42.172 232.583,0 180.559,0 128.527,0 86.354,42.172 86.354,94.205L86.354,141.3C69.014,141.3,54.954,155.36,54.954,172.7L54.954,329.716C54.954,347.06,69.014,361.118,86.354,361.118L274.765,361.118C292.106,361.118,306.163,347.059,306.163,329.716L306.163,172.7C306.164,155.36,292.106,141.3,274.765,141.3z M117.756,94.205C117.756,59.515 145.876,31.402 180.559,31.402 215.244,31.402 243.364,59.514 243.364,94.205L243.364,141.3 117.756,141.3 117.756,94.205z M274.765,329.715L86.354,329.715 86.354,172.708 274.765,172.708 274.765,329.715z M164.858,262.558L164.858,282.612C164.858,291.276 171.893,298.313 180.559,298.313 189.223,298.313 196.26,291.276 196.26,282.612L196.26,262.558C205.597,257.117 211.961,247.102 211.961,235.512 211.961,218.164 197.899,204.102 180.559,204.102 163.219,204.102 149.159,218.164 149.159,235.512 149.159,247.102 155.517,257.117 164.858,262.558z</StreamGeometry>
+
+	<SolidColorBrush x:Key="brushSizeConstraintIcon">#FF878787</SolidColorBrush>
+
+	<PathGeometry x:Key="geometryIcon_SizeConstraint">
+		<PathFigure IsFilled="False" StartPoint="0,6">
+			<PolyLineSegment Points="0,1 1,0 7,0 8,1 8,6" IsStroked="True"></PolyLineSegment>
+		</PathFigure>
+		<PathFigure IsFilled="False" StartPoint="8,12">
+			<PolyLineSegment Points="8,17 7,18 1,18 0,17 0,12" IsStroked="True"></PolyLineSegment>
+		</PathFigure>
+		<PathFigure IsFilled="True" IsClosed="True" StartPoint="3,4">
+			<PolyLineSegment Points="5,4 5,14 3,14 3,4" IsStroked="True"></PolyLineSegment>
+		</PathFigure>
+	</PathGeometry>
+
 </ResourceDictionary> 

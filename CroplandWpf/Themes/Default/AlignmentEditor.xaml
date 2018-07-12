@@ -70,6 +70,8 @@
 
 	<Style x:Key="{x:Type c:AlignmentEditor}" TargetType="c:AlignmentEditor">
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
+		<Setter Property="MinWidth" Value="180"></Setter>
+		<Setter Property="MinHeight" Value="131"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:AlignmentEditor">
@@ -108,6 +110,8 @@
 							<Setter TargetName="textBox_MarginLeft" Property="Visibility" Value="Collapsed"></Setter>
 							<Setter TargetName="textBox_MarginRight" Property="Visibility" Value="Collapsed"></Setter>
 							<Setter TargetName="textBox_MarginBottom" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter Property="MinWidth" Value="80"></Setter>
+							<Setter Property="MinHeight" Value="80"></Setter>
 						</Trigger>
 						<Trigger Property="IsEnabled" Value="False">
 							<Trigger.EnterActions>

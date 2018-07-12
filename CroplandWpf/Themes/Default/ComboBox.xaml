@@ -6,6 +6,8 @@
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
+		<Setter Property="Focusable" Value="False"></Setter>
+		<Setter Property="KeyboardNavigation.IsTabStop" Value="False"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ToggleButton">
@@ -56,6 +58,8 @@
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
+		<Setter Property="Focusable" Value="False"></Setter>
+		<Setter Property="KeyboardNavigation.IsTabStop" Value="False"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ToggleButton">

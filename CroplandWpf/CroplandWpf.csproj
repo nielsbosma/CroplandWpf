@@ -98,9 +98,11 @@
     <Compile Include="Components\MessageBoxWindow.cs" />
     <Compile Include="Components\RemovableItemContentControl.cs" />
     <Compile Include="Components\RemovableItemsItemsControl.cs" />
+    <Compile Include="Components\ImageResizeControl.cs" />
     <Compile Include="Components\SearchAutocmpleteItem.cs" />
     <Compile Include="Components\SearchAutocompleteControl.cs" />
     <Compile Include="Components\SliderThumb.cs" />
+    <Compile Include="Components\TabControlEx.cs" />
     <Compile Include="Components\TextInputModifier.cs" />
     <Compile Include="Components\WindowControlButton.cs" />
     <Compile Include="Components\WindowControlThumb.cs" />
@@ -219,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Default\ImageResizeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Default\ScrollViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -228,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Default\Slider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Default\TabControlEx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

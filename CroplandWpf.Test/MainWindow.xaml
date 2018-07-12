@@ -265,8 +265,8 @@
 		<c:DoubleTextModifier x:Key="doubleModifier"></c:DoubleTextModifier>
 	</Window.Resources>
 
-	<Grid Margin="10">
-		<Grid.ColumnDefinitions>
+	<Grid>
+		<!--<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="330"/>
 			<ColumnDefinition Width="300"/>
 			<ColumnDefinition Width="*"/>
@@ -275,272 +275,91 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
+		</Grid.RowDefinitions>-->
 
 		<ph:DataContextBridge ScopeName="vm_main"></ph:DataContextBridge>
 
-		<Grid Grid.Column="0" Grid.RowSpan="3">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="*"/>
-			</Grid.RowDefinitions>
-			<TextBlock Grid.Row="0" FontWeight="Bold"><Run Text="Common Controls"/></TextBlock>
-			<ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
-				<StackPanel Orientation="Vertical">
-					<TextBlock FontWeight="Bold">BusyIndicator</TextBlock>
-					<StackPanel Orientation="Horizontal">
-						<c:BusyIndicator x:Name="busyIndicator" Margin="5"></c:BusyIndicator>
-						<CheckBox Margin="15,0,0,0" IsChecked="{Binding ElementName=busyIndicator, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
-					</StackPanel>
-					<TextBlock FontWeight="Bold" Margin="5"><Run Text="Button"/></TextBlock>
-					<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left" Content="NORMAL"/>
-					<StackPanel Orientation="Horizontal">
-						<Button x:Name="buttonTest" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5" Content="DISABLED"/>
-						<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonTest, Mode=TwoWay}" Content="IsEnabled"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<Button x:Name="buttonLight" Margin="5" Style="{DynamicResource styleButton_Light}">ABORT</Button>
-						<CheckBox Margin="20,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonLight, Mode=TwoWay}" Content="IsEnabled"/>
-					</StackPanel>
-					<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left"/>
-					<StackPanel Orientation="Horizontal">
-						<Button Margin="5" Style="{DynamicResource styleButton_AddFile}"/>
-						<Button x:Name="buttonRemoveTest" Margin="0,5,5,5" Style="{DynamicResource styleButton_RemoveFile}"/>
-						<CheckBox IsChecked="{Binding IsEnabled, ElementName=buttonRemoveTest, Mode=TwoWay}" Content="IsEnabled"/>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<c:HyperlinkButton x:Name="hyperlinkTest" Command="{Binding HyperlinkTestCommand}" CommandParameter="{Binding HyperlinkTest}" Content="Hyperlink"/>
-						<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=hyperlinkTest, Mode=TwoWay}" Content="IsEnabled"/>
-					</StackPanel>
-					<c:HyperlinkButton IsUnderlined="False" HorizontalAlignment="Left" Content="no underline"/>
-					<Button Margin="5" HorizontalAlignment="Left" Style="{DynamicResource styleButton_RemoveRequest}"/>
-					<StackPanel Orientation="Horizontal">
-						<Button x:Name="buttonStar" Style="{DynamicResource styleButton_Star}" Margin="5"></Button>
-						<CheckBox IsChecked="{Binding ElementName=buttonStar, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
-					</StackPanel>
-					<StackPanel Orientation="Horizontal">
-						<Button x:Name="buttonInfo" Style="{DynamicResource styleButton_Info}" Margin="5"></Button>
-						<CheckBox IsChecked="{Binding ElementName=buttonInfo, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
-					</StackPanel>
-					<Rectangle Fill="DarkGray" Height="1"/>
-					<CheckBox Margin="5" FontSize="9.5pt" Content="CheckBox"/>
-					<CheckBox Margin="5" IsEnabled="False" Content="CheckBox (disabled)"/>
-					<Rectangle Fill="DarkGray" Height="1"/>
-					<RadioButton Margin="5,5,5,3" GroupName="rbtest" IsChecked="True" Content="RadioButton 1 (group: rbtest)"/>
-					<RadioButton Margin="5,0,5,5" GroupName="rbtest" Content="RadioButton 2 (group: rbtest)"/>
-					<RadioButton Margin="5,0,5,5" IsEnabled="False" Content="RadioButton 3 (disabled)"/>
-					<StackPanel Orientation="Horizontal">
-						<RadioButton x:Name="radioButtonTest" Margin="5,0,5,5" IsEnabled="False" IsChecked="True" Content="RadioButton 4 (checked/disabled)"/>
-						<CheckBox Margin="5,0" IsChecked="{Binding IsEnabled, ElementName=radioButtonTest, Mode=TwoWay}" Content="IsEnabled"/>
-					</StackPanel>
-					<TextBlock Margin="5">ToggleButton</TextBlock>
-					<StackPanel Orientation="Horizontal">
-						<ToggleButton x:Name="toggleButton" a:ToggleButtonHelper.CheckedContent="Yes">No</ToggleButton>
-						<ToggleButton Margin="20,0,0,0" IsChecked="{Binding ElementName=toggleButton, Path=IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" a:ToggleButtonHelper.CheckedContent="Enabled">Disabled</ToggleButton>
-					</StackPanel>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*"></ColumnDefinition>
-							<ColumnDefinition Width="Auto"></ColumnDefinition>
-						</Grid.ColumnDefinitions>
-						<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" Value="{Binding ProgressBarValueTest}" Margin="5,0,0,0"></ProgressBar>
-						<Button Grid.Column="1" Margin="5,0" Command="{Binding StartProgressTestCommand}">Start</Button>
-					</Grid>
-					<TextBlock Margin="5" FontWeight="Bold">Indeterminate ProgressBar</TextBlock>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*"></ColumnDefinition>
-							<ColumnDefinition Width="Auto"></ColumnDefinition>
-						</Grid.ColumnDefinitions>
-						<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" IsIndeterminate="{Binding IsLongOperationInProgress}" Margin="5,0,0,0" ph:ProgressBarAnimationHelper.IndeterminateIndicatorPercentageWidth="0.6"></ProgressBar>
-						<Button Grid.Column="1" Margin="5,0" Command="{Binding StartLongOperationCommand}">Start</Button>
-					</Grid>
-					<StackPanel Orientation="Vertical">
-						<Slider x:Name="slider1" Margin="5" Minimum="0.0" Maximum="100.0" Value="{Binding SliderValue, Mode=TwoWay}" a:Slider.ValueStringFormat="{}{0:0}%"></Slider>
-						<StackPanel Orientation="Horizontal">
-							<TextBlock Text="ToolTip format" Margin="5"></TextBlock>
-							<TextBox Margin="5" Text="{Binding ElementName=slider1, Path=(a:Slider.ValueStringFormat), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-						</StackPanel>
-					</StackPanel>
-
-					<StackPanel Orientation="Vertical">
-						<Slider x:Name="slider2" Margin="5" Minimum="0.0" Maximum="100.0" Value="{Binding SliderValue, Mode=TwoWay}" a:Slider.ValueStringFormat="{}{0:#}%"></Slider>
-						<StackPanel Orientation="Horizontal">
-							<TextBlock Text="ToolTip format" Margin="5"></TextBlock>
-							<TextBox Margin="5" Text="{Binding ElementName=slider2, Path=(a:Slider.ValueStringFormat), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-						</StackPanel>
-					</StackPanel>
-					<Rectangle Fill="DarkGray" Height="1"/>
-					<TextBlock Margin="5" Text="Xceed IntegerUpDown" FontWeight="Bold"/>
-					<StackPanel Orientation="Horizontal">
-						<tk:IntegerUpDown x:Name="integerUpDown" Margin="5,5,0,5" HorizontalAlignment="Left" Width="80" Value="{Binding IntegerValueTest}" />
-						<Grid Margin="15,5,5,5">
-							<Grid.RowDefinitions>
-								<RowDefinition/>
-								<RowDefinition Height="Auto"></RowDefinition>
-							</Grid.RowDefinitions>
-							<TextBlock Grid.Row="0" Text="{Binding IntegerValueTest, StringFormat='IntegerValueTest: {0}'}"></TextBlock>
-							<CheckBox Grid.Row="1" IsChecked="{Binding ElementName=integerUpDown, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
-						</Grid>
-					</StackPanel>
-					<Grid Grid.IsSharedSizeScope="True">
-						<Grid.RowDefinitions>
-							<RowDefinition></RowDefinition>
-							<RowDefinition></RowDefinition>
-							<RowDefinition Height="Auto"></RowDefinition>
-						</Grid.RowDefinitions>
-						<TextBox Grid.Row="0" a:VisualHelper.Header="Header:" a:VisualHelper.HeaderSharedGroupName="headers_test_group" a:VisualHelper.Footer="ft." Margin="0,5" Text="TextBox" a:VisualHelper.HeaderHorizontalAlignment="Left"/>
-						<TextBox Grid.Row="1" a:VisualHelper.Header="Longer header:" a:VisualHelper.HeaderSharedGroupName="headers_test_group" Margin="0,5" IsEnabled="False" Text="TextBox (disabled, no footer group)" a:VisualHelper.HeaderHorizontalAlignment="Left"/>
-						<StackPanel Grid.Row="2" Orientation="Vertical" Grid.IsSharedSizeScope="True">
-							<TextBox Margin="0,2" Text="TextBox with header 1" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header one" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
-							<TextBox Margin="0,2" Text="TextBox with header 2" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header two" a:VisualHelper.Footer="px" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
-							<TextBox Margin="0,2" Text="TextBox with header 3" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header three" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
-							<TextBox Margin="0,2" Text="TextBox with header four" a:VisualHelper.Header="Header 1 (no shared group)" a:VisualHelper.Footer="atm" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
-							<TextBox Margin="0,2" a:VisualHelper.HeaderAlignment="Top" a:VisualHelper.Header="Top Aligned Header" a:VisualHelper.HeaderHorizontalAlignment="Left">TextBox with top aligned header</TextBox>
-						</StackPanel>
-					</Grid>
-					<TextBlock Margin="5" Text="PasswordBox" FontWeight="Bold"/>
-					<StackPanel Orientation="Horizontal" Margin="5">
-						<PasswordBox a:PasswordHelper.AttachedController="{Binding UserPasswordController}" MinWidth="150"/>
-						<Button Margin="5,0" Command="{Binding UpdateUserPasswordCommand}" Content="OK"/>
-					</StackPanel>
-
-					<TextBlock Margin="5" FontWeight="Bold"><Run Text="CommandTextBox"/></TextBlock>
-					<c:CommandTextBox x:Name="commandTextBox" Margin="5" Command="{Binding CommandTextBoxCommand}" ButtonStyle="{DynamicResource styleButton_CommandTextBox_Green}" ButtonContent="REGISTER"/>
-					<TextBlock Margin="20,5,5,5"><Run Text="CommandTextBox output:"/><Run Text="{Binding CommandTextBoxString}"/></TextBlock>
-					<CheckBox Margin="5,0,5,5" IsChecked="{Binding IsEnabled, ElementName=commandTextBox, Mode=TwoWay}" Content="IsEnabled"/>
-					<c:CommandTextBox Margin="5" x:Name="commandTextBox1" ButtonStyle="{DynamicResource styleButton_Arrow_Right}"/>
-					<CheckBox Margin="5,0,5,5" IsChecked="{Binding IsEnabled, ElementName=commandTextBox1, Mode=TwoWay}" Content="IsEnabled"/>
-					<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Arrow_Up}"/>
-					<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Cross}"/>
-					<TextBlock Margin="5,10,5,5" FontWeight="Bold"><Run Text="CommandTextBox with IsButtonFisible = False:"/></TextBlock>
-					<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Cross}" IsButtonVisible="False"/>
-				</StackPanel>
-			</ScrollViewer>
-		</Grid>
-
-		<ScrollViewer Grid.Column="1" Grid.RowSpan="3" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
-			<StackPanel Orientation="Vertical">
-				<TextBlock FontWeight="Bold"><Run Text="ItemsControls"/></TextBlock>
-				<TextBlock Margin="5"><Run Text="ListBox"/></TextBlock>
-				<ListBox x:Name="listBoxTest" Height="150" ItemsSource="{Binding TestItemsSource}"/>
-				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=listBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
-				<TextBlock Margin="5"><Run Text="ComboBox"/></TextBlock>
-				<ComboBox x:Name="comboBoxTest" ItemsSource="{Binding TestItemsSource}" />
-				<TextBlock Margin="5"><Run Text="ComboBox (light)"/></TextBlock>
-				<ComboBox Margin="3" Style="{DynamicResource styleComboBox_Light}"  ItemsSource="{Binding TestItemsSource}"/>
-
-				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=comboBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
-				<TextBlock FontWeight="Bold" Margin="5" TextWrapping="Wrap">SearchAutocompleteControl (left-aligned tooltip)</TextBlock>
-				<c:SearchAutocompleteControl x:Name="searchAutocomplete_String" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding StringSearchResults}" SearchCompleteCommand="{Binding StringSearchCompleteCommand}" NoMatchesButtonCommand="{Binding NoMatchesFoundCommand}" SeeAllOptionsCommand="{Binding SeeMoreSearchOptionsCommand}"/>
-				<Button Content="Show search input dialog" Command="{Binding ShowSearchInputBoxCommand}" CommandParameter="{StaticResource inputDialogInfo_Search}" HorizontalAlignment="Left" Margin="10,5,0,10" Style="{DynamicResource styleButton_Light}"></Button>
-				<Label Content="{Binding StringSearchResultInfo}">
-					<Label.ContentTemplate>
-						<DataTemplate DataType="{x:Type c:SearchResultInfo}">
-							<TextBlock>
-								<TextBlock>String Search Result: </TextBlock>
-								<LineBreak></LineBreak>
-								<TextBlock x:Name="textBlock_TextPresenter" Text="{Binding SearchResult}" FontWeight="Bold"></TextBlock>
-							</TextBlock>
-							<DataTemplate.Triggers>
-								<DataTrigger Binding="{Binding ResultKind}" Value="Empty">
-									<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="[empty]"></Setter>
-								</DataTrigger>
-							</DataTemplate.Triggers>
-						</DataTemplate>
-					</Label.ContentTemplate>
-				</Label>
-				<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=searchAutocomplete_String, Mode=TwoWay}" Content="IsEnabled"/>
-				<Button Command="{Binding ShowTextInputDialogCommand}" CommandParameter="{StaticResource inputDialogInfo_TextInput}">Show Text Input Box</Button>
-				<TextBlock>
-				<Run Text="text input box result: "></Run>
-				<Run Text="{Binding TextInputDialogResult}" FontWeight="Bold"></Run>
-				</TextBlock>
-				<c:SearchAutocompleteControl x:Name="searchAutocomplete_SearchItem" AutoFocusOnLoad="True" SearchPropertyBindingPath="Description"  SearchResultRefreshCommand="{Binding CustomSearchItemSearchResultRefreshCommand}" ItemsSource="{Binding CustomItemSearchResults}" SearchCompleteCommand="{Binding CustomSearchCompleteCommand}"/>
-				<Label Content="{Binding CustomItemSearchResult}">
-					<Label.ContentTemplate>
-						<DataTemplate DataType="{x:Type c:SearchResultInfo}">
-							<TextBlock>
-							<TextBlock>Custom Item Search Result: </TextBlock>
-							<LineBreak></LineBreak>
-							<TextBlock x:Name="textBlock_TextPresenter" Text="{Binding SearchResult.Name}" FontWeight="Bold"></TextBlock>
-							<LineBreak></LineBreak>
-							<TextBlock Text="{Binding SearchResult.Description}" FontWeight="Normal"></TextBlock>
-						</TextBlock>
-							<DataTemplate.Triggers>
-								<DataTrigger Binding="{Binding HasResultInstance}" Value="False">
-									<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="{Binding SearchResult}"></Setter>
-								</DataTrigger>
-								<DataTrigger Binding="{Binding ResultKind}" Value="Empty">
-									<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="[empty]"></Setter>
-								</DataTrigger>
-							</DataTemplate.Triggers>
-						</DataTemplate>
-					</Label.ContentTemplate>
-				</Label>
-			</StackPanel>
-		</ScrollViewer>
-
-		<ScrollViewer Grid.Column="2" Grid.RowSpan="3" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
-			<StackPanel Orientation="Vertical">
-				<TextBlock Margin="5" FontWeight="Bold"><Run Text="MessageBox"/></TextBlock>
-				<StackPanel Orientation="Horizontal">
-					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Exception}" Content="Simple Exception (OK)"/>
-					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Question}" Content="Simple Question (Yes/No)"/>
-					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
-					<Button Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
-				</StackPanel>
-				<TextBlock Margin="20,5,0,5">
-					<TextBlock Text="MessageBoxResult:"/>
-					<Run Text=" "/>
-					<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/>
-				</TextBlock>
-				<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
-				<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
-				<TextBlock Margin="5" FontWeight="Bold">TimePicker (Xceed)</TextBlock>
-				<StackPanel Orientation="Horizontal">
-					<tk:TimePicker x:Name="timePicker" Margin="5" HorizontalAlignment="Left" MinWidth="100" Value="{Binding TimeValue, Mode=TwoWay}" StartTime="00:00:00" EndTime="23:59:59" AllowSpin="True" AllowTextInput="True" Minimum="00:00:00" Maximum="23:59:59"></tk:TimePicker>
-					<CheckBox IsChecked="{Binding ElementName=timePicker, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
-				</StackPanel>
-				<TextBlock Margin="5" FontWeight="Bold">DateTimePicker (Xceed)</TextBlock>
-				<tk:DateTimePicker Margin="5" Width="300" HorizontalAlignment="Left" Value="{Binding SelectedDateTime, Mode=TwoWay}"></tk:DateTimePicker>
-				<TextBlock Margin="5" FontWeight="Bold">Alignment Editor</TextBlock>
-				<Grid Margin="5,5,100,5">
+		<c:TabControlEx>
+			<TabItem Header="Common Controls">
+				<Grid Margin="5">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"></ColumnDefinition>
+						<ColumnDefinition></ColumnDefinition>
+						<ColumnDefinition></ColumnDefinition>
 						<ColumnDefinition></ColumnDefinition>
 					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition></RowDefinition>
-					</Grid.RowDefinitions>
-					<StackPanel Grid.Column="0" Orientation="Vertical">
+					<StackPanel Grid.Column="0">
+						<TextBlock FontWeight="Bold" Margin="5"><Run Text="Button"/></TextBlock>
+						<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left" Content="NORMAL"/>
 						<StackPanel Orientation="Horizontal">
-							<c:AlignmentEditor x:Name="alignmentEditor1" Margin="5" HorizontalAlignment="Left" VerticalAlignmentValue="{Binding VerticalAlignmentValue, Mode=TwoWay}" HorizontalAlignmentValue="{Binding HorizontalAlignmentValue, Mode=TwoWay}" MarginValue="{Binding MarginValue, Mode=TwoWay}" ShowMarginEditors="True"></c:AlignmentEditor>
-							<CheckBox Margin="20,0,0,0" VerticalAlignment="Center" IsChecked="{Binding ElementName=alignmentEditor1, Path=ShowMarginEditors, Mode=TwoWay}">ShowMarginEditors</CheckBox>
+							<Button x:Name="buttonTest" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5" Content="DISABLED"/>
+							<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonTest, Mode=TwoWay}" Content="IsEnabled"/>
 						</StackPanel>
-						<TextBlock>
-							<Run Text="HorizontalAlignment "></Run>
-							<Run FontWeight="Bold" Text="{Binding HorizontalAlignmentValue}"></Run>
-							<LineBreak></LineBreak>
-							<Run Text="VerticalAlignment "></Run>
-							<Run FontWeight="Bold" Text="{Binding VerticalAlignmentValue}"></Run>
-							<LineBreak></LineBreak>
-							<Run Text="Margin "></Run>
-							<Run Text="{Binding MarginValue}"></Run>
-						</TextBlock>
+						<StackPanel Orientation="Horizontal">
+							<Button x:Name="buttonLight" Margin="5" Style="{DynamicResource styleButton_Light}">ABORT</Button>
+							<CheckBox Margin="20,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonLight, Mode=TwoWay}" Content="IsEnabled"/>
+						</StackPanel>
+						<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left"/>
+						<StackPanel Orientation="Horizontal">
+							<Button Margin="5" Style="{DynamicResource styleButton_AddFile}"/>
+							<Button x:Name="buttonRemoveTest" Margin="0,5,5,5" Style="{DynamicResource styleButton_RemoveFile}"/>
+							<CheckBox IsChecked="{Binding IsEnabled, ElementName=buttonRemoveTest, Mode=TwoWay}" Content="IsEnabled"/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<c:HyperlinkButton x:Name="hyperlinkTest" Command="{Binding HyperlinkTestCommand}" CommandParameter="{Binding HyperlinkTest}" Content="Hyperlink"/>
+							<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=hyperlinkTest, Mode=TwoWay}" Content="IsEnabled"/>
+						</StackPanel>
+						<c:HyperlinkButton IsUnderlined="False" HorizontalAlignment="Left" Content="no underline"/>
+						<Button Margin="5" HorizontalAlignment="Left" Style="{DynamicResource styleButton_RemoveRequest}"/>
+						<StackPanel Orientation="Horizontal">
+							<Button x:Name="buttonStar" Style="{DynamicResource styleButton_Star}" Margin="5"></Button>
+							<CheckBox IsChecked="{Binding ElementName=buttonStar, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<Button x:Name="buttonInfo" Style="{DynamicResource styleButton_Info}" Margin="5"></Button>
+							<CheckBox IsChecked="{Binding ElementName=buttonInfo, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
+						</StackPanel>
+						<TextBlock Margin="5" Text="PasswordBox" FontWeight="Bold"/>
+						<StackPanel Orientation="Horizontal" Margin="5">
+							<PasswordBox a:PasswordHelper.AttachedController="{Binding UserPasswordController}" MinWidth="150"/>
+							<Button Margin="5,0" Command="{Binding UpdateUserPasswordCommand}" Content="OK"/>
+						</StackPanel>
 					</StackPanel>
-					<StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
-						<c:AlignmentEditor x:Name="alignmentEditor2" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalAlignmentValue="{Binding VerticalAlignmentValue, Mode=TwoWay}" HorizontalAlignmentValue="{Binding HorizontalAlignmentValue, Mode=TwoWay}" ShowMarginEditors="{Binding ElementName=alignmentEditor1, Path=ShowMarginEditors, Mode=OneWay}" MarginValue="{Binding ElementName=rectangleAlignmentEditorTest, Path=Margin, Mode=TwoWay}"></c:AlignmentEditor>
-						<CheckBox Margin="5" IsChecked="{Binding ElementName=alignmentEditor2, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
-					</StackPanel>
-					<Grid Grid.Row="1" Grid.ColumnSpan="2" MinHeight="200" Background="Yellow">
-						<Rectangle x:Name="rectangleAlignmentEditorTest" Width="40" Height="30" Fill="Red" VerticalAlignment="{Binding VerticalAlignmentValue, Mode=OneWay}" HorizontalAlignment="{Binding HorizontalAlignmentValue, Mode=OneWay}" Margin="{Binding MarginValue, Mode=TwoWay}"></Rectangle>
-						<!--Margin="{Binding MarginValue, Mode=OneWay}"-->
-					</Grid>
-				</Grid>
 
-				<TextBlock Margin="5" FontWeight="Bold">Long indeterminate progress bar</TextBlock>
+					<StackPanel Grid.Column="1" Orientation="Vertical">
+						<Rectangle Fill="DarkGray" Height="1"/>
+						<CheckBox Margin="5" FontSize="9.5pt" Content="CheckBox"/>
+						<CheckBox Margin="5" IsEnabled="False" Content="CheckBox (disabled)"/>
+						<Rectangle Fill="DarkGray" Height="1"/>
+						<RadioButton Margin="5,5,5,3" GroupName="rbtest" IsChecked="True" Content="RadioButton 1 (group: rbtest)"/>
+						<RadioButton Margin="5,0,5,5" GroupName="rbtest" Content="RadioButton 2 (group: rbtest)"/>
+						<RadioButton Margin="5,0,5,5" IsEnabled="False" Content="RadioButton 3 (disabled)"/>
+						<StackPanel Orientation="Horizontal">
+							<RadioButton x:Name="radioButtonTest" Margin="5,0,5,5" IsEnabled="False" IsChecked="True" Content="RadioButton 4 (checked/disabled)"/>
+							<CheckBox Margin="5,0" IsChecked="{Binding IsEnabled, ElementName=radioButtonTest, Mode=TwoWay}" Content="IsEnabled"/>
+						</StackPanel>
+						<TextBlock Margin="5">ToggleButton</TextBlock>
+						<StackPanel Orientation="Horizontal">
+							<ToggleButton x:Name="toggleButton" a:ToggleButtonHelper.CheckedContent="Yes">No</ToggleButton>
+							<ToggleButton Margin="20,0,0,0" IsChecked="{Binding ElementName=toggleButton, Path=IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" a:ToggleButtonHelper.CheckedContent="Enabled">Disabled</ToggleButton>
+						</StackPanel>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="Auto"></ColumnDefinition>
+							</Grid.ColumnDefinitions>
+							<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" Value="{Binding ProgressBarValueTest}" Margin="5,0,0,0"></ProgressBar>
+							<Button Grid.Column="1" Margin="5,0" Command="{Binding StartProgressTestCommand}">Start</Button>
+						</Grid>
+						<TextBlock Margin="5" FontWeight="Bold">Indeterminate ProgressBar</TextBlock>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"></ColumnDefinition>
+								<ColumnDefinition Width="Auto"></ColumnDefinition>
+							</Grid.ColumnDefinitions>
+							<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" IsIndeterminate="{Binding IsLongOperationInProgress}" Margin="5,0,0,0" ph:ProgressBarAnimationHelper.IndeterminateIndicatorPercentageWidth="0.6"></ProgressBar>
+							<Button Grid.Column="1" Margin="5,0" Command="{Binding StartLongOperationCommand}">Start</Button>
+						</Grid>
+						<!--<TextBlock Margin="5" FontWeight="Bold">Long indeterminate progress bar</TextBlock>
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"></ColumnDefinition>
@@ -548,26 +367,265 @@
 					</Grid.ColumnDefinitions>
 					<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" IsIndeterminate="{Binding IsVeryLongOperationInProgress}" Margin="5,0,0,0" ph:ProgressBarAnimationHelper.IndeterminateIndicatorPercentageWidth="0.7"></ProgressBar>
 					<Button Grid.Column="1" Margin="5,0" Command="{Binding StartVeryLongOperationCommand}">Start</Button>
+				</Grid>-->
+						<StackPanel Orientation="Vertical">
+							<Slider x:Name="slider1" Margin="5" Minimum="0.0" Maximum="100.0" Value="{Binding SliderValue, Mode=TwoWay}" a:Slider.ValueStringFormat="{}{0:0}%"></Slider>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="ToolTip format" Margin="5"></TextBlock>
+								<TextBox Margin="5" Text="{Binding ElementName=slider1, Path=(a:Slider.ValueStringFormat), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+							</StackPanel>
+						</StackPanel>
+
+						<StackPanel Orientation="Vertical">
+							<Slider x:Name="slider2" Margin="5" Minimum="0.0" Maximum="100.0" Value="{Binding SliderValue, Mode=TwoWay}" a:Slider.ValueStringFormat="{}{0:#}%"></Slider>
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="ToolTip format" Margin="5"></TextBlock>
+								<TextBox Margin="5" Text="{Binding ElementName=slider2, Path=(a:Slider.ValueStringFormat), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+							</StackPanel>
+						</StackPanel>
+					</StackPanel>
+
+					<ScrollViewer Grid.Column="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+						<StackPanel Orientation="Vertical">
+							<TextBlock Margin="5" FontWeight="Bold"><Run Text="CommandTextBox"/></TextBlock>
+							<c:CommandTextBox x:Name="commandTextBox" Margin="5" Command="{Binding CommandTextBoxCommand}" ButtonStyle="{DynamicResource styleButton_CommandTextBox_Green}" ButtonContent="REGISTER"/>
+							<TextBlock Margin="20,5,5,5"><Run Text="CommandTextBox output:"/><Run Text="{Binding CommandTextBoxString}"/></TextBlock>
+							<CheckBox Margin="5,0,5,5" IsChecked="{Binding IsEnabled, ElementName=commandTextBox, Mode=TwoWay}" Content="IsEnabled"/>
+							<c:CommandTextBox Margin="5" x:Name="commandTextBox1" ButtonStyle="{DynamicResource styleButton_Arrow_Right}"/>
+							<CheckBox Margin="5,0,5,5" IsChecked="{Binding IsEnabled, ElementName=commandTextBox1, Mode=TwoWay}" Content="IsEnabled"/>
+							<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Arrow_Up}"/>
+							<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Cross}"/>
+							<TextBlock Margin="5,10,5,5" FontWeight="Bold"><Run Text="CommandTextBox with IsButtonFisible = False:"/></TextBlock>
+							<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Cross}" IsButtonVisible="False"/>
+							<Grid Grid.IsSharedSizeScope="True">
+								<Grid.RowDefinitions>
+									<RowDefinition></RowDefinition>
+									<RowDefinition></RowDefinition>
+									<RowDefinition Height="Auto"></RowDefinition>
+								</Grid.RowDefinitions>
+								<TextBox Grid.Row="0" a:VisualHelper.Header="Header:" a:VisualHelper.HeaderSharedGroupName="headers_test_group" a:VisualHelper.Footer="ft." Margin="0,5" Text="TextBox" a:VisualHelper.HeaderHorizontalAlignment="Left"/>
+								<TextBox Grid.Row="1" a:VisualHelper.Header="Longer header:" a:VisualHelper.HeaderSharedGroupName="headers_test_group" Margin="0,5" IsEnabled="False" Text="TextBox (disabled, no footer group)" a:VisualHelper.HeaderHorizontalAlignment="Left"/>
+								<StackPanel Grid.Row="2" Orientation="Vertical" Grid.IsSharedSizeScope="True">
+									<TextBox Margin="0,2" Text="TextBox with header 1" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header one" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
+									<TextBox Margin="0,2" Text="TextBox with header 2" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header two" a:VisualHelper.Footer="px" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
+									<TextBox Margin="0,2" Text="TextBox with header 3" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header three" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
+									<TextBox Margin="0,2" Text="TextBox with header four" a:VisualHelper.Header="Header 1 (no shared group)" a:VisualHelper.Footer="atm" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
+									<TextBox Margin="0,2" a:VisualHelper.HeaderAlignment="Top" a:VisualHelper.Header="Top Aligned Header" a:VisualHelper.HeaderHorizontalAlignment="Left">TextBox with top aligned header</TextBox>
+								</StackPanel>
+							</Grid>
+						</StackPanel>
+					</ScrollViewer>
 				</Grid>
-				<TextBlock Margin="5" FontWeight="Bold"><Run Text="DataGrid"/></TextBlock>
-				<DataGrid Margin="5" x:Name="dataGrid" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False" c:DataGridHelper.MoveRowUpCommandOverride="{Binding PersonItemMoveUpCommand}" c:DataGridHelper.MoveRowDownCommandOverride="{Binding PersonItemMoveDownCommand}" c:DataGridHelper.RemoveRowCommandOverride="{Binding RemovePersonItemCommand}" c:DataGridHelper.ShowDefaultRemoveConfirmation="True" c:DataGridHelper.ShowRowControls="False" c:DataGridHelper.LastColumnFill="False">
-					<DataGrid.Columns>
-						<DataGridTextColumn Header="Person Name" Binding="{Binding Name, Mode=TwoWay}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}" EditingElementStyle="{DynamicResource styleTextBox_DataGridTextColumn}"/>
-						<DataGridTextColumn Header="Internal Number" IsReadOnly="True" Binding="{Binding InternalNumber}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}"/>
-						<DataGridCheckBoxColumn Header="Has Medical License" IsReadOnly="False" Binding="{Binding IsMedic, Mode=TwoWay}" ElementStyle="{DynamicResource styleCheckBox_DataGridCheckBoxColumn}" EditingElementStyle="{DynamicResource styleCheckBox_DataGridCheckBoxColumn}"/>
-						<DataGridComboBoxColumn Header="Personality Type" SelectedItemBinding="{Binding PersonalityType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource sourcePersonalityType}}" EditingElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}" ElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}"/>
-					</DataGrid.Columns>
-				</DataGrid>
-				<StackPanel Margin="20,5,5,5" Orientation="Horizontal">
-					<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.ShowRowControls), Mode=TwoWay}">ShowRowControls</CheckBox>
-					<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.LastColumnFill), Mode=TwoWay}">Last column fill</CheckBox>
-				</StackPanel>
-				<StackPanel Orientation="Vertical" VerticalAlignment="Top">
-					<TextBlock Margin="5" FontWeight="Bold"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>
-					<c:RemovableItemsItemsControl Margin="0,0,0,0" a:ToolTipBeacon.InheritedGroupName="files" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}" ItemContainerStyle="{StaticResource styleRemovableItem_Files1}"/>
-					<c:RemovableItemsItemsControl Margin="0,50,0,0" a:ToolTipBeacon.InheritedGroupName="files2" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:ItemsControlHelper.Orientation="Horizontal" a:ToolTipBeacon.PlacementPriority="Top" ItemContainerStyle="{StaticResource styleRemovableItem_Files2}"/>
-				</StackPanel>
-			</StackPanel>
-		</ScrollViewer>
+			</TabItem>
+
+			<TabItem Header="Item Controls">
+				<Grid Margin="5">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="0.3*"></ColumnDefinition>
+						<ColumnDefinition Width="*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled">
+						<StackPanel Orientation="Vertical">
+							<TextBlock FontWeight="Bold"><Run Text="ItemsControls"/></TextBlock>
+							<TextBlock Margin="5"><Run Text="ListBox"/></TextBlock>
+							<ListBox x:Name="listBoxTest" Height="150" ItemsSource="{Binding TestItemsSource}"/>
+							<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=listBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
+							<TextBlock Margin="5"><Run Text="ComboBox"/></TextBlock>
+							<ComboBox x:Name="comboBoxTest" ItemsSource="{Binding TestItemsSource}" />
+							<TextBlock Margin="5"><Run Text="ComboBox (light)"/></TextBlock>
+							<ComboBox Margin="3" Style="{DynamicResource styleComboBox_Light}" ItemsSource="{Binding TestItemsSource}"/>
+
+							<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=comboBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
+							<TextBlock FontWeight="Bold" Margin="5" TextWrapping="Wrap">SearchAutocompleteControl (left-aligned tooltip)</TextBlock>
+							<c:SearchAutocompleteControl x:Name="searchAutocomplete_String" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding StringSearchResults}" SearchCompleteCommand="{Binding StringSearchCompleteCommand}" NoMatchesButtonCommand="{Binding NoMatchesFoundCommand}" SeeAllOptionsCommand="{Binding SeeMoreSearchOptionsCommand}"/>
+							<Button Content="Show search input dialog" Command="{Binding ShowSearchInputBoxCommand}" CommandParameter="{StaticResource inputDialogInfo_Search}" HorizontalAlignment="Left" Margin="10,5,0,10" Style="{DynamicResource styleButton_Light}"></Button>
+							<Label Content="{Binding StringSearchResultInfo}">
+								<Label.ContentTemplate>
+									<DataTemplate DataType="{x:Type c:SearchResultInfo}">
+										<TextBlock>
+								<TextBlock>String Search Result: </TextBlock>
+								<LineBreak></LineBreak>
+								<TextBlock x:Name="textBlock_TextPresenter" Text="{Binding SearchResult}" FontWeight="Bold"></TextBlock>
+							</TextBlock>
+										<DataTemplate.Triggers>
+											<DataTrigger Binding="{Binding ResultKind}" Value="Empty">
+												<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="[empty]"></Setter>
+											</DataTrigger>
+										</DataTemplate.Triggers>
+									</DataTemplate>
+								</Label.ContentTemplate>
+							</Label>
+							<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=searchAutocomplete_String, Mode=TwoWay}" Content="IsEnabled"/>
+							<Button Command="{Binding ShowTextInputDialogCommand}" CommandParameter="{StaticResource inputDialogInfo_TextInput}" HorizontalAlignment="Left">Show Text Input Box</Button>
+							<TextBlock>
+							<Run Text="text input box result: "></Run>
+							<Run Text="{Binding TextInputDialogResult}" FontWeight="Bold"></Run>
+							</TextBlock>
+							<c:SearchAutocompleteControl x:Name="searchAutocomplete_SearchItem" AutoFocusOnLoad="True" SearchPropertyBindingPath="Description"  SearchResultRefreshCommand="{Binding CustomSearchItemSearchResultRefreshCommand}" ItemsSource="{Binding CustomItemSearchResults}" SearchCompleteCommand="{Binding CustomSearchCompleteCommand}"/>
+							<Label Content="{Binding CustomItemSearchResult}">
+								<Label.ContentTemplate>
+									<DataTemplate DataType="{x:Type c:SearchResultInfo}">
+										<TextBlock>
+										<TextBlock>Custom Item Search Result: </TextBlock>
+										<LineBreak></LineBreak>
+										<TextBlock x:Name="textBlock_TextPresenter" Text="{Binding SearchResult.Name}" FontWeight="Bold"></TextBlock>
+										<LineBreak></LineBreak>
+										<TextBlock Text="{Binding SearchResult.Description}" FontWeight="Normal"></TextBlock>
+									</TextBlock>
+										<DataTemplate.Triggers>
+											<DataTrigger Binding="{Binding HasResultInstance}" Value="False">
+												<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="{Binding SearchResult}"></Setter>
+											</DataTrigger>
+											<DataTrigger Binding="{Binding ResultKind}" Value="Empty">
+												<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="[empty]"></Setter>
+											</DataTrigger>
+										</DataTemplate.Triggers>
+									</DataTemplate>
+								</Label.ContentTemplate>
+							</Label>
+						</StackPanel>
+					</ScrollViewer>
+
+					<StackPanel Grid.Column="1" Orientation="Vertical">
+						<TextBlock Margin="5" FontWeight="Bold"><Run Text="DataGrid"/></TextBlock>
+						<DataGrid Margin="5" x:Name="dataGrid" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False" c:DataGridHelper.MoveRowUpCommandOverride="{Binding PersonItemMoveUpCommand}" c:DataGridHelper.MoveRowDownCommandOverride="{Binding PersonItemMoveDownCommand}" c:DataGridHelper.RemoveRowCommandOverride="{Binding RemovePersonItemCommand}" c:DataGridHelper.ShowDefaultRemoveConfirmation="True" c:DataGridHelper.ShowRowControls="False" c:DataGridHelper.LastColumnFill="False">
+							<DataGrid.Columns>
+								<DataGridTextColumn Header="Person Name" Binding="{Binding Name, Mode=TwoWay}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}" EditingElementStyle="{DynamicResource styleTextBox_DataGridTextColumn}"/>
+								<DataGridTextColumn Header="Internal Number" IsReadOnly="True" Binding="{Binding InternalNumber}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}"/>
+								<DataGridCheckBoxColumn Header="Has Medical License" IsReadOnly="False" Binding="{Binding IsMedic, Mode=TwoWay}" ElementStyle="{DynamicResource styleCheckBox_DataGridCheckBoxColumn}" EditingElementStyle="{DynamicResource styleCheckBox_DataGridCheckBoxColumn}"/>
+								<DataGridComboBoxColumn Header="Personality Type" SelectedItemBinding="{Binding PersonalityType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource sourcePersonalityType}}" EditingElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}" ElementStyle="{DynamicResource styleComboBox_DataGridComboBoxColumn}"/>
+							</DataGrid.Columns>
+						</DataGrid>
+						<StackPanel Margin="20,5,5,5" Orientation="Horizontal">
+							<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.ShowRowControls), Mode=TwoWay}">ShowRowControls</CheckBox>
+							<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.LastColumnFill), Mode=TwoWay}">Last column fill</CheckBox>
+						</StackPanel>
+						<StackPanel Orientation="Vertical" VerticalAlignment="Top">
+							<TextBlock Margin="5" FontWeight="Bold"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>
+							<c:RemovableItemsItemsControl Margin="0,0,0,0" a:ToolTipBeacon.InheritedGroupName="files" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}" ItemContainerStyle="{StaticResource styleRemovableItem_Files1}"/>
+							<c:RemovableItemsItemsControl Margin="0,50,0,0" a:ToolTipBeacon.InheritedGroupName="files2" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:ItemsControlHelper.Orientation="Horizontal" a:ToolTipBeacon.PlacementPriority="Top" ItemContainerStyle="{StaticResource styleRemovableItem_Files2}"/>
+						</StackPanel>
+					</StackPanel>
+				</Grid>
+			</TabItem>
+
+			<TabItem Header="Specialized Controls">
+				<Grid Margin="5">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="300"></ColumnDefinition>
+						<ColumnDefinition Width="2.0*"></ColumnDefinition>
+						<ColumnDefinition Width="1.0*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+
+					<StackPanel Grid.Column="0" Orientation="Vertical">
+						<TextBlock FontWeight="Bold">BusyIndicator</TextBlock>
+						<StackPanel Orientation="Horizontal">
+							<c:BusyIndicator x:Name="busyIndicator" Margin="5"></c:BusyIndicator>
+							<CheckBox Margin="15,0,0,0" IsChecked="{Binding ElementName=busyIndicator, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+						</StackPanel>
+						<TextBlock Margin="5" Text="IntegerUpDown (Xceed)" FontWeight="Bold"/>
+						<StackPanel Orientation="Horizontal">
+							<tk:IntegerUpDown x:Name="integerUpDown" Margin="5,5,0,5" HorizontalAlignment="Left" Width="80" Value="{Binding IntegerValueTest}" />
+							<Grid Margin="15,5,5,5">
+								<Grid.RowDefinitions>
+									<RowDefinition/>
+									<RowDefinition Height="Auto"></RowDefinition>
+								</Grid.RowDefinitions>
+								<TextBlock Grid.Row="0" Text="{Binding IntegerValueTest, StringFormat='IntegerValueTest: {0}'}"></TextBlock>
+								<CheckBox Grid.Row="1" IsChecked="{Binding ElementName=integerUpDown, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+							</Grid>
+						</StackPanel>
+
+						<TextBlock Margin="5" FontWeight="Bold"><Run Text="MessageBox"/></TextBlock>
+						<WrapPanel Orientation="Horizontal">
+							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Exception}" Content="Simple Exception (OK)"/>
+							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Question}" Content="Simple Question (Yes/No)"/>
+							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
+							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
+						</WrapPanel>
+						<TextBlock Margin="20,5,0,5">
+						<TextBlock Text="MessageBoxResult:"/>
+						<Run Text=" "/>
+						<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/></TextBlock>
+						<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
+						<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
+						<TextBlock Margin="5" FontWeight="Bold">TimePicker (Xceed)</TextBlock>
+						<StackPanel Orientation="Horizontal">
+							<tk:TimePicker x:Name="timePicker" Margin="5" HorizontalAlignment="Left" MinWidth="100" Value="{Binding TimeValue, Mode=TwoWay}" StartTime="00:00:00" EndTime="23:59:59" AllowSpin="True" AllowTextInput="True" Minimum="00:00:00" Maximum="23:59:59"></tk:TimePicker>
+							<CheckBox IsChecked="{Binding ElementName=timePicker, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
+						</StackPanel>
+						<TextBlock Margin="5" FontWeight="Bold">DateTimePicker (Xceed)</TextBlock>
+						<tk:DateTimePicker Margin="5" HorizontalAlignment="Stretch" Value="{Binding SelectedDateTime, Mode=TwoWay}"></tk:DateTimePicker>
+					</StackPanel>
+
+					<StackPanel Grid.Column="1" Orientation="Vertical">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"></ColumnDefinition>
+								<ColumnDefinition></ColumnDefinition>
+								<ColumnDefinition></ColumnDefinition>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"></RowDefinition>
+								<RowDefinition></RowDefinition>
+								<RowDefinition Height="Auto"></RowDefinition>
+							</Grid.RowDefinitions>
+							<StackPanel Grid.Column="0" Orientation="Vertical">
+								<TextBlock Margin="5" FontWeight="Bold">Alignment Editor</TextBlock>
+								<StackPanel Orientation="Vertical">
+									<c:AlignmentEditor x:Name="alignmentEditor1" Margin="5" HorizontalAlignment="Left" VerticalAlignmentValue="{Binding VerticalAlignmentValue, Mode=TwoWay}" HorizontalAlignmentValue="{Binding HorizontalAlignmentValue, Mode=TwoWay}" MarginValue="{Binding MarginValue, Mode=TwoWay}" ShowMarginEditors="True"></c:AlignmentEditor>
+									<CheckBox Margin="20,0,0,0" VerticalAlignment="Center" IsChecked="{Binding ElementName=alignmentEditor1, Path=ShowMarginEditors, Mode=TwoWay}">ShowMarginEditors</CheckBox>
+								</StackPanel>
+								<TextBlock>
+									<Run Text="HorizontalAlignment "></Run>
+									<Run FontWeight="Bold" Text="{Binding HorizontalAlignmentValue}"></Run>
+									<LineBreak></LineBreak>
+									<Run Text="VerticalAlignment "></Run>
+									<Run FontWeight="Bold" Text="{Binding VerticalAlignmentValue}"></Run>
+									<LineBreak></LineBreak>
+									<Run Text="Margin "></Run>
+									<Run Text="{Binding MarginValue}"></Run>
+								</TextBlock>
+							</StackPanel>
+
+							<StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
+								<c:AlignmentEditor x:Name="alignmentEditor2" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalAlignmentValue="{Binding VerticalAlignmentValue, Mode=TwoWay}" HorizontalAlignmentValue="{Binding HorizontalAlignmentValue, Mode=TwoWay}" ShowMarginEditors="{Binding ElementName=alignmentEditor1, Path=ShowMarginEditors, Mode=OneWay}" MarginValue="{Binding ElementName=rectangleAlignmentEditorTest, Path=Margin, Mode=TwoWay}"></c:AlignmentEditor>
+								<CheckBox Margin="5" IsChecked="{Binding ElementName=alignmentEditor2, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+							</StackPanel>
+							<Grid Grid.Row="1" Grid.ColumnSpan="2" Height="200" Width="400" Background="Yellow">
+								<Rectangle x:Name="rectangleAlignmentEditorTest" Width="40" Height="30" Fill="Red" VerticalAlignment="{Binding VerticalAlignmentValue, Mode=OneWay}" HorizontalAlignment="{Binding HorizontalAlignmentValue, Mode=OneWay}" Margin="{Binding MarginValue, Mode=TwoWay}"></Rectangle>
+							</Grid>
+						</Grid>
+					</StackPanel>
+				</Grid>
+			</TabItem>
+
+			<TabItem Header="ImageResizeControl">
+				<Grid Margin="5">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition></RowDefinition>
+					</Grid.RowDefinitions>
+					<StackPanel Grid.Row="0" Orientation="Horizontal">
+						<Button Margin="5" Command="{Binding SelectImageSourceCommand}" HorizontalAlignment="Left" VerticalAlignment="Center">Select Image</Button>
+						<c:ImageResizeControl Margin="5,0" x:Name="imageResizeControl" Target="{Binding ResizeImageSource, Mode=TwoWay}" HorizontalAlignment="Left" BorderBrush="LightGray"></c:ImageResizeControl>
+						<TextBlock Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap">
+							<Run FontWeight="Bold" Text="Current ResizeInfo:"></Run>
+							<LineBreak></LineBreak>
+							<TextBlock Text="{Binding ElementName=imageResizeControl, Path=ResizeInfo}"></TextBlock>
+						</TextBlock>
+					</StackPanel>
+
+					<ScrollViewer Grid.Row="1" Margin="5,10,5,5">
+						<Image Source="{Binding ResizeImageSource}" Stretch="None"></Image>
+						<!--<Rectangle Grid.Row="1" Height="{Binding ResizeImageSource.Height}" Width="{Binding ResizeImageSource.Width}"  Stroke="DarkGray" StrokeThickness="1">
+							<Rectangle.Fill>
+								<ImageBrush ImageSource="{Binding ResizeImageSource}" AlignmentX="Left" AlignmentY="Top" Stretch="None"></ImageBrush>
+							</Rectangle.Fill>
+						</Rectangle>-->
+					</ScrollViewer>
+				</Grid>
+			</TabItem>
+		</c:TabControlEx>
 	</Grid>
 </Window>

@@ -28,6 +28,14 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty InputModifierTypeProperty =
 			DependencyProperty.Register("InputModifierType", typeof(Type), typeof(ModifiedInputTextBox), new PropertyMetadata());
 
+		public bool ImmediateTargetRefresh
+		{
+			get { return (bool)GetValue(ImmediateTargetRefreshProperty); }
+			set { SetValue(ImmediateTargetRefreshProperty, value); }
+		}
+		public static readonly DependencyProperty ImmediateTargetRefreshProperty =
+			DependencyProperty.Register("ImmediateTargetRefresh", typeof(bool), typeof(ModifiedInputTextBox), new PropertyMetadata());
+
 		private string textBackup;
 
 		static ModifiedInputTextBox()
@@ -48,7 +56,8 @@ namespace CroplandWpf.Components
 
 		private void OnPreviewPaste(object sender, DataObjectPastingEventArgs e)
 		{
-			e.CancelCommand();
+			if (InputModifier != null)
+				InputModifier.AcceptPaste(e);
 		}
 
 		private void ModifiedInputTextBox_Unloaded(object sender, RoutedEventArgs e)
@@ -76,6 +85,8 @@ namespace CroplandWpf.Components
 			}
 			else
 				base.OnPreviewTextInput(e);
+			if (ImmediateTargetRefresh)
+				TextChanged += ModifiedInputTextBox_TextChanged;
 		}
 
 		protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
@@ -88,7 +99,8 @@ namespace CroplandWpf.Components
 		protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
 		{
 			base.OnPreviewMouseLeftButtonUp(e);
-			SelectAllAfterFocus();
+			if (SelectedText.Length == 0)
+				SelectAllAfterFocus();
 		}
 
 		private void SelectAllAfterFocus()
@@ -101,6 +113,7 @@ namespace CroplandWpf.Components
 			if (e.Key == Key.Escape)
 			{
 				Text = textBackup;
+				UpdateSource();
 				Keyboard.ClearFocus();
 			}
 			else if (e.Key == Key.Enter || e.Key == Key.Tab)
@@ -109,9 +122,7 @@ namespace CroplandWpf.Components
 					Keyboard.ClearFocus();
 				if (String.IsNullOrWhiteSpace(Text))
 					Text = "0";
-				BindingExpression textBindingExpression = GetBindingExpression(TextProperty);
-				if (textBindingExpression != null)
-					textBindingExpression.UpdateSource();
+				UpdateSource();
 			}
 			else if (InputModifier != null)
 			{
@@ -120,6 +131,27 @@ namespace CroplandWpf.Components
 					base.OnPreviewKeyDown(modifiedEventArgs);
 			}
 			base.OnPreviewKeyDown(e);
+			if ((e.Key == Key.Back || e.Key == Key.Delete) && ImmediateTargetRefresh)
+			{
+				TextChanged += ModifiedInputTextBox_TextChanged;
+			}
+		}
+
+		private void ModifiedInputTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			TextChanged -= ModifiedInputTextBox_TextChanged;
+			UpdateSource();
+		}
+
+		private void UpdateSource()
+		{
+			//Dispatcher.Invoke(() =>
+			//{
+			BindingExpression textBindingExpression = GetBindingExpression(TextProperty);
+			//string s = Text;
+			if (textBindingExpression != null)
+				textBindingExpression.UpdateSource();
+			//}, System.Windows.Threading.DispatcherPriority.Background);
 		}
 	}
 }

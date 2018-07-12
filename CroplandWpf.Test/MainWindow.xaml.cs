@@ -1,6 +1,7 @@
 ﻿using CroplandWpf.Attached;
 using CroplandWpf.Components;
 using CroplandWpf.MVVM;
+using Microsoft.Win32;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -364,6 +365,32 @@ namespace CroplandWpf.Test
 			DependencyProperty.Register("ShowTextInputDialogCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
+		#region ResizeControl
+		public BitmapSource ResizeImageSource
+		{
+			get { return (BitmapSource)GetValue(ResizeImageSourceProperty); }
+			set { SetValue(ResizeImageSourceProperty, value); }
+		}
+		public static readonly DependencyProperty ResizeImageSourceProperty =
+			DependencyProperty.Register("ResizeImageSource", typeof(BitmapSource), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand ResizeImageSourceCommand
+		{
+			get { return (DelegateCommand)GetValue(ResizeImageSourceCommandProperty); }
+			private set { SetValue(ResizeImageSourceCommandProperty, value); }
+		}
+		public static readonly DependencyProperty ResizeImageSourceCommandProperty =
+			DependencyProperty.Register("ResizeImageSourceCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand SelectImageSourceCommand
+		{
+			get { return (DelegateCommand)GetValue(SelectImageSourceCommandProperty); }
+			private set { SetValue(SelectImageSourceCommandProperty, value); }
+		}
+		public static readonly DependencyProperty SelectImageSourceCommandProperty =
+			DependencyProperty.Register("SelectImageSourceCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+
 		#region TimePicker
 		public DateTime? TimeValue
 		{
@@ -584,7 +611,34 @@ namespace CroplandWpf.Test
 		#endregion
 		#endregion
 
-		private Random random = new Random();
+		#region Fields
+		private Random random = new Random(); 
+		private OpenFileDialog openImageFileDialog
+		{
+			get
+			{
+				if(_ofd == null)
+				{
+					_ofd = new OpenFileDialog
+					{
+						Filter = "Images|*.jpg;*.jpeg;*.png;*.bmp",
+						Multiselect = false,
+						Title = "Choose An Image for ImageResizeControl Test"
+					};
+					_ofd.FileOk += (o, e) =>
+					{
+						BitmapImage source = new BitmapImage();
+						source.BeginInit();
+						source.UriSource = new Uri(_ofd.FileName);
+						source.EndInit();
+						ResizeImageSource = source;
+					};
+				}
+				return _ofd;
+			}
+		}
+		private OpenFileDialog _ofd;
+		#endregion
 
 		public MainWindow()
 		{
@@ -820,20 +874,22 @@ namespace CroplandWpf.Test
 			#region DateTimePicker
 			SelectedDateTime = DateTime.Now;
 			#endregion
+
+			#region ImageResizeEditor
+			BitmapImage biResizeSource = new BitmapImage();
+			biResizeSource.BeginInit();
+			biResizeSource.UriSource = new Uri("pack://application:,,,/Images/test image.jpg");
+			biResizeSource.EndInit();
+			ResizeImageSource = biResizeSource;
+			ResizeImageSourceCommand = new DelegateCommand(ResizeImageSourceCommand_Execute, ResizeImageSourceCommand_CanExecute);
+			SelectImageSourceCommand = new DelegateCommand(SelectImageSourceCommand_Execute);
+			#endregion
 		}
 
 		#region Overrides
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
 		{
 			base.OnPropertyChanged(e);
-			if(e.Property == SelectedDateTimeProperty)
-			{
-				DateTime? dt = (DateTime?)e.NewValue;
-			}
-			if(e.Property == MarginValueProperty)
-			{
-				Thickness t = (Thickness)e.NewValue;
-			}
 		}
 		#endregion
 
@@ -973,6 +1029,23 @@ namespace CroplandWpf.Test
 		private void HyperlinkTestCommand_Execute(object parameter)
 		{
 			MessageBox.Show(parameter as string);
+		}
+		#endregion
+
+		#region ImageResizeControl
+		private void SelectImageSourceCommand_Execute(object obj)
+		{
+			openImageFileDialog.ShowDialog(this);
+		}
+
+		private void ResizeImageSourceCommand_Execute(object obj)
+		{
+			ImageResizeInfo iri = (ImageResizeInfo)obj;
+		}
+
+		private bool ResizeImageSourceCommand_CanExecute(object arg)
+		{
+			return arg is ImageResizeInfo && (ImageResizeInfo)arg != ImageResizeInfo.GetDefaultInfo(((ImageResizeInfo)arg).SourceImage);
 		}
 		#endregion
 

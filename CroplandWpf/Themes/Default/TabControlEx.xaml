@@ -1,0 +1,61 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:c="clr-namespace:CroplandWpf.Components">
+
+	<Style x:Key="{x:Type TabItem}" TargetType="TabItem">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Background" Value="DarkGray"></Setter>
+		<Setter Property="BorderThickness" Value="1,1,1,0"></Setter>
+		<Setter Property="BorderBrush" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
+		<Setter Property="Height" Value="35"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="TabItem">
+					<Border BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="2,2,0,0">
+						<Grid>
+							<TextBlock x:Name="textBlock_Header" Opacity="0.7" Foreground="#FF000000" Text="{TemplateBinding Header}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0"></TextBlock>
+						</Grid>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsSelected" Value="True">
+							<Setter TargetName="textBlock_Header" Property="Opacity" Value="1.0"></Setter>
+							<Setter Property="Height" Value="36"></Setter>
+							<Setter Property="Margin" Value="0,0,0,-1"></Setter>
+							<Setter Property="Background" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
+							<Setter TargetName="textBlock_Header" Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+	<Style x:Key="{x:Type c:TabControlEx}" TargetType="c:TabControlEx">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="BorderBrush" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
+		<Setter Property="BorderThickness" Value="1"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="c:TabControlEx">
+					<Grid Background="Transparent">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition></RowDefinition>
+						</Grid.RowDefinitions>
+
+						<StackPanel Panel.ZIndex="1" Orientation="Horizontal" Grid.Row="0" IsItemsHost="True"></StackPanel>
+
+						<Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0,0,2,2">
+							<Grid x:Name="PART_ItemsHolder"></Grid>
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>
