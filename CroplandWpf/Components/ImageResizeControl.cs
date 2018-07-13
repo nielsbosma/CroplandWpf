@@ -351,6 +351,26 @@ namespace CroplandWpf.Components
 			SetUniqueSourceId(resizedResult, GetUniqueSourceId(source));
 			return resizedResult;
 		}
+
+		public static BitmapSource ResizeImage(BitmapSource originalSource, int newWidth, int newHeight)
+		{
+			Rect rect = new Rect(0, 0, newWidth, newHeight );
+
+			DrawingGroup group = new DrawingGroup();
+			RenderOptions.SetBitmapScalingMode(group, BitmapScalingMode.HighQuality);
+			group.Children.Add(new ImageDrawing(originalSource, rect));
+
+			DrawingVisual drawingVisual = new DrawingVisual();
+			DrawingContext dc = drawingVisual.RenderOpen();
+			dc.DrawDrawing(group);
+			dc.Close();
+
+			RenderTargetBitmap resizedImage = new RenderTargetBitmap(newWidth, newHeight, 96, 96, PixelFormats.Default);
+			resizedImage.Render(drawingVisual);
+
+			BitmapSource resizedResult = BitmapFrame.Create(resizedImage);
+			return resizedResult;
+		}
 	}
 
 	public enum ResizeMode

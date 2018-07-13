@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -391,6 +392,24 @@ namespace CroplandWpf.Test
 			DependencyProperty.Register("SelectImageSourceCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
+		#region ImageCropControl
+		public FileInfo CropImageSourceFileInfo
+		{
+			get { return (FileInfo)GetValue(CropImageSourceFileInfoProperty); }
+			set { SetValue(CropImageSourceFileInfoProperty, value); }
+		}
+		public static readonly DependencyProperty CropImageSourceFileInfoProperty =
+			DependencyProperty.Register("CropImageSourceFileInfo", typeof(FileInfo), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand SelectCropImageSourceCommand
+		{
+			get { return (DelegateCommand)GetValue(SelectCropImageSourceCommandProperty); }
+			private set { SetValue(SelectCropImageSourceCommandProperty, value); }
+		}
+		public static readonly DependencyProperty SelectCropImageSourceCommandProperty =
+			DependencyProperty.Register("SelectCropImageSourceCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+
 		#region TimePicker
 		public DateTime? TimeValue
 		{
@@ -613,31 +632,55 @@ namespace CroplandWpf.Test
 
 		#region Fields
 		private Random random = new Random(); 
-		private OpenFileDialog openImageFileDialog
+
+		private OpenFileDialog openImageForResizeFileDialog
 		{
 			get
 			{
-				if(_ofd == null)
+				if(_ofd_ImageForResize == null)
 				{
-					_ofd = new OpenFileDialog
+					_ofd_ImageForResize = new OpenFileDialog
 					{
 						Filter = "Images|*.jpg;*.jpeg;*.png;*.bmp",
 						Multiselect = false,
 						Title = "Choose An Image for ImageResizeControl Test"
 					};
-					_ofd.FileOk += (o, e) =>
+					_ofd_ImageForResize.FileOk += (o, e) =>
 					{
 						BitmapImage source = new BitmapImage();
 						source.BeginInit();
-						source.UriSource = new Uri(_ofd.FileName);
+						source.UriSource = new Uri(_ofd_ImageForResize.FileName);
 						source.EndInit();
 						ResizeImageSource = source;
 					};
 				}
-				return _ofd;
+				return _ofd_ImageForResize;
 			}
 		}
-		private OpenFileDialog _ofd;
+		private OpenFileDialog _ofd_ImageForResize;
+
+		private OpenFileDialog openImageForCropFileDialog
+		{
+			get
+			{
+				if (_ofd_ImageForCrop == null)
+				{
+					_ofd_ImageForCrop = new OpenFileDialog
+					{
+						Filter = "Images|*.jpg;*.jpeg;*.png;*.bmp",
+						Multiselect = false,
+						Title = "Choose An Image for ImageResizeControl Test"
+					};
+					_ofd_ImageForCrop.FileOk += (o, e) =>
+					{
+						FileInfo info = new FileInfo(_ofd_ImageForCrop.FileName);
+						CropImageSourceFileInfo = info;
+					};
+				}
+				return _ofd_ImageForCrop;
+			}
+		}
+		private OpenFileDialog _ofd_ImageForCrop;
 		#endregion
 
 		public MainWindow()
@@ -884,6 +927,10 @@ namespace CroplandWpf.Test
 			ResizeImageSourceCommand = new DelegateCommand(ResizeImageSourceCommand_Execute, ResizeImageSourceCommand_CanExecute);
 			SelectImageSourceCommand = new DelegateCommand(SelectImageSourceCommand_Execute);
 			#endregion
+
+			#region ImageCropControl
+			SelectCropImageSourceCommand = new DelegateCommand(SelectCropImageSourceCommand_Execute);
+			#endregion
 		}
 
 		#region Overrides
@@ -909,8 +956,7 @@ namespace CroplandWpf.Test
 
 		private bool PersonItemMoveDownCommand_CanExecute(object parameter)
 		{
-			Person person = parameter as Person;
-			if (person == null)
+			if (!(parameter is Person person))
 				return false;
 			int currentIndex = PersonsTestSource.IndexOf(person);
 			return currentIndex < PersonsTestSource.Count - 1;
@@ -1035,7 +1081,7 @@ namespace CroplandWpf.Test
 		#region ImageResizeControl
 		private void SelectImageSourceCommand_Execute(object obj)
 		{
-			openImageFileDialog.ShowDialog(this);
+			openImageForResizeFileDialog.ShowDialog(this);
 		}
 
 		private void ResizeImageSourceCommand_Execute(object obj)
@@ -1046,6 +1092,13 @@ namespace CroplandWpf.Test
 		private bool ResizeImageSourceCommand_CanExecute(object arg)
 		{
 			return arg is ImageResizeInfo && (ImageResizeInfo)arg != ImageResizeInfo.GetDefaultInfo(((ImageResizeInfo)arg).SourceImage);
+		}
+		#endregion
+
+		#region ImageCropControl
+		private void SelectCropImageSourceCommand_Execute(object obj)
+		{
+			openImageForCropFileDialog.ShowDialog(this);
 		}
 		#endregion
 

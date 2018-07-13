@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:c="clr-namespace:CroplandWpf.Components">
+
+	<Style x:Key="{x:Type c:ImageCropThumb}" TargetType="{x:Type c:ImageCropThumb}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="c:ImageCropThumb">
+					<Border Background="Transparent"></Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="{x:Type c:ImageCropControl}" TargetType="c:ImageCropControl">
+		<Setter Property="BorderBrush" Value="LightGray"></Setter>
+		<Setter Property="BorderThickness" Value="1"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="c:ImageCropControl">
+					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3">
+						<Grid>
+							<Grid x:Name="PART_ImageHost" RenderTransformOrigin="0.5,0.5" Background="Yellow">
+								<!--<Grid.RenderTransform>
+										<ScaleTransform ScaleX="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageScaleFactor, Mode=OneWay}" ScaleY="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageScaleFactor, Mode=OneWay}"></ScaleTransform>
+									</Grid.RenderTransform>-->
+								<Image x:Name="PART_Image" Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisplayImageSource}" Stretch="Uniform"></Image>
+								<Rectangle x:Name="PART_CropOverlay" Fill="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropOverlayBrush}" IsHitTestVisible="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="{Binding ElementName=PART_Image, Path=ActualWidth}" Height="{Binding ElementName=PART_Image, Path=ActualHeight}" Clip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OverlayClip}"></Rectangle>
+								<c:ImageCropThumb DragActionCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DragActionCommand}"></c:ImageCropThumb>
+							</Grid>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

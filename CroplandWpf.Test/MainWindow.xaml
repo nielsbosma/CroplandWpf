@@ -8,9 +8,7 @@
 		xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
 		xmlns:a="clr-namespace:CroplandWpf.Attached;assembly=CroplandWpf"
 		xmlns:c="clr-namespace:CroplandWpf.Components;assembly=CroplandWpf"
-		xmlns:conv="clr-namespace:CroplandWpf.Converters;assembly=CroplandWpf"
 		xmlns:msc="clr-namespace:System;assembly=mscorlib"
-		xmlns:Themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
 		xmlns:mvvm="clr-namespace:CroplandWpf.MVVM;assembly=CroplandWpf"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		x:Class="CroplandWpf.Test.MainWindow"
@@ -626,6 +624,30 @@
 					</ScrollViewer>
 				</Grid>
 			</TabItem>
+
+			<TabItem Header="ImageCropControl">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"></RowDefinition>
+						<RowDefinition></RowDefinition>
+					</Grid.RowDefinitions>
+					<Button Grid.Row="0" HorizontalAlignment="Left" Command="{Binding SelectCropImageSourceCommand}">Open Image</Button>
+					<c:ImageCropControl Grid.Row="1" x:Name="imageCropControl" MinHeight="500" MinWidth="500" SourceFileInfo="{Binding CropImageSourceFileInfo}" Margin="5"></c:ImageCropControl>
+				</Grid>
+			</TabItem>
 		</c:TabControlEx>
+
+		<!--<Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="400" Height="300" Fill="Red">
+			<Rectangle.Clip>
+				<CombinedGeometry GeometryCombineMode="Exclude">
+					<CombinedGeometry.Geometry1>
+						<RectangleGeometry Rect="0,0,400,300"></RectangleGeometry>
+					</CombinedGeometry.Geometry1>
+					<CombinedGeometry.Geometry2>
+						<RectangleGeometry Rect="100,100,200,50"></RectangleGeometry>
+					</CombinedGeometry.Geometry2>
+				</CombinedGeometry>
+			</Rectangle.Clip>
+		</Rectangle>-->
 	</Grid>
 </Window>

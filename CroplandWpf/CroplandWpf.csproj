@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,6 +39,8 @@
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -89,6 +92,7 @@
     <Compile Include="Components\CommandTextBox.cs" />
     <Compile Include="Components\DataGridHelper.cs" />
     <Compile Include="Components\HeaderFooterContentControl.cs" />
+    <Compile Include="Components\ImageCropControl.cs" />
     <Compile Include="Components\InputDialog.cs" />
     <Compile Include="Components\ModifiedInputTextBox.cs" />
     <Compile Include="Components\Overlay.cs" />
@@ -174,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Default\HeaderFooterContentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Default\ImageCropControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -283,6 +291,7 @@
     <Compile Include="MVVM\Helper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PresentationHelpers\ImageHelper.cs" />
     <Compile Include="PresentationHelpers\KeyboardFocusRedirectControl.cs" />
     <Compile Include="PresentationHelpers\ProgressBarAnimationHelper.cs" />
     <Compile Include="PresentationHelpers\SliderHelper.cs" />
