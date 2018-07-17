@@ -257,6 +257,7 @@
 	<Style x:Key="styleButton_DatePicker_Dropdown" TargetType="Button">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<!--<Setter Property="Width" Value="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"></Setter>-->
+		<Setter Property="Foreground" Value="{DynamicResource brushCalendar_Icon_Background}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Button}">
@@ -265,7 +266,7 @@
 							<ColumnDefinition Width="*"></ColumnDefinition>
 							<ColumnDefinition Width="Auto" SharedSizeGroup="calendar_button"></ColumnDefinition>
 						</Grid.ColumnDefinitions>
-						<Path Grid.Column="1" Margin="{TemplateBinding Padding}" Data="{DynamicResource geometryIcon_Calendar}" Width="14" Height="14" Fill="{DynamicResource brushCalendar_Icon_Background}" Stretch="Fill"></Path>
+						<Path Grid.Column="1" Margin="{TemplateBinding Padding}" Data="{DynamicResource geometryIcon_Calendar}" Width="14" Height="14" Fill="{TemplateBinding Foreground}" Stretch="Fill"></Path>
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>
@@ -317,6 +318,7 @@
 							</Trigger.ExitActions>
 						</Trigger>
 						<Trigger SourceName="vb_DatePicker" Property="IsSourceVisible" Value="True">
+							<Setter TargetName="PART_Button" Property="Foreground" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>

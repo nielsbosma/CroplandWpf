@@ -57,6 +57,11 @@ namespace CroplandWpf.Helpers
 			Window activeWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(window => new WindowInteropHelper(window).Handle == result);
 			return activeWindow;
 		}
+
+		public static Window GetWindow(DependencyObject target)
+		{
+			return Window.GetWindow(target);
+		}
 		#endregion
 
 		public static void RegisterHandler(DependencyObject target, RoutedEvent routedEvent, Action<object, RoutedEventArgs> routedEventHandler)

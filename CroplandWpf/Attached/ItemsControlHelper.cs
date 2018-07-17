@@ -21,5 +21,16 @@ namespace CroplandWpf.Attached
 		}
 		public static readonly DependencyProperty OrientationProperty =
 			DependencyProperty.RegisterAttached("Orientation", typeof(Orientation), typeof(ItemsControlHelper), new PropertyMetadata());
+
+		public static Control GetDataItemContainer(DependencyObject obj)
+		{
+			return (Control)obj.GetValue(DataItemContainerProperty);
+		}
+		public static void SetDataItemContainer(DependencyObject obj, Control value)
+		{
+			obj.SetValue(DataItemContainerProperty, value);
+		}
+		public static readonly DependencyProperty DataItemContainerProperty =
+			DependencyProperty.RegisterAttached("DataItemContainer", typeof(Control), typeof(ItemsControlHelper), new PropertyMetadata());
 	}
 }

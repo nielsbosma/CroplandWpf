@@ -1,5 +1,6 @@
 ﻿using CroplandWpf.Attached;
 using CroplandWpf.Components;
+using CroplandWpf.Helpers;
 using CroplandWpf.MVVM;
 using Microsoft.Win32;
 using System;
@@ -182,7 +183,41 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty StartVeryLongOperationCommandProperty =
 			DependencyProperty.Register("StartVeryLongOperationCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+		#endregion
 
+		#region CommandListBox
+
+		public List<DateIntervalType> DateIntervalPresets
+		{
+			get { return (List<DateIntervalType>)GetValue(DateIntervalPresetsProperty); }
+			private set { SetValue(DateIntervalPresetsProperty, value); }
+		}
+		public static readonly DependencyProperty DateIntervalPresetsProperty =
+			DependencyProperty.Register("DateIntervalPresets", typeof(List<DateIntervalType>), typeof(MainWindow), new PropertyMetadata());
+
+		public DateInterval SelectedDateInterval
+		{
+			get { return (DateInterval)GetValue(SelectedDateIntervalProperty); }
+			set { SetValue(SelectedDateIntervalProperty, value); }
+		}
+		public static readonly DependencyProperty SelectedDateIntervalProperty =
+			DependencyProperty.Register("SelectedDateInterval", typeof(DateInterval), typeof(MainWindow), new PropertyMetadata());
+
+		public DateIntervalType SelectedDateIntervalPreset
+		{
+			get { return (DateIntervalType)GetValue(SelectedDateIntervalPresetProperty); }
+			private set { SetValue(SelectedDateIntervalPresetProperty, value); }
+		}
+		public static readonly DependencyProperty SelectedDateIntervalPresetProperty =
+			DependencyProperty.Register("SelectedDateIntervalPreset", typeof(DateIntervalType), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand CommandListBoxCommand
+		{
+			get { return (DelegateCommand)GetValue(CommandListBoxCommandProperty); }
+			private set { SetValue(CommandListBoxCommandProperty, value); }
+		}
+		public static readonly DependencyProperty CommandListBoxCommandProperty =
+			DependencyProperty.Register("CommandListBoxCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata()); 
 		#endregion
 
 		#region Collections
@@ -931,6 +966,15 @@ namespace CroplandWpf.Test
 			#region ImageCropControl
 			SelectCropImageSourceCommand = new DelegateCommand(SelectCropImageSourceCommand_Execute);
 			#endregion
+
+			#region CommandListBox
+			CommandListBoxCommand = new DelegateCommand(CommandListBoxCommand_Execute);
+			DateIntervalPresets = new List<DateIntervalType>(Enum.GetValues(typeof(DateIntervalType)).Cast<DateIntervalType>());
+			#endregion
+
+			#region DateIntervalControl
+			SelectedDateInterval = new DateInterval(DateTime.Now.Date, DateTime.Now.Date.AddDays(1.0).AddSeconds(-1.0));
+			#endregion
 		}
 
 		#region Overrides
@@ -995,6 +1039,13 @@ namespace CroplandWpf.Test
 		private bool ShowMessageBoxCommand_CanExecute(object arg)
 		{
 			return arg as MessageBoxInfo != null;
+		}
+		#endregion
+
+		#region CommandListBox
+		private void CommandListBoxCommand_Execute(object obj)
+		{
+			SelectedDateIntervalPreset = (DateIntervalType)obj;
 		}
 		#endregion
 
