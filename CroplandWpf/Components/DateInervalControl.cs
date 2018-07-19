@@ -111,13 +111,22 @@ namespace CroplandWpf.Components
 		}
 		public static readonly DependencyProperty InitialIntervalStringProperty =
 			DependencyProperty.Register("InitialIntervalString", typeof(string), typeof(DateInervalControl), new PropertyMetadata());
+
+		public DateIntervalPreset SelectedIntervalPreset
+		{
+			get { return (DateIntervalPreset)GetValue(SelectedIntervalPresetProperty); }
+			private set { SetValue(SelectedIntervalPresetProperty, value); }
+		}
+		public static readonly DependencyProperty SelectedIntervalPresetProperty =
+			DependencyProperty.Register("SelectedIntervalPreset", typeof(DateIntervalPreset), typeof(DateInervalControl), new PropertyMetadata());
 		#endregion
 
 		#region Coercing
 		private static object CoerceDateTime1(DependencyObject o, object value)
 		{
-			if(value is DateTime dt1 && o is DateInervalControl dic)
+			if (value is DateTime dt1 && o is DateInervalControl dic)
 			{
+				dt1 = DateTimeHelper.NormalizeIntervalStart(dt1);
 				if (dic.DateTime2 < dt1)
 					dic.DateTime2 = dt1.AddDays(1.0);
 				return dt1;
@@ -127,8 +136,9 @@ namespace CroplandWpf.Components
 
 		private static object CoerceDateTime2(DependencyObject o, object value)
 		{
-			if(value is DateTime dt2 && o is DateInervalControl dic)
+			if (value is DateTime dt2 && o is DateInervalControl dic)
 			{
+				dt2 = DateTimeHelper.NormalizeIntervalEnd(dt2);
 				if (dic.DateTime1 > dt2)
 					dic.DateTime1 = dt2.AddDays(-1.0);
 				return dt2;
@@ -169,15 +179,15 @@ namespace CroplandWpf.Components
 			ApplyPresetCommand = new DelegateCommand(ApplyPresetCommand_Execute);
 			Presets = new List<DateIntervalPreset>
 			{
-				new DateIntervalPreset( DateIntervalType.Today, "Today"),
-				new DateIntervalPreset( DateIntervalType.Yesterday, "Yesterday"),
-				new DateIntervalPreset( DateIntervalType.Last7Days, "Last 7 Days"),
-				new DateIntervalPreset( DateIntervalType.Last14Days, "Last 14 Days"),
-				new DateIntervalPreset( DateIntervalType.Last30Days, "Last 30 Days"),
-				new DateIntervalPreset( DateIntervalType.ThisWeek, "This Week"),
-				new DateIntervalPreset( DateIntervalType.LastWeek, "Last Week"),
-				new DateIntervalPreset( DateIntervalType.ThisMonth, "This Month"),
-				new DateIntervalPreset( DateIntervalType.LastMonth, "Last Month")
+				new DateIntervalPreset(DateIntervalType.Today, "Today"),
+				new DateIntervalPreset(DateIntervalType.Yesterday, "Yesterday"),
+				new DateIntervalPreset(DateIntervalType.Last7Days, "Last 7 Days"),
+				new DateIntervalPreset(DateIntervalType.Last14Days, "Last 14 Days"),
+				new DateIntervalPreset(DateIntervalType.Last30Days, "Last 30 Days"),
+				new DateIntervalPreset(DateIntervalType.ThisWeek, "This Week"),
+				new DateIntervalPreset(DateIntervalType.LastWeek, "Last Week"),
+				new DateIntervalPreset(DateIntervalType.ThisMonth, "This Month"),
+				new DateIntervalPreset(DateIntervalType.LastMonth, "Last Month")
 			};
 			UpdateCommand = new DelegateCommand(UpdateCommand_Execute);
 			AbortCommand = new DelegateCommand(AbortCommand_Execute);
@@ -222,7 +232,10 @@ namespace CroplandWpf.Components
 		{
 			base.OnPropertyChanged(e);
 			if (e.Property == DateTime1Property || e.Property == DateTime2Property)
+			{
 				editingInterval = new DateInterval(DateTime1, DateTime2);
+				RefreshSelectedInterval();
+			}
 			if (e.Property == IsPopupVisibleProperty)
 				popup.IsOpen = (bool)e.NewValue;
 			if (e.Property == SelectedIntervalProperty)
@@ -232,6 +245,11 @@ namespace CroplandWpf.Components
 				DateTime2 = SelectedInterval.Date2;
 				InitialIntervalString = GetIntervalDisplayString(SelectedInterval);
 			}
+		}
+
+		private void RefreshSelectedInterval()
+		{
+			SelectedIntervalPreset = Presets.FirstOrDefault(p => p.Equals(DateTime1, DateTime2));
 		}
 
 		private void ApplyPresetCommand_Execute(object obj)

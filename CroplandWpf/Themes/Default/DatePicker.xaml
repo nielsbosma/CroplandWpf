@@ -233,10 +233,89 @@
 		</Setter>
 	</Style>
 
+
+	<Style x:Key="styleCalendarButton" TargetType="CalendarButton">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="MinWidth" Value="48" />
+		<Setter Property="MinHeight" Value="48" />
+		<Setter Property="HorizontalContentAlignment" Value="Center" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="FontSize" Value="9.0pt"></Setter>
+		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
+		<Setter Property="Background" Value="Transparent"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="CalendarButton">
+					<Grid>
+						<Border x:Name="borderMouseOver" Background="{DynamicResource brushCalendarDayButton_Background_MouseOver}" Opacity="0.0" CornerRadius="2"></Border>
+						<Border x:Name="borderSelected" Background="{DynamicResource brushControl_Background_Dark}" Opacity="0.0" CornerRadius="2"></Border>
+						<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsInactive" Value="True">
+							<Setter Property="Opacity" Value="0.6"></Setter>
+						</Trigger>
+						<Trigger Property="HasSelectedDays" Value="True">
+							<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderSelected" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderSelected" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Foreground" Value="{DynamicResource brushCalendarDayButton_Foreground_MouseOver}"></Setter>
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderMouseOver" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderMouseOver" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<Style x:Key="{x:Type Calendar}" TargetType="Calendar">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="CalendarItemStyle" Value="{StaticResource styleCalendarItem}"></Setter>
 		<Setter Property="CalendarDayButtonStyle" Value="{StaticResource styleCalendarDayButton}"></Setter>
+		<Setter Property="CalendarButtonStyle" Value="{StaticResource styleCalendarButton}"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>

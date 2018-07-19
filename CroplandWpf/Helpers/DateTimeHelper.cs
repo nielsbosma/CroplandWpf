@@ -88,23 +88,38 @@ namespace CroplandWpf.Helpers
 
 				case DateIntervalType.Last7Days:
 					dt1 = now.Date.AddDays(-7.0);
-					dt2 = now.Date;
+					dt2 = now.Date.AddDays(1.0).AddSeconds(-1.0);
 					break;
 
 				case DateIntervalType.Last14Days:
 					dt1 = now.Date.AddDays(-14.0);
-					dt2 = now.Date;
+					dt2 = now.Date.AddDays(1.0).AddSeconds(-1.0);
 					break;
 
 				case DateIntervalType.Last30Days:
 					dt1 = now.Date.AddDays(-30.0);
-					dt2 = now.Date;
+					dt2 = now.Date.AddDays(1.0).AddSeconds(-1.0);
 					break;
 				default: break;
 			}
 
 			dateTime1 = dt1;
 			dateTime2 = dt2;
+		}
+
+		public static DateTime NormalizeIntervalStart(DateTime dt)
+		{
+			if (dt.TimeOfDay.TotalSeconds != 0)
+				dt = dt.AddSeconds(-dt.TimeOfDay.TotalSeconds);
+			return dt;
+		}
+
+		public static DateTime NormalizeIntervalEnd(DateTime dt)
+		{
+			TimeSpan ts = new TimeSpan(23, 59, 59);
+			if (dt.TimeOfDay != ts)
+				dt = dt.AddSeconds((ts - dt.TimeOfDay).TotalSeconds);
+			return dt;
 		}
 	}
 
@@ -114,15 +129,33 @@ namespace CroplandWpf.Helpers
 
 		public string FriendlyName { get; set; }
 
-		public DateIntervalPreset(DateIntervalType name, string friendlyName = "")
+		public DateTime Date1 { get; private set; }
+
+		public DateTime Date2 { get; private set; }
+
+		public DateIntervalPreset(DateIntervalType type, string friendlyName = "")
 		{
-			Type = name;
+			Type = type;
 			FriendlyName = friendlyName;
+			DateTimeHelper.GetInterval(Type, out DateTime dt1, out DateTime dt2);
+			Date1 = dt1;
+			Date2 = dt2;
 		}
 
 		public void GetValues(out DateTime dateTime1, out DateTime dateTime2)
 		{
-			DateTimeHelper.GetInterval(Type, out dateTime1, out dateTime2);
+			dateTime1 = Date1;
+			dateTime2 = Date2;
+		}
+
+		public bool Equals(DateTime dt1, DateTime dt2)
+		{
+			return dt1.Equals(Date1) && dt2.Equals(Date2);
+		}
+
+		public override string ToString()
+		{
+			return String.Format("{0} - {1}", Date1, Date2);
 		}
 	}
 }

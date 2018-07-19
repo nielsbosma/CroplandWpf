@@ -74,6 +74,7 @@
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="CalendarItemStyle" Value="{DynamicResource styleCalendarItem}"></Setter>
 		<Setter Property="CalendarDayButtonStyle" Value="{DynamicResource styleCalendarDayButton}"></Setter>
+		<Setter Property="CalendarButtonStyle" Value="{DynamicResource styleCalendarButton}"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="ph:CalendarHelper.IsForceLooseMouseCaptureEnabled" Value="True"></Setter>
 		<Setter Property="Template">
@@ -85,14 +86,6 @@
 							<CalendarItem x:Name="PART_CalendarItem" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Style="{TemplateBinding CalendarItemStyle}"/>
 						</StackPanel>
 					</Grid>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsMouseCaptured" Value="True">
-							<Setter TargetName="gridRoot" Property="Background" Value="Red"></Setter>
-						</Trigger>
-						<Trigger Property="IsMouseCaptureWithin" Value="True">
-							<Setter TargetName="gridRoot" Property="Background" Value="Green"></Setter>
-						</Trigger>
-					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -168,7 +161,7 @@
 												<RowDefinition Height="*"></RowDefinition>
 											</Grid.RowDefinitions>
 											<TextBlock Grid.Row="0" Margin="10" FontWeight="Bold" Foreground="#FF354153">Presets</TextBlock>
-											<c:CommandListBox Grid.Row="1" Style="{StaticResource styleCommandListBox_DateIntervalControl}" Command="{TemplateBinding ApplyPresetCommand}" ItemsSource="{TemplateBinding Presets}" ItemTemplate="{StaticResource templateDateIntervalPreset}"></c:CommandListBox>
+											<c:CommandListBox Grid.Row="1" Style="{StaticResource styleCommandListBox_DateIntervalControl}" Command="{TemplateBinding ApplyPresetCommand}" ItemsSource="{TemplateBinding Presets}" ItemTemplate="{StaticResource templateDateIntervalPreset}" SelectedItem="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=SelectedIntervalPreset, Mode=OneWay}"></c:CommandListBox>
 										</Grid>
 										<Rectangle Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" IsHitTestVisible="False" Width="1" HorizontalAlignment="Left" Fill="#FFe5e5e5"></Rectangle>
 										<Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsHitTestVisible="False" Height="1" VerticalAlignment="Top" Fill="#FFe5e5e5"></Rectangle>
