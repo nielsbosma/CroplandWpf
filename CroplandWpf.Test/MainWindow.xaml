@@ -10,6 +10,7 @@
 		xmlns:c="clr-namespace:CroplandWpf.Components;assembly=CroplandWpf"
 		xmlns:msc="clr-namespace:System;assembly=mscorlib"
 		xmlns:mvvm="clr-namespace:CroplandWpf.MVVM;assembly=CroplandWpf"
+		xmlns:Themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
 		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		x:Class="CroplandWpf.Test.MainWindow"
         mc:Ignorable="d"
@@ -196,17 +197,17 @@
 				<DataTemplate x:Key="templateInputDialogContent_FileItem" DataType="{x:Type local:FileItem}">
 					<Grid>
 						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"></RowDefinition>
-							<RowDefinition Height="Auto"></RowDefinition>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto"></ColumnDefinition>
-							<ColumnDefinition></ColumnDefinition>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition/>
 						</Grid.ColumnDefinitions>
-						<TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Text="Name:" Margin="10,0" VerticalAlignment="Center"></TextBlock>
-						<TextBox Grid.Row="0" Grid.Column="1" FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}" Margin="0,5" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-						<TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Text="Size:" Margin="10,0" VerticalAlignment="Center"></TextBlock>
-						<tk:IntegerUpDown Grid.Row="1" Grid.Column="1" Margin="0,5" Value="{Binding Size_Mb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></tk:IntegerUpDown>
+						<TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Text="Name:" Margin="10,0" VerticalAlignment="Center"/>
+						<TextBox Grid.Row="0" Grid.Column="1" Margin="0,5" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+						<TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Text="Size:" Margin="10,0" VerticalAlignment="Center"/>
+						<tk:IntegerUpDown Grid.Row="1" Grid.Column="1" Margin="0,5" Value="{Binding Size_Mb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 					</Grid>
 				</DataTemplate>
 			</c:InputDialogInfo.Resources>
@@ -215,7 +216,7 @@
 		<c:InputDialogInfo x:Key="inputDialogInfo_Search" ph:DataContextBridge.SourceScopeName="vm_main" PositiveActionButtonHeader="Maybe.." NegativeActionButtonHeader="Probably not" ContentTemplateKey="templateInputDialog_Search" Content="{Binding SearchInputDialogViewModel}">
 			<c:InputDialogInfo.Resources>
 				<DataTemplate x:Key="templateInputDialog_Search">
-					<c:SearchAutocompleteControl AutoClear="True" AutoFocusOnLoad="True" ItemsSource="{Binding SearchResults}" SearchCompleteCommand="{Binding SearchCompleteCommand}" SearchResultRefreshCommand="{Binding RefreshSearchResultsCommand}"></c:SearchAutocompleteControl>
+					<c:SearchAutocompleteControl AutoClear="True" AutoFocusOnLoad="True" ItemsSource="{Binding SearchResults}" SearchCompleteCommand="{Binding SearchCompleteCommand}" SearchResultRefreshCommand="{Binding RefreshSearchResultsCommand}"/>
 				</DataTemplate>
 			</c:InputDialogInfo.Resources>
 		</c:InputDialogInfo>
@@ -223,7 +224,7 @@
 		<c:InputDialogInfo x:Key="inputDialogInfo_TextInput" ph:DataContextBridge.SourceScopeName="vm_main" PositiveActionButtonHeader="YES" NegativeActionButtonHeader="NO" CanPositiveActionExecute="{Binding TextInputDialogValidator}" ContentType="{x:Type mvvm:vmTextInputDialog}" ContentTemplateKey="templateInputDialog_TextInput">
 			<c:InputDialogInfo.Resources>
 				<DataTemplate x:Key="templateInputDialog_TextInput">
-					<TextBox Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+					<TextBox Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 				</DataTemplate>
 			</c:InputDialogInfo.Resources>
 		</c:InputDialogInfo>
@@ -245,7 +246,7 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="templateRemovableList_CustomContent">
-			<Button Style="{DynamicResource styleButton_AddFile}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=ShowAddNewFileInputDialogCommand}" CommandParameter="{StaticResource inputDialogInfo_AddNewFileItem}" Margin="10,0,5,0" VerticalAlignment="Center"/>
+			<Button Style="{DynamicResource styleButton_AddFile}" Command="{Binding ShowAddNewFileInputDialogCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{StaticResource inputDialogInfo_AddNewFileItem}" Margin="10,0,5,0" VerticalAlignment="Center"/>
 		</DataTemplate>
 
 		<Style x:Key="styleRemovableItem_Files1" TargetType="{x:Type c:RemovableItemContentControl}" BasedOn="{StaticResource {x:Type c:RemovableItemContentControl}}">
@@ -260,7 +261,9 @@
 			<Setter Property="a:ToolTipBeacon.PlacementPriority" Value="Bottom"/>
 		</Style>
 
-		<c:DoubleTextModifier x:Key="doubleModifier"></c:DoubleTextModifier>
+		<c:DoubleTextModifier x:Key="doubleModifier"/>
+		
+
 	</Window.Resources>
 
 	<Grid>
@@ -275,21 +278,17 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>-->
 
-		<ph:DataContextBridge ScopeName="vm_main"></ph:DataContextBridge>
+		<ph:DataContextBridge ScopeName="vm_main"/>
 
 		<c:TabControlEx>
 			<TabItem Header="Common Controls">
 				<Grid Margin="5">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition></ColumnDefinition>
-						<ColumnDefinition></ColumnDefinition>
-						<ColumnDefinition></ColumnDefinition>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<StackPanel Grid.Column="0">
-						<StackPanel Orientation="Vertical" Margin="5">
-							<c:DateInervalControl SelectedInterval="{Binding SelectedDateInterval, Mode=TwoWay}"></c:DateInervalControl>
-							<TextBlock Margin="15,10,0,5" Text="{Binding SelectedDateInterval}"></TextBlock>
-						</StackPanel>
 						<TextBlock FontWeight="Bold" Margin="5"><Run Text="Button"/></TextBlock>
 						<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left" Content="NORMAL"/>
 						<StackPanel Orientation="Horizontal">
@@ -297,7 +296,7 @@
 							<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonTest, Mode=TwoWay}" Content="IsEnabled"/>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
-							<Button x:Name="buttonLight" Margin="5" Style="{DynamicResource styleButton_Light}">ABORT</Button>
+							<Button x:Name="buttonLight" Margin="5" Style="{DynamicResource styleButton_Light}" Content="ABORT"/>
 							<CheckBox Margin="20,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonLight, Mode=TwoWay}" Content="IsEnabled"/>
 						</StackPanel>
 						<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left"/>
@@ -313,12 +312,12 @@
 						<c:HyperlinkButton IsUnderlined="False" HorizontalAlignment="Left" Content="no underline"/>
 						<Button Margin="5" HorizontalAlignment="Left" Style="{DynamicResource styleButton_RemoveRequest}"/>
 						<StackPanel Orientation="Horizontal">
-							<Button x:Name="buttonStar" Style="{DynamicResource styleButton_Star}" Margin="5"></Button>
-							<CheckBox IsChecked="{Binding ElementName=buttonStar, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
+							<Button x:Name="buttonStar" Style="{DynamicResource styleButton_Star}" Margin="5"/>
+							<CheckBox IsChecked="{Binding IsEnabled, ElementName=buttonStar, Mode=TwoWay}" Margin="20,0,0,0" Content="IsEnabled"/>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
-							<Button x:Name="buttonInfo" Style="{DynamicResource styleButton_Info}" Margin="5"></Button>
-							<CheckBox IsChecked="{Binding ElementName=buttonInfo, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
+							<Button x:Name="buttonInfo" Style="{DynamicResource styleButton_Info}" Margin="5"/>
+							<CheckBox IsChecked="{Binding IsEnabled, ElementName=buttonInfo, Mode=TwoWay}" Margin="20,0,0,0" Content="IsEnabled"/>
 						</StackPanel>
 						<TextBlock Margin="5" Text="PasswordBox" FontWeight="Bold"/>
 						<StackPanel Orientation="Horizontal" Margin="5">
@@ -339,27 +338,27 @@
 							<RadioButton x:Name="radioButtonTest" Margin="5,0,5,5" IsEnabled="False" IsChecked="True" Content="RadioButton 4 (checked/disabled)"/>
 							<CheckBox Margin="5,0" IsChecked="{Binding IsEnabled, ElementName=radioButtonTest, Mode=TwoWay}" Content="IsEnabled"/>
 						</StackPanel>
-						<TextBlock Margin="5">ToggleButton</TextBlock>
+						<TextBlock Margin="5"><Run Text="ToggleButton"/></TextBlock>
 						<StackPanel Orientation="Horizontal">
-							<ToggleButton x:Name="toggleButton" a:ToggleButtonHelper.CheckedContent="Yes">No</ToggleButton>
-							<ToggleButton Margin="20,0,0,0" IsChecked="{Binding ElementName=toggleButton, Path=IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" a:ToggleButtonHelper.CheckedContent="Enabled">Disabled</ToggleButton>
+							<ToggleButton x:Name="toggleButton" a:ToggleButtonHelper.CheckedContent="Yes" Content="No"/>
+							<ToggleButton Margin="20,0,0,0" IsChecked="{Binding IsEnabled, ElementName=toggleButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" a:ToggleButtonHelper.CheckedContent="Enabled" Content="Disabled"/>
 						</StackPanel>
 						<Grid>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="*"></ColumnDefinition>
-								<ColumnDefinition Width="Auto"></ColumnDefinition>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
 							</Grid.ColumnDefinitions>
-							<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" Value="{Binding ProgressBarValueTest}" Margin="5,0,0,0"></ProgressBar>
-							<Button Grid.Column="1" Margin="5,0" Command="{Binding StartProgressTestCommand}">Start</Button>
+							<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" Value="{Binding ProgressBarValueTest}" Margin="5,0,0,0"/>
+							<Button Grid.Column="1" Margin="5,0" Command="{Binding StartProgressTestCommand}" Content="Start"/>
 						</Grid>
-						<TextBlock Margin="5" FontWeight="Bold">Indeterminate ProgressBar</TextBlock>
+						<TextBlock Margin="5" FontWeight="Bold"><Run Text="Indeterminate ProgressBar"/></TextBlock>
 						<Grid>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="*"></ColumnDefinition>
-								<ColumnDefinition Width="Auto"></ColumnDefinition>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
 							</Grid.ColumnDefinitions>
-							<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" IsIndeterminate="{Binding IsLongOperationInProgress}" Margin="5,0,0,0" ph:ProgressBarAnimationHelper.IndeterminateIndicatorPercentageWidth="0.6"></ProgressBar>
-							<Button Grid.Column="1" Margin="5,0" Command="{Binding StartLongOperationCommand}">Start</Button>
+							<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" IsIndeterminate="{Binding IsLongOperationInProgress}" Margin="5,0,0,0" ph:ProgressBarAnimationHelper.IndeterminateIndicatorPercentageWidth="0.6"/>
+							<Button Grid.Column="1" Margin="5,0" Command="{Binding StartLongOperationCommand}" Content="Start"/>
 						</Grid>
 						<!--<TextBlock Margin="5" FontWeight="Bold">Long indeterminate progress bar</TextBlock>
 				<Grid>
@@ -371,18 +370,18 @@
 					<Button Grid.Column="1" Margin="5,0" Command="{Binding StartVeryLongOperationCommand}">Start</Button>
 				</Grid>-->
 						<StackPanel Orientation="Vertical">
-							<Slider x:Name="slider1" Margin="5" Minimum="0.0" Maximum="100.0" Value="{Binding SliderValue, Mode=TwoWay}" a:Slider.ValueStringFormat="{}{0:0}%"></Slider>
+							<Slider x:Name="slider1" Margin="5" Minimum="0.0" Maximum="100.0" Value="{Binding SliderValue, Mode=TwoWay}" a:Slider.ValueStringFormat="{}{0:0}%"/>
 							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="ToolTip format" Margin="5"></TextBlock>
-								<TextBox Margin="5" Text="{Binding ElementName=slider1, Path=(a:Slider.ValueStringFormat), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+								<TextBlock Text="ToolTip format" Margin="5"/>
+								<TextBox Margin="5" Text="{Binding (a:Slider.ValueStringFormat), ElementName=slider1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 							</StackPanel>
 						</StackPanel>
 
 						<StackPanel Orientation="Vertical">
-							<Slider x:Name="slider2" Margin="5" Minimum="0.0" Maximum="100.0" Value="{Binding SliderValue, Mode=TwoWay}" a:Slider.ValueStringFormat="{}{0:#}%"></Slider>
+							<Slider x:Name="slider2" Margin="5" Minimum="0.0" Maximum="100.0" Value="{Binding SliderValue, Mode=TwoWay}" a:Slider.ValueStringFormat="{}{0:#}%"/>
 							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="ToolTip format" Margin="5"></TextBlock>
-								<TextBox Margin="5" Text="{Binding ElementName=slider2, Path=(a:Slider.ValueStringFormat), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+								<TextBlock Text="ToolTip format" Margin="5"/>
+								<TextBox Margin="5" Text="{Binding (a:Slider.ValueStringFormat), ElementName=slider2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 							</StackPanel>
 						</StackPanel>
 					</StackPanel>
@@ -401,18 +400,18 @@
 							<c:CommandTextBox Margin="5" ButtonStyle="{DynamicResource styleButton_Cross}" IsButtonVisible="False"/>
 							<Grid Grid.IsSharedSizeScope="True">
 								<Grid.RowDefinitions>
-									<RowDefinition></RowDefinition>
-									<RowDefinition></RowDefinition>
-									<RowDefinition Height="Auto"></RowDefinition>
+									<RowDefinition/>
+									<RowDefinition/>
+									<RowDefinition Height="Auto"/>
 								</Grid.RowDefinitions>
 								<TextBox Grid.Row="0" a:VisualHelper.Header="Header:" a:VisualHelper.HeaderSharedGroupName="headers_test_group" a:VisualHelper.Footer="ft." Margin="0,5" Text="TextBox" a:VisualHelper.HeaderHorizontalAlignment="Left"/>
 								<TextBox Grid.Row="1" a:VisualHelper.Header="Longer header:" a:VisualHelper.HeaderSharedGroupName="headers_test_group" Margin="0,5" IsEnabled="False" Text="TextBox (disabled, no footer group)" a:VisualHelper.HeaderHorizontalAlignment="Left"/>
 								<StackPanel Grid.Row="2" Orientation="Vertical" Grid.IsSharedSizeScope="True">
-									<TextBox Margin="0,2" Text="TextBox with header 1" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header one" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
-									<TextBox Margin="0,2" Text="TextBox with header 2" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header two" a:VisualHelper.Footer="px" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
-									<TextBox Margin="0,2" Text="TextBox with header 3" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header three" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
-									<TextBox Margin="0,2" Text="TextBox with header four" a:VisualHelper.Header="Header 1 (no shared group)" a:VisualHelper.Footer="atm" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"></TextBox>
-									<TextBox Margin="0,2" a:VisualHelper.HeaderAlignment="Top" a:VisualHelper.Header="Top Aligned Header" a:VisualHelper.HeaderHorizontalAlignment="Left">TextBox with top aligned header</TextBox>
+									<TextBox Margin="0,2" Text="TextBox with header 1" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header one" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"/>
+									<TextBox Margin="0,2" Text="TextBox with header 2" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header two" a:VisualHelper.Footer="px" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"/>
+									<TextBox Margin="0,2" Text="TextBox with header 3" a:VisualHelper.HeaderSharedGroupName="headers_test_group2" a:VisualHelper.Header="Header three" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"/>
+									<TextBox Margin="0,2" Text="TextBox with header four" a:VisualHelper.Header="Header 1 (no shared group)" a:VisualHelper.Footer="atm" a:VisualHelper.FooterSharedGroupName="footers_test_group_2"/>
+									<TextBox Margin="0,2" a:VisualHelper.HeaderAlignment="Top" a:VisualHelper.Header="Top Aligned Header" a:VisualHelper.HeaderHorizontalAlignment="Left" Text="TextBox with top aligned header"/>
 								</StackPanel>
 							</Grid>
 						</StackPanel>
@@ -423,14 +422,14 @@
 			<TabItem Header="Item Controls">
 				<Grid Margin="5">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="0.3*"></ColumnDefinition>
-						<ColumnDefinition Width="*"></ColumnDefinition>
+						<ColumnDefinition Width="0.3*"/>
+						<ColumnDefinition Width="*"/>
 					</Grid.ColumnDefinitions>
 					<ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled">
 						<StackPanel Orientation="Vertical">
-							<TextBlock Margin="5">CommandListBox</TextBlock>
-							<c:CommandListBox Command="{Binding CommandListBoxCommand}" ItemsSource="{Binding DateIntervalPresets}"></c:CommandListBox>
-							<TextBlock Margin="20,5,5,5" Text="{Binding SelectedDateIntervalPreset}"></TextBlock>
+							<TextBlock Margin="5"><Run Text="CommandListBox"/></TextBlock>
+							<c:CommandListBox Command="{Binding CommandListBoxCommand}" ItemsSource="{Binding DateIntervalPresets}"/>
+							<TextBlock Margin="20,5,5,5" Text="{Binding SelectedDateIntervalPreset}"/>
 							<TextBlock FontWeight="Bold"><Run Text="ItemsControls"/></TextBlock>
 							<TextBlock Margin="5"><Run Text="ListBox"/></TextBlock>
 							<ListBox x:Name="listBoxTest" Height="150" ItemsSource="{Binding TestItemsSource}"/>
@@ -441,48 +440,45 @@
 							<ComboBox Margin="3" Style="{DynamicResource styleComboBox_Light}" ItemsSource="{Binding TestItemsSource}"/>
 
 							<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=comboBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
-							<TextBlock FontWeight="Bold" Margin="5" TextWrapping="Wrap">SearchAutocompleteControl (left-aligned tooltip)</TextBlock>
+							<TextBlock FontWeight="Bold" Margin="5" TextWrapping="Wrap"><Run Text="SearchAutocompleteControl (left-aligned tooltip)"/></TextBlock>
 							<c:SearchAutocompleteControl x:Name="searchAutocomplete_String" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding StringSearchResults}" SearchCompleteCommand="{Binding StringSearchCompleteCommand}" NoMatchesButtonCommand="{Binding NoMatchesFoundCommand}" SeeAllOptionsCommand="{Binding SeeMoreSearchOptionsCommand}"/>
-							<Button Content="Show search input dialog" Command="{Binding ShowSearchInputBoxCommand}" CommandParameter="{StaticResource inputDialogInfo_Search}" HorizontalAlignment="Left" Margin="10,5,0,10" Style="{DynamicResource styleButton_Light}"></Button>
+							<Button Content="Show search input dialog" Command="{Binding ShowSearchInputBoxCommand}" CommandParameter="{StaticResource inputDialogInfo_Search}" HorizontalAlignment="Left" Margin="10,5,0,10" Style="{DynamicResource styleButton_Light}"/>
 							<Label Content="{Binding StringSearchResultInfo}">
 								<Label.ContentTemplate>
 									<DataTemplate DataType="{x:Type c:SearchResultInfo}">
-										<TextBlock>
-								<TextBlock>String Search Result: </TextBlock>
-								<LineBreak></LineBreak>
-								<TextBlock x:Name="textBlock_TextPresenter" Text="{Binding SearchResult}" FontWeight="Bold"></TextBlock>
-							</TextBlock>
+										<TextBlock><InlineUIContainer>
+												<TextBlock><Run Text="String Search Result:"/></TextBlock>
+											</InlineUIContainer><LineBreak/><InlineUIContainer>
+												<TextBlock x:Name="textBlock_TextPresenter" Text="{Binding SearchResult}" FontWeight="Bold"/>
+											</InlineUIContainer></TextBlock>
 										<DataTemplate.Triggers>
 											<DataTrigger Binding="{Binding ResultKind}" Value="Empty">
-												<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="[empty]"></Setter>
+												<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="[empty]"/>
 											</DataTrigger>
 										</DataTemplate.Triggers>
 									</DataTemplate>
 								</Label.ContentTemplate>
 							</Label>
 							<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=searchAutocomplete_String, Mode=TwoWay}" Content="IsEnabled"/>
-							<Button Command="{Binding ShowTextInputDialogCommand}" CommandParameter="{StaticResource inputDialogInfo_TextInput}" HorizontalAlignment="Left">Show Text Input Box</Button>
-							<TextBlock>
-							<Run Text="text input box result: "></Run>
-							<Run Text="{Binding TextInputDialogResult}" FontWeight="Bold"></Run>
-							</TextBlock>
+							<Button Command="{Binding ShowTextInputDialogCommand}" CommandParameter="{StaticResource inputDialogInfo_TextInput}" HorizontalAlignment="Left" Content="Show Text Input Box"/>
+							<TextBlock><Run Text="text input box result: "/><Run Text=" "/><Run Text="{Binding TextInputDialogResult}" FontWeight="Bold"/></TextBlock>
 							<c:SearchAutocompleteControl x:Name="searchAutocomplete_SearchItem" AutoFocusOnLoad="True" SearchPropertyBindingPath="Description"  SearchResultRefreshCommand="{Binding CustomSearchItemSearchResultRefreshCommand}" ItemsSource="{Binding CustomItemSearchResults}" SearchCompleteCommand="{Binding CustomSearchCompleteCommand}"/>
 							<Label Content="{Binding CustomItemSearchResult}">
 								<Label.ContentTemplate>
 									<DataTemplate DataType="{x:Type c:SearchResultInfo}">
-										<TextBlock>
-										<TextBlock>Custom Item Search Result: </TextBlock>
-										<LineBreak></LineBreak>
-										<TextBlock x:Name="textBlock_TextPresenter" Text="{Binding SearchResult.Name}" FontWeight="Bold"></TextBlock>
-										<LineBreak></LineBreak>
-										<TextBlock Text="{Binding SearchResult.Description}" FontWeight="Normal"></TextBlock>
-									</TextBlock>
+										<TextBlock><InlineUIContainer>
+												<TextBlock><Run Text="Custom Item Search Result:"/></TextBlock>
+											</InlineUIContainer><LineBreak/><InlineUIContainer>
+												<TextBlock x:Name="textBlock_TextPresenter" Text="{Binding SearchResult.Name}" FontWeight="Bold"/>
+											</InlineUIContainer><LineBreak/><InlineUIContainer>
+												<TextBlock Text="{Binding SearchResult.Description}" FontWeight="Normal"/>
+											</InlineUIContainer></TextBlock>
 										<DataTemplate.Triggers>
 											<DataTrigger Binding="{Binding HasResultInstance}" Value="False">
-												<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="{Binding SearchResult}"></Setter>
+												<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="{Binding SearchResult}"/>
 											</DataTrigger>
 											<DataTrigger Binding="{Binding ResultKind}" Value="Empty">
-												<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="[empty]"></Setter>
+												<Setter TargetName="textBlock_TextPresenter" Property="Text" Value="[empty]"/>
 											</DataTrigger>
 										</DataTemplate.Triggers>
 									</DataTemplate>
@@ -502,8 +498,8 @@
 							</DataGrid.Columns>
 						</DataGrid>
 						<StackPanel Margin="20,5,5,5" Orientation="Horizontal">
-							<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.ShowRowControls), Mode=TwoWay}">ShowRowControls</CheckBox>
-							<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.LastColumnFill), Mode=TwoWay}">Last column fill</CheckBox>
+							<CheckBox IsChecked="{Binding (c:DataGridHelper.ShowRowControls), ElementName=dataGrid, Mode=TwoWay}" Content="ShowRowControls"/>
+							<CheckBox IsChecked="{Binding (c:DataGridHelper.LastColumnFill), ElementName=dataGrid, Mode=TwoWay}" Content="Last column fill"/>
 						</StackPanel>
 						<StackPanel Orientation="Vertical" VerticalAlignment="Top">
 							<TextBlock Margin="5" FontWeight="Bold"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>
@@ -517,16 +513,16 @@
 			<TabItem Header="Specialized Controls">
 				<Grid Margin="5">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="300"></ColumnDefinition>
-						<ColumnDefinition Width="2.0*"></ColumnDefinition>
-						<ColumnDefinition Width="1.0*"></ColumnDefinition>
+						<ColumnDefinition Width="300"/>
+						<ColumnDefinition Width="2.0*"/>
+						<ColumnDefinition Width="1.0*"/>
 					</Grid.ColumnDefinitions>
 
 					<StackPanel Grid.Column="0" Orientation="Vertical">
-						<TextBlock FontWeight="Bold">BusyIndicator</TextBlock>
+						<TextBlock FontWeight="Bold"><Run Text="BusyIndicator"/></TextBlock>
 						<StackPanel Orientation="Horizontal">
-							<c:BusyIndicator x:Name="busyIndicator" Margin="5"></c:BusyIndicator>
-							<CheckBox Margin="15,0,0,0" IsChecked="{Binding ElementName=busyIndicator, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+							<c:BusyIndicator x:Name="busyIndicator" Margin="5"/>
+							<CheckBox Margin="15,0,0,0" IsChecked="{Binding IsEnabled, ElementName=busyIndicator, Mode=TwoWay}" Content="IsEnabled"/>
 						</StackPanel>
 						<TextBlock Margin="5" Text="IntegerUpDown (Xceed)" FontWeight="Bold"/>
 						<StackPanel Orientation="Horizontal">
@@ -534,10 +530,10 @@
 							<Grid Margin="15,5,5,5">
 								<Grid.RowDefinitions>
 									<RowDefinition/>
-									<RowDefinition Height="Auto"></RowDefinition>
+									<RowDefinition Height="Auto"/>
 								</Grid.RowDefinitions>
-								<TextBlock Grid.Row="0" Text="{Binding IntegerValueTest, StringFormat='IntegerValueTest: {0}'}"></TextBlock>
-								<CheckBox Grid.Row="1" IsChecked="{Binding ElementName=integerUpDown, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+								<TextBlock Grid.Row="0" Text="{Binding IntegerValueTest, StringFormat=IntegerValueTest: \{0\}}"/>
+								<CheckBox Grid.Row="1" IsChecked="{Binding IsEnabled, ElementName=integerUpDown, Mode=TwoWay}" Content="IsEnabled"/>
 							</Grid>
 						</StackPanel>
 
@@ -548,58 +544,57 @@
 							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
 							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
 						</WrapPanel>
-						<TextBlock Margin="20,5,0,5">
-						<TextBlock Text="MessageBoxResult:"/>
-						<Run Text=" "/>
-						<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/></TextBlock>
+						<TextBlock Margin="20,5,0,5"><InlineUIContainer>
+								<TextBlock Text="MessageBoxResult:"/>
+							</InlineUIContainer><Run Text=" "/><Run Text=" "/><Run Text=" "/><InlineUIContainer>
+								<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/>
+							</InlineUIContainer></TextBlock>
 						<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
 						<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
-						<TextBlock Margin="5" FontWeight="Bold">TimePicker (Xceed)</TextBlock>
-						<StackPanel Orientation="Horizontal">
-							<tk:TimePicker x:Name="timePicker" Margin="5" HorizontalAlignment="Left" MinWidth="100" Value="{Binding TimeValue, Mode=TwoWay}" StartTime="00:00:00" EndTime="23:59:59" AllowSpin="True" AllowTextInput="True" Minimum="00:00:00" Maximum="23:59:59"></tk:TimePicker>
-							<CheckBox IsChecked="{Binding ElementName=timePicker, Path=IsEnabled, Mode=TwoWay}" Margin="20,0,0,0">IsEnabled</CheckBox>
+						<StackPanel Orientation="Vertical" Margin="5">
+							<c:DateInervalControl SelectedInterval="{Binding SelectedDateInterval, Mode=TwoWay}"/>
+							<TextBlock Margin="15,10,0,5" Text="{Binding SelectedDateInterval}"/>
 						</StackPanel>
-						<TextBlock Margin="5" FontWeight="Bold">DateTimePicker (Xceed)</TextBlock>
-						<tk:DateTimePicker Margin="5" HorizontalAlignment="Stretch" Value="{Binding SelectedDateTime, Mode=TwoWay}"></tk:DateTimePicker>
-						
+						<TextBlock Margin="5" FontWeight="Bold"><Run Text="TimePicker (Xceed)"/></TextBlock>
+						<StackPanel Orientation="Horizontal">
+							<tk:TimePicker x:Name="timePicker" Margin="5" HorizontalAlignment="Left" MinWidth="100" Value="{Binding TimeValue, Mode=TwoWay}" StartTime="00:00:00" EndTime="23:59:59" AllowSpin="True" AllowTextInput="True" Minimum="00:00:00" Maximum="23:59:59"/>
+							<CheckBox IsChecked="{Binding IsEnabled, ElementName=timePicker, Mode=TwoWay}" Margin="20,0,0,0" Content="IsEnabled"/>
+						</StackPanel>
+						<TextBlock Margin="5" FontWeight="Bold"><Run Text="DateTimePicker (Xceed)"/></TextBlock>
+						<tk:DateTimePicker Margin="5" HorizontalAlignment="Stretch" Value="{Binding SelectedDateTime, Mode=TwoWay}"/>
 					</StackPanel>
 
 					<StackPanel Grid.Column="1" Orientation="Vertical">
 						<Grid>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"></ColumnDefinition>
-								<ColumnDefinition></ColumnDefinition>
-								<ColumnDefinition></ColumnDefinition>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
 							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto"></RowDefinition>
-								<RowDefinition></RowDefinition>
-								<RowDefinition Height="Auto"></RowDefinition>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition/>
+								<RowDefinition Height="Auto"/>
 							</Grid.RowDefinitions>
 							<StackPanel Grid.Column="0" Orientation="Vertical">
-								<TextBlock Margin="5" FontWeight="Bold">Alignment Editor</TextBlock>
+								<TextBlock Margin="5" FontWeight="Bold"><Run Text="Alignment Editor"/></TextBlock>
 								<StackPanel Orientation="Vertical">
-									<c:AlignmentEditor x:Name="alignmentEditor1" Margin="5" HorizontalAlignment="Left" VerticalAlignmentValue="{Binding VerticalAlignmentValue, Mode=TwoWay}" HorizontalAlignmentValue="{Binding HorizontalAlignmentValue, Mode=TwoWay}" MarginValue="{Binding MarginValue, Mode=TwoWay}" ShowMarginEditors="True"></c:AlignmentEditor>
-									<CheckBox Margin="20,0,0,0" VerticalAlignment="Center" IsChecked="{Binding ElementName=alignmentEditor1, Path=ShowMarginEditors, Mode=TwoWay}">ShowMarginEditors</CheckBox>
+									<c:AlignmentEditor x:Name="alignmentEditor1" Margin="5" HorizontalAlignment="Left" VerticalAlignmentValue="{Binding VerticalAlignmentValue, Mode=TwoWay}" HorizontalAlignmentValue="{Binding HorizontalAlignmentValue, Mode=TwoWay}" MarginValue="{Binding MarginValue, Mode=TwoWay}" ShowMarginEditors="True"/>
+									<CheckBox Margin="20,0,0,0" VerticalAlignment="Center" IsChecked="{Binding ShowMarginEditors, ElementName=alignmentEditor1, Mode=TwoWay}" Content="ShowMarginEditors"/>
 								</StackPanel>
-								<TextBlock>
-									<Run Text="HorizontalAlignment "></Run>
-									<Run FontWeight="Bold" Text="{Binding HorizontalAlignmentValue}"></Run>
-									<LineBreak></LineBreak>
-									<Run Text="VerticalAlignment "></Run>
-									<Run FontWeight="Bold" Text="{Binding VerticalAlignmentValue}"></Run>
-									<LineBreak></LineBreak>
-									<Run Text="Margin "></Run>
-									<Run Text="{Binding MarginValue}"></Run>
-								</TextBlock>
+								<TextBlock><Run Text="HorizontalAlignment "/><Run Text=" "/><Run FontWeight="Bold" Text="{Binding HorizontalAlignmentValue}"/><LineBreak/><Run Text="VerticalAlignment "/><Run Text=" "/><Run FontWeight="Bold" Text="{Binding VerticalAlignmentValue}"/><LineBreak/><Run Text="Margin "/><Run Text=" "/><Run Text="{Binding MarginValue}"/></TextBlock>
 							</StackPanel>
 
 							<StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
-								<c:AlignmentEditor x:Name="alignmentEditor2" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalAlignmentValue="{Binding VerticalAlignmentValue, Mode=TwoWay}" HorizontalAlignmentValue="{Binding HorizontalAlignmentValue, Mode=TwoWay}" ShowMarginEditors="{Binding ElementName=alignmentEditor1, Path=ShowMarginEditors, Mode=OneWay}" MarginValue="{Binding ElementName=rectangleAlignmentEditorTest, Path=Margin, Mode=TwoWay}"></c:AlignmentEditor>
-								<CheckBox Margin="5" IsChecked="{Binding ElementName=alignmentEditor2, Path=IsEnabled, Mode=TwoWay}">IsEnabled</CheckBox>
+								<c:AlignmentEditor x:Name="alignmentEditor2" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalAlignmentValue="{Binding VerticalAlignmentValue, Mode=TwoWay}" HorizontalAlignmentValue="{Binding HorizontalAlignmentValue, Mode=TwoWay}" ShowMarginEditors="{Binding ShowMarginEditors, ElementName=alignmentEditor1, Mode=OneWay}" MarginValue="{Binding Margin, ElementName=rectangleAlignmentEditorTest, Mode=TwoWay}"/>
+								<CheckBox Margin="5" IsChecked="{Binding IsEnabled, ElementName=alignmentEditor2, Mode=TwoWay}" Content="IsEnabled"/>
+								<tk:ColorPicker Margin="5" HorizontalAlignment="Left" SelectedColor="{Binding SelectedColor, Mode=TwoWay}"/>
 							</StackPanel>
-							<Grid Grid.Row="1" Grid.ColumnSpan="2" Height="200" Width="400" Background="Yellow">
-								<Rectangle x:Name="rectangleAlignmentEditorTest" Width="40" Height="30" Fill="Red" VerticalAlignment="{Binding VerticalAlignmentValue, Mode=OneWay}" HorizontalAlignment="{Binding HorizontalAlignmentValue, Mode=OneWay}" Margin="{Binding MarginValue, Mode=TwoWay}"></Rectangle>
+							<Grid Grid.Row="1" Grid.ColumnSpan="2" Height="200" Width="400">
+								<Grid.Background>
+									<SolidColorBrush Color="{Binding SelectedColor}"></SolidColorBrush>
+								</Grid.Background>
+								<Rectangle x:Name="rectangleAlignmentEditorTest" Width="40" Height="30" Fill="Red" VerticalAlignment="{Binding VerticalAlignmentValue, Mode=OneWay}" HorizontalAlignment="{Binding HorizontalAlignmentValue, Mode=OneWay}" Margin="{Binding MarginValue, Mode=TwoWay}"/>
 							</Grid>
 						</Grid>
 					</StackPanel>
@@ -609,21 +604,19 @@
 			<TabItem Header="ImageResizeControl">
 				<Grid Margin="5">
 					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition></RowDefinition>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition/>
 					</Grid.RowDefinitions>
 					<StackPanel Grid.Row="0" Orientation="Horizontal">
-						<Button Margin="5" Command="{Binding SelectImageSourceCommand}" HorizontalAlignment="Left" VerticalAlignment="Center">Select Image</Button>
-						<c:ImageResizeControl Margin="5,0" x:Name="imageResizeControl" Target="{Binding ResizeImageSource, Mode=TwoWay}" HorizontalAlignment="Left" BorderBrush="LightGray"></c:ImageResizeControl>
-						<TextBlock Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap">
-							<Run FontWeight="Bold" Text="Current ResizeInfo:"></Run>
-							<LineBreak></LineBreak>
-							<TextBlock Text="{Binding ElementName=imageResizeControl, Path=ResizeInfo}"></TextBlock>
-						</TextBlock>
+						<Button Margin="5" Command="{Binding SelectImageSourceCommand}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Select Image"/>
+						<c:ImageResizeControl Margin="5,0" x:Name="imageResizeControl" Target="{Binding ResizeImageSource, Mode=TwoWay}" HorizontalAlignment="Left" BorderBrush="LightGray"/>
+						<TextBlock Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"><Run FontWeight="Bold" Text="Current ResizeInfo:"/><LineBreak/><InlineUIContainer>
+								<TextBlock Text="{Binding ResizeInfo, ElementName=imageResizeControl}"/>
+							</InlineUIContainer></TextBlock>
 					</StackPanel>
 
 					<ScrollViewer Grid.Row="1" Margin="5,10,5,5">
-						<Image Source="{Binding ResizeImageSource}" Stretch="None"></Image>
+						<Image Source="{Binding ResizeImageSource}" Stretch="None"/>
 						<!--<Rectangle Grid.Row="1" Height="{Binding ResizeImageSource.Height}" Width="{Binding ResizeImageSource.Width}"  Stroke="DarkGray" StrokeThickness="1">
 							<Rectangle.Fill>
 								<ImageBrush ImageSource="{Binding ResizeImageSource}" AlignmentX="Left" AlignmentY="Top" Stretch="None"></ImageBrush>
@@ -636,11 +629,11 @@
 			<TabItem Header="ImageCropControl">
 				<Grid>
 					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition></RowDefinition>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition/>
 					</Grid.RowDefinitions>
-					<Button Grid.Row="0" HorizontalAlignment="Left" Command="{Binding SelectCropImageSourceCommand}">Open Image</Button>
-					<c:ImageCropControl Grid.Row="1" x:Name="imageCropControl" MinHeight="500" MinWidth="500" SourceFileInfo="{Binding CropImageSourceFileInfo}" Margin="5"></c:ImageCropControl>
+					<Button Grid.Row="0" HorizontalAlignment="Left" Command="{Binding SelectCropImageSourceCommand}" Content="Open Image"/>
+					<c:ImageCropControl Grid.Row="1" x:Name="imageCropControl" MinHeight="500" MinWidth="500" SourceFileInfo="{Binding CropImageSourceFileInfo}" Margin="5"/>
 				</Grid>
 			</TabItem>
 		</c:TabControlEx>

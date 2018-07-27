@@ -265,7 +265,7 @@ namespace CroplandWpf.Components
 		private void DateInervalControl_Loaded(object sender, RoutedEventArgs e)
 		{
 			DateTime1 = DateTime.Now.Date;
-			DateTime1 = DateTime1.AddDays(1.0).AddSeconds(-1.0);
+			DateTime2 = DateTime1.AddDays(1.0).AddSeconds(-1.0);
 			WindowHelper.RegisterHandler(this, PreviewMouseLeftButtonDownEvent, Window_MouseDown);
 			WindowHelper.GetWindow(this).Deactivated += DateInervalControl_Deactivated;
 		}

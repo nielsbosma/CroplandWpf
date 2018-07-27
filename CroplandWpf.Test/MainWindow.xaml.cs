@@ -463,6 +463,16 @@ namespace CroplandWpf.Test
 			DependencyProperty.Register("SelectedDateTime", typeof(DateTime?), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
+		#region ColorPicker
+		public Color SelectedColor
+		{
+			get { return (Color)GetValue(SelectedColorProperty); }
+			set { SetValue(SelectedColorProperty, value); }
+		}
+		public static readonly DependencyProperty SelectedColorProperty =
+			DependencyProperty.Register("SelectedColor", typeof(Color), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+
 		#region AlignmentEditor
 		public VerticalAlignment VerticalAlignmentValue
 		{
@@ -665,7 +675,7 @@ namespace CroplandWpf.Test
 		#endregion
 		#endregion
 
-		#region Fields
+		#region Private fields/properties
 		private Random random = new Random(); 
 
 		private OpenFileDialog openImageForResizeFileDialog
@@ -951,6 +961,10 @@ namespace CroplandWpf.Test
 
 			#region DateTimePicker
 			SelectedDateTime = DateTime.Now;
+			#endregion
+
+			#region ColorPicker
+			SelectedColor = Color.FromArgb(255, 255, 255, 0);
 			#endregion
 
 			#region ImageResizeEditor

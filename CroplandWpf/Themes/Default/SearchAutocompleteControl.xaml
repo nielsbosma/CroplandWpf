@@ -124,7 +124,7 @@
 							<TextBox Grid.Column="1" x:Name="PART_EditableTextBox" Margin="{TemplateBinding Padding}" Style="{StaticResource styleTextBox_SearchAutocompleteControl}" Focusable="True"></TextBox>
 							<Popup x:Name="PART_Popup" AllowsTransparency="True" StaysOpen="True" Placement="Bottom" HorizontalOffset="-3">
 								<Grid>
-									<Border Margin="3,0,3,4" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="0,0,2,2"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,1,0,0" MinWidth="{Binding ElementName=rectanglePopupWidth, Path=ActualWidth}">
+									<Border Margin="3,0,3,4" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="0,0,2,2" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,1,0,0" MinWidth="{Binding ElementName=rectanglePopupWidth, Path=ActualWidth}">
 										<Grid>
 											<Grid.RowDefinitions>
 												<RowDefinition Height="*"></RowDefinition>

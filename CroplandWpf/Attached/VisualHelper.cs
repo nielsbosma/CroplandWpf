@@ -193,5 +193,20 @@ namespace CroplandWpf.Attached
 		}
 		public static readonly DependencyProperty IconBrushProperty =
 			DependencyProperty.RegisterAttached("IconBrush", typeof(Brush), typeof(VisualHelper), new PropertyMetadata());
+
+		public static object GetTestObject(DependencyObject obj)
+		{
+			return (object)obj.GetValue(TestObjectProperty);
+		}
+		public static void SetTestObject(DependencyObject obj, object value)
+		{
+			obj.SetValue(TestObjectProperty, value);
+		}
+		public static readonly DependencyProperty TestObjectProperty =
+			DependencyProperty.RegisterAttached("TestObject", typeof(object), typeof(VisualHelper), new PropertyMetadata((o,e)=>
+			{
+				DependencyObject t = o;
+				object n = e.NewValue;
+			}));
 	}
 }

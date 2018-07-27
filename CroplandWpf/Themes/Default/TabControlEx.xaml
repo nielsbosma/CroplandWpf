@@ -4,7 +4,6 @@
 
 	<Style x:Key="{x:Type TabItem}" TargetType="TabItem">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-		<Setter Property="Background" Value="DarkGray"></Setter>
 		<Setter Property="BorderThickness" Value="1,1,1,0"></Setter>
 		<Setter Property="BorderBrush" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
