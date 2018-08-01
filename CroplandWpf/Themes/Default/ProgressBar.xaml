@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:c="clr-namespace:CroplandWpf.Components"
                     xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers">
 
 	<Style x:Key="{x:Type ProgressBar}" TargetType="ProgressBar">
@@ -12,12 +13,14 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ProgressBar">
-					<Grid Background="Transparent">
-						<ph:ProgressBarAnimationHelper IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsIndeterminate, Mode=OneWay}" Container="{Binding RelativeSource={RelativeSource TemplatedParent}}" Indicator="{Binding ElementName=borderIndeterminateIndicator}"></ph:ProgressBarAnimationHelper>
-						<Border x:Name="PART_Track" Background="{TemplateBinding Background}" CornerRadius="6"></Border>
-						<Border x:Name="PART_Indicator" HorizontalAlignment="Left" Background="{TemplateBinding Foreground}" CornerRadius="{Binding ElementName=PART_Track, Path=CornerRadius}"></Border>
-						<Border x:Name="borderIndeterminateIndicator" Visibility="Hidden" HorizontalAlignment="Left" Background="{TemplateBinding Foreground}" CornerRadius="{Binding ElementName=PART_Track, Path=CornerRadius}"></Border>
-					</Grid>
+					<c:ClippingBorder CornerRadius="6">
+						<Grid Background="Transparent">
+							<ph:ProgressBarAnimationHelper IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsIndeterminate, Mode=OneWay}" Container="{Binding RelativeSource={RelativeSource TemplatedParent}}" Indicator="{Binding ElementName=borderIndeterminateIndicator}"></ph:ProgressBarAnimationHelper>
+							<Border x:Name="PART_Track" Background="{TemplateBinding Background}" CornerRadius="6"></Border>
+							<Border x:Name="PART_Indicator" HorizontalAlignment="Left" Background="{TemplateBinding Foreground}" CornerRadius="{Binding ElementName=PART_Track, Path=CornerRadius}"></Border>
+							<Border x:Name="borderIndeterminateIndicator" Visibility="Hidden" HorizontalAlignment="Left" Background="{TemplateBinding Foreground}" CornerRadius="{Binding ElementName=PART_Track, Path=CornerRadius}"></Border>
+						</Grid>
+					</c:ClippingBorder>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsEnabled" Value="False">
 							<Trigger.EnterActions>
@@ -44,5 +47,5 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-    
+
 </ResourceDictionary>

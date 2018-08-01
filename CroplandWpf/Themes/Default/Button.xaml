@@ -482,7 +482,7 @@
 					<Grid>
 						<Border Background="{TemplateBinding Background}"></Border>
 						<Border x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="{DynamicResource brushControl_Background_MouseOver_Light}"></Border>
-						<Path x:Name="pathArrow" VerticalAlignment="Center" HorizontalAlignment="Center" Width="16" Height="16" Stretch="Fill" Fill="{DynamicResource brushButton_Arrow_Background}" Data="{DynamicResource geometryArrow_Right}" RenderTransformOrigin="0.5,0.5" ></Path>
+						<Path x:Name="pathArrow" VerticalAlignment="Center" HorizontalAlignment="Center" Width="16" Height="16" Stretch="Fill" Fill="{DynamicResource brushButton_Arrow_Background}" Data="{DynamicResource geometryArrow_Right}" RenderTransformOrigin="0.5,0.5"></Path>
 					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver" Value="True">
@@ -786,10 +786,10 @@
 
 	<Style x:Key="styleButton_Info" TargetType="Button">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-		<Setter Property="MinWidth" Value="25"></Setter>
-		<Setter Property="MinHeight" Value="25"></Setter>
-		<Setter Property="Width" Value="25"></Setter>
-		<Setter Property="Height" Value="25"></Setter>
+		<Setter Property="MinWidth" Value="18"></Setter>
+		<Setter Property="MinHeight" Value="18"></Setter>
+		<Setter Property="Width" Value="18"></Setter>
+		<Setter Property="Height" Value="18"></Setter>
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
@@ -801,10 +801,8 @@
 								<DropShadowEffect ShadowDepth="0" Color="#FF000000" Opacity="0.0"></DropShadowEffect>
 							</Grid.Effect>
 							<Ellipse Stroke="#FF1a6e41" StrokeThickness="1.5"></Ellipse>
-							<!--<Viewbox Stretch="Uniform" Margin="4">
-									<TextBlock Text="i" Foreground="#FF1a6e41" FontSize="10pt" FontWeight="Black"></TextBlock>
-								</Viewbox>-->
-							<Border Background="{DynamicResource brushIcon_ButtonInfo}"></Border>
+
+							<Path Data="F1M2,7C2,7 4,7 4,7 4,7 5,8 5,8 5,8 5,16 5,16 5,16 4,17 4,17 4,17 2,17 2,17 2,17 1,16 1,16 1,16 1,8 1,8 1,8 2,7 2,7z M2,1C2,1 4,1 4,1 4,1 5,2 5,2 5,2 5,4 5,4 5,4 4,5 4,5 4,5 2,5 2,5 2,5 1,4 1,4 1,4 1,2 1,2 1,2 2,1 2,1z" Stretch="Fill" Fill="#FF217347" Height="9.0" Width="2.2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,1"/>
 						</Grid>
 					</Grid>
 					<ControlTemplate.Triggers>
@@ -848,10 +846,10 @@
 	
 
 	<Style x:Key="styleButton_Star" TargetType="Button">
-		<Setter Property="MinWidth" Value="25"></Setter>
-		<Setter Property="MinHeight" Value="25"></Setter>
-		<Setter Property="Width" Value="25"></Setter>
-		<Setter Property="Height" Value="25"></Setter>
+		<Setter Property="MinWidth" Value="18"></Setter>
+		<Setter Property="MinHeight" Value="18"></Setter>
+		<Setter Property="Width" Value="18"></Setter>
+		<Setter Property="Height" Value="18"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushButton_Background_Star}"></Setter>
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
@@ -863,11 +861,8 @@
 							<Grid.Effect>
 								<DropShadowEffect ShadowDepth="0" Color="#FF000000" Opacity="0.0"></DropShadowEffect>
 							</Grid.Effect>
-							<Ellipse StrokeThickness="2" Stroke="{TemplateBinding Background}"></Ellipse>
-							<Border Background="{DynamicResource brushIcon_ButtonStar}"></Border>
-							<!--<Viewbox Stretch="Uniform" Margin="6">
-									<Path Data="{DynamicResource geometryIcon_Star}" Stretch="Fill" Fill="{TemplateBinding Background}" />
-								</Viewbox>-->
+							<Ellipse StrokeThickness="1.5" Stroke="{TemplateBinding Background}"></Ellipse>
+							<Path Data="{DynamicResource geometryIcon_Star}" Stretch="Uniform" Fill="{DynamicResource brushButton_Background_Star}" Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,1" />
 						</Grid>
 					</Grid>
 					<ControlTemplate.Triggers>

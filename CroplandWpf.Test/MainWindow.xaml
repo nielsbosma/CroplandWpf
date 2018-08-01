@@ -262,22 +262,9 @@
 		</Style>
 
 		<c:DoubleTextModifier x:Key="doubleModifier"/>
-		
-
 	</Window.Resources>
 
 	<Grid>
-		<!--<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="330"/>
-			<ColumnDefinition Width="300"/>
-			<ColumnDefinition Width="*"/>
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>-->
-
 		<ph:DataContextBridge ScopeName="vm_main"/>
 
 		<c:TabControlEx>
@@ -324,6 +311,11 @@
 							<PasswordBox a:PasswordHelper.AttachedController="{Binding UserPasswordController}" MinWidth="150"/>
 							<Button Margin="5,0" Command="{Binding UpdateUserPasswordCommand}" Content="OK"/>
 						</StackPanel>
+
+						<StackPanel Orientation="Vertical">
+							<TextBlock Text="Tool Window" Margin="5"></TextBlock>
+							<Button HorizontalAlignment="Left" Margin="5" Command="{Binding SummonToolWindowCommand}">Summon sample tool window</Button>
+						</StackPanel>
 					</StackPanel>
 
 					<StackPanel Grid.Column="1" Orientation="Vertical">
@@ -357,7 +349,7 @@
 								<ColumnDefinition Width="*"/>
 								<ColumnDefinition Width="Auto"/>
 							</Grid.ColumnDefinitions>
-							<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" IsIndeterminate="{Binding IsLongOperationInProgress}" Margin="5,0,0,0" ph:ProgressBarAnimationHelper.IndeterminateIndicatorPercentageWidth="0.6"/>
+							<ProgressBar Grid.Column="0" Minimum="0" Maximum="100" IsIndeterminate="{Binding IsLongOperationInProgress}" Margin="50,0" ph:ProgressBarAnimationHelper.IndeterminateIndicatorPercentageWidth="0.6"/>
 							<Button Grid.Column="1" Margin="5,0" Command="{Binding StartLongOperationCommand}" Content="Start"/>
 						</Grid>
 						<!--<TextBlock Margin="5" FontWeight="Bold">Long indeterminate progress bar</TextBlock>
@@ -544,6 +536,57 @@
 							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
 							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
 						</WrapPanel>
+						<Grid>
+							<StackPanel Orientation="Horizontal">
+								<Grid Width="54" Height="54">
+									<Path Fill="#FFF5A623" Stroke="{x:Null}" Stretch="Uniform">
+										<Path.Data>
+											<PathGeometry Figures="M27,0L54,47 0,47z"></PathGeometry>
+										</Path.Data>
+									</Path>
+									<Path Stretch="Uniform" Data="M30,18L29.3262032,32.4986523 24.6737968,32.4986523 24,18 30,18z M29.8716578,34.9299191L29.8716578,40 24.1604278,40 24.1604278,34.9299191 29.8716578,34.9299191z" Fill="#FF000000" Margin="16,20,16,12" />
+								</Grid>
+								
+								<Grid Width="54" Height="54">
+									<Path Fill="#FFd5283d">
+										<Path.Data>
+											<EllipseGeometry RadiusX="24.3672727" RadiusY="24.3672727" Center="25,25">
+											</EllipseGeometry>
+										</Path.Data>
+									</Path>
+									<Path Data="{StaticResource geometryCross}" Margin="8" Stretch="Fill" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{DynamicResource brushControl_Background_Light}"></Path>
+								</Grid>
+
+								<Grid Width="54" Height="54">
+									<Path Fill="#FF000000" Stroke="{x:Null}">
+										<Path.Data>
+											<EllipseGeometry RadiusX="24.3672727" RadiusY="24.3672727" Center="25,25">
+												<EllipseGeometry.Transform>
+													<TransformGroup>
+														<TransformGroup.Children>
+															<TranslateTransform X="1381" Y="1032" />
+														</TransformGroup.Children>
+													</TransformGroup>
+												</EllipseGeometry.Transform>
+											</EllipseGeometry>
+										</Path.Data>
+									</Path>
+									<Path Fill="#FF000000" Stroke="{x:Null}">
+										<Path.Data>
+											<EllipseGeometry RadiusX="24.3672727" RadiusY="24.3672727" Center="25,25">
+												<EllipseGeometry.Transform>
+													<TransformGroup>
+														<TransformGroup.Children>
+															<TranslateTransform X="1381" Y="1032" />
+														</TransformGroup.Children>
+													</TransformGroup>
+												</EllipseGeometry.Transform>
+											</EllipseGeometry>
+										</Path.Data>
+									</Path>
+								</Grid>
+							</StackPanel>
+						</Grid>
 						<TextBlock Margin="20,5,0,5"><InlineUIContainer>
 								<TextBlock Text="MessageBoxResult:"/>
 							</InlineUIContainer><Run Text=" "/><Run Text=" "/><Run Text=" "/><InlineUIContainer>

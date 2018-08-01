@@ -500,6 +500,16 @@ namespace CroplandWpf.Test
 
 		#endregion
 
+		#region Window with tool style
+		public DelegateCommand SummonToolWindowCommand
+		{
+			get { return (DelegateCommand)GetValue(SummonToolWindowCommandProperty); }
+			private set { SetValue(SummonToolWindowCommandProperty, value); }
+		}
+		public static readonly DependencyProperty SummonToolWindowCommandProperty =
+			DependencyProperty.Register("SummonToolWindowCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+
 		#region Commands
 		public DelegateCommand ShowAddNewFileInputDialogCommand
 		{
@@ -989,6 +999,21 @@ namespace CroplandWpf.Test
 			#region DateIntervalControl
 			SelectedDateInterval = new DateInterval(DateTime.Now.Date, DateTime.Now.Date.AddDays(1.0).AddSeconds(-1.0));
 			#endregion
+
+			#region Tool window style
+			SummonToolWindowCommand = new DelegateCommand(SummonToolWindowCommand_Execute);
+			#endregion
+		}
+
+		private void SummonToolWindowCommand_Execute(object obj)
+		{
+			Window window = new Window();
+			window.SetResourceReference(Window.StyleProperty, "styleToolWindow_Dark");
+			window.Owner = this;
+			window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+			window.Content = new TextBlock() { Text = "Tool window content" };
+			window.Title = "Some Tool Window";
+			window.ShowDialog();
 		}
 
 		#region Overrides

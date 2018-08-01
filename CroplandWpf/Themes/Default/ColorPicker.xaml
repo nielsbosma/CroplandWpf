@@ -5,8 +5,6 @@
 					xmlns:c="clr-namespace:CroplandWpf.Components"
                     xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit">
 
-
-
 	<Style x:Key="styleRepeatButton_Spinner_ColorPicker_Increase" TargetType="RepeatButton">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="MinWidth" Value="15"></Setter>
@@ -166,7 +164,7 @@
 						<Border Grid.ColumnSpan="2" x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}"></Border>
 						<ContentPresenter Grid.Column="0" x:Name="contentPresenter" Content="{TemplateBinding Content}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
 
-						<Grid Grid.Column="1" MinWidth="20" Background="Red">
+						<Grid Grid.Column="1" MinWidth="20">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="*"/>
 								<RowDefinition Height="*"/>
@@ -355,7 +353,7 @@
 									<RowDefinition Height="Auto"/>
 									<RowDefinition Height="Auto"/>
 								</Grid.RowDefinitions>
-								<Border BorderBrush="Yellow" BorderThickness="2" ClipToBounds="True">
+								<Border ClipToBounds="True" Padding="1">
 									<Border.Background>
 										<DrawingBrush TileMode="Tile" Viewport="0,0,10,10" ViewportUnits="Absolute">
 											<DrawingBrush.Drawing>
