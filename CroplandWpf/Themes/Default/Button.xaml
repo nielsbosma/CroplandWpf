@@ -640,7 +640,7 @@
 	<Style x:Key="styleButton_Light" TargetType="Button">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
-		<Setter Property="Foreground" Value="{DynamicResource brushButtonLight_Foreground}"></Setter>
+		<Setter Property="Foreground" Value="{DynamicResource brushButtonUtil_Foreground}"></Setter>
 		<Setter Property="FontSize" Value="10.5pt"></Setter>
 		<Setter Property="Padding" Value="13,10"></Setter>
 		<Setter Property="BorderBrush" Value="Transparent"></Setter>
