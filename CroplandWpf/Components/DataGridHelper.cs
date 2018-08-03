@@ -82,6 +82,17 @@ namespace CroplandWpf.Components
 		}
 		public static readonly DependencyProperty LastColumnFillProperty =
 			DependencyProperty.RegisterAttached("LastColumnFill", typeof(bool), typeof(DataGridHelper), new PropertyMetadata(false));
+
+		public static bool GetDenySelection(DependencyObject obj)
+		{
+			return (bool)obj.GetValue(DenySelectionProperty);
+		}
+		public static void SetDenySelection(DependencyObject obj, bool value)
+		{
+			obj.SetValue(DenySelectionProperty, value);
+		}
+		public static readonly DependencyProperty DenySelectionProperty =
+			DependencyProperty.RegisterAttached("DenySelection", typeof(bool), typeof(DataGridHelper), new PropertyMetadata());
 		#endregion
 
 		#region DPs
@@ -169,6 +180,76 @@ namespace CroplandWpf.Components
 			RemoveRowCommand = new DelegateCommand(RemoveRowCommand_Execute, RemoveRowCommand_CanExecute);
 			SetBinding(TargetDataGridProperty, new Binding { RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(DataGrid), 1) });
 			SetBinding(TargetDataGridRowProperty, new Binding { RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(DataGridRow), 1) });
+			SetBinding(DenySelectionProperty, new Binding { RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(DataGrid), 1), Path = new PropertyPath(DenySelectionProperty), Mode = BindingMode.OneWay});
+			Loaded += DataGridHelper_Loaded;
+			Unloaded += DataGridHelper_Unloaded;
+		}
+
+		#region Event hadlers
+		private void DataGridHelper_Loaded(object sender, RoutedEventArgs e)
+		{
+			if (TargetDataGridRow != null)
+				TargetDataGridRow.PreviewMouseDown += TargetDataGridRow_PreviewMouseDown;
+		}
+
+		private void DataGridHelper_Unloaded(object sender, RoutedEventArgs e)
+		{
+			if (TargetDataGridRow != null)
+				TargetDataGridRow.PreviewMouseDown -= TargetDataGridRow_PreviewMouseDown;
+		}
+
+		private void TargetDataGridRow_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (GetDenySelection(this))
+				e.Handled = true;
+		} 
+		#endregion
+
+		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+		{
+			base.OnPropertyChanged(e);
+			if(e.Property == DenySelectionProperty)
+			{
+				if ((bool)e.NewValue)
+				{
+					DisableSelection();
+				}
+				else
+					EnableSelection();
+			}
+			if (e.Property == TargetDataGridRowProperty && e.NewValue != null && GetDenySelection(this))
+			{
+				DisableSelection();
+			}
+		}
+
+		private void DisableSelection()
+		{
+			if (TargetDataGrid != null)
+			{
+				KeyboardNavigation.SetTabNavigation(TargetDataGrid, KeyboardNavigationMode.None);
+				TargetDataGrid.SelectedIndex = -1;
+				TargetDataGrid.Focusable = false;
+			}
+			if (TargetDataGridRow != null)
+			{
+				TargetDataGridRow.IsHitTestVisible = false;
+				TargetDataGridRow.Focusable = false;
+			}
+		}
+
+		private void EnableSelection()
+		{
+			if(TargetDataGrid != null)
+			{
+				TargetDataGrid.Focusable = true;
+				KeyboardNavigation.SetTabNavigation(TargetDataGrid, KeyboardNavigationMode.Continue);
+			}
+			if (TargetDataGridRow != null)
+			{
+				TargetDataGridRow.IsHitTestVisible = true;
+				TargetDataGridRow.Focusable = true;
+			}
 		}
 
 		#region Commanding

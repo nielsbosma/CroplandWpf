@@ -481,7 +481,7 @@
 
 					<StackPanel Grid.Column="1" Orientation="Vertical">
 						<TextBlock Margin="5" FontWeight="Bold"><Run Text="DataGrid"/></TextBlock>
-						<DataGrid Margin="5" x:Name="dataGrid" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False" c:DataGridHelper.MoveRowUpCommandOverride="{Binding PersonItemMoveUpCommand}" c:DataGridHelper.MoveRowDownCommandOverride="{Binding PersonItemMoveDownCommand}" c:DataGridHelper.RemoveRowCommandOverride="{Binding RemovePersonItemCommand}" c:DataGridHelper.ShowDefaultRemoveConfirmation="True" c:DataGridHelper.ShowRowControls="False" c:DataGridHelper.LastColumnFill="False">
+						<DataGrid Margin="5" x:Name="dataGrid" Height="200" ItemsSource="{Binding PersonsTestSource}" AutoGenerateColumns="False" c:DataGridHelper.MoveRowUpCommandOverride="{Binding PersonItemMoveUpCommand}" c:DataGridHelper.MoveRowDownCommandOverride="{Binding PersonItemMoveDownCommand}" c:DataGridHelper.RemoveRowCommandOverride="{Binding RemovePersonItemCommand}" c:DataGridHelper.ShowDefaultRemoveConfirmation="True" c:DataGridHelper.ShowRowControls="False" c:DataGridHelper.LastColumnFill="False" c:DataGridHelper.DenySelection="True">
 							<DataGrid.Columns>
 								<DataGridTextColumn Header="Person Name" Binding="{Binding Name, Mode=TwoWay}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}" EditingElementStyle="{DynamicResource styleTextBox_DataGridTextColumn}"/>
 								<DataGridTextColumn Header="Internal Number" IsReadOnly="True" Binding="{Binding InternalNumber}" ElementStyle="{DynamicResource styleTextBlock_DataGridTextColumn}"/>
@@ -490,8 +490,9 @@
 							</DataGrid.Columns>
 						</DataGrid>
 						<StackPanel Margin="20,5,5,5" Orientation="Horizontal">
-							<CheckBox IsChecked="{Binding (c:DataGridHelper.ShowRowControls), ElementName=dataGrid, Mode=TwoWay}" Content="ShowRowControls"/>
-							<CheckBox IsChecked="{Binding (c:DataGridHelper.LastColumnFill), ElementName=dataGrid, Mode=TwoWay}" Content="Last column fill"/>
+							<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.ShowRowControls), Mode=TwoWay}" Content="ShowRowControls"/>
+							<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.LastColumnFill), Mode=TwoWay}" Content="Last column fill"/>
+							<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.DenySelection), Mode=TwoWay}" Content="Deny selection"/>
 						</StackPanel>
 						<StackPanel Orientation="Vertical" VerticalAlignment="Top">
 							<TextBlock Margin="5" FontWeight="Bold"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>
@@ -546,7 +547,7 @@
 									</Path>
 									<Path Stretch="Uniform" Data="M30,18L29.3262032,32.4986523 24.6737968,32.4986523 24,18 30,18z M29.8716578,34.9299191L29.8716578,40 24.1604278,40 24.1604278,34.9299191 29.8716578,34.9299191z" Fill="#FF000000" Margin="16,20,16,12" />
 								</Grid>
-								
+
 								<Grid Width="54" Height="54">
 									<Path Fill="#FFd5283d">
 										<Path.Data>
@@ -675,8 +676,12 @@
 						<RowDefinition Height="Auto"/>
 						<RowDefinition/>
 					</Grid.RowDefinitions>
-					<Button Grid.Row="0" HorizontalAlignment="Left" Command="{Binding SelectCropImageSourceCommand}" Content="Open Image"/>
-					<c:ImageCropControl Grid.Row="1" x:Name="imageCropControl" MinHeight="500" MinWidth="500" SourceFileInfo="{Binding CropImageSourceFileInfo}" Margin="5"/>
+					<StackPanel Grid.Row="0" Orientation="Horizontal">
+						<Button HorizontalAlignment="Left" Command="{Binding SelectCropImageSourceCommand}" Content="Open Image"/>
+						<TextBlock VerticalAlignment="Center" Margin="20,5,5,5" Text="{Binding ElementName=imageCropControl, Path=OriginalImageSize, StringFormat='Original size: {0}'}"></TextBlock>
+						<TextBlock VerticalAlignment="Center" Margin="20,5,5,5" Text="{Binding CropResultRect, StringFormat='Crop result rect: {0}'}"></TextBlock>
+					</StackPanel>
+					<c:ImageCropControl Grid.Row="1" x:Name="imageCropControl" AutoCrop="False" MinHeight="500" MinWidth="500" SourceFileInfo="{Binding CropImageSourceFileInfo}" Margin="5" SubmitCropResultRectCommand="{Binding CropImageCommand}"/>
 				</Grid>
 			</TabItem>
 		</c:TabControlEx>

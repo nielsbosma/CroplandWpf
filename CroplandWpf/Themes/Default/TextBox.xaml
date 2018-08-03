@@ -18,6 +18,10 @@
 		<Setter Property="a:VisualHelper.HeaderVerticalAlignment" Value="Center"></Setter>
 		<Setter Property="a:VisualHelper.FooterVerticalAlignment" Value="Center"></Setter>
 		<Setter Property="a:VisualHelper.HeaderHorizontalAlignment" Value="Right"></Setter>
+		<!--Test-->
+		<!--<Setter Property="BorderBrush" Value="Black"></Setter>
+		<Setter Property="BorderThickness" Value="1"></Setter>-->
+		<!--/Test-->
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="TextBox">
@@ -25,9 +29,9 @@
 						<Border Grid.Column="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" MinHeight="{TemplateBinding MinHeight}" MinWidth="{TemplateBinding MinWidth}">
 							<Grid>
 								<Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
-								<!--<Border x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}"></Border>-->
+									<!--<Border x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}"></Border>-->
 								<ph:KeyboardFocusRedirectControl FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
-								<ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="15,0"></ScrollViewer>
+								<ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="10,0"></ScrollViewer>
 							</Grid>
 						</Border>
 					</c:HeaderFooterContentControl>
@@ -173,6 +177,10 @@
 		<Setter Property="MinWidth" Value="40"></Setter>
 		<Setter Property="Padding" Value="0"></Setter>
 		<Setter Property="Background" Value="#FFffffff"></Setter>
+		<!--Test-->
+		<!--<Setter Property="BorderBrush" Value="Black"></Setter>
+		<Setter Property="BorderThickness" Value="1"></Setter>-->
+		<!--/Test-->
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:CommandTextBox">
@@ -185,7 +193,7 @@
 							<Border Grid.ColumnSpan="2" x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
 							<Border Grid.ColumnSpan="2" x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}"></Border>
 							<ph:KeyboardFocusRedirectControl Grid.Column="0" FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
-							<ScrollViewer Grid.Column="0" x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="15,0"></ScrollViewer>
+							<ScrollViewer Grid.Column="0" x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="10,0"></ScrollViewer>
 							<Button Grid.Column="1" x:Name="PART_Button"></Button>
 						</Grid>
 					</Border>

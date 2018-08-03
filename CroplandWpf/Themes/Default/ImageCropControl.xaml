@@ -21,10 +21,7 @@
 				<ControlTemplate TargetType="c:ImageCropControl">
 					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3">
 						<Grid>
-							<Grid x:Name="PART_ImageHost" RenderTransformOrigin="0.5,0.5" Background="Yellow">
-								<!--<Grid.RenderTransform>
-										<ScaleTransform ScaleX="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageScaleFactor, Mode=OneWay}" ScaleY="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageScaleFactor, Mode=OneWay}"></ScaleTransform>
-									</Grid.RenderTransform>-->
+							<Grid x:Name="PART_ImageHost" RenderTransformOrigin="0.5,0.5" Background="{DynamicResource brushControl_Background_Light}">
 								<Image x:Name="PART_Image" Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisplayImageSource}" Stretch="Uniform"></Image>
 								<Rectangle x:Name="PART_CropOverlay" Fill="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropOverlayBrush}" IsHitTestVisible="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="{Binding ElementName=PART_Image, Path=ActualWidth}" Height="{Binding ElementName=PART_Image, Path=ActualHeight}" Clip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OverlayClip}"></Rectangle>
 								<c:ImageCropThumb DragActionCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DragActionCommand}"></c:ImageCropThumb>

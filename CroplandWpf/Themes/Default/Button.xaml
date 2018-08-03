@@ -390,7 +390,7 @@
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
 		<Setter Property="FontSize" Value="10.5pt"></Setter>
-		<Setter Property="Padding" Value="13,10"></Setter>
+		<Setter Property="Padding" Value="13,8"></Setter>
 		<Setter Property="BorderBrush" Value="Transparent"></Setter>
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Template">

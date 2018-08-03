@@ -443,6 +443,22 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty SelectCropImageSourceCommandProperty =
 			DependencyProperty.Register("SelectCropImageSourceCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand CropImageCommand
+		{
+			get { return (DelegateCommand)GetValue(CropImageCommandProperty); }
+			private set { SetValue(CropImageCommandProperty, value); }
+		}
+		public static readonly DependencyProperty CropImageCommandProperty =
+			DependencyProperty.Register("CropImageCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public Int32Rect CropResultRect
+		{
+			get { return (Int32Rect)GetValue(CropResultRectProperty); }
+			private set { SetValue(CropResultRectProperty, value); }
+		}
+		public static readonly DependencyProperty CropResultRectProperty =
+			DependencyProperty.Register("CropResultRect", typeof(Int32Rect), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
 		#region TimePicker
@@ -989,6 +1005,7 @@ namespace CroplandWpf.Test
 
 			#region ImageCropControl
 			SelectCropImageSourceCommand = new DelegateCommand(SelectCropImageSourceCommand_Execute);
+			CropImageCommand = new DelegateCommand(CropImageCommand_Execute);
 			#endregion
 
 			#region CommandListBox
@@ -1189,6 +1206,11 @@ namespace CroplandWpf.Test
 		private void SelectCropImageSourceCommand_Execute(object obj)
 		{
 			openImageForCropFileDialog.ShowDialog(this);
+		}
+
+		private void CropImageCommand_Execute(object obj)
+		{
+			CropResultRect = (Int32Rect)obj;
 		}
 		#endregion
 
