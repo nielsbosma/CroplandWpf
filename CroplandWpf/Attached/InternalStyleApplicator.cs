@@ -49,7 +49,6 @@ namespace CroplandWpf.Attached
 
 		private static void TargetStylesChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
 		{
-			ColorCanvas c;
 			if (!(e.NewValue is IEnumerable<InternalTargetStyle> styles))
 				return;
 

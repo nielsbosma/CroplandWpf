@@ -330,6 +330,8 @@ namespace CroplandWpf.Components
 				_editableTextBox.TextChanged += EditableTextBox_TextChanged;
 				_editableTextBox.PreviewKeyDown += EditableTextBox_PreviewKeyDown;
 				_editableTextBox.PreviewTextInput += EditableTextBox_PreviewTextInput;
+				if (AutoFocusOnLoad)
+					Keyboard.Focus(_editableTextBox);
 			}
 			AddHandler(SearchAutocmpleteItem.ClickedEvent, new RoutedEventHandler(OnSearchAutocompleteItemClicked));
 			AddHandler(SearchAutocmpleteItem.SelectedEvent, new RoutedEventHandler(OnSearchAutocompleteItemFocused));
@@ -366,10 +368,7 @@ namespace CroplandWpf.Components
 		private void WindowMouseDownHandler(object sender, RoutedEventArgs e)
 		{
 			if (!IsMouseOver && !_popup.IsMouseOver && _popup.IsOpen)
-			{
 				Unfocus(true);
-				Keyboard.ClearFocus();
-			}
 		}
 		#endregion
 

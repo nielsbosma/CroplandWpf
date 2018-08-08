@@ -183,9 +183,8 @@ namespace CroplandWpf.Components
 
 		private Run GenerateRun(string text, bool isHighlighted = false)
 		{
-			Run result = new Run();
-			result.Text = text;
-			if (isHighlighted)
+			Run result = new Run { Text = text };
+			if (!isHighlighted)
 				result.Foreground = HighlightBrush;
 			else
 				result.FontWeight = FontWeights.Bold;

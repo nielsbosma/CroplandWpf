@@ -148,6 +148,7 @@
 							</MultiTrigger.Conditions>
 							<MultiTrigger.Setters>
 								<Setter TargetName="gridScrollContentHost" Property="Margin" Value="4,4,14,4"></Setter>
+								<Setter TargetName="PART_VerticalScrollBar" Property="Margin" Value="4"></Setter>
 							</MultiTrigger.Setters>
 						</MultiTrigger>
 						<MultiTrigger>

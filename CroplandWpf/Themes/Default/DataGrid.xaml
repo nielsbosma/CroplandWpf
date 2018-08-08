@@ -59,12 +59,14 @@
 	</Style>
 
 	<Style x:Key="{x:Type DataGridCell}" TargetType="{x:Type DataGridCell}">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="BorderBrush" Value="Transparent"/>
 		<Setter Property="BorderThickness" Value="1"/>
 		<Setter Property="MinHeight" Value="30"></Setter>
 		<Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -75,13 +77,19 @@
 			</Setter.Value>
 		</Setter>
 		<Style.Triggers>
-			<Trigger Property="IsSelected" Value="True">
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="True"></Condition>
+					<Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=DataGrid}, Path=(c:DataGridHelper.DenySelection)}" Value="False"></Condition>
+				</MultiDataTrigger.Conditions>
 				<Setter Property="Background" Value="{DynamicResource brushListBoxItem_MouseOver_Background}"/>
 				<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"/>
+			</MultiDataTrigger>
+			<Trigger Property="IsSelected" Value="True">
 				<!--<Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>-->
 			</Trigger>
 			<Trigger Property="IsKeyboardFocusWithin" Value="True">
-				<Setter Property="BorderBrush" Value="{DynamicResource brushDataGrid_Border}"/>
+				<!--<Setter Property="BorderBrush" Value="{DynamicResource brushDataGrid_Border}"/>-->
 			</Trigger>
 			<!--<MultiTrigger>
 				<MultiTrigger.Conditions>
@@ -185,6 +193,7 @@
 	</Style>
 
 	<Style x:Key="{x:Type DataGridRow}" TargetType="{x:Type DataGridRow}">
+		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushDataGrid_Background	}"/>
 		<Setter Property="SnapsToDevicePixels" Value="true"/>
 		<Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
@@ -438,6 +447,8 @@
 
 	<Style x:Key="styleToggleButton_ComboBox_DataGridComboBoxColumn" TargetType="ToggleButton">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="Focusable" Value="False"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushToggleButton_ComboBox_DataGridComboBoxColumn_Background}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushToggleButton_ComboBox_DataGridComboBoxColumn_Arrow_Background}"></Setter>
 		<Setter Property="Template">
@@ -488,6 +499,7 @@
 
 	<Style x:Key="styleComboBox_DataGridComboBoxColumn" TargetType="ComboBox">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="MinHeight" Value="30"></Setter>
 		<Setter Property="MinWidth" Value="40"></Setter>
 		<Setter Property="Padding" Value="10,6,30,6"></Setter>

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CroplandWpf.Test"
 		xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers;assembly=CroplandWpf"
+		xmlns:h="clr-namespace:CroplandWpf.Helpers;assembly=CroplandWpf"
 		xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
 		xmlns:a="clr-namespace:CroplandWpf.Attached;assembly=CroplandWpf"
 		xmlns:c="clr-namespace:CroplandWpf.Components;assembly=CroplandWpf"
@@ -20,6 +21,7 @@
 		d:DesignWidth="1200"
 		d:DesignHeight="1480"
 		WindowStartupLocation="CenterScreen"
+		x:Name="windowMain"
 		a:VisualHelper.IconBrush="{DynamicResource brushAppIcon_FileStar}"
 		Style="{DynamicResource styleWindow_Light}">
 	<!--Style="{DynamicResource {x:Type Window}}"-->
@@ -276,6 +278,7 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<StackPanel Grid.Column="0">
+						<CheckBox IsChecked="{Binding ElementName=windowMain, Path=(h:WindowHelper.AllowResize), Mode=TwoWay}">Allow main window resize</CheckBox>
 						<TextBlock FontWeight="Bold" Margin="5"><Run Text="Button"/></TextBlock>
 						<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left" Content="NORMAL"/>
 						<StackPanel Orientation="Horizontal">
@@ -315,6 +318,7 @@
 						<StackPanel Orientation="Vertical">
 							<TextBlock Text="Tool Window" Margin="5"></TextBlock>
 							<Button HorizontalAlignment="Left" Margin="5" Command="{Binding SummonToolWindowCommand}">Summon sample tool window</Button>
+							<CheckBox IsChecked="{Binding AllowToolWindowResize, Mode=TwoWay}">Allow Resize</CheckBox>
 						</StackPanel>
 					</StackPanel>
 
@@ -492,7 +496,7 @@
 						<StackPanel Margin="20,5,5,5" Orientation="Horizontal">
 							<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.ShowRowControls), Mode=TwoWay}" Content="ShowRowControls"/>
 							<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.LastColumnFill), Mode=TwoWay}" Content="Last column fill"/>
-							<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.DenySelection), Mode=TwoWay}" Content="Deny selection"/>
+							<CheckBox IsChecked="{Binding ElementName=dataGrid, Path=(c:DataGridHelper.DenySelection), Mode=TwoWay}" Content="Deny row selection"/>
 						</StackPanel>
 						<StackPanel Orientation="Vertical" VerticalAlignment="Top">
 							<TextBlock Margin="5" FontWeight="Bold"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>

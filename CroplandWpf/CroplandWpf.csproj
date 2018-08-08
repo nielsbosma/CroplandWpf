@@ -114,6 +114,7 @@
     <Compile Include="Components\TextInputModifier.cs" />
     <Compile Include="Components\WindowControlButton.cs" />
     <Compile Include="Components\WindowControlThumb.cs" />
+    <Compile Include="Components\WindowResizer.cs" />
     <Compile Include="Converters\ColorToSolidColorBrushValueConverter.cs" />
     <Compile Include="Converters\EnumToValuesListConverter.cs" />
     <Compile Include="Exceptions\TemplatePartNotFoundException.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="PresentationHelpers\KeyboardFocusRedirectControl.cs" />
     <Compile Include="PresentationHelpers\ProgressBarAnimationHelper.cs" />
     <Compile Include="PresentationHelpers\SliderHelper.cs" />
+    <Compile Include="PresentationHelpers\TextHelper.cs" />
     <Compile Include="PresentationHelpers\VisibilityBridge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

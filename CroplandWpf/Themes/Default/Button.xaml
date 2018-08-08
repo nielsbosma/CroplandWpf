@@ -791,6 +791,8 @@
 		<Setter Property="Width" Value="18"></Setter>
 		<Setter Property="Height" Value="18"></Setter>
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+		<Setter Property="UseLayoutRounding" Value="False"></Setter>
+		<Setter Property="SnapsToDevicePixels" Value="False"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
@@ -800,9 +802,9 @@
 							<Grid.Effect>
 								<DropShadowEffect ShadowDepth="0" Color="#FF000000" Opacity="0.0"></DropShadowEffect>
 							</Grid.Effect>
-							<Ellipse Stroke="#FF1a6e41" StrokeThickness="1.5"></Ellipse>
+							<Ellipse Stroke="#FF26754a" StrokeThickness="1.5"></Ellipse>
 
-							<Path Data="F1M2,7C2,7 4,7 4,7 4,7 5,8 5,8 5,8 5,16 5,16 5,16 4,17 4,17 4,17 2,17 2,17 2,17 1,16 1,16 1,16 1,8 1,8 1,8 2,7 2,7z M2,1C2,1 4,1 4,1 4,1 5,2 5,2 5,2 5,4 5,4 5,4 4,5 4,5 4,5 2,5 2,5 2,5 1,4 1,4 1,4 1,2 1,2 1,2 2,1 2,1z" Stretch="Fill" Fill="#FF217347" Height="9.0" Width="2.2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,1"/>
+							<Path Data="F1M2,7C2,7 4,7 4,7 4,7 5,8 5,8 5,8 5,16 5,16 5,16 4,17 4,17 4,17 2,17 2,17 2,17 1,16 1,16 1,16 1,8 1,8 1,8 2,7 2,7z M2,1C2,1 4,1 4,1 4,1 5,2 5,2 5,2 5,4 5,4 5,4 4,5 4,5 4,5 2,5 2,5 2,5 1,4 1,4 1,4 1,2 1,2 1,2 2,1 2,1z" Stretch="Fill" Fill="#FF26754a" Height="10.0" Width="2.2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,1"/>
 						</Grid>
 					</Grid>
 					<ControlTemplate.Triggers>

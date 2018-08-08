@@ -524,6 +524,14 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty SummonToolWindowCommandProperty =
 			DependencyProperty.Register("SummonToolWindowCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
+		public bool AllowToolWindowResize
+		{
+			get { return (bool)GetValue(AllowToolWindowResizeProperty); }
+			set { SetValue(AllowToolWindowResizeProperty, value); }
+		}
+		public static readonly DependencyProperty AllowToolWindowResizeProperty =
+			DependencyProperty.Register("AllowToolWindowResize", typeof(bool), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
 		#region Commands
@@ -1028,8 +1036,9 @@ namespace CroplandWpf.Test
 			window.SetResourceReference(Window.StyleProperty, "styleToolWindow_Dark");
 			window.Owner = this;
 			window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-			window.Content = new TextBlock() { Text = "Tool window content" };
-			window.Title = "Some Tool Window";
+			window.Content = new Button() { Content = "Tool window content button" };
+			WindowHelper.SetAllowResize(window, AllowToolWindowResize);
+			window.Title = "SeoTools";
 			window.ShowDialog();
 		}
 

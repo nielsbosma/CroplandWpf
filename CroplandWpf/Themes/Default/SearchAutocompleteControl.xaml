@@ -69,6 +69,7 @@
 		<Setter Property="Opacity" Value="0.0"></Setter>
 		<Setter Property="Content" Value="[no matches found]"></Setter>
 		<Setter Property="Padding" Value="10,6"></Setter>
+		<Setter Property="Height" Value="25"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
@@ -130,7 +131,7 @@
 												<RowDefinition Height="*"></RowDefinition>
 												<RowDefinition Height="Auto"></RowDefinition>
 											</Grid.RowDefinitions>
-											<ScrollViewer Grid.Row="0" MinHeight="50" MaxHeight="250" Background="Transparent">
+											<ScrollViewer Grid.Row="0" x:Name="scrollViewer_ItemsHost" MaxHeight="250" Background="Transparent">
 												<ItemsPresenter></ItemsPresenter>
 											</ScrollViewer>
 											<Button Grid.Row="0" x:Name="PART_ButtonNoMatches" IsHitTestVisible="False" VerticalAlignment="Top" Style="{StaticResource styleButton_NoMatchesFound}" Command="{TemplateBinding PopupButtonCommandInternal}" CommandParameter="PART_ButtonNoMatches" Content="{TemplateBinding NoMatchesFoundButtonText}"></Button>
@@ -142,15 +143,18 @@
 						</Grid>
 					</Border>
 					<ControlTemplate.Triggers>
-						<Trigger Property="AutoFocusOnLoad" Value="True">
-							<Setter TargetName="PART_EditableTextBox" Property="FocusManager.FocusedElement" Value="{Binding RelativeSource={RelativeSource Self}}"></Setter>
-						</Trigger>
+						<!--<Trigger Property="AutoFocusOnLoad" Value="True">
+							<Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=PART_EditableTextBox}"></Setter>
+						</Trigger>-->
 						<Trigger Property="SeeAllOptionsCommand" Value="{x:Null}">
 							<Setter TargetName="PART_ButtonShowAllOptions" Property="Visibility" Value="Collapsed"></Setter>
 						</Trigger>
 						<Trigger SourceName="PART_Popup" Property="IsOpen" Value="True">
 							<Setter TargetName="borderBackground" Property="CornerRadius" Value="2,2,0,0"></Setter>
 						</Trigger>
+						<!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=ItemsSource.Count}" Value="1">
+							<Setter TargetName="scrollViewer_ItemsHost" Property="MinHeight" Value="0"></Setter>
+						</DataTrigger>-->
 						<Trigger Property="IsEnabled" Value="False">
 							<Trigger.EnterActions>
 								<BeginStoryboard>

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using System.Windows.Media;
 using WinInterop = System.Windows.Interop;
 
 namespace CroplandWpf.Helpers
@@ -33,6 +34,17 @@ namespace CroplandWpf.Helpers
 			DependencyProperty.RegisterAttached("AttachedHelper", typeof(WindowHelper), typeof(WindowHelper), new PropertyMetadata());
 
 		#region APs
+		public static bool GetAllowResize(DependencyObject obj)
+		{
+			return (bool)obj.GetValue(AllowResizeProperty);
+		}
+		public static void SetAllowResize(DependencyObject obj, bool value)
+		{
+			obj.SetValue(AllowResizeProperty, value);
+		}
+		public static readonly DependencyProperty AllowResizeProperty =
+			DependencyProperty.RegisterAttached("AllowResize", typeof(bool), typeof(WindowHelper), new PropertyMetadata(false));
+
 		public static bool GetMaximizeFixEnabled(DependencyObject obj)
 		{
 			return (bool)obj.GetValue(MaximizeFixEnabledProperty);
@@ -50,6 +62,28 @@ namespace CroplandWpf.Helpers
 					target.SourceInitialized += Target_SourceInitialized;
 				}
 			}));
+
+		public static System.IntPtr GetHwndPointer(DependencyObject obj)
+		{
+			return (System.IntPtr)obj.GetValue(HwndPointerProperty);
+		}
+		private static void SetHwndPointer(DependencyObject obj, System.IntPtr value)
+		{
+			obj.SetValue(HwndPointerProperty, value);
+		}
+		public static readonly DependencyProperty HwndPointerProperty =
+			DependencyProperty.RegisterAttached("HwndPointer", typeof(System.IntPtr), typeof(WindowHelper), new PropertyMetadata());
+
+		public static bool GetIsMaximizing(DependencyObject obj)
+		{
+			return (bool)obj.GetValue(IsMaximizingProperty);
+		}
+		public static void SetIsMaximizing(DependencyObject obj, bool value)
+		{
+			obj.SetValue(IsMaximizingProperty, value);
+		}
+		public static readonly DependencyProperty IsMaximizingProperty =
+			DependencyProperty.RegisterAttached("IsMaximizing", typeof(bool), typeof(WindowHelper), new PropertyMetadata());
 
 		public static Window GetActiveWindowInstance()
 		{
@@ -93,17 +127,18 @@ namespace CroplandWpf.Helpers
 				helper.UnregisterHandlerInternal(target, routedEvent);
 		}
 
-		#region Interop
-		[DllImport("user32.dll")]
-		static extern IntPtr GetActiveWindow();
-
 		private static void Target_SourceInitialized(object sender, EventArgs e)
 		{
 			Window target = sender as Window;
 			target.SourceInitialized -= Target_SourceInitialized;
 			System.IntPtr handle = new WinInterop.WindowInteropHelper(target).Handle;
 			WinInterop.HwndSource.FromHwnd(handle).AddHook(new WinInterop.HwndSourceHook(WindowProc));
+			SetHwndPointer(target, handle);
 		}
+
+		#region Interop
+		[DllImport("user32.dll")]
+		static extern IntPtr GetActiveWindow();
 
 		private static System.IntPtr WindowProc(System.IntPtr hwnd, int msg, System.IntPtr wParam, System.IntPtr lParam, ref bool handled)
 		{
@@ -182,6 +217,33 @@ namespace CroplandWpf.Helpers
 												  where reh.Event == e.RoutedEvent
 												  select reh)
 				eh.Handler.Invoke(sender, e);
+		}
+
+		[DllImport("user32.dll", CharSet = CharSet.Auto)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+		public static void ResizeWindow(Window target, double newLeft, double newTop, double newWidth, double newHeight)
+		{
+			PresentationSource source = PresentationSource.FromVisual(target);
+			Matrix transformToDevice = source.CompositionTarget.TransformToDevice;
+			Point[] p = new Point[] { new Point(newLeft, newTop), new Point(newWidth, newHeight) };
+			transformToDevice.Transform(p);
+			SetWindowPos(GetWindowPointer(target), IntPtr.Zero, Convert.ToInt32(p[0].X), Convert.ToInt32(p[0].Y), Convert.ToInt32(p[1].X), Convert.ToInt32(p[1].Y), 0x0040);
+		}
+
+		private static IntPtr GetWindowPointer(Window target)
+		{
+			IntPtr result = GetHwndPointer(target);
+			if (result != IntPtr.Zero)
+				return GetHwndPointer(target);
+			else
+			{
+				System.IntPtr handle = new WinInterop.WindowInteropHelper(target).Handle;
+				SetHwndPointer(target, handle);
+				result = GetHwndPointer(target);
+			}
+			return result;
 		}
 	}
 

@@ -23,7 +23,7 @@ namespace CroplandWpf.PresentationHelpers
 			get { return (IInputElement)GetValue(FocusTargetProperty); }
 			set { SetValue(FocusTargetProperty, value); }
 		}
-		public static readonly DependencyProperty FocusTargetProperty =
+	 	public static readonly DependencyProperty FocusTargetProperty =
 			DependencyProperty.Register("FocusTarget", typeof(IInputElement), typeof(KeyboardFocusRedirectControl), new PropertyMetadata());
 
 		public KeyboardFocusRedirectControl()
@@ -35,7 +35,7 @@ namespace CroplandWpf.PresentationHelpers
 		{
 			base.OnPreviewMouseLeftButtonDown(e);
 			if (IsMouseOver && FocusTarget != null && !FocusTarget.IsKeyboardFocused)
-				Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => FocusManager.SetFocusedElement(WindowHelper.GetActiveWindowInstance(), FocusTarget)));
+				Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => Keyboard.Focus(FocusTarget)));
 		}
 	}
 }

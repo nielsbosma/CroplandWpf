@@ -180,7 +180,7 @@ namespace CroplandWpf.Components
 			RemoveRowCommand = new DelegateCommand(RemoveRowCommand_Execute, RemoveRowCommand_CanExecute);
 			SetBinding(TargetDataGridProperty, new Binding { RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(DataGrid), 1) });
 			SetBinding(TargetDataGridRowProperty, new Binding { RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(DataGridRow), 1) });
-			SetBinding(DenySelectionProperty, new Binding { RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(DataGrid), 1), Path = new PropertyPath(DenySelectionProperty), Mode = BindingMode.OneWay});
+			SetBinding(DenySelectionProperty, new Binding { RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(DataGrid), 1), Path = new PropertyPath(DenySelectionProperty), Mode = BindingMode.OneWay });
 			Loaded += DataGridHelper_Loaded;
 			Unloaded += DataGridHelper_Unloaded;
 		}
@@ -200,20 +200,23 @@ namespace CroplandWpf.Components
 
 		private void TargetDataGridRow_PreviewMouseDown(object sender, MouseButtonEventArgs e)
 		{
+			return;
 			if (GetDenySelection(this))
-				e.Handled = true;
-		} 
+			{
+				if (Mouse.DirectlyOver == TargetDataGridRow)
+					e.Handled = true;
+			}
+		}
 		#endregion
 
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
 		{
 			base.OnPropertyChanged(e);
-			if(e.Property == DenySelectionProperty)
+			return;
+			if (e.Property == DenySelectionProperty)
 			{
 				if ((bool)e.NewValue)
-				{
 					DisableSelection();
-				}
 				else
 					EnableSelection();
 			}
@@ -228,26 +231,27 @@ namespace CroplandWpf.Components
 			if (TargetDataGrid != null)
 			{
 				KeyboardNavigation.SetTabNavigation(TargetDataGrid, KeyboardNavigationMode.None);
+				KeyboardNavigation.SetDirectionalNavigation(TargetDataGrid, KeyboardNavigationMode.None);
 				TargetDataGrid.SelectedIndex = -1;
 				TargetDataGrid.Focusable = false;
 			}
 			if (TargetDataGridRow != null)
 			{
-				TargetDataGridRow.IsHitTestVisible = false;
+				//TargetDataGridRow.IsHitTestVisible = false;
 				TargetDataGridRow.Focusable = false;
 			}
 		}
 
 		private void EnableSelection()
 		{
-			if(TargetDataGrid != null)
+			if (TargetDataGrid != null)
 			{
 				TargetDataGrid.Focusable = true;
 				KeyboardNavigation.SetTabNavigation(TargetDataGrid, KeyboardNavigationMode.Continue);
 			}
 			if (TargetDataGridRow != null)
 			{
-				TargetDataGridRow.IsHitTestVisible = true;
+				//TargetDataGridRow.IsHitTestVisible = true;
 				TargetDataGridRow.Focusable = true;
 			}
 		}
@@ -398,7 +402,7 @@ namespace CroplandWpf.Components
 				else
 					UnsubscribeColumnsChanged();
 			}
-			if(e.Property == IsEnabledProperty)
+			if (e.Property == IsEnabledProperty)
 			{
 				if ((bool)e.NewValue)
 					AcquireLastColumn();
@@ -418,7 +422,7 @@ namespace CroplandWpf.Components
 
 		private void UnsubscribeColumnsChanged()
 		{
-			if(columnsChangedSubscribed && TargetDataGrid != null)
+			if (columnsChangedSubscribed && TargetDataGrid != null)
 			{
 				TargetDataGrid.Columns.CollectionChanged -= Columns_CollectionChanged;
 				columnsChangedSubscribed = false;
@@ -427,7 +431,7 @@ namespace CroplandWpf.Components
 
 		private void RestoreLastColumn()
 		{
-			if(lastColumn != null)
+			if (lastColumn != null)
 			{
 				lastColumn.Width = lastColumnWidthBackup;
 				lastColumn = null;
@@ -439,7 +443,7 @@ namespace CroplandWpf.Components
 		{
 			if (!IsEnabled)
 				return;
-			if(lastColumn != null)
+			if (lastColumn != null)
 			{
 				RestoreLastColumn();
 				AcquireLastColumn();
