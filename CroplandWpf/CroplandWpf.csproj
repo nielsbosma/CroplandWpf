@@ -310,7 +310,7 @@
     <Compile Include="PresentationHelpers\KeyboardFocusRedirectControl.cs" />
     <Compile Include="PresentationHelpers\ProgressBarAnimationHelper.cs" />
     <Compile Include="PresentationHelpers\SliderHelper.cs" />
-    <Compile Include="PresentationHelpers\TextHelper.cs" />
+    <Compile Include="PresentationHelpers\ButtonHelper.cs" />
     <Compile Include="PresentationHelpers\VisibilityBridge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

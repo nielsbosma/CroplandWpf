@@ -2,6 +2,7 @@
 using CroplandWpf.Components;
 using CroplandWpf.Helpers;
 using CroplandWpf.MVVM;
+using CroplandWpf.PresentationHelpers;
 using Microsoft.Win32;
 using System;
 using System.Collections;
@@ -23,6 +24,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using tk = Xceed.Wpf.Toolkit;
 
 namespace CroplandWpf.Test
@@ -217,7 +219,7 @@ namespace CroplandWpf.Test
 			private set { SetValue(CommandListBoxCommandProperty, value); }
 		}
 		public static readonly DependencyProperty CommandListBoxCommandProperty =
-			DependencyProperty.Register("CommandListBoxCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata()); 
+			DependencyProperty.Register("CommandListBoxCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
 		#region Collections
@@ -317,7 +319,6 @@ namespace CroplandWpf.Test
 		#endregion
 
 		#region PasswordBox
-
 		public PasswordController UserPasswordController
 		{
 			get { return (PasswordController)GetValue(UserPasswordControllerProperty); }
@@ -399,6 +400,16 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty ShowTextInputDialogCommandProperty =
 			DependencyProperty.Register("ShowTextInputDialogCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+		#endregion
+
+		#region Buttons upper-case test
+		public string UpperCaseTestContent
+		{
+			get { return (string)GetValue(UpperCaseTestContentProperty); }
+			private set { SetValue(UpperCaseTestContentProperty, value); }
+		}
+		public static readonly DependencyProperty UpperCaseTestContentProperty =
+			DependencyProperty.Register("UpperCaseTestContent", typeof(string), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
 		#region ResizeControl
@@ -710,13 +721,13 @@ namespace CroplandWpf.Test
 		#endregion
 
 		#region Private fields/properties
-		private Random random = new Random(); 
+		private Random random = new Random();
 
 		private OpenFileDialog openImageForResizeFileDialog
 		{
 			get
 			{
-				if(_ofd_ImageForResize == null)
+				if (_ofd_ImageForResize == null)
 				{
 					_ofd_ImageForResize = new OpenFileDialog
 					{
@@ -1028,6 +1039,10 @@ namespace CroplandWpf.Test
 			#region Tool window style
 			SummonToolWindowCommand = new DelegateCommand(SummonToolWindowCommand_Execute);
 			#endregion
+
+			#region Button upper case content
+			UpperCaseTestContent = "Regular Case Content";
+			#endregion
 		}
 
 		private void SummonToolWindowCommand_Execute(object obj)
@@ -1046,6 +1061,25 @@ namespace CroplandWpf.Test
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
 		{
 			base.OnPropertyChanged(e);
+			if (e.Property == ButtonHelper.ConvertToUpperProperty)
+			{
+				if ((bool)e.NewValue)
+				{
+					RefreshUpperCaseTestContent();
+				}
+				else
+					UpperCaseTestContent = "Regular Case Content";
+			}
+		}
+
+		private async void RefreshUpperCaseTestContent()
+		{
+			Progress<string> newTestString = new Progress<string>((s) => UpperCaseTestContent = s);
+			await Dispatcher.BeginInvoke(new Action(() =>
+			{
+				Thread.Sleep(1000);
+				((IProgress<string>)newTestString).Report("DiFFerenT cAsE COnTenT");
+			}), DispatcherPriority.Background, null);
 		}
 		#endregion
 
@@ -1269,7 +1303,7 @@ namespace CroplandWpf.Test
 		#region ProgressBar
 		private async void StartProgressTestCommand_Execute(object obj)
 		{
-			var progress = new Progress<int>(value => ProgressBarValueTest = value);
+			Progress<int> progress = new Progress<int>(value => ProgressBarValueTest = value);
 			await Task.Run(() =>
 			{
 				Dispatcher.Invoke(() => { IsInProgress = true; CommandManager.InvalidateRequerySuggested(); }, System.Windows.Threading.DispatcherPriority.Background);

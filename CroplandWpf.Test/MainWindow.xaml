@@ -278,15 +278,17 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<StackPanel Grid.Column="0">
-						<CheckBox IsChecked="{Binding ElementName=windowMain, Path=(h:WindowHelper.AllowResize), Mode=TwoWay}">Allow main window resize</CheckBox>
+						<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(h:WindowHelper.AllowResize), Mode=TwoWay}">Allow main window resize</CheckBox>
+						<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(ph:ButtonHelper.ConvertToUpper), Mode=TwoWay}">All buttons content to uppercase</CheckBox>
+						<Button Margin="5" Content="{Binding UpperCaseTestContent}" HorizontalAlignment="Left"></Button>
 						<TextBlock FontWeight="Bold" Margin="5"><Run Text="Button"/></TextBlock>
-						<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left" Content="NORMAL"/>
+						<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left" Content="Normal"/>
 						<StackPanel Orientation="Horizontal">
-							<Button x:Name="buttonTest" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5" Content="DISABLED"/>
+							<Button x:Name="buttonTest" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5" Content="DisAbLEd"/>
 							<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonTest, Mode=TwoWay}" Content="IsEnabled"/>
 						</StackPanel>
 						<StackPanel Orientation="Horizontal">
-							<Button x:Name="buttonLight" Margin="5" Style="{DynamicResource styleButton_Light}" Content="ABORT"/>
+							<Button x:Name="buttonLight" Margin="5" Style="{DynamicResource styleButton_Light}" Content="Abort"/>
 							<CheckBox Margin="20,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonLight, Mode=TwoWay}" Content="IsEnabled"/>
 						</StackPanel>
 						<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left"/>
@@ -322,7 +324,8 @@
 						</StackPanel>
 					</StackPanel>
 
-					<StackPanel Grid.Column="1" Orientation="Vertical">
+					<StackPanel Grid.Column="1" x:Name="stackPanel_IgnoreUpperCaseButtons" Orientation="Vertical">
+						<CheckBox Margin="5" IsChecked="{Binding ElementName=stackPanel_IgnoreUpperCaseButtons, Path=(ph:ButtonHelper.IgnoreConvertToUpper), Mode=TwoWay}">Locally ignore uppercase modifier for buttons</CheckBox>
 						<Rectangle Fill="DarkGray" Height="1"/>
 						<CheckBox Margin="5" FontSize="9.5pt" Content="CheckBox"/>
 						<CheckBox Margin="5" IsEnabled="False" Content="CheckBox (disabled)"/>

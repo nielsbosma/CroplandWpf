@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:c="clr-namespace:CroplandWpf.Components"
-					xmlns:a="clr-namespace:CroplandWpf.Attached"
-                    xmlns:local="clr-namespace:CroplandWpf.Themes">
+					xmlns:c="clr-namespace:CroplandWpf.Components">
 
 	<Style x:Key="{x:Type Button}" TargetType="Button">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>

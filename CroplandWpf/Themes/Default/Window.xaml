@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:a="clr-namespace:CroplandWpf.Attached"
 					xmlns:c="clr-namespace:CroplandWpf.Components"
+					xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers"
 					xmlns:h="clr-namespace:CroplandWpf.Helpers">
 
 	<Style x:Key="styleThumb_Window_Resize" TargetType="c:WindowControlThumb">
@@ -252,6 +253,7 @@
 		<Setter Property="WindowStyle" Value="None"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="Padding" Value="5"></Setter>
+		<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Window">
@@ -322,6 +324,7 @@
 		<!--<Setter Property="a:VisualHelper.IconBrush" Value="{DynamicResource brushAppIcon_FileStar}"></Setter>-->
 		<Setter Property="MinWidth" Value="200"></Setter>
 		<Setter Property="MinHeight" Value="150"></Setter>
+		<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Window">
@@ -428,6 +431,7 @@
 		<Setter Property="UseLayoutRounding" Value="True"></Setter>
 		<Setter Property="SnapsToDevicePixels" Value="True"></Setter>
 		<Setter Property="h:WindowHelper.MaximizeFixEnabled" Value="True"></Setter>
+		<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Window">
