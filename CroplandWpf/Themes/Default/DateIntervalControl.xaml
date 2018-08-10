@@ -138,7 +138,7 @@
 						<Border Grid.ColumnSpan="2" x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="2"></Border>
 						<Border Grid.ColumnSpan="2" x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}" CornerRadius="2"></Border>
 						<Border CornerRadius="2" Background="{TemplateBinding Background}"></Border>
-						<ToggleButton Grid.Column="0" Grid.ColumnSpan="2" Padding="11" Style="{StaticResource styleToggleButton_DateIntervalControl}" IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsPopupVisible, Mode=TwoWay}" Content="{TemplateBinding DisplayString}" />
+						<ToggleButton Grid.Column="0" Grid.ColumnSpan="2" Padding="11" Style="{StaticResource styleToggleButton_DateIntervalControl}" IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsPopupVisible, Mode=TwoWay}" Content="{TemplateBinding InitialIntervalString}" />
 						<Popup x:Name="PART_Popup" AllowsTransparency="True" HorizontalOffset="-5" VerticalOffset="-2">
 							<Grid Background="Transparent">
 								<Border Margin="5,2,8,10" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_DateIntervalPopup}" CornerRadius="0,0,2,2">
@@ -170,7 +170,7 @@
 												<ColumnDefinition Width="*"></ColumnDefinition>
 												<ColumnDefinition Width="Auto"></ColumnDefinition>
 											</Grid.ColumnDefinitions>
-											<TextBlock Grid.Column="0" Margin="15,5,10,5" Opacity="0.6" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{TemplateBinding InitialIntervalString}"></TextBlock>
+											<TextBlock Grid.Column="0" Margin="15,5,10,5" Opacity="0.6" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{TemplateBinding DisplayString}"></TextBlock>
 											<StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,10,10,10" HorizontalAlignment="Right" VerticalAlignment="Center">
 												<Button Command="{TemplateBinding AbortCommand}" Style="{DynamicResource styleButton_InputDialog_Control_NegativeAction}" VerticalAlignment="Center" Margin="0">Abort</Button>
 												<Button Command="{TemplateBinding UpdateCommand}" Margin="20,0,0,0" VerticalAlignment="Center" Padding="13,6">Update</Button>
