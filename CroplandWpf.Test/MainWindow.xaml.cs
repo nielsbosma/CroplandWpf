@@ -463,13 +463,13 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty CropImageCommandProperty =
 			DependencyProperty.Register("CropImageCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 
-		public Int32Rect CropResultRect
+		public ImageCropRect CropResultRect
 		{
-			get { return (Int32Rect)GetValue(CropResultRectProperty); }
+			get { return (ImageCropRect)GetValue(CropResultRectProperty); }
 			private set { SetValue(CropResultRectProperty, value); }
 		}
 		public static readonly DependencyProperty CropResultRectProperty =
-			DependencyProperty.Register("CropResultRect", typeof(Int32Rect), typeof(MainWindow), new PropertyMetadata());
+			DependencyProperty.Register("CropResultRect", typeof(ImageCropRect), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
 		#region TimePicker
@@ -524,7 +524,6 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty MarginValueProperty =
 			DependencyProperty.Register("MarginValue", typeof(Thickness), typeof(MainWindow), new PropertyMetadata());
-
 		#endregion
 
 		#region Window with tool style
@@ -1253,7 +1252,7 @@ namespace CroplandWpf.Test
 
 		private void CropImageCommand_Execute(object obj)
 		{
-			CropResultRect = (Int32Rect)obj;
+			CropResultRect = (ImageCropRect)obj;
 		}
 		#endregion
 

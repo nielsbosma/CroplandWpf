@@ -93,10 +93,12 @@
     <Compile Include="Components\ClippingBorder.cs" />
     <Compile Include="Components\CommandListBox.cs" />
     <Compile Include="Components\CommandTextBox.cs" />
+    <Compile Include="Components\ControlResizeThumb.cs" />
     <Compile Include="Components\DataGridHelper.cs" />
     <Compile Include="Components\DateInervalControl.cs" />
     <Compile Include="Components\HeaderFooterContentControl.cs" />
     <Compile Include="Components\ImageCropControl.cs" />
+    <Compile Include="Components\ImageResizeWrapper.cs" />
     <Compile Include="Components\InputDialog.cs" />
     <Compile Include="Components\ModifiedInputTextBox.cs" />
     <Compile Include="Components\Overlay.cs" />

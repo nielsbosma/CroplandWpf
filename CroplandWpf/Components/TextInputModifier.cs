@@ -32,6 +32,11 @@ namespace CroplandWpf.Components
 			args.Handled = true;
 			return null;
 		}
+
+		protected virtual bool IsAllowedChar(char c)
+		{
+			return true;
+		}
 	}
 
 	public class DoubleTextModifier : TextInputModifierBase
@@ -99,7 +104,7 @@ namespace CroplandWpf.Components
 			return base.AcceptKeyDown(args);
 		}
 
-		protected virtual bool IsAllowedChar(char c)
+		protected override bool IsAllowedChar(char c)
 		{
 			return char.IsDigit(c) || c.ToString() == negativeSign || IsSeparator(c);
 		}
@@ -132,19 +137,6 @@ namespace CroplandWpf.Components
 				char inputChar = inputText[0];
 				if (!IsAllowedChar(inputChar))
 					return NullArgs(args);
-				//if (IsSeparator(args.Text))
-				//{
-				//	if (target.Text.Contains(decimalSeparator))
-				//	{
-				//		int separatorIndex = target.Text.IndexOf(decimalSeparator);
-				//		target.Text = target.Text.Remove(separatorIndex, 1);
-				//		if (caretIndex <= separatorIndex)
-				//			target.CaretIndex = caretIndex;
-				//		else
-				//			target.CaretIndex = caretIndex - 1;
-				//	}
-				//	return args;
-				//}
 
 				if (args.Text.Equals(negativeSign))
 				{
@@ -165,6 +157,37 @@ namespace CroplandWpf.Components
 		protected override bool IsAllowedChar(char c)
 		{
 			return char.IsDigit(c);
+		}
+	}
+
+	public class IntegerSizeValueInputModifier : TextInputModifierBase
+	{
+		public IntegerSizeValueInputModifier()
+		{
+		}
+
+		public override TextCompositionEventArgs AcceptText(TextCompositionEventArgs args)
+		{
+			TextBox target = args.OriginalSource as TextBox;
+			int caretIndex = target.CaretIndex;
+			if (args.Text != null && args.Text.Length > 0)
+			{
+				string inputText = args.Text;
+				char inputChar = inputText[0];
+				if (!IsAllowedChar(inputChar))
+					return NullArgs(args);
+			}
+			return base.AcceptText(args);
+		}
+
+		public override void AcceptPaste(DataObjectPastingEventArgs args)
+		{
+			args.CancelCommand();
+		}
+
+		protected override bool IsAllowedChar(char c)
+		{
+			return Char.IsDigit(c);
 		}
 	}
 }

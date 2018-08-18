@@ -278,6 +278,24 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<StackPanel Grid.Column="0">
+						<Grid Width="100" Height="100" Background="{DynamicResource brushImageCropControl_Background}">
+							<Grid Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Top">
+								<Rectangle Fill="Black" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="2"></Rectangle>
+								<Rectangle Fill="Black" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="2"></Rectangle>
+							</Grid>
+							<Grid Width="10" Height="10" HorizontalAlignment="Right" VerticalAlignment="Top">
+								<Rectangle Fill="Black" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="2"></Rectangle>
+								<Rectangle Fill="Black" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="2"></Rectangle>
+							</Grid>
+							<Grid Width="10" Height="10" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+								<Rectangle Fill="Black" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="2"></Rectangle>
+								<Rectangle Fill="Black" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="2"></Rectangle>
+							</Grid>
+							<Grid Width="10" Height="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+								<Rectangle Fill="Black" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="2"></Rectangle>
+								<Rectangle Fill="Black" VerticalAlignment="Stretch" HorizontalAlignment="Right" Width="2"></Rectangle>
+							</Grid>
+						</Grid>
 						<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(h:WindowHelper.AllowResize), Mode=TwoWay}">Allow main window resize</CheckBox>
 						<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(ph:ButtonHelper.ConvertToUpper), Mode=TwoWay}">All buttons content to uppercase</CheckBox>
 						<Button Margin="5" Content="{Binding UpperCaseTestContent}" HorizontalAlignment="Left"></Button>
@@ -661,7 +679,10 @@
 			</TabItem>
 
 			<TabItem Header="ImageCropControl">
-				<Grid>
+				<Grid >
+					<Grid.Resources>
+						
+					</Grid.Resources>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition/>

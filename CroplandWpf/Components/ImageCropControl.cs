@@ -1,15 +1,13 @@
 ﻿using CroplandWpf.Exceptions;
+using CroplandWpf.Helpers;
 using CroplandWpf.MVVM;
 using CroplandWpf.PresentationHelpers;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -67,22 +65,6 @@ namespace CroplandWpf.Components
 		}
 		public static readonly DependencyProperty ImageStretchProperty =
 			DependencyProperty.Register("ImageStretch", typeof(Stretch), typeof(ImageCropControl), new PropertyMetadata(Stretch.None));
-
-		public ICommand SubmitCropResultRectCommand
-		{
-			get { return (ICommand)GetValue(SubmitCropResultRectCommandProperty); }
-			set { SetValue(SubmitCropResultRectCommandProperty, value); }
-		}
-		public static readonly DependencyProperty SubmitCropResultRectCommandProperty =
-			DependencyProperty.Register("SubmitCropResultRectCommand", typeof(ICommand), typeof(ImageCropControl), new PropertyMetadata());
-
-		public DelegateCommand DragActionCommand
-		{
-			get { return (DelegateCommand)GetValue(DragActionCommandProperty); }
-			private set { SetValue(DragActionCommandProperty, value); }
-		}
-		public static readonly DependencyProperty DragActionCommandProperty =
-			DependencyProperty.Register("DragActionCommand", typeof(DelegateCommand), typeof(ImageCropControl), new PropertyMetadata());
 
 		public double AverageBrightness
 		{
@@ -148,35 +130,147 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty OverlayClipProperty =
 			DependencyProperty.Register("OverlayClip", typeof(Geometry), typeof(ImageCropControl), new PropertyMetadata());
 
+		public ImageBrush ImageBrush
+		{
+			get { return (ImageBrush)GetValue(ImageBrushProperty); }
+			set { SetValue(ImageBrushProperty, value); }
+		}
+		public static readonly DependencyProperty ImageBrushProperty =
+			DependencyProperty.Register("ImageBrush", typeof(ImageBrush), typeof(ImageCropControl), new PropertyMetadata());
+
 		public double ImageScaleFactor
 		{
 			get { return (double)GetValue(ImageScaleFactorProperty); }
 			set { SetValue(ImageScaleFactorProperty, value); }
 		}
 		public static readonly DependencyProperty ImageScaleFactorProperty =
-			DependencyProperty.Register("ImageScaleFactor", typeof(double), typeof(ImageResizeControl), new PropertyMetadata(1.0));
+			DependencyProperty.Register("ImageScaleFactor", typeof(double), typeof(ImageCropControl), new PropertyMetadata(1.0, null, CoerceImageScaleFactor));
 
-		public Int32Rect CropResultRect
+		private static object CoerceImageScaleFactor(DependencyObject o, object value)
 		{
-			get { return (Int32Rect)GetValue(CropResultRectProperty); }
+			if (value is double dValue)
+			{
+				if (dValue < 0.05)
+					dValue = 0.05;
+				else if (dValue > 5.0)
+					dValue = 5.0;
+				return dValue;
+			}
+			return value;
+		}
+
+		public ImageCropRect CropResultRect
+		{
+			get { return (ImageCropRect)GetValue(CropResultRectProperty); }
 			private set { SetValue(CropResultRectProperty, value); }
 		}
 		public static readonly DependencyProperty CropResultRectProperty =
-			DependencyProperty.Register("CropResultRect", typeof(Int32Rect), typeof(ImageResizeControl), new PropertyMetadata());
+			DependencyProperty.Register("CropResultRect", typeof(ImageCropRect), typeof(ImageCropControl), new PropertyMetadata());
 
-		public string DebugString
+		public int CropX
 		{
-			get { return (string)GetValue(DebugStringProperty); }
-			set { SetValue(DebugStringProperty, value); }
+			get { return (int)GetValue(CropXProperty); }
+			set { SetValue(CropXProperty, value); }
 		}
-		public static readonly DependencyProperty DebugStringProperty =
-			DependencyProperty.Register("DebugString", typeof(string), typeof(ImageResizeControl), new PropertyMetadata());
+		public static readonly DependencyProperty CropXProperty =
+			DependencyProperty.Register("CropX", typeof(int), typeof(ImageCropControl), new PropertyMetadata());
+
+		public int CropY
+		{
+			get { return (int)GetValue(CropYProperty); }
+			set { SetValue(CropYProperty, value); }
+		}
+		public static readonly DependencyProperty CropYProperty =
+			DependencyProperty.Register("CropY", typeof(int), typeof(ImageCropControl), new PropertyMetadata());
+
+		public int CropWidth
+		{
+			get { return (int)GetValue(CropWidthProperty); }
+			set { SetValue(CropWidthProperty, value); }
+		}
+		public static readonly DependencyProperty CropWidthProperty =
+			DependencyProperty.Register("CropWidth", typeof(int), typeof(ImageCropControl), new PropertyMetadata(1, null, CoerceImageDimension));
+
+		public int CropHeight
+		{
+			get { return (int)GetValue(CropHeightProperty); }
+			set { SetValue(CropHeightProperty, value); }
+		}
+		public static readonly DependencyProperty CropHeightProperty =
+			DependencyProperty.Register("CropHeight", typeof(int), typeof(ImageCropControl), new PropertyMetadata(1, null, CoerceImageDimension));
+
+		private static object CoerceImageDimension(DependencyObject o, object value)
+		{
+			if(value is int dValue)
+			{
+				if (dValue <= 0)
+					return 1;
+			}
+			return value;
+		}
+
+		public Visibility ResizeWrapperVisibility
+		{
+			get { return (Visibility)GetValue(ResizeWrapperVisibilityProperty); }
+			private set { SetValue(ResizeWrapperVisibilityProperty, value); }
+		}
+		public static readonly DependencyProperty ResizeWrapperVisibilityProperty =
+			DependencyProperty.Register("ResizeWrapperVisibility", typeof(Visibility), typeof(ImageCropControl), new PropertyMetadata(Visibility.Collapsed));
+
+		public double ResizeThumbScaleFactor
+		{
+			get { return (double)GetValue(ResizeThumbScaleFactorProperty); }
+			private set { SetValue(ResizeThumbScaleFactorProperty, value); }
+		}
+		public static readonly DependencyProperty ResizeThumbScaleFactorProperty =
+			DependencyProperty.Register("ResizeThumbScaleFactor", typeof(double), typeof(ImageCropControl), new PropertyMetadata(1.0));
+
+		#region Commands
+		public DelegateCommand ResizeThumbDragCommand
+		{
+			get { return (DelegateCommand)GetValue(ResizeThumbDragCommandProperty); }
+			private set { SetValue(ResizeThumbDragCommandProperty, value); }
+		}
+		public static readonly DependencyProperty ResizeThumbDragCommandProperty =
+			DependencyProperty.Register("ResizeThumbDragCommand", typeof(DelegateCommand), typeof(ImageCropControl), new PropertyMetadata());
+		public ICommand SubmitCropResultRectCommand
+		{
+			get { return (ICommand)GetValue(SubmitCropResultRectCommandProperty); }
+			set { SetValue(SubmitCropResultRectCommandProperty, value); }
+		}
+		public static readonly DependencyProperty SubmitCropResultRectCommandProperty =
+			DependencyProperty.Register("SubmitCropResultRectCommand", typeof(ICommand), typeof(ImageCropControl), new PropertyMetadata());
+
+		public DelegateCommand ApplyCommandInternal
+		{
+			get { return (DelegateCommand)GetValue(ApplyCommandInternalProperty); }
+			private set { SetValue(ApplyCommandInternalProperty, value); }
+		}
+		public static readonly DependencyProperty ApplyCommandInternalProperty =
+			DependencyProperty.Register("ApplyCommandInternal", typeof(DelegateCommand), typeof(ImageCropControl), new PropertyMetadata());
+
+		public DelegateCommand DragActionCommand
+		{
+			get { return (DelegateCommand)GetValue(DragActionCommandProperty); }
+			private set { SetValue(DragActionCommandProperty, value); }
+		}
+		public static readonly DependencyProperty DragActionCommandProperty =
+			DependencyProperty.Register("DragActionCommand", typeof(DelegateCommand), typeof(ImageCropControl), new PropertyMetadata());
+
+		public DelegateCommand CropValueUpdatedCommand
+		{
+			get { return (DelegateCommand)GetValue(CropValueUpdatedCommandProperty); }
+			private set { SetValue(CropValueUpdatedCommandProperty, value); }
+		}
+		public static readonly DependencyProperty CropValueUpdatedCommandProperty =
+			DependencyProperty.Register("CropValueUpdatedCommand", typeof(DelegateCommand), typeof(ImageCropControl), new PropertyMetadata());
+		#endregion
 		#endregion
 
 		#region Fields
 		private Rectangle cropOverlay;
 
-		private Image image;
+		private Canvas imageCanvas;
 
 		private CombinedGeometry overlayClipGeometry;
 
@@ -188,7 +282,11 @@ namespace CroplandWpf.Components
 
 		private RectangleGeometry clipGeometry2;
 
-		TextBlock tb;
+		private bool refreshCropElementsPosition;
+
+		private ScrollViewer imageScrollViewer;
+
+		private ImageCropRect lastSubmittedRect = default(ImageCropRect);
 		#endregion
 
 		#region Ctor/init
@@ -201,6 +299,7 @@ namespace CroplandWpf.Components
 		{
 			ImageStretch = Stretch.Uniform;
 			DragActionCommand = new DelegateCommand(DragActionCommand_Execute);
+			ApplyCommandInternal = new DelegateCommand(ApplyCommandInternal_Execute, ApplyCommandInternal_CanExecute);
 			overlayClipGeometry = new CombinedGeometry();
 			overlayClipGeometry.GeometryCombineMode = GeometryCombineMode.Exclude;
 			OverlayClip = overlayClipGeometry;
@@ -209,6 +308,21 @@ namespace CroplandWpf.Components
 			clipGeometry2 = new RectangleGeometry();
 			overlayClipGeometry.Geometry1 = clipGeometry1;
 			overlayClipGeometry.Geometry2 = clipGeometry2;
+			ResizeWrapperVisibility = Visibility.Collapsed;
+			ResizeThumbDragCommand = new DelegateCommand(ResizeThumbDragCommand_Execute);
+			Loaded += ImageCropControl_Loaded;
+			Unloaded += ImageCropControl_Unloaded;
+			CropValueUpdatedCommand = new DelegateCommand(CropValueUpdatedCommand_Execute);
+		}
+
+		private void ImageCropControl_Loaded(object sender, RoutedEventArgs e)
+		{
+			WindowHelper.RegisterHandler(this, Window.PreviewMouseWheelEvent, OnMouseWheel);
+		}
+
+		private void ImageCropControl_Unloaded(object sender, RoutedEventArgs e)
+		{
+			WindowHelper.UnregisterHandler(this, Window.PreviewMouseWheelEvent);
 		}
 
 		public override void OnApplyTemplate()
@@ -220,16 +334,20 @@ namespace CroplandWpf.Components
 				throw new TemplatePartNotFoundException("PART_CropOverlay", GetType());
 			cropOverlay.Visibility = Visibility.Collapsed;
 
-			image = Template.FindName("PART_Image", this) as Image;
-			if (image == null)
-				throw new TemplatePartNotFoundException("PART_Image", GetType());
-
 			imageHost = Template.FindName("PART_ImageHost", this) as Grid;
 			if (imageHost == null)
 				throw new TemplatePartNotFoundException("PART_ImageHost", GetType());
-			imageHost.RenderTransform = imageHostScaleTransform;
+			imageHost.LayoutTransform = imageHostScaleTransform;
+			BindingOperations.SetBinding(imageHostScaleTransform, ScaleTransform.ScaleXProperty, new Binding { Source = this, Path = new PropertyPath(ImageScaleFactorProperty), Mode = BindingMode.OneWay });
+			BindingOperations.SetBinding(imageHostScaleTransform, ScaleTransform.ScaleYProperty, new Binding { Source = this, Path = new PropertyPath(ImageScaleFactorProperty), Mode = BindingMode.OneWay });
 
-			tb = Template.FindName("tb", this) as TextBlock;
+			imageCanvas = Template.FindName("PART_ImageCanvas", this) as Canvas;
+			if (imageCanvas == null)
+				throw new TemplatePartNotFoundException("PART_ImageCanvas", GetType());
+
+			imageScrollViewer = Template.FindName("PART_ScrollViewer", this) as ScrollViewer;
+			if (imageScrollViewer == null)
+				throw new TemplatePartNotFoundException("PART_ScrollViewer", GetType());
 		}
 		#endregion
 
@@ -238,26 +356,41 @@ namespace CroplandWpf.Components
 			base.OnPropertyChanged(e);
 			if (e.Property == SourceFileInfoProperty)
 			{
-				if (e.NewValue == null)
-					Clear();
-				else
+				Clear();
+				if (e.NewValue != null)
 					LoadImageSource();
 			}
 			if (e.Property == ImageSourceProperty)
 			{
-				DisplayImageSource = GenerateDisplaySource(e.NewValue as BitmapSource);
-				OriginalImageSize = GetImageSize(e.NewValue as BitmapSource);
+				if (e.NewValue == null)
+					Clear();
+				else
+				{
+					DisplayImageSource = GenerateDisplaySource(e.NewValue as BitmapSource);
+					OriginalImageSize = GetImageSize(e.NewValue as BitmapSource);
+					ImageBrush = new ImageBrush(ImageSource) { AlignmentX = AlignmentX.Left, AlignmentY = AlignmentY.Top, Stretch = Stretch.Fill };
+					imageCanvas.Width = ImageSource.PixelWidth;
+					imageCanvas.Height = ImageSource.PixelHeight;
+				}
 			}
-			if (e.Property == ActualWidthProperty)
-				OverlayWidth = ActualWidth / 2.0;
-			if (e.Property == ActualHeightProperty)
-				OverlayHeight = ActualHeight / 2.0;
-			if (e.Property == DragCompletedPointProperty)
-				DragStartPoint = DragCompletedPoint;
 			if (e.Property == DragStartPointProperty || e.Property == CurrentDragPointProperty || e.Property == DragCompletedPointProperty)
-				RefreshOverlayClip();
+				InitialRefreshOverlayClip();
 			if (e.Property == DragCompletedPointProperty || e.Property == DragStartPointProperty)
 				cropOverlay.Visibility = DragStartPoint == DragCompletedPoint ? Visibility.Collapsed : Visibility.Visible;
+			if (e.Property == CropResultRectProperty && refreshCropElementsPosition)
+			{
+				CropX = CropResultRect.X;
+				CropY = CropResultRect.Y;
+				CropWidth = CropResultRect.Width;
+				CropHeight = CropResultRect.Height;
+				clipGeometry2.Rect = CropResultRect.ToRect();
+			}
+			if (e.Property == ImageScaleFactorProperty)
+				ResizeThumbScaleFactor = 1.0 / ImageScaleFactor;
+			//if ((e.Property == CropXProperty || e.Property == CropYProperty || e.Property == CropWidthProperty || e.Property == CropHeightProperty) && refreshCropElementsPosition)
+			//{
+			//	CropResultRect = new ImageCropRect(CropX, CropY, CropWidth, CropHeight);
+			//}
 		}
 
 		private Size GetImageSize(BitmapSource source)
@@ -268,11 +401,62 @@ namespace CroplandWpf.Components
 				return new Size(source.PixelWidth, source.PixelHeight);
 		}
 
-		private void RefreshOverlayClip()
+		private void ResizeThumbDragCommand_Execute(object obj)
+		{
+			ImageResizeThumbDragDelta deltaInfo = (ImageResizeThumbDragDelta)obj;
+			refreshCropElementsPosition = true;
+			//TODO --validation
+			double hDelta = deltaInfo.hChange, vDelta = deltaInfo.vChange;
+
+			switch (deltaInfo.Role)
+			{
+				case ResizeThumbRole.Move:
+					CropResultRect = CropResultRect.AddX(hDelta).AddY(vDelta);
+					break;
+
+				case ResizeThumbRole.ResizeLeftTop:
+					CropResultRect = CropResultRect.AddX(hDelta).AddY(vDelta).AddWidth(-hDelta).AddHeight(-vDelta);
+					break;
+
+				case ResizeThumbRole.ResizeTop:
+					CropResultRect = CropResultRect.AddY(vDelta).AddHeight(-vDelta);
+					break;
+
+				case ResizeThumbRole.ResizeRightTop:
+					CropResultRect = CropResultRect.AddY(vDelta).AddHeight(-vDelta).AddWidth(hDelta);
+					break;
+
+				case ResizeThumbRole.ResizeLeft:
+					CropResultRect = CropResultRect.AddX(hDelta).AddWidth(-hDelta);
+					break;
+
+				case ResizeThumbRole.ResizeRight:
+					CropResultRect = CropResultRect.AddWidth(hDelta);
+					break;
+
+				case ResizeThumbRole.ResizeLeftBottom:
+					CropResultRect = CropResultRect.AddX(hDelta).AddWidth(-hDelta).AddHeight(vDelta);
+					break;
+
+				case ResizeThumbRole.ResizeBottom:
+					CropResultRect = CropResultRect.AddHeight(vDelta);
+					break;
+
+				case ResizeThumbRole.ResizeRightBottom:
+					CropResultRect = CropResultRect.AddWidth(hDelta).AddHeight(vDelta);
+					break;
+
+				default:
+					break;
+			}
+			refreshCropElementsPosition = false;
+		}
+
+		private void InitialRefreshOverlayClip()
 		{
 			if (DragStartPoint == CurrentDragPoint)
 				return;
-			clipGeometry1.Rect = new Rect(0, 0, image.ActualWidth, image.ActualHeight);
+			clipGeometry1.Rect = new Rect(0, 0, imageCanvas.ActualWidth, imageCanvas.ActualHeight);
 			double x1 = Math.Min(DragStartPoint.X, CurrentDragPoint.X);
 			double x2 = Math.Max(DragStartPoint.X, CurrentDragPoint.X);
 			double y1 = Math.Min(DragStartPoint.Y, CurrentDragPoint.Y);
@@ -293,13 +477,96 @@ namespace CroplandWpf.Components
 			float colorValue = AverageBrightness > 0.5 ? 0.0f : 1.0f;
 			overlayColor = Color.FromScRgb(overlayAlpha, colorValue, colorValue, colorValue);
 			CropOverlayBrush = new SolidColorBrush(overlayColor);
-			ImageScaleFactor = Math.Min(ActualHeight / source.Height, ActualWidth / source.Width);
+			imageCanvas.Width = ImageSource.PixelWidth;
+			imageCanvas.Height = ImageSource.PixelHeight;
+			if (imageScrollViewer.ViewportHeight < imageCanvas.Height || imageScrollViewer.ViewportWidth < imageCanvas.Width)
+			{
+				double
+					sourceWidth = imageCanvas.Width,
+					sourceHeight = imageCanvas.Height,
+					viewportWidth = imageScrollViewer.ViewportWidth,
+					viewportHeight = imageScrollViewer.ViewportHeight,
+					sourceAspect = sourceWidth / sourceHeight,
+					viewportAspect = viewportWidth / viewportHeight;
+				//TODO
+				if (sourceAspect > viewportAspect)
+				{
+
+				}
+			}
 		}
 
+		#region Event handlers
+		private void OnMouseWheel(object sender, RoutedEventArgs e)
+		{
+			if (!IsVisible || !IsLoaded)
+				return;
+			if (imageScrollViewer.IsMouseOver && Keyboard.IsKeyDown(Key.LeftCtrl) && e is MouseWheelEventArgs we)
+			{
+				e.Handled = true;
+				ImageScaleFactor += we.Delta > 0.0 ? 0.02 : -0.02;
+			}
+		}
+		#endregion
+
+		#region Commanding
+		private void DragActionCommand_Execute(object obj)
+		{
+			if (ImageSource == null)
+				return;
+			if (obj is DragActionInfo dragInfo)
+			{
+				if (dragInfo.ActionType == DragActionType.Started)
+				{
+					DragStartPoint = imageCanvas.TranslatePoint(Mouse.GetPosition(imageCanvas), imageCanvas);
+					CurrentDragPoint = new Point(DragStartPoint.X + 1, DragStartPoint.Y + 1);
+				}
+				if (dragInfo.ActionType == DragActionType.Delta)
+				{
+					CurrentDragPoint = imageCanvas.TranslatePoint(Mouse.GetPosition(imageCanvas), imageCanvas);
+				}
+				if (dragInfo.ActionType == DragActionType.Completed)
+				{
+					DragCompletedPoint = imageCanvas.TranslatePoint(Mouse.GetPosition(imageCanvas), imageCanvas);
+					CurrentDragPoint = imageCanvas.TranslatePoint(Mouse.GetPosition(imageCanvas), imageCanvas);
+					CropResultRect = GenerateCropResultRect();
+					ResizeWrapperVisibility = Visibility.Visible;
+					CropX = CropResultRect.X;
+					CropY = CropResultRect.Y;
+					CropWidth = CropResultRect.Width;
+					CropHeight = CropResultRect.Height;
+				}
+			}
+		}
+
+		private void ApplyCommandInternal_Execute(object obj)
+		{
+			if (SubmitCropResultRectCommand != null)
+			{
+				SubmitCropResultRectCommand.Execute(CropResultRect);
+				lastSubmittedRect = CropResultRect;
+			}
+		}
+
+		private bool ApplyCommandInternal_CanExecute(object arg)
+		{
+			return CropResultRect != default(ImageCropRect) && CropResultRect != lastSubmittedRect;
+		}
+
+		private void CropValueUpdatedCommand_Execute(object obj)
+		{
+			refreshCropElementsPosition = true;
+			CropResultRect = new ImageCropRect(CropX, CropY, CropWidth, CropHeight);
+			refreshCropElementsPosition = false;
+		}
+		#endregion
+
+		#region Private methods
 		private BitmapSource GenerateDisplaySource(BitmapSource originalSource)
 		{
 			if (originalSource == null)
 				return null;
+
 			double width = originalSource.PixelWidth, height = originalSource.PixelHeight;
 			double hostWidth = imageHost.ActualWidth, hostHeight = imageHost.ActualHeight;
 
@@ -324,43 +591,11 @@ namespace CroplandWpf.Components
 
 			return ImageResizeControl.ResizeImage(originalSource, (int)width, (int)height);
 		}
-
-		private void Clear()
-		{
-			ImageSource = null;
-		}
-
-		private void DragActionCommand_Execute(object obj)
-		{
-			if (obj is DragActionInfo dragInfo)
-			{
-				if (dragInfo.ActionType == DragActionType.Started)
-				{
-					DragStartPoint = image.TranslatePoint(Mouse.GetPosition(image), image);
-					CurrentDragPoint = new Point(DragStartPoint.X + 1, DragStartPoint.Y + 1);
-				}
-				if (dragInfo.ActionType == DragActionType.Delta)
-				{
-					CurrentDragPoint = image.TranslatePoint(Mouse.GetPosition(image), image);
-				}
-				if (dragInfo.ActionType == DragActionType.Completed)
-				{
-					DragCompletedPoint = image.TranslatePoint(Mouse.GetPosition(image), image);
-					CurrentDragPoint = image.TranslatePoint(Mouse.GetPosition(image), image);
-					CropResultRect = GenerateCropResultRect();
-					if (SubmitCropResultRectCommand != null)
-						SubmitCropResultRectCommand.Execute(CropResultRect);
-					if (AutoCrop)
-						CropSource();
-				}
-			}
-		}
-
-		private Int32Rect GenerateCropResultRect()
+		private ImageCropRect GenerateCropResultRect()
 		{
 			double originalWidth = ImageSource.PixelWidth,
 					originalHeight = ImageSource.PixelHeight,
-					scaleFactor = originalWidth / image.ActualWidth,
+					scaleFactor = originalWidth / imageCanvas.ActualWidth,
 					cropX = clipGeometry2.Rect.X * scaleFactor,
 					cropY = clipGeometry2.Rect.Y * scaleFactor,
 					cropWidth = clipGeometry2.Rect.Width * scaleFactor,
@@ -374,7 +609,6 @@ namespace CroplandWpf.Components
 			{
 				cropHeight -= Math.Abs(cropY);
 				cropY = 0.0;
-				
 			}
 
 			if (cropWidth + cropX > originalWidth)
@@ -386,24 +620,31 @@ namespace CroplandWpf.Components
 				cropWidth = 0.0;
 			if (cropHeight < 0.0)
 				cropHeight = 0.0;
-			return new Int32Rect((int)cropX, (int)cropY, (int)cropWidth, (int)cropHeight);
+			return new ImageCropRect((int)cropX, (int)cropY, (int)cropWidth, (int)cropHeight);
 		}
 
 		private void CropSource()
 		{
 			if (CropResultRect.X + CropResultRect.Width > ImageSource.PixelWidth || CropResultRect.Y + CropResultRect.Height > ImageSource.PixelHeight)
 				return;
-			CroppedBitmap cb = new CroppedBitmap(ImageSource, CropResultRect);
+			CroppedBitmap cb = new CroppedBitmap(ImageSource, CropResultRect.ToInt32Rect());
 			ImageSource = cb;
 		}
 
-		//private void RebuildDebugString()
-		//{
-		//	DebugString = String.Format("drag start point: {0:0.00}x{1:0.00}\n\r " +
-		//								"current drag point: {2:0.00}x{3:0.00}\n\r" +
-		//								"drag completed point: {4:0.00}x{5:0.00}" +
-		//								"crop result rect: {5}", DragStartPoint.X, DragStartPoint.Y, CurrentDragPoint.X, CurrentDragPoint.Y, DragCompletedPoint.X, DragCompletedPoint.Y, CropResultRect);
-		//}
+		private void Clear()
+		{
+			ImageSource = null;
+			cropOverlay.Visibility = Visibility.Collapsed;
+			ResizeWrapperVisibility = Visibility.Collapsed;
+			CropX = 0;
+			CropY = 0;
+			CropWidth = 0;
+			CropHeight = 0;
+			OriginalImageSize = Size.Empty;
+			ImageScaleFactor = 1.0;
+			lastSubmittedRect = default(ImageCropRect);
+		}
+		#endregion
 	}
 
 	public class ImageCropThumb : Thumb
@@ -489,5 +730,86 @@ namespace CroplandWpf.Components
 		Started,
 		Delta,
 		Completed
+	}
+
+	public struct ImageCropRect
+	{
+		public int X;
+		public int Y;
+		public int Width;
+		public int Height;
+
+		public ImageCropRect(int x, int y, int width, int height)
+		{
+			X = x;
+			Y = y;
+			Width = width;
+			Height = height;
+		}
+
+		public ImageCropRect(double x, double y, double width, double height)
+		{
+			X = (int)x;
+			Y = (int)y;
+			Width = (int)width;
+			Height = (int)height;
+		}
+
+		public ImageCropRect AddX(double xChange)
+		{
+			return new ImageCropRect { X = X + (int)xChange, Y = Y, Width = Width, Height = Height };
+		}
+
+		public ImageCropRect AddY(double yChange)
+		{
+			return new ImageCropRect { X = X, Y = Y + (int)yChange, Width = Width, Height = Height };
+		}
+
+		public ImageCropRect AddWidth(double widthChange)
+		{
+			return new ImageCropRect { X = X, Y = Y, Width = NormalzeDimension(Width + (int)widthChange), Height = Height };
+		}
+
+		public ImageCropRect AddHeight(double heightChange)
+		{
+			return new ImageCropRect { X = X, Y = Y, Width = Width, Height = NormalzeDimension(Height + (int)heightChange) };
+		}
+
+		private static int NormalzeDimension(double width)
+		{
+			return (int)Math.Max(1, width);
+		}
+
+		public Int32Rect ToInt32Rect()
+		{
+			return new Int32Rect(X, Y, Width, Height);
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj is ImageCropRect other)
+				return X == other.X && Y == other.Y && Width == other.Width && Height == other.Height;
+			else return base.Equals(obj);
+		}
+
+		public Rect ToRect()
+		{
+			return new Rect(X, Y, Width, Height);
+		}
+
+		public static bool operator !=(ImageCropRect rect1, ImageCropRect rect2)
+		{
+			return !rect1.Equals(rect2);
+		}
+
+		public static bool operator ==(ImageCropRect rect1, ImageCropRect rect2)
+		{
+			return rect1.Equals(rect2);
+		}
+
+		public override string ToString()
+		{
+			return String.Format("{0}:{1} - {2}x{3}", X, Y, Width, Height);
+		}
 	}
 }

@@ -140,7 +140,7 @@
 	<SolidColorBrush x:Key="brushCheckBox_DataGridCheckBoxColumn_Border">#FFe5e5e5</SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushIcon_LoadingIndicator_OuterRing" Color="#FF257F4E"></SolidColorBrush>
-	
+
 	<SolidColorBrush x:Key="brushIcon_LoadingIndicator_InnerRing" Color="#FF227347"></SolidColorBrush>
 
 	<VisualBrush x:Key="brushIcon_MessageBox_Error" Stretch="Uniform">
@@ -244,7 +244,7 @@
 	<StreamGeometry x:Key="geometryIcon_Star">M0,88 L94,88 123,0 153,88 249,88 172,146 201,237 123,181 47,237 76,146 0,88z</StreamGeometry>
 
 	<SolidColorBrush x:Key="brushButton_Background_Star">#FFd01e1a</SolidColorBrush>
-	
+
 	<VisualBrush x:Key="brushIcon_ButtonInfo" AlignmentX="Center" AlignmentY="Center" Stretch="None">
 		<VisualBrush.Visual>
 			<TextBlock Text="i" Foreground="#FF1a6e41" FontSize="10pt" FontWeight="Black"></TextBlock>
@@ -276,5 +276,32 @@
 			<PolyLineSegment Points="5,4 5,14 3,14 3,4" IsStroked="True"></PolyLineSegment>
 		</PathFigure>
 	</PathGeometry>
+
+	<DrawingBrush x:Key="brushImageCropControl_Background" TileMode="Tile" Viewport="0,0,16,16" ViewportUnits="Absolute" Viewbox="0,0,8,8" ViewboxUnits="Absolute">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Brush="#FFdddddd">
+					<GeometryDrawing.Geometry>
+						<RectangleGeometry Rect="0,0,4,4"></RectangleGeometry>
+					</GeometryDrawing.Geometry>
+				</GeometryDrawing>
+				<GeometryDrawing Brush="#FFdddddd">
+					<GeometryDrawing.Geometry>
+						<RectangleGeometry Rect="4,4,4,4"></RectangleGeometry>
+					</GeometryDrawing.Geometry>
+				</GeometryDrawing>
+				<GeometryDrawing Brush="#FFffffff">
+					<GeometryDrawing.Geometry>
+						<RectangleGeometry Rect="0,4,4,4"></RectangleGeometry>
+					</GeometryDrawing.Geometry>
+				</GeometryDrawing>
+				<GeometryDrawing Brush="#FFffffff">
+					<GeometryDrawing.Geometry>
+						<RectangleGeometry Rect="4,0,4,4"></RectangleGeometry>
+					</GeometryDrawing.Geometry>
+				</GeometryDrawing>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
 
 </ResourceDictionary> 

@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace CroplandWpf.Components
 {
-	public enum WindowControlThumbRole
+	public enum ResizeThumbRole
 	{
 		NA,
 		Move,
@@ -28,13 +28,13 @@ namespace CroplandWpf.Components
 
 	public class WindowControlThumb : Thumb
 	{
-		public WindowControlThumbRole Role
+		public ResizeThumbRole Role
 		{
-			get { return (WindowControlThumbRole)GetValue(RoleProperty); }
+			get { return (ResizeThumbRole)GetValue(RoleProperty); }
 			set { SetValue(RoleProperty, value); }
 		}
 		public static readonly DependencyProperty RoleProperty =
-			DependencyProperty.Register("Role", typeof(WindowControlThumbRole), typeof(WindowControlThumb), new PropertyMetadata());
+			DependencyProperty.Register("Role", typeof(ResizeThumbRole), typeof(WindowControlThumb), new PropertyMetadata());
 
 		public Window Target
 		{
@@ -64,7 +64,7 @@ namespace CroplandWpf.Components
 		private void WindowControlThumb_Loaded(object sender, RoutedEventArgs e)
 		{
 			Target = Window.GetWindow(this);
-			if (Role == WindowControlThumbRole.Move)
+			if (Role == ResizeThumbRole.Move)
 				SetBinding(VisualHelper.TestObjectProperty, new Binding { Source = Target, Path = new PropertyPath(Window.WindowStateProperty), Mode = BindingMode.OneWay });
 		}
 
@@ -72,40 +72,40 @@ namespace CroplandWpf.Components
 		{
 			base.OnPropertyChanged(e);
 			if (e.Property == RoleProperty)
-				SetCursor((WindowControlThumbRole)e.NewValue);
+				SetCursor((ResizeThumbRole)e.NewValue);
 			if (e.Property == VisualHelper.TestObjectProperty)
 			{
 				WindowState ws = (WindowState)e.NewValue;
-				if (Role == WindowControlThumbRole.Move)
+				if (Role == ResizeThumbRole.Move)
 					Cursor = ws == WindowState.Maximized ? Cursors.Arrow : Cursors.SizeAll;
 			}
 		}
 
-		private void SetCursor(WindowControlThumbRole role)
+		private void SetCursor(ResizeThumbRole role)
 		{
 			switch (role)
 			{
-				case WindowControlThumbRole.Move:
+				case ResizeThumbRole.Move:
 					Cursor = Cursors.SizeAll;
 					break;
 
-				case WindowControlThumbRole.ResizeLeftTop:
-				case WindowControlThumbRole.ResizeRightBottom:
+				case ResizeThumbRole.ResizeLeftTop:
+				case ResizeThumbRole.ResizeRightBottom:
 					Cursor = Cursors.SizeNWSE;
 					break;
 
-				case WindowControlThumbRole.ResizeTop:
-				case WindowControlThumbRole.ResizeBottom:
+				case ResizeThumbRole.ResizeTop:
+				case ResizeThumbRole.ResizeBottom:
 					Cursor = Cursors.SizeNS;
 					break;
 
-				case WindowControlThumbRole.ResizeLeft:
-				case WindowControlThumbRole.ResizeRight:
+				case ResizeThumbRole.ResizeLeft:
+				case ResizeThumbRole.ResizeRight:
 					Cursor = Cursors.SizeWE;
 					break;
 
-				case WindowControlThumbRole.ResizeLeftBottom:
-				case WindowControlThumbRole.ResizeRightTop:
+				case ResizeThumbRole.ResizeLeftBottom:
+				case ResizeThumbRole.ResizeRightTop:
 					Cursor = Cursors.SizeNESW;
 					break;
 
@@ -123,53 +123,49 @@ namespace CroplandWpf.Components
 
 			switch (Role)
 			{
-				case WindowControlThumbRole.Move:
+				case ResizeThumbRole.Move:
 					newLeft += e.HorizontalChange;
 					newTop += e.VerticalChange;
 					break;
 
-				case WindowControlThumbRole.ResizeLeftTop:
+				case ResizeThumbRole.ResizeLeftTop:
 					newLeft += e.HorizontalChange;
 					newTop += e.VerticalChange;
 					newWidth -= e.HorizontalChange;
 					newHeight -= e.VerticalChange;
-					//if (newWidth < minWidth)
-					//	newLeft -= (minWidth - newWidth);
-					//if (newHeight < minHeight)
-					//	newTop -= (minHeight - newHeight);
 					break;
 
-				case WindowControlThumbRole.ResizeTop:
+				case ResizeThumbRole.ResizeTop:
 					newTop += e.VerticalChange;
 					newHeight -= e.VerticalChange;
 					break;
 
-				case WindowControlThumbRole.ResizeRightTop:
+				case ResizeThumbRole.ResizeRightTop:
 					newTop += e.VerticalChange;
 					newHeight -= e.VerticalChange;
 					newWidth += e.HorizontalChange;
 					break;
 
-				case WindowControlThumbRole.ResizeLeft:
+				case ResizeThumbRole.ResizeLeft:
 					newLeft += e.HorizontalChange;
 					newWidth -= e.HorizontalChange;
 					break;
 
-				case WindowControlThumbRole.ResizeRight:
+				case ResizeThumbRole.ResizeRight:
 					newWidth += e.HorizontalChange;
 					break;
 
-				case WindowControlThumbRole.ResizeLeftBottom:
+				case ResizeThumbRole.ResizeLeftBottom:
 					newLeft += e.HorizontalChange;
 					newWidth -= e.HorizontalChange;
 					newHeight += e.VerticalChange;
 					break;
 
-				case WindowControlThumbRole.ResizeBottom:
+				case ResizeThumbRole.ResizeBottom:
 					newHeight += e.VerticalChange;
 					break;
 
-				case WindowControlThumbRole.ResizeRightBottom:
+				case ResizeThumbRole.ResizeRightBottom:
 					newWidth += e.HorizontalChange;
 					newHeight += e.VerticalChange;
 					break;
@@ -198,7 +194,7 @@ namespace CroplandWpf.Components
 
 			if (Target == null)
 				return;
-			if (Role == WindowControlThumbRole.Move && AllowMaximize)
+			if (Role == ResizeThumbRole.Move && AllowMaximize)
 			{
 				WindowHelper.SetIsMaximizing(Target, true);
 				if (Target.WindowState == WindowState.Normal)

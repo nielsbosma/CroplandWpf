@@ -36,6 +36,14 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty ImmediateTargetRefreshProperty =
 			DependencyProperty.Register("ImmediateTargetRefresh", typeof(bool), typeof(ModifiedInputTextBox), new PropertyMetadata());
 
+		public ICommand ValueUpdatedCommand
+		{
+			get { return (ICommand)GetValue(ValueUpdatedCommandProperty); }
+			set { SetValue(ValueUpdatedCommandProperty, value); }
+		}
+		public static readonly DependencyProperty ValueUpdatedCommandProperty =
+			DependencyProperty.Register("ValueUpdatedCommand", typeof(ICommand), typeof(ModifiedInputTextBox), new PropertyMetadata());
+
 		private string textBackup;
 
 		static ModifiedInputTextBox()
@@ -145,13 +153,11 @@ namespace CroplandWpf.Components
 
 		private void UpdateSource()
 		{
-			//Dispatcher.Invoke(() =>
-			//{
 			BindingExpression textBindingExpression = GetBindingExpression(TextProperty);
-			//string s = Text;
 			if (textBindingExpression != null)
 				textBindingExpression.UpdateSource();
-			//}, System.Windows.Threading.DispatcherPriority.Background);
+			if (ValueUpdatedCommand != null)
+				ValueUpdatedCommand.Execute(textBindingExpression.TargetProperty);
 		}
 	}
 }
