@@ -96,6 +96,7 @@
     <Compile Include="Components\ControlResizeThumb.cs" />
     <Compile Include="Components\DataGridHelper.cs" />
     <Compile Include="Components\DateInervalControl.cs" />
+    <Compile Include="Components\FocusController.cs" />
     <Compile Include="Components\HeaderFooterContentControl.cs" />
     <Compile Include="Components\ImageCropControl.cs" />
     <Compile Include="Components\ImageResizeWrapper.cs" />

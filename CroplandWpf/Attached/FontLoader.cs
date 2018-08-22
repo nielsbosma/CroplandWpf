@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 
 namespace CroplandWpf.Attached
@@ -24,10 +25,12 @@ namespace CroplandWpf.Attached
 			{
 				try
 				{
-					string[] fontAddress = e.NewValue.ToString().Split(';');
-					Uri fontUri = new Uri(fontAddress[0]);
-					FontFamily ff = new FontFamily(fontUri, fontAddress[1]);
-					o.SetValue(Window.FontFamilyProperty, ff);
+					FontFamily ff = new FontFamily();
+					string[] fontAddress = e.NewValue.ToString().Split('$');
+					Uri fontUri = new Uri(fontAddress[0], UriKind.Absolute);
+					ff = new FontFamily(fontUri, fontAddress[1]);
+					//(o as Window).FontFamily = ff;
+					o.SetValue(Control.FontFamilyProperty, ff);
 				}
 				catch { }
 			}));

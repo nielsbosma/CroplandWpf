@@ -26,6 +26,14 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty CustomPartContentTemplateProperty =
 			DependencyProperty.Register("CustomPartContentTemplate", typeof(DataTemplate), typeof(RemovableItemsItemsControl), new PropertyMetadata());
 
+		public bool HasCustomContent
+		{
+			get { return (bool)GetValue(HasCustomContentProperty); }
+			private set { SetValue(HasCustomContentProperty, value); }
+		}
+		public static readonly DependencyProperty HasCustomContentProperty =
+			DependencyProperty.Register("HasCustomContent", typeof(bool), typeof(RemovableItemsItemsControl), new PropertyMetadata());
+
 		static RemovableItemsItemsControl()
 		{
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(RemovableItemsItemsControl), new FrameworkPropertyMetadata(typeof(RemovableItemsItemsControl)));
@@ -34,6 +42,13 @@ namespace CroplandWpf.Components
 		public RemovableItemsItemsControl()
 		{
 
+		}
+
+		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+		{
+			base.OnPropertyChanged(e);
+			if (e.Property == CustomPartContentProperty || e.Property == CustomPartContentTemplateProperty)
+				HasCustomContent = CustomPartContent != null || CustomPartContentTemplate != null;
 		}
 
 		protected override DependencyObject GetContainerForItemOverride()

@@ -171,7 +171,7 @@
 		<Setter Property="Background" Value="{DynamicResource brushItemsControl_Background}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
-				<ControlTemplate TargetType="ItemsControl">
+				<ControlTemplate TargetType="c:RemovableItemsItemsControl">
 					<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
 						<Grid>
 							<Grid.ColumnDefinitions>
@@ -181,9 +181,14 @@
 							<ScrollViewer Grid.Column="0">
 								<StackPanel IsItemsHost="True" Orientation="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:ItemsControlHelper.Orientation)}"></StackPanel>
 							</ScrollViewer>
-							<ContentControl Grid.Column="1" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CustomPartContent}" ContentTemplate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CustomPartContentTemplate}"></ContentControl>
+							<ContentControl Grid.Column="1" x:Name="contentControl_CustomContent" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CustomPartContent}" ContentTemplate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CustomPartContentTemplate}" Margin="5,0"></ContentControl>
 						</Grid>
 					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="HasCustomContent" Value="False">
+							<Setter TargetName="contentControl_CustomContent" Property="Visibility" Value="Collapsed"></Setter>
+						</Trigger>
+					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

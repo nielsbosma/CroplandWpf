@@ -17,6 +17,8 @@
 	<Style x:Key="styleControlResizeThumb_ImageCropControl" TargetType="c:ImageCropResizeThumb">
 		<Setter Property="Width" Value="10"></Setter>
 		<Setter Property="Height" Value="10"></Setter>
+		<Setter Property="MinWidth" Value="1"></Setter>
+		<Setter Property="MinHeight" Value="1"></Setter>
 		<Setter Property="RenderTransformOrigin" Value="0,0"></Setter>
 		<Setter Property="Background" Value="Transparent"></Setter>
 		<Setter Property="HorizontalAlignment" Value="Left"></Setter>
@@ -102,8 +104,8 @@
 	</Style>
 
 	<Style x:Key="styleImageResizeWrapper_ImageCropControl" TargetType="c:ImageResizeWrapper">
-		<Setter Property="MinWidth" Value="20"></Setter>
-		<Setter Property="MinHeight" Value="20"></Setter>
+		<Setter Property="MinWidth" Value="1"></Setter>
+		<Setter Property="MinHeight" Value="1"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:ImageResizeWrapper">
@@ -229,29 +231,32 @@
 									<TextBlock FontWeight="Bold" Style="{StaticResource styleTextBlock_SupportsDisabled}">Original size:</TextBlock>
 									<TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OriginalImageSize}" Margin="0,5,0,0" Style="{StaticResource styleTextBlock_SupportsDisabled}"></TextBlock>
 
-									<c:ModifiedInputTextBox Margin="0,10,0,0" Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropX, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}">
-										<a:VisualHelper.Header>
-											<TextBlock FontWeight="Bold" Style="{StaticResource styleTextBlock_SupportsDisabled}">X</TextBlock>
-										</a:VisualHelper.Header>
-									</c:ModifiedInputTextBox>
+									<StackPanel IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsRectEditable, Mode=OneWay}" Orientation="Vertical">
+										<c:ModifiedInputTextBox Margin="0,10,0,0" Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropX, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}">
+											<a:VisualHelper.Header>
+												<TextBlock FontWeight="Bold" Style="{StaticResource styleTextBlock_SupportsDisabled}">X</TextBlock>
+											</a:VisualHelper.Header>
+										</c:ModifiedInputTextBox>
+
+										<c:ModifiedInputTextBox Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropY, Mode=TwoWay, UpdateSourceTrigger=Explicit}"  ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}">
+											<a:VisualHelper.Header>
+												<TextBlock FontWeight="Bold" Style="{StaticResource styleTextBlock_SupportsDisabled}">Y</TextBlock>
+											</a:VisualHelper.Header>
+										</c:ModifiedInputTextBox>
+
+										<c:ModifiedInputTextBox Margin="0,10,0,0" Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropWidth, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}">
+											<a:VisualHelper.Header>
+												<TextBlock FontWeight="Bold" Style="{StaticResource styleTextBlock_SupportsDisabled}">Width</TextBlock>
+											</a:VisualHelper.Header>
+										</c:ModifiedInputTextBox>
+
+										<c:ModifiedInputTextBox Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropHeight, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}">
+											<a:VisualHelper.Header>
+												<TextBlock FontWeight="Bold" Style="{StaticResource styleTextBlock_SupportsDisabled}">Height</TextBlock>
+											</a:VisualHelper.Header>
+										</c:ModifiedInputTextBox>
+									</StackPanel>
 									
-									<c:ModifiedInputTextBox Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropY, Mode=TwoWay, UpdateSourceTrigger=Explicit}"  ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}">
-										<a:VisualHelper.Header>
-											<TextBlock FontWeight="Bold" Style="{StaticResource styleTextBlock_SupportsDisabled}">Y</TextBlock>
-										</a:VisualHelper.Header>
-									</c:ModifiedInputTextBox>
-									
-									<c:ModifiedInputTextBox Margin="0,10,0,0" Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropWidth, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}">
-										<a:VisualHelper.Header>
-											<TextBlock FontWeight="Bold" Style="{StaticResource styleTextBlock_SupportsDisabled}">Width</TextBlock>
-										</a:VisualHelper.Header>
-									</c:ModifiedInputTextBox>
-									
-									<c:ModifiedInputTextBox Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropHeight, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}">
-										<a:VisualHelper.Header>
-											<TextBlock FontWeight="Bold" Style="{StaticResource styleTextBlock_SupportsDisabled}">Height</TextBlock>
-										</a:VisualHelper.Header>
-									</c:ModifiedInputTextBox>
 									<Button HorizontalAlignment="Center" Margin="0,20,0,0" Command="{TemplateBinding ApplyCommandInternal}">Apply</Button>
 								</StackPanel>
 

@@ -33,7 +33,7 @@ namespace CroplandWpf.Components
 		}
 		public static readonly DependencyProperty IconBrushProperty =
 			DependencyProperty.Register("IconBrush", typeof(Brush), typeof(MessageBoxWindow), new PropertyMetadata());
-
+		
 		public object Footer
 		{
 			get { return (object)GetValue(FooterProperty); }

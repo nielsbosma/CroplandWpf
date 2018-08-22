@@ -167,13 +167,21 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty CropResultRectProperty =
 			DependencyProperty.Register("CropResultRect", typeof(ImageCropRect), typeof(ImageCropControl), new PropertyMetadata());
 
+		public bool IsRectEditable
+		{
+			get { return (bool)GetValue(IsRectEditableProperty); }
+			private set { SetValue(IsRectEditableProperty, value); }
+		}
+		public static readonly DependencyProperty IsRectEditableProperty =
+			DependencyProperty.Register("IsRectEditable", typeof(bool), typeof(ImageCropControl), new PropertyMetadata());
+
 		public int CropX
 		{
 			get { return (int)GetValue(CropXProperty); }
 			set { SetValue(CropXProperty, value); }
 		}
 		public static readonly DependencyProperty CropXProperty =
-			DependencyProperty.Register("CropX", typeof(int), typeof(ImageCropControl), new PropertyMetadata());
+			DependencyProperty.Register("CropX", typeof(int), typeof(ImageCropControl), new PropertyMetadata(0, null, CoerceImageCropX));
 
 		public int CropY
 		{
@@ -181,7 +189,7 @@ namespace CroplandWpf.Components
 			set { SetValue(CropYProperty, value); }
 		}
 		public static readonly DependencyProperty CropYProperty =
-			DependencyProperty.Register("CropY", typeof(int), typeof(ImageCropControl), new PropertyMetadata());
+			DependencyProperty.Register("CropY", typeof(int), typeof(ImageCropControl), new PropertyMetadata(0, null, CoerceImageCropY));
 
 		public int CropWidth
 		{
@@ -189,7 +197,7 @@ namespace CroplandWpf.Components
 			set { SetValue(CropWidthProperty, value); }
 		}
 		public static readonly DependencyProperty CropWidthProperty =
-			DependencyProperty.Register("CropWidth", typeof(int), typeof(ImageCropControl), new PropertyMetadata(1, null, CoerceImageDimension));
+			DependencyProperty.Register("CropWidth", typeof(int), typeof(ImageCropControl), new PropertyMetadata(0, null, CoerceImageCropWidth));
 
 		public int CropHeight
 		{
@@ -197,14 +205,62 @@ namespace CroplandWpf.Components
 			set { SetValue(CropHeightProperty, value); }
 		}
 		public static readonly DependencyProperty CropHeightProperty =
-			DependencyProperty.Register("CropHeight", typeof(int), typeof(ImageCropControl), new PropertyMetadata(1, null, CoerceImageDimension));
+			DependencyProperty.Register("CropHeight", typeof(int), typeof(ImageCropControl), new PropertyMetadata(0, null, CoerceImageCropHeight));
 
-		private static object CoerceImageDimension(DependencyObject o, object value)
+		private static object CoerceImageCropX(DependencyObject o, object value)
 		{
-			if(value is int dValue)
+			if (value is int intValue && o is ImageCropControl c)
 			{
-				if (dValue <= 0)
-					return 1;
+				if (intValue < 0)
+					return 0;
+				if (intValue + c.CropWidth > c.OriginalImageSize.Width)
+					return Math.Max(0, (int)(c.OriginalImageSize.Width - c.CropWidth));
+			}
+			return value;
+		}
+
+		private static object CoerceImageCropY(DependencyObject o, object value)
+		{
+			if (value is int intValue && o is ImageCropControl c)
+			{
+				if (intValue < 0)
+					return 0;
+				if (intValue + c.CropHeight > c.OriginalImageSize.Height)
+					return Math.Max(0, (int)(c.OriginalImageSize.Height - c.CropHeight));
+			}
+			return value;
+		}
+
+		private static object CoerceImageCropWidth(DependencyObject o, object value)
+		{
+			if (value is int intValue && o is ImageCropControl c)
+			{
+				if (c.IsRectEditable)
+				{
+					if (intValue <= 0)
+						return 1;
+				}
+				else if (intValue < 0)
+					return 0;
+				if (intValue + c.CropX > c.OriginalImageSize.Width)
+					return Math.Max(0, (int)(c.OriginalImageSize.Width - c.CropX));
+			}
+			return value;
+		}
+
+		private static object CoerceImageCropHeight(DependencyObject o, object value)
+		{
+			if (value is int intValue && o is ImageCropControl c)
+			{
+				if (c.IsRectEditable)
+				{
+					if (intValue <= 0)
+						return 1;
+				}
+				else if (intValue < 0)
+					return 0;
+				if (intValue + c.CropY > c.OriginalImageSize.Height)
+					return Math.Max(0, (int)(c.OriginalImageSize.Height - c.CropY));
 			}
 			return value;
 		}
@@ -377,20 +433,20 @@ namespace CroplandWpf.Components
 				InitialRefreshOverlayClip();
 			if (e.Property == DragCompletedPointProperty || e.Property == DragStartPointProperty)
 				cropOverlay.Visibility = DragStartPoint == DragCompletedPoint ? Visibility.Collapsed : Visibility.Visible;
-			if (e.Property == CropResultRectProperty && refreshCropElementsPosition)
+			if (e.Property == CropResultRectProperty)
 			{
-				CropX = CropResultRect.X;
-				CropY = CropResultRect.Y;
-				CropWidth = CropResultRect.Width;
-				CropHeight = CropResultRect.Height;
-				clipGeometry2.Rect = CropResultRect.ToRect();
+				IsRectEditable = (ImageCropRect)e.NewValue != default(ImageCropRect);
+				if (refreshCropElementsPosition)
+				{
+					CropX = CropResultRect.X;
+					CropY = CropResultRect.Y;
+					CropWidth = CropResultRect.Width;
+					CropHeight = CropResultRect.Height;
+					clipGeometry2.Rect = CropResultRect.ToRect();
+				}
 			}
 			if (e.Property == ImageScaleFactorProperty)
 				ResizeThumbScaleFactor = 1.0 / ImageScaleFactor;
-			//if ((e.Property == CropXProperty || e.Property == CropYProperty || e.Property == CropWidthProperty || e.Property == CropHeightProperty) && refreshCropElementsPosition)
-			//{
-			//	CropResultRect = new ImageCropRect(CropX, CropY, CropWidth, CropHeight);
-			//}
 		}
 
 		private Size GetImageSize(BitmapSource source)
@@ -466,6 +522,7 @@ namespace CroplandWpf.Components
 
 		private void LoadImageSource()
 		{
+			Clear();
 			BitmapImage source = new BitmapImage();
 			source.BeginInit();
 			source.UriSource = new Uri(SourceFileInfo.FullName);
@@ -643,6 +700,8 @@ namespace CroplandWpf.Components
 			OriginalImageSize = Size.Empty;
 			ImageScaleFactor = 1.0;
 			lastSubmittedRect = default(ImageCropRect);
+			IsRectEditable = false;
+			CropResultRect = default(ImageCropRect);
 		}
 		#endregion
 	}

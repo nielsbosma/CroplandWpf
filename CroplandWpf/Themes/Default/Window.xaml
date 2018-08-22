@@ -244,7 +244,7 @@
 
 	<Style x:Key="{x:Type Window}" TargetType="Window">
 		<Setter Property="h:WindowHelper.MaximizeFixEnabled" Value="True"></Setter>
-		<Setter Property="a:FontLoader.CustomFontFamilySource" Value="pack://application:,,,/Fonts/;Roboto"></Setter>
+		<Setter Property="FontFamily" Value="pack://application:,,,/CroplandWpf;component/Fonts/#Roboto"></Setter>
 		<Setter Property="FontSize" Value="9.5pt"></Setter>
 		<Setter Property="SnapsToDevicePixels" Value="True"></Setter>
 		<Setter Property="UseLayoutRounding" Value="True"></Setter>
@@ -253,7 +253,6 @@
 		<Setter Property="WindowStyle" Value="None"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="Padding" Value="5"></Setter>
-		<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Window">
@@ -312,7 +311,7 @@
 
 	<Style x:Key="styleWindow_Light" TargetType="Window">
 		<Setter Property="h:WindowHelper.MaximizeFixEnabled" Value="True"></Setter>
-		<Setter Property="a:FontLoader.CustomFontFamilySource" Value="pack://application:,,,/Fonts/;Roboto"></Setter>
+		<Setter Property="FontFamily" Value="pack://application:,,,/CroplandWpf;component/Fonts/#Roboto"></Setter>
 		<Setter Property="FontSize" Value="9.5pt"></Setter>
 		<Setter Property="SnapsToDevicePixels" Value="True"></Setter>
 		<Setter Property="UseLayoutRounding" Value="True"></Setter>
@@ -324,7 +323,7 @@
 		<!--<Setter Property="a:VisualHelper.IconBrush" Value="{DynamicResource brushAppIcon_FileStar}"></Setter>-->
 		<Setter Property="MinWidth" Value="200"></Setter>
 		<Setter Property="MinHeight" Value="150"></Setter>
-		<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
+		<!--<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>-->
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Window">
@@ -426,12 +425,12 @@
 		<Setter Property="AllowsTransparency" Value="True"></Setter>
 		<Setter Property="ResizeMode" Value="NoResize"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
-		<Setter Property="a:FontLoader.CustomFontFamilySource" Value="pack://application:,,,/Fonts/;Roboto"></Setter>
+		<Setter Property="FontFamily" Value="pack://application:,,,/CroplandWpf;component/Fonts/#Roboto"></Setter>
 		<Setter Property="FontSize" Value="9.5pt"></Setter>
 		<Setter Property="UseLayoutRounding" Value="True"></Setter>
 		<Setter Property="SnapsToDevicePixels" Value="True"></Setter>
 		<Setter Property="h:WindowHelper.MaximizeFixEnabled" Value="True"></Setter>
-		<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
+		<!--<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>-->
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Window">
@@ -460,7 +459,7 @@
 
 									<a:RootAdornerLayerHelper Window="{Binding RelativeSource={RelativeSource TemplatedParent}}"></a:RootAdornerLayerHelper>
 
-									<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="#FF317f52" CornerRadius="{Binding ElementName=borderClip, Path=CornerRadius}"></Border>
+									<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="{DynamicResource brushToolWindow_Header_Background}" CornerRadius="{Binding ElementName=borderClip, Path=CornerRadius}"></Border>
 
 									<c:WindowControlThumb Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource styleThumb_Window_Move}" Role="Move"></c:WindowControlThumb>
 

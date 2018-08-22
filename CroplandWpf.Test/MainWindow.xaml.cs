@@ -266,6 +266,22 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty SearchAutocompleteTestSource_StringProperty =
 			DependencyProperty.Register("SearchAutocompleteTestSource_String", typeof(ObservableCollection<string>), typeof(MainWindow), new PropertyMetadata());
 
+		public FocusController StringSearchAutocompleteFocusController
+		{
+			get { return (FocusController)GetValue(StringSearchAutocompleteFocusControllerProperty); }
+			private set { SetValue(StringSearchAutocompleteFocusControllerProperty, value); }
+		}
+		public static readonly DependencyProperty StringSearchAutocompleteFocusControllerProperty =
+			DependencyProperty.Register("StringSearchAutocompleteFocusController", typeof(FocusController), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand FocusCustomSearchAutoCompleteControlCommand
+		{
+			get { return (DelegateCommand)GetValue(FocusCustomSearchAutoCompleteControlCommandProperty); }
+			private set { SetValue(FocusCustomSearchAutoCompleteControlCommandProperty, value); }
+		}
+		public static readonly DependencyProperty FocusCustomSearchAutoCompleteControlCommandProperty =
+			DependencyProperty.Register("FocusCustomSearchAutoCompleteControlCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
 		public ObservableCollection<CustomSearchItem> SearchAutocompleteTestSource_SearchItem
 		{
 			get { return (ObservableCollection<CustomSearchItem>)GetValue(SearchAutocompleteTestSource_SearchItemProperty); }
@@ -847,6 +863,8 @@ namespace CroplandWpf.Test
 				new CustomSearchItem { Name = "Convert", Description = "Just convert it" },
 				new CustomSearchItem { Name = "Convert to", Description = "Just convert it to something" },
 			};
+			StringSearchAutocompleteFocusController = new FocusController();
+			FocusCustomSearchAutoCompleteControlCommand = new DelegateCommand(FocusCustomSearchAutoCompleteControlCommand_Execute);
 
 			NoMatchesFoundCommand = new DelegateCommand((o) => { MessageBoxService.Show(new MessageBoxInfo { Buttons = MessageBoxButton.OK, Content = "No matches found command executed." }); });
 			SeeMoreSearchOptionsCommand = new DelegateCommand((o) => { MessageBoxService.Show(new MessageBoxInfo { Buttons = MessageBoxButton.OK, Content = "See more search options command executed." }); });
@@ -1044,13 +1062,18 @@ namespace CroplandWpf.Test
 			#endregion
 		}
 
+		private void FocusCustomSearchAutoCompleteControlCommand_Execute(object obj)
+		{
+			StringSearchAutocompleteFocusController.EnqueueKeyboardFocus();
+		}
+
 		private void SummonToolWindowCommand_Execute(object obj)
 		{
 			Window window = new Window();
 			window.SetResourceReference(Window.StyleProperty, "styleToolWindow_Dark");
 			window.Owner = this;
 			window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-			window.Content = new Button() { Content = "Tool window content button" };
+			window.Content = new Button() { Content = "SeoTools" };
 			WindowHelper.SetAllowResize(window, AllowToolWindowResize);
 			window.Title = "SeoTools";
 			window.ShowDialog();

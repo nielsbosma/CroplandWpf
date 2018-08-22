@@ -84,6 +84,17 @@ namespace CroplandWpf.Attached
 		public static readonly DependencyProperty HeaderProperty =
 			DependencyProperty.RegisterAttached("Header", typeof(object), typeof(VisualHelper), new PropertyMetadata());
 
+		public static DataTemplate GetHeaderTemplate(DependencyObject obj)
+		{
+			return (DataTemplate)obj.GetValue(HeaderTemplateProperty);
+		}
+		public static void SetHeaderTemplate(DependencyObject obj, DataTemplate value)
+		{
+			obj.SetValue(HeaderTemplateProperty, value);
+		}
+		public static readonly DependencyProperty HeaderTemplateProperty =
+			DependencyProperty.RegisterAttached("HeaderTemplate", typeof(DataTemplate), typeof(VisualHelper), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+
 		public static HeaderAlignment GetHeaderAlignment(DependencyObject obj)
 		{
 			return (HeaderAlignment)obj.GetValue(HeaderAlignmentProperty);
@@ -128,16 +139,27 @@ namespace CroplandWpf.Attached
 		public static readonly DependencyProperty HeaderHorizontalAlignmentProperty =
 			DependencyProperty.RegisterAttached("HeaderHorizontalAlignment", typeof(HorizontalAlignment), typeof(VisualHelper), new PropertyMetadata());
 
-		public static string GetFooter(DependencyObject obj)
+		public static object GetFooter(DependencyObject obj)
 		{
-			return (string)obj.GetValue(FooterProperty);
+			return (object)obj.GetValue(FooterProperty);
 		}
-		public static void SetFooter(DependencyObject obj, string value)
+		public static void SetFooter(DependencyObject obj, object value)
 		{
 			obj.SetValue(FooterProperty, value);
 		}
 		public static readonly DependencyProperty FooterProperty =
-			DependencyProperty.RegisterAttached("Footer", typeof(string), typeof(VisualHelper), new PropertyMetadata());
+			DependencyProperty.RegisterAttached("Footer", typeof(object), typeof(VisualHelper), new PropertyMetadata());
+
+		public static DataTemplate GetFooterTemplate(DependencyObject obj)
+		{
+			return (DataTemplate)obj.GetValue(FooterTemplateProperty);
+		}
+		public static void SetFooterTemplate(DependencyObject obj, DataTemplate value)
+		{
+			obj.SetValue(FooterTemplateProperty, value);
+		}
+		public static readonly DependencyProperty FooterTemplateProperty =
+			DependencyProperty.RegisterAttached("FooterTemplate", typeof(DataTemplate), typeof(VisualHelper), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
 		public static FooterAlignment GetFooterAlignment(DependencyObject obj)
 		{

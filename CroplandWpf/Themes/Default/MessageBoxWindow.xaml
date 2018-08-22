@@ -168,7 +168,7 @@
 		<Setter Property="ResizeMode" Value="NoResize"></Setter>
 		<Setter Property="WindowStyle" Value="None"></Setter>
 		<Setter Property="WindowState" Value="Normal"></Setter>
-		<Setter Property="a:FontLoader.CustomFontFamilySource" Value="pack://application:,,,/Fonts/;Roboto"></Setter>
+		<Setter Property="FontFamily" Value="pack://application:,,,/CroplandWpf;component/Fonts/#Roboto"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
 		<Setter Property="MinHeight" Value="150"></Setter>
@@ -184,7 +184,7 @@
 						<c:ClippingBorder x:Name="borderClip" CornerRadius="3" Background="{TemplateBinding Background}" Margin="24,5,24,37">
 							<Grid>
 								<Grid.RowDefinitions>
-									<RowDefinition Height="40"></RowDefinition>
+									<RowDefinition Height="42"></RowDefinition>
 									<RowDefinition Height="Auto"></RowDefinition>
 									<RowDefinition Height="Auto" MinHeight="31"></RowDefinition>
 								</Grid.RowDefinitions>
@@ -193,9 +193,9 @@
 									<ColumnDefinition Width="Auto"></ColumnDefinition>
 								</Grid.ColumnDefinitions>
 
-								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderHeader" Background="{DynamicResource brushControl_Background_Dark}" CornerRadius="1"></Border>
+								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderHeader" Background="{DynamicResource brushToolWindow_Header_Background}" CornerRadius="1"></Border>
 								<c:WindowControlThumb Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource styleThumb_Window_Move}" Role="Move" AllowMaximize="False"></c:WindowControlThumb>
-								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="13,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt"></TextBlock>
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="16,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt"></TextBlock>
 								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_MessageBoxPresenter_Close}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxControlButtonActionType.Close}"></Button>
 
 								<Grid Grid.Row="1" Grid.ColumnSpan="2" MaxWidth="600">

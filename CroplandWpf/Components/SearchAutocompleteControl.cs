@@ -1,84 +1,23 @@
-﻿using CroplandWpf.MVVM;
+﻿using CroplandWpf.Exceptions;
+using CroplandWpf.Helpers;
+using CroplandWpf.MVVM;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using CroplandWpf.Exceptions;
-using System.Windows.Input;
-using System.ComponentModel;
-using System.Windows.Threading;
 using System.Windows.Data;
-using CroplandWpf.Attached;
-using CroplandWpf.Helpers;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace CroplandWpf.Components
 {
-	public enum SearchResultKind
-	{
-		Empty,
-		Item,
-		RawTextInput
-	}
-
-	public struct SearchResultInfo
-	{
-		public SearchResultKind ResultKind { get; private set; }
-
-		public object SearchResult { get; private set; }
-
-		public bool HasResultInstance
-		{
-			get { return ResultKind == SearchResultKind.Item && SearchResult != null; }
-		}
-
-		public static SearchResultInfo Empty
-		{
-			get { return new SearchResultInfo(SearchResultKind.Empty, null); }
-		}
-
-		public SearchResultInfo(SearchResultKind kind, object searchResult)
-		{
-			ResultKind = kind;
-			SearchResult = searchResult;
-		}
-
-		public T GetSearchResultAs<T>()
-		{
-			return (T)SearchResult;
-		}
-
-		public override bool Equals(object obj)
-		{
-			if (obj is SearchResultInfo)
-			{
-				SearchResultInfo other = (SearchResultInfo)obj;
-				return ResultKind == other.ResultKind && SearchResult == other.SearchResult;
-			}
-			else
-				return false;
-		}
-
-		public static bool operator ==(SearchResultInfo info1, SearchResultInfo info2)
-		{
-			return info1.Equals(info2);
-		}
-
-		public static bool operator !=(SearchResultInfo info1, SearchResultInfo info2)
-		{
-			return !info1.Equals(info2);
-		}
-
-		public override int GetHashCode()
-		{
-			return ResultKind.GetHashCode() + (SearchResult != null ? SearchResult.GetHashCode() : 0);
-		}
-	}
-
-	public class SearchAutocompleteControl : ItemsControl
+	public class SearchAutocompleteControl : ItemsControl, IFocusableElement
 	{
 		#region Dps
 		public string SearchString
@@ -145,13 +84,13 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty SeeAllOptionsButtonTextProperty =
 			DependencyProperty.Register("SeeAllOptionsButtonText", typeof(string), typeof(SearchAutocompleteControl), new PropertyMetadata("See All Options"));
 
-		public bool AutoFocusOnLoad
+		public AutoFocusMode AutoFocusMode
 		{
-			get { return (bool)GetValue(AutoFocusOnLoadProperty); }
-			set { SetValue(AutoFocusOnLoadProperty, value); }
+			get { return (AutoFocusMode)GetValue(AutoFocusModeProperty); }
+			set { SetValue(AutoFocusModeProperty, value); }
 		}
-		public static readonly DependencyProperty AutoFocusOnLoadProperty =
-			DependencyProperty.Register("AutoFocusOnLoad", typeof(bool), typeof(SearchAutocompleteControl), new PropertyMetadata());
+		public static readonly DependencyProperty AutoFocusModeProperty =
+			DependencyProperty.Register("AutoFocusMode", typeof(AutoFocusMode), typeof(SearchAutocompleteControl), new PropertyMetadata());
 
 		public string SearchPropertyBindingPath
 		{
@@ -248,6 +187,7 @@ namespace CroplandWpf.Components
 			Loaded += SearchAutocompleteControl_Loaded;
 			Unloaded += SearchAutocompleteControl_Unloaded;
 			PopupButtonCommandInternal = new DelegateCommand(PopupButtonCommandInternal_Execute);
+			IsVisibleChanged += SearchAutocompleteControl_IsVisibleChanged;
 		}
 		#endregion
 
@@ -321,6 +261,33 @@ namespace CroplandWpf.Components
 			OnLoad();
 		}
 
+		private void SearchAutocompleteControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+			if (_editableTextBox == null || AutoFocusMode != AutoFocusMode.OnVisible)
+				return;
+			if ((bool)e.NewValue)
+				AutoFocus();
+			else
+				if (Keyboard.FocusedElement == _editableTextBox)
+					Keyboard.ClearFocus();
+		}
+
+		private async void AutoFocus()
+		{
+			if (AutoFocusMode == AutoFocusMode.None)
+				return;
+			await Task.Run(() =>
+			{
+				Thread.Sleep(500);
+				Dispatcher.Invoke(() =>
+				{
+					//Keyboard.Focus(null);
+					Keyboard.Focus(_editableTextBox);
+					//_editableTextBox.Focus();
+				});
+			});
+		}
+
 		private void OnLoad()
 		{
 			if (!IsLoaded || _isLoaded)
@@ -330,8 +297,8 @@ namespace CroplandWpf.Components
 				_editableTextBox.TextChanged += EditableTextBox_TextChanged;
 				_editableTextBox.PreviewKeyDown += EditableTextBox_PreviewKeyDown;
 				_editableTextBox.PreviewTextInput += EditableTextBox_PreviewTextInput;
-				if (AutoFocusOnLoad)
-					Keyboard.Focus(_editableTextBox);
+				if (AutoFocusMode == AutoFocusMode.OnLoad || AutoFocusMode == AutoFocusMode.OnVisible)
+					AutoFocus();
 			}
 			AddHandler(SearchAutocmpleteItem.ClickedEvent, new RoutedEventHandler(OnSearchAutocompleteItemClicked));
 			AddHandler(SearchAutocmpleteItem.SelectedEvent, new RoutedEventHandler(OnSearchAutocompleteItemFocused));
@@ -364,14 +331,9 @@ namespace CroplandWpf.Components
 			}
 			WindowHelper.UnregisterHandler(this, Window.PreviewMouseDownEvent);
 		}
-
-		private void WindowMouseDownHandler(object sender, RoutedEventArgs e)
-		{
-			if (!IsMouseOver && !_popup.IsMouseOver && _popup.IsOpen)
-				Unfocus(true);
-		}
 		#endregion
 
+		#region Event handlers
 		private void EditableTextBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
 		{
 			if (e.Key == Key.Space && String.IsNullOrWhiteSpace(_editableTextBox.Text))
@@ -412,6 +374,13 @@ namespace CroplandWpf.Components
 			if (IsPopupOpen)
 				Unfocus(true);
 		}
+
+		private void WindowMouseDownHandler(object sender, RoutedEventArgs e)
+		{
+			if (!IsMouseOver && !_popup.IsMouseOver && _popup.IsOpen)
+				Unfocus(true);
+		}
+		#endregion
 
 		private void HighlightNextItem()
 		{
@@ -511,6 +480,79 @@ namespace CroplandWpf.Components
 				Dispatcher.BeginInvoke(new Action(() => { NoMatchesButtonCommand.Execute(null); }), DispatcherPriority.Background);
 			if (obj.ToString() == "PART_ButtonShowAllOptions" && SeeAllOptionsCommand != null)
 				Dispatcher.BeginInvoke(new Action(() => { SeeAllOptionsCommand.Execute(null); }), DispatcherPriority.Background);
+		}
+
+		public void KeyboardFocus()
+		{
+			Keyboard.Focus(_editableTextBox);
+		}
+	}
+
+	public enum AutoFocusMode
+	{
+		None,
+		OnLoad,
+		OnVisible
+	}
+
+	public enum SearchResultKind
+	{
+		Empty,
+		Item,
+		RawTextInput
+	}
+
+	public struct SearchResultInfo
+	{
+		public SearchResultKind ResultKind { get; private set; }
+
+		public object SearchResult { get; private set; }
+
+		public bool HasResultInstance
+		{
+			get { return ResultKind == SearchResultKind.Item && SearchResult != null; }
+		}
+
+		public static SearchResultInfo Empty
+		{
+			get { return new SearchResultInfo(SearchResultKind.Empty, null); }
+		}
+
+		public SearchResultInfo(SearchResultKind kind, object searchResult)
+		{
+			ResultKind = kind;
+			SearchResult = searchResult;
+		}
+
+		public T GetSearchResultAs<T>()
+		{
+			return (T)SearchResult;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj is SearchResultInfo)
+			{
+				SearchResultInfo other = (SearchResultInfo)obj;
+				return ResultKind == other.ResultKind && SearchResult == other.SearchResult;
+			}
+			else
+				return false;
+		}
+
+		public static bool operator ==(SearchResultInfo info1, SearchResultInfo info2)
+		{
+			return info1.Equals(info2);
+		}
+
+		public static bool operator !=(SearchResultInfo info1, SearchResultInfo info2)
+		{
+			return !info1.Equals(info2);
+		}
+
+		public override int GetHashCode()
+		{
+			return ResultKind.GetHashCode() + (SearchResult != null ? SearchResult.GetHashCode() : 0);
 		}
 	}
 }

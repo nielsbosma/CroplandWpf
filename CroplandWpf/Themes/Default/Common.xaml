@@ -17,6 +17,8 @@
 
 	<SolidColorBrush x:Key="brushControl_Background_Light" Color="{DynamicResource colorControl_Background_Light}"></SolidColorBrush>
 
+	<SolidColorBrush x:Key="brushToolWindow_Header_Background" Color="#FF317f52"></SolidColorBrush>
+
 	<SolidColorBrush x:Key="brushControl_Foreground_Light" Color="{DynamicResource colorControl_Foreground_Light}"></SolidColorBrush>
 
 	<SolidColorBrush x:Key="brushControl_Foreground_Dark" Color="{DynamicResource colorControl_Foreground_Dark}"></SolidColorBrush>
