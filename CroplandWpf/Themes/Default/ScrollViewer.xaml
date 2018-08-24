@@ -169,18 +169,18 @@
 
 	<Style x:Key="styleScrollViewer_TextBox" TargetType="ScrollViewer">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-		<Setter Property="VerticalScrollBarVisibility" Value="Disabled"></Setter>
-		<Setter Property="HorizontalScrollBarVisibility" Value="Disabled"></Setter>
-		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-		<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
 		<Setter Property="VerticalAlignment" Value="Center"></Setter>
 		<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+		<Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+		<Setter Property="VerticalScrollBarVisibility" Value="Hidden"></Setter>
+		<Setter Property="HorizontalScrollBarVisibility" Value="Hidden"></Setter>
 		<Setter Property="Padding" Value="0"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ScrollViewer">
 					<Grid>
-						<ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+						<ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="True" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>

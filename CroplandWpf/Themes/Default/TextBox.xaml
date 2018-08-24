@@ -29,7 +29,6 @@
 						<Border Grid.Column="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" MinHeight="{TemplateBinding MinHeight}" MinWidth="{TemplateBinding MinWidth}">
 							<Grid>
 								<Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
-									<!--<Border x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}"></Border>-->
 								<ph:KeyboardFocusRedirectControl FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
 								<ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="10,0"></ScrollViewer>
 							</Grid>
@@ -95,6 +94,13 @@
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger Property="AcceptsReturn" Value="True">
+							<Setter Property="TextWrapping" Value="Wrap"></Setter>
+							<Setter TargetName="PART_ContentHost" Property="VerticalAlignment" Value="Stretch"></Setter>
+							<Setter TargetName="PART_ContentHost" Property="VerticalContentAlignment" Value="Stretch"></Setter>
+							<Setter TargetName="PART_ContentHost" Property="Margin" Value="10"></Setter>
+							<Setter TargetName="PART_ContentHost" Property="VerticalScrollBarVisibility" Value="Visible"></Setter>
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
