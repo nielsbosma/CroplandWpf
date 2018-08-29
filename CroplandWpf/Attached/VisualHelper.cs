@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
+﻿using System.Windows;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace CroplandWpf.Attached
@@ -225,10 +218,49 @@ namespace CroplandWpf.Attached
 			obj.SetValue(TestObjectProperty, value);
 		}
 		public static readonly DependencyProperty TestObjectProperty =
-			DependencyProperty.RegisterAttached("TestObject", typeof(object), typeof(VisualHelper), new PropertyMetadata((o,e)=>
+			DependencyProperty.RegisterAttached("TestObject", typeof(object), typeof(VisualHelper), new PropertyMetadata((o, e) =>
 			{
 				DependencyObject t = o;
 				object n = e.NewValue;
 			}));
+
+		public static FrameworkElement GetWidthConstraintSource(DependencyObject obj)
+		{
+			return (FrameworkElement)obj.GetValue(WidthConstraintSourceProperty);
+		}
+		public static void SetWidthConstraintSource(DependencyObject obj, FrameworkElement value)
+		{
+			obj.SetValue(WidthConstraintSourceProperty, value);
+		}
+		public static readonly DependencyProperty WidthConstraintSourceProperty =
+			DependencyProperty.RegisterAttached("WidthConstraintSource", typeof(FrameworkElement), typeof(VisualHelper), new PropertyMetadata((o, e) =>
+			{
+				FrameworkElement target = o as FrameworkElement;
+				FrameworkElement source = e.NewValue as FrameworkElement;
+				if (target != null && source != null)
+					target.SetBinding(FrameworkElement.MaxWidthProperty, new Binding { Source = source, Path = new PropertyPath(FrameworkElement.ActualWidthProperty), Mode = BindingMode.OneWay });
+			}));
+
+		public static bool GetIsFirstItem(DependencyObject obj)
+		{
+			return (bool)obj.GetValue(IsFirstItemProperty);
+		}
+		public static void SetIsFirstItem(DependencyObject obj, bool value)
+		{
+			obj.SetValue(IsFirstItemProperty, value);
+		}
+		public static readonly DependencyProperty IsFirstItemProperty =
+			DependencyProperty.RegisterAttached("IsFirstItem", typeof(bool), typeof(VisualHelper), new PropertyMetadata());
+
+		public static bool GetIsLastItem(DependencyObject obj)
+		{
+			return (bool)obj.GetValue(IsLastItemProperty);
+		}
+		public static void SetIsLastItem(DependencyObject obj, bool value)
+		{
+			obj.SetValue(IsLastItemProperty, value);
+		}
+		public static readonly DependencyProperty IsLastItemProperty =
+			DependencyProperty.RegisterAttached("IsLastItem", typeof(bool), typeof(VisualHelper), new PropertyMetadata());
 	}
 }
