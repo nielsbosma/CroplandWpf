@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:c="clr-namespace:CroplandWpf.Components"
 					xmlns:a="clr-namespace:CroplandWpf.Attached"
@@ -18,10 +18,6 @@
 		<Setter Property="a:VisualHelper.HeaderVerticalAlignment" Value="Center"></Setter>
 		<Setter Property="a:VisualHelper.FooterVerticalAlignment" Value="Center"></Setter>
 		<Setter Property="a:VisualHelper.HeaderHorizontalAlignment" Value="Right"></Setter>
-		<!--Test-->
-		<!--<Setter Property="BorderBrush" Value="Black"></Setter>
-		<Setter Property="BorderThickness" Value="1"></Setter>-->
-		<!--/Test-->
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="TextBox">
@@ -97,10 +93,14 @@
 						</Trigger>
 						<Trigger Property="AcceptsReturn" Value="True">
 							<Setter Property="TextWrapping" Value="Wrap"></Setter>
+							<Setter Property="VerticalScrollBarVisibility" Value="Auto"></Setter>
 							<Setter TargetName="PART_ContentHost" Property="VerticalAlignment" Value="Stretch"></Setter>
 							<Setter TargetName="PART_ContentHost" Property="VerticalContentAlignment" Value="Stretch"></Setter>
-							<Setter TargetName="PART_ContentHost" Property="Margin" Value="10"></Setter>
-							<Setter TargetName="PART_ContentHost" Property="VerticalScrollBarVisibility" Value="Visible"></Setter>
+							<Setter TargetName="PART_ContentHost" Property="Margin" Value="10,10,5,10"></Setter>
+							<!--<Setter TargetName="PART_ContentHost" Property="VerticalScrollBarVisibility" Value="Visible"></Setter>-->
+						</Trigger>
+						<Trigger SourceName="PART_ContentHost" Property="VerticalScrollBarVisibility" Value="Visible">
+							<!--<Setter TargetName="PART_ContentHost" Property="Margin" Value="10,10,0,10"></Setter>-->
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
@@ -183,10 +183,6 @@
 		<Setter Property="MinWidth" Value="40"></Setter>
 		<Setter Property="Padding" Value="0"></Setter>
 		<Setter Property="Background" Value="#FFffffff"></Setter>
-		<!--Test-->
-		<!--<Setter Property="BorderBrush" Value="Black"></Setter>
-		<Setter Property="BorderThickness" Value="1"></Setter>-->
-		<!--/Test-->
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:CommandTextBox">

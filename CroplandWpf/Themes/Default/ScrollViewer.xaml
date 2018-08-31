@@ -180,8 +180,16 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="ScrollViewer">
 					<Grid>
-						<ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="True" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+						<Grid x:Name="gridScrollContentHost">
+							<ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="True" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+						</Grid>
+						<ScrollBar x:Name="PART_VerticalScrollBar" HorizontalAlignment="Right" MinWidth="6" Orientation="Vertical" Margin="0,0,0,0" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=VerticalOffset, Mode=OneWay}" ViewportSize="{TemplateBinding ViewportHeight}"/>
 					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger SourceName="PART_VerticalScrollBar" Property="Visibility" Value="Visible">
+							<Setter TargetName="gridScrollContentHost" Property="Margin" Value="0,0,10,0"></Setter>
+						</Trigger>
+					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

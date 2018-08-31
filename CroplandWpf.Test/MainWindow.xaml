@@ -532,6 +532,7 @@
 						<StackPanel Orientation="Vertical">
 							<TextBlock Margin="5" Text="Multiline TextBox (AcceptsReturn=True)"></TextBlock>
 							<TextBox x:Name="textBox_Multiline" HorizontalAlignment="Left" AcceptsReturn="True" Height="90" Width="200" Margin="10"></TextBox>
+							<CheckBox IsChecked="{Binding ElementName=textBox_Multiline, Path=AcceptsReturn, Mode=TwoWay}" Margin="10,5">AcceptsReturn</CheckBox>
 
 							<TextBlock Margin="5" FontWeight="Bold"><Run Text="CommandTextBox"/></TextBlock>
 							<c:CommandTextBox x:Name="commandTextBox" Margin="5" Command="{Binding CommandTextBoxCommand}" ButtonStyle="{DynamicResource styleButton_CommandTextBox_Green}" ButtonContent="REGISTER"/>
