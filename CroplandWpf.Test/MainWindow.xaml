@@ -301,146 +301,8 @@
 					</Grid.ColumnDefinitions>
 					<StackPanel Grid.Column="0">
 						<StackPanel.Resources>
-							<Style x:Key="styleButton_Cloud" TargetType="Button">
-								<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-								<Setter Property="MinWidth" Value="34"></Setter>
-								<Setter Property="MinHeight" Value="34"></Setter>
-								<Setter Property="Width" Value="34"></Setter>
-								<Setter Property="Height" Value="34"></Setter>
-								<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
-								<Setter Property="UseLayoutRounding" Value="False"></Setter>
-								<Setter Property="SnapsToDevicePixels" Value="False"></Setter>
-								<Setter Property="Background" Value="#FF05AB8B"></Setter>
-								<Setter Property="Padding" Value="5,5,5,6"></Setter>
-								<Setter Property="Template">
-									<Setter.Value>
-										<ControlTemplate TargetType="Button">
-											<Grid Background="{x:Null}">
-												<Ellipse Fill="Transparent"></Ellipse>
-												<Grid x:Name="grid">
-													<Grid.Effect>
-														<DropShadowEffect ShadowDepth="0" Color="#FF000000" Opacity="0.0"></DropShadowEffect>
-													</Grid.Effect>
-													<Ellipse Stroke="{TemplateBinding Background}" StrokeThickness="1.5"></Ellipse>
-													<Path Margin="{TemplateBinding Padding}" Fill="{TemplateBinding Background}" Stretch="Uniform" Data="{DynamicResource geometryIcon_Cloud}"></Path>
-												</Grid>
-											</Grid>
-											<ControlTemplate.Triggers>
-												<Trigger Property="IsMouseOver" Value="True">
-													<Trigger.EnterActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.0" To="0.3" Duration="00:00:00.150"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.EnterActions>
-													<Trigger.ExitActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.ExitActions>
-												</Trigger>
-												<Trigger Property="IsEnabled" Value="False">
-													<Trigger.EnterActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.EnterActions>
-													<Trigger.ExitActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.ExitActions>
-												</Trigger>
-											</ControlTemplate.Triggers>
-										</ControlTemplate>
-									</Setter.Value>
-								</Setter>
-							</Style>
-							<Style x:Key="styleButton_Cloud_Small" TargetType="Button">
-								<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-								<Setter Property="MinWidth" Value="18"></Setter>
-								<Setter Property="MinHeight" Value="18"></Setter>
-								<Setter Property="Width" Value="18"></Setter>
-								<Setter Property="Height" Value="18"></Setter>
-								<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
-								<Setter Property="UseLayoutRounding" Value="False"></Setter>
-								<Setter Property="SnapsToDevicePixels" Value="False"></Setter>
-								<Setter Property="Background" Value="#FF05AB8B"></Setter>
-								<Setter Property="Padding" Value="3,2,3,3"></Setter>
-								<Setter Property="Template">
-									<Setter.Value>
-										<ControlTemplate TargetType="Button">
-											<Grid Background="{x:Null}">
-												<Ellipse Fill="Transparent"></Ellipse>
-												<Grid x:Name="grid">
-													<Grid.Effect>
-														<DropShadowEffect ShadowDepth="0" Color="#FF000000" Opacity="0.0"></DropShadowEffect>
-													</Grid.Effect>
-													<Ellipse Stroke="{TemplateBinding Background}" StrokeThickness="1.5"></Ellipse>
-													<Path Margin="{TemplateBinding Padding}" Fill="{TemplateBinding Background}" Stretch="Uniform" Data="{DynamicResource geometryIcon_Cloud}"></Path>
-												</Grid>
-											</Grid>
-											<ControlTemplate.Triggers>
-												<Trigger Property="IsMouseOver" Value="True">
-													<Trigger.EnterActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.0" To="0.3" Duration="00:00:00.150"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.EnterActions>
-													<Trigger.ExitActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.ExitActions>
-												</Trigger>
-												<Trigger Property="IsEnabled" Value="False">
-													<Trigger.EnterActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.EnterActions>
-													<Trigger.ExitActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.ExitActions>
-												</Trigger>
-											</ControlTemplate.Triggers>
-										</ControlTemplate>
-									</Setter.Value>
-								</Setter>
-							</Style>
+							
 						</StackPanel.Resources>
-						<TextBlock Margin="5">Button "cloud"</TextBlock>
-						<StackPanel Orientation="Horizontal">
-							<TextBlock VerticalAlignment="Center" Margin="5">Original color from icon AI file:</TextBlock>
-							<Button Margin="5" Style="{StaticResource styleButton_Cloud}"></Button>
-							<Button Margin="5" Style="{StaticResource styleButton_Cloud_Small}"></Button>
-						</StackPanel>
-						<StackPanel Orientation="Horizontal">
-							<TextBlock VerticalAlignment="Center" Margin="5">Default dark green color</TextBlock>
-							<Button Margin="5" Style="{StaticResource styleButton_Cloud}" Background="{DynamicResource brushControl_Background_Dark}"></Button>
-							<Button Margin="5" Style="{StaticResource styleButton_Cloud_Small}" Background="{DynamicResource brushControl_Background_Dark}"></Button>
-						</StackPanel>
-						<StackPanel Orientation="Horizontal">
-							<TextBlock Margin="5" VerticalAlignment="Center">Original "cloud" icon (33x22px)</TextBlock>
-							<Path Margin="5" Width="33" Height="22" HorizontalAlignment="Center" Fill="#FF05AB8B" Stretch="Fill" Data="{DynamicResource geometryIcon_Cloud}"></Path>
-						</StackPanel>
 						<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(h:WindowHelper.AllowResize), Mode=TwoWay}">Allow main window resize</CheckBox>
 						<!--<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(ph:ButtonHelper.ConvertToUpper), Mode=TwoWay}">All buttons content to uppercase</CheckBox>-->
 						<Button Margin="5" Content="{Binding UpperCaseTestContent}" HorizontalAlignment="Left"></Button>
@@ -455,6 +317,8 @@
 							<CheckBox Margin="20,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonLight, Mode=TwoWay}" Content="IsEnabled"/>
 						</StackPanel>
 						<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left" />
+						<TextBlock Margin="5">"Cloud" button</TextBlock>
+						<Button HorizontalAlignment="Left" Style="{DynamicResource styleButton_Cloud}"></Button>
 						<StackPanel Orientation="Horizontal">
 							<Button Margin="5" Style="{DynamicResource styleButton_AddFile}"/>
 							<Button x:Name="buttonRemoveTest" Margin="0,5,5,5" Style="{DynamicResource styleButton_RemoveFile}"/>
