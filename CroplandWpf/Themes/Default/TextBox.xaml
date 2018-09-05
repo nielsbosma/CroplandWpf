@@ -97,10 +97,6 @@
 							<Setter TargetName="PART_ContentHost" Property="VerticalAlignment" Value="Stretch"></Setter>
 							<Setter TargetName="PART_ContentHost" Property="VerticalContentAlignment" Value="Stretch"></Setter>
 							<Setter TargetName="PART_ContentHost" Property="Margin" Value="10,10,5,10"></Setter>
-							<!--<Setter TargetName="PART_ContentHost" Property="VerticalScrollBarVisibility" Value="Visible"></Setter>-->
-						</Trigger>
-						<Trigger SourceName="PART_ContentHost" Property="VerticalScrollBarVisibility" Value="Visible">
-							<!--<Setter TargetName="PART_ContentHost" Property="Margin" Value="10,10,0,10"></Setter>-->
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>

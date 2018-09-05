@@ -11,21 +11,14 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-using tk = Xceed.Wpf.Toolkit;
 
 namespace CroplandWpf.Test
 {
@@ -68,6 +61,22 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty Mbi_WarningProperty =
 			DependencyProperty.Register("Mbi_Warning", typeof(MessageBoxInfo), typeof(MainWindow), new PropertyMetadata());
 
+		public MessageBoxInfo Mbi_YYNC
+		{
+			get { return (MessageBoxInfo)GetValue(Mbi_YYNCProperty); }
+			private set { SetValue(Mbi_YYNCProperty, value); }
+		}
+		public static readonly DependencyProperty Mbi_YYNCProperty =
+			DependencyProperty.Register("Mbi_YYNC", typeof(MessageBoxInfo), typeof(MainWindow), new PropertyMetadata());
+
+		public MessageBoxInfo Mbi_OYNaCR
+		{
+			get { return (MessageBoxInfo)GetValue(Mbi_OYNaCRProperty); }
+			private set { SetValue(Mbi_OYNaCRProperty, value); }
+		}
+		public static readonly DependencyProperty Mbi_OYNaCRProperty =
+			DependencyProperty.Register("Mbi_OYNaCR", typeof(MessageBoxInfo), typeof(MainWindow), new PropertyMetadata());
+
 		public MessageBoxInfo Mbi_Question
 		{
 			get { return (MessageBoxInfo)GetValue(Mbi_QuestionProperty); }
@@ -92,13 +101,21 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty ShowMessageBoxCommandProperty =
 			DependencyProperty.Register("ShowMessageBoxCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 
-		public MessageBoxResult MessageBoxResult
+		public Components.MessageBoxButton MessageBoxResult
 		{
-			get { return (MessageBoxResult)GetValue(MessageBoxResultProperty); }
+			get { return (Components.MessageBoxButton)GetValue(MessageBoxResultProperty); }
 			private set { SetValue(MessageBoxResultProperty, value); }
 		}
 		public static readonly DependencyProperty MessageBoxResultProperty =
-			DependencyProperty.Register("MessageBoxResult", typeof(MessageBoxResult), typeof(MainWindow), new PropertyMetadata());
+			DependencyProperty.Register("MessageBoxResult", typeof(Components.MessageBoxButton), typeof(MainWindow), new PropertyMetadata());
+
+		public Action<Components.MessageBoxButton> MessageBoxAction
+		{
+			get { return (Action<Components.MessageBoxButton>)GetValue(MessageBoxActionProperty); }
+			private set { SetValue(MessageBoxActionProperty, value); }
+		}
+		public static readonly DependencyProperty MessageBoxActionProperty =
+			DependencyProperty.Register("MessageBoxAction", typeof(Action<Components.MessageBoxButton>), typeof(MainWindow), new PropertyMetadata());
 		#endregion
 
 		#region Slider
@@ -188,7 +205,6 @@ namespace CroplandWpf.Test
 		#endregion
 
 		#region CommandListBox
-
 		public List<DateIntervalType> DateIntervalPresets
 		{
 			get { return (List<DateIntervalType>)GetValue(DateIntervalPresetsProperty); }
@@ -866,8 +882,8 @@ namespace CroplandWpf.Test
 			StringSearchAutocompleteFocusController = new FocusController();
 			FocusCustomSearchAutoCompleteControlCommand = new DelegateCommand(FocusCustomSearchAutoCompleteControlCommand_Execute);
 
-			NoMatchesFoundCommand = new DelegateCommand((o) => { MessageBoxService.Show(new MessageBoxInfo { Buttons = MessageBoxButton.OK, Content = "No matches found command executed." }); });
-			SeeMoreSearchOptionsCommand = new DelegateCommand((o) => { MessageBoxService.Show(new MessageBoxInfo { Buttons = MessageBoxButton.OK, Content = "See more search options command executed." }); });
+			NoMatchesFoundCommand = new DelegateCommand((o) => { MessageBoxService.Show(new MessageBoxInfo { Buttons = MessageBoxButtons.OK, Content = "No matches found command executed." }); });
+			SeeMoreSearchOptionsCommand = new DelegateCommand((o) => { MessageBoxService.Show(new MessageBoxInfo { Buttons = MessageBoxButtons.OK, Content = "See more search options command executed." }); });
 
 			PersonsTestSource = new ObservableCollection<Person>()
 			{
@@ -989,7 +1005,7 @@ namespace CroplandWpf.Test
 			Mbi_Exception = new MessageBoxInfo()
 			{
 				Header = "SeoTool",
-				Buttons = MessageBoxButton.OK,
+				Buttons = MessageBoxButtons.OK,
 				Content = new ExceptionInfo
 				{
 					Name = "XPathonUrl",
@@ -1003,12 +1019,15 @@ namespace CroplandWpf.Test
 				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
 				ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception
 			};
-			Mbi_Question = new MessageBoxInfo() { Header = "FileStar", Buttons = MessageBoxButton.YesNo, Content = "Can you answer the question?..", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question };
-			Mbi_Warning = new MessageBoxInfo() { Header = "SuperTsar", Buttons = MessageBoxButton.OK, Content = "Congratulations! You received a warning!", IconBrushKey = MessageBoxIconBrushDefaultKeys.Warning };
+			Mbi_Question = new MessageBoxInfo() { Header = "FileStar", Buttons = MessageBoxButtons.YesNo, Content = "Can you answer the question?..", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question };
+			Mbi_Warning = new MessageBoxInfo() { Header = "SuperTsar", Buttons = MessageBoxButtons.OK, Content = "Congratulations! You received a warning!", IconBrushKey = MessageBoxIconBrushDefaultKeys.Warning };
+			Mbi_YYNC = new MessageBoxInfo() { Header = "Apply the following action?", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question, Content = "Wanna do something to all these innocent items?..", Buttons = new MessageBoxButtons(CroplandWpf.Components.MessageBoxButton.Yes, CroplandWpf.Components.MessageBoxButton.YesToAll, CroplandWpf.Components.MessageBoxButton.No, CroplandWpf.Components.MessageBoxButton.Cancel) };
+			Mbi_OYNaCR = new MessageBoxInfo() { Header = "Some Random Buttons MessageBox", Content = new { MainContent = "Choose the button you like", AdditionalContent = "spme footer" }, Buttons = MessageBoxButtons.CreateNew("Oi", "Yes to something", "NO to everything", "Just cancel", "some random button"), ContentTemplateKey = "templateMessageBoxContent_RandomButtons", IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception };
+			MessageBoxAction = new Action<Components.MessageBoxButton>(MessageBoxActionMethod);
 			#endregion
 
 			#region 
-			StartProgressTestCommand = new DelegateCommand(StartProgressTestCommand_Execute, StartProgressTestCommand_CanExecute);
+				StartProgressTestCommand = new DelegateCommand(StartProgressTestCommand_Execute, StartProgressTestCommand_CanExecute);
 			StartLongOperationCommand = new DelegateCommand(StartLongOperationCommand_Execute, StartLongOperationCommand_CanExecute);
 			StartVeryLongOperationCommand = new DelegateCommand(StartVeryLongOperationCommand_Execute, StartVeryLongOperationCommand_CanExecute);
 			#endregion
@@ -1060,6 +1079,11 @@ namespace CroplandWpf.Test
 			#region Button upper case content
 			UpperCaseTestContent = "Regular Case Content";
 			#endregion
+		}
+
+		private void MessageBoxActionMethod(Components.MessageBoxButton button)
+		{
+			MessageBoxResult = button;
 		}
 
 		private void FocusCustomSearchAutoCompleteControlCommand_Execute(object obj)
@@ -1291,7 +1315,7 @@ namespace CroplandWpf.Test
 			if (fi != null && TestRemovableItemsItemsSource.Contains(fi))
 			{
 				string name = fi.Name;
-				if (MessageBox.Show("Remove '" + name + "'?", "Confirm Item Removal", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+				if (MessageBox.Show("Remove '" + name + "'?", "Confirm Item Removal", System.Windows.MessageBoxButton.YesNo) == System.Windows.MessageBoxResult.Yes)
 					TestRemovableItemsItemsSource.Remove(parameter as FileItem);
 			}
 		}
@@ -1313,7 +1337,7 @@ namespace CroplandWpf.Test
 		#region PasswordBox
 		private void UpdateUserPasswordCommand_Execute(object obj)
 		{
-			MessageBoxService.Show(new MessageBoxInfo { Content = String.Format("User password was changed to '{0}'", UserPasswordController.GetPassword()), Buttons = MessageBoxButton.OK });
+			MessageBoxService.Show(new MessageBoxInfo { Content = string.Format("User password was changed to '{0}'", UserPasswordController.GetPassword()), Buttons = MessageBoxButtons.OK });
 		}
 
 		private bool UpdateUserPasswordCommand_CanExecute(object arg)

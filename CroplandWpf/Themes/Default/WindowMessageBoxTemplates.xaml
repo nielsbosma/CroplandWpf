@@ -35,4 +35,11 @@
 		</StackPanel>
 	</DataTemplate>
 
+	<DataTemplate x:Key="templateMessageBoxContent_RandomButtons">
+		<StackPanel Orientation="Vertical">
+			<TextBlock Text="{Binding MainContent}"></TextBlock>
+			<TextBlock Text="{Binding AdditionalContent}" FontSize="8pt" FontStyle="Italic"></TextBlock>
+		</StackPanel>
+	</DataTemplate>
+
 </ResourceDictionary>

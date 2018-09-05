@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:c="clr-namespace:CroplandWpf.Components"
 					xmlns:a="clr-namespace:CroplandWpf.Attached"
+					xmlns:h="clr-namespace:CroplandWpf.PresentationHelpers"
                     xmlns:local="clr-namespace:CroplandWpf.Themes.Default">
 
 	<DataTemplate x:Key="templateMessageBoxContent_Default">
@@ -18,6 +19,7 @@
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Margin" Value="0,10,10,10"></Setter>
 		<Setter Property="MinWidth" Value="80"></Setter>
+		<Setter Property="h:ButtonHelper.ConvertToUpper" Value="True"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
@@ -163,6 +165,10 @@
 		</Setter>
 	</Style>
 
+	<DataTemplate x:Key="templateMessageBoxControlButton" DataType="{x:Type c:MessageBoxButton}">
+		<Button Content="{Binding Header}" Style="{StaticResource styleButton_MessageBox}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=ControlButtonCommand}" CommandParameter="{Binding}"></Button>
+	</DataTemplate>
+
 	<Style x:Key="{x:Type c:MessageBoxWindow}" TargetType="c:MessageBoxWindow">
 		<Setter Property="AllowsTransparency" Value="True"></Setter>
 		<Setter Property="ResizeMode" Value="NoResize"></Setter>
@@ -174,6 +180,7 @@
 		<Setter Property="MinHeight" Value="150"></Setter>
 		<Setter Property="MinWidth" Value="350"></Setter>
 		<Setter Property="Padding" Value="15"></Setter>
+		<Setter Property="MaxWidth" Value="600"></Setter>
 		<Setter Property="SizeToContent" Value="WidthAndHeight"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
@@ -196,9 +203,9 @@
 								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderHeader" Background="{DynamicResource brushToolWindow_Header_Background}" CornerRadius="1"></Border>
 								<c:WindowControlThumb Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource styleThumb_Window_Move}" Role="Move" AllowMaximize="False"></c:WindowControlThumb>
 								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="16,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt"></TextBlock>
-								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_MessageBoxPresenter_Close}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxControlButtonActionType.Close}"></Button>
+								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_MessageBoxPresenter_Close}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxButton.Close}"></Button>
 
-								<Grid Grid.Row="1" Grid.ColumnSpan="2" MaxWidth="600">
+								<Grid Grid.Row="1" Grid.ColumnSpan="2">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="Auto"></ColumnDefinition>
 										<ColumnDefinition></ColumnDefinition>
@@ -226,11 +233,19 @@
 
 									<ToggleButton Grid.Column="0" x:Name="toggeButton_AdditionalContentVisibility" Visibility="Collapsed" Style="{StaticResource styleToggleButton_MessageBox_ShowDetails}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=AdditionalContentVisible, Mode=TwoWay}" Margin="15,0,0,0">Show Details</ToggleButton>
 
-									<StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+									<ItemsControl Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Buttons}" HorizontalAlignment="Right" Margin="10,0,0,0" VerticalAlignment="Center" ItemTemplate="{StaticResource templateMessageBoxControlButton}">
+										<ItemsControl.ItemsPanel>
+											<ItemsPanelTemplate>
+												<StackPanel Orientation="Horizontal"></StackPanel>
+											</ItemsPanelTemplate>
+										</ItemsControl.ItemsPanel>
+									</ItemsControl>
+									
+									<!--<StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
 										<Button Style="{StaticResource styleButton_MessageBox}" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PositiveActionButtonHeader}" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PositiveActionButtonVisibility}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxControlButtonActionType.Positive}"></Button>
 										<Button Style="{StaticResource styleButton_MessageBox}" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NegativeActionButtonHeader}" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NegativeActionButtonVisibility}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxControlButtonActionType.Negative}"></Button>
 										<Button Style="{StaticResource styleButton_MessageBox}" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CancelActionButtonVisibility}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxControlButtonActionType.Close}">Cancel</Button>
-									</StackPanel>
+									</StackPanel>-->
 								</Grid>
 							</Grid>
 						</c:ClippingBorder>

@@ -101,6 +101,7 @@
     <Compile Include="Components\ImageCropControl.cs" />
     <Compile Include="Components\ImageResizeWrapper.cs" />
     <Compile Include="Components\InputDialog.cs" />
+    <Compile Include="Components\MessageBoxData.cs" />
     <Compile Include="Components\ModifiedInputTextBox.cs" />
     <Compile Include="Components\Overlay.cs" />
     <Compile Include="Components\HyperlinkButton.cs" />

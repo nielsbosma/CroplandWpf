@@ -175,17 +175,37 @@
 			</DataTemplate.Triggers>
 		</DataTemplate>
 
-		<c:MessageBoxInfo x:Key="mbiFromResources" ContentTemplateKey="templateMbiFromResources_Content" Header="MessageBoxInfo defined in resources" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="MessageBoxInfo with a custom ContentTemplate defined in XAML locally. Has the footer template defined too" Footer="some random footer" FooterTemplateKey="templateMbiFromResources_Footer" Buttons="YesNoCancel">
+		<c:MessageBoxInfo x:Key="mbiFromResources" ContentTemplateKey="templateMbiFromResources_Content" Header="MessageBoxInfo defined in resources" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="MessageBoxInfo with a custom ContentTemplate defined in XAML locally. Has the footer template defined too" Footer="some random footer" FooterTemplateKey="templateMbiFromResources_Footer" Buttons="Ok" ph:DataContextBridge.SourceScopeName="vm_main" Action="{Binding MessageBoxAction}">
+			<!--Buttons="YesNoCancel"-->
 			<c:MessageBoxInfo.Resources>
 				<DataTemplate x:Key="templateMbiFromResources_Content">
-					<TextBlock><InlineUIContainer>
-							<TextBlock Text="This MessageBox text will go in Italic style:"/>
-						</InlineUIContainer><LineBreak/><InlineUIContainer>
-							<TextBlock FontStyle="Italic" Text="{Binding}" TextWrapping="Wrap"/>
-						</InlineUIContainer></TextBlock>
+					<TextBlock>
+						<TextBlock Text="This MessageBox text will go in Italic style:"/>
+						<LineBreak/>
+						<TextBlock FontStyle="Italic" Text="{Binding}" TextWrapping="Wrap"/>
+						</TextBlock>
 				</DataTemplate>
 
 				<DataTemplate x:Key="templateMbiFromResources_Footer">
+					<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+						<TextBlock Text="{Binding}"/>
+						<c:HyperlinkButton Padding="0" Margin="5,0,0,0" Content="Dont Show Again"/>
+					</StackPanel>
+				</DataTemplate>
+			</c:MessageBoxInfo.Resources>
+		</c:MessageBoxInfo>
+
+		<c:MessageBoxInfo x:Key="mbiRandomButtons" ContentTemplateKey="templateMbiRandomButtons_Content" Header="Some Random Buttons MessageBox" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="Choose the button you like" Footer="some random footer" FooterTemplateKey="templateMbiRandomButtons_Footer" Buttons="Oi;Yes To Something;No To Everything;Just Cancel;Some random button">
+			<c:MessageBoxInfo.Resources>
+				<DataTemplate x:Key="templateMbiFromResources_Content">
+					<TextBlock>
+						<TextBlock FontStyle="Italic" Text="Custom header" TextWrapping="Wrap"/>
+						<LineBreak/>
+						<TextBlock FontWeight="Bold" Text="{Binding}" TextWrapping="Wrap"/>
+					</TextBlock>
+				</DataTemplate>
+
+				<DataTemplate x:Key="templateMbiRandomButtons_Footer">
 					<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
 						<TextBlock Text="{Binding}"/>
 						<c:HyperlinkButton Padding="0" Margin="5,0,0,0" Content="Dont Show Again"/>
@@ -658,7 +678,11 @@
 							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Exception}" Content="Simple Exception (OK)"/>
 							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Question}" Content="Simple Question (Yes/No)"/>
 							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
+							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_YYNC}" Content="Yes/Yes to All/No/Cancel"/>
+							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiRandomButtons}" Content="Some random message box"/>
+							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_OYNaCR}">Show random message box created in code</Button>
 							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
+							<Button Margin="2" Command="{x:Static c:MessageBoxService.ShowCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="Static Show Command"/>
 						</WrapPanel>
 						<Grid>
 							<StackPanel Orientation="Horizontal">

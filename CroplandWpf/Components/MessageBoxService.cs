@@ -15,23 +15,29 @@ namespace CroplandWpf.Components
 	{
 		private static MessageBoxWindow window;
 
-		public static MessageBoxResult Show(MessageBoxInfo info)
+		public static MessageBoxButton Show(MessageBoxInfo info)
 		{
-			window = new MessageBoxWindow();
-			window.Owner = WindowHelper.GetActiveWindowInstance();
+			window = new MessageBoxWindow
+			{
+				Owner = WindowHelper.GetActiveWindowInstance()
+			};
 			window.Show(info);
 			return window.Result;
 		}
 
-		//public static DelegateCommand ShowCommand
-		//{
-		//	get { return _showCommand; }
-		//}
-		//private static DelegateCommand _showCommand = new DelegateCommand(ShowCommand_Execute);
+		public static DelegateCommand ShowCommand { get; } = new DelegateCommand(ShowCommand_Execute);
 
-		//private static void ShowCommand_Execute(object obj)
-		//{
-
-		//}
+		private static void ShowCommand_Execute(object obj)
+		{
+			if(obj is MessageBoxInfo info)
+			{
+				window = new MessageBoxWindow
+				{
+					Owner = WindowHelper.GetActiveWindowInstance()
+				};
+				window.Show(info);
+				info.ExecuteAction(window.Result);
+			}
+		}
 	}
 }
