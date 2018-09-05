@@ -190,7 +190,6 @@ namespace CroplandWpf.Components
 			ResizeMode = ResizeMode.Absolute;
 			ApplyCommand = new DelegateCommand(ApplyCommand_Execute, ApplyCommand_CanExecute);
 			SetTargetCommand = new DelegateCommand(SetTargetCommand_Execute, SetTargetCommand_CanExecute);
-			//KeepConstraint = true;
 		}
 
 		private void SetTargetCommand_Execute(object obj)

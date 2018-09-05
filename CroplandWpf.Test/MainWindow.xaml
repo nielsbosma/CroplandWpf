@@ -175,7 +175,7 @@
 			</DataTemplate.Triggers>
 		</DataTemplate>
 
-		<c:MessageBoxInfo x:Key="mbiFromResources" ContentTemplateKey="templateMbiFromResources_Content" Header="MessageBoxInfo defined in resources" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="MessageBoxInfo with a custom ContentTemplate defined in XAML locally. Has the footer template defined too" Footer="some random footer" FooterTemplateKey="templateMbiFromResources_Footer" Buttons="Ok" ph:DataContextBridge.SourceScopeName="vm_main" Action="{Binding MessageBoxAction}">
+		<c:MessageBoxInfo x:Key="mbiFromResources" ContentTemplateKey="templateMbiFromResources_Content" Header="MessageBoxInfo defined in resources" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="MessageBoxInfo with a custom ContentTemplate defined in XAML locally. Has the footer template defined too" Footer="some random footer" FooterTemplateKey="templateMbiFromResources_Footer" Buttons="Ok;Cancel" ph:DataContextBridge.SourceScopeName="vm_main" Action="{Binding MessageBoxAction}">
 			<!--Buttons="YesNoCancel"-->
 			<c:MessageBoxInfo.Resources>
 				<DataTemplate x:Key="templateMbiFromResources_Content">

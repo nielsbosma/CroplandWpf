@@ -1019,8 +1019,8 @@ namespace CroplandWpf.Test
 				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
 				ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception
 			};
-			Mbi_Question = new MessageBoxInfo() { Header = "FileStar", Buttons = MessageBoxButtons.YesNo, Content = "Can you answer the question?..", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question };
-			Mbi_Warning = new MessageBoxInfo() { Header = "SuperTsar", Buttons = MessageBoxButtons.OK, Content = "Congratulations! You received a warning!", IconBrushKey = MessageBoxIconBrushDefaultKeys.Warning };
+			Mbi_Question = MessageBoxInfo.New(MessageBoxType.Question, "FileStar", "Can you answer the question?..");
+			Mbi_Warning = MessageBoxInfo.New(MessageBoxType.Warning, "SuperTsar", "Congratulations! You received a warning!");
 			Mbi_YYNC = new MessageBoxInfo() { Header = "Apply the following action?", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question, Content = "Wanna do something to all these innocent items?..", Buttons = new MessageBoxButtons(CroplandWpf.Components.MessageBoxButton.Yes, CroplandWpf.Components.MessageBoxButton.YesToAll, CroplandWpf.Components.MessageBoxButton.No, CroplandWpf.Components.MessageBoxButton.Cancel) };
 			Mbi_OYNaCR = new MessageBoxInfo() { Header = "Some Random Buttons MessageBox", Content = new { MainContent = "Choose the button you like", AdditionalContent = "spme footer" }, Buttons = MessageBoxButtons.CreateNew("Oi", "Yes to something", "NO to everything", "Just cancel", "some random button"), ContentTemplateKey = "templateMessageBoxContent_RandomButtons", IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception };
 			MessageBoxAction = new Action<Components.MessageBoxButton>(MessageBoxActionMethod);
@@ -1079,11 +1079,6 @@ namespace CroplandWpf.Test
 			#region Button upper case content
 			UpperCaseTestContent = "Regular Case Content";
 			#endregion
-		}
-
-		private void MessageBoxActionMethod(Components.MessageBoxButton button)
-		{
-			MessageBoxResult = button;
 		}
 
 		private void FocusCustomSearchAutoCompleteControlCommand_Execute(object obj)
@@ -1184,6 +1179,11 @@ namespace CroplandWpf.Test
 		private bool ShowMessageBoxCommand_CanExecute(object arg)
 		{
 			return arg as MessageBoxInfo != null;
+		}
+
+		private void MessageBoxActionMethod(Components.MessageBoxButton button)
+		{
+			MessageBoxResult = button;
 		}
 		#endregion
 

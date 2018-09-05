@@ -281,9 +281,7 @@ namespace CroplandWpf.Components
 				Thread.Sleep(500);
 				Dispatcher.Invoke(() =>
 				{
-					//Keyboard.Focus(null);
 					Keyboard.Focus(_editableTextBox);
-					//_editableTextBox.Focus();
 				});
 			});
 		}

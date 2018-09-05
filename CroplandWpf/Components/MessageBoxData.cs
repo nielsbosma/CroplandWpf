@@ -20,14 +20,69 @@ namespace CroplandWpf.Components
 
 	public class MessageBoxInfo : FrameworkElement
 	{
-		public string Header { get; set; }
-		public object Content { get; set; }
-		public object AdditionalContentTemplateKey { get; set; }
-		public object Footer { get; set; }
-		public object FooterTemplateKey { get; set; }
-		public object ContentTemplateKey { get; set; }
-		public object IconBrushKey { get; set; }
-		public string ScopeName { get; set; }
+		public string Header
+		{
+			get { return (string)GetValue(HeaderProperty); }
+			set { SetValue(HeaderProperty, value); }
+		}
+		public static readonly DependencyProperty HeaderProperty =
+			DependencyProperty.Register("Header", typeof(string), typeof(MessageBoxInfo), new PropertyMetadata());
+
+		public object Content
+		{
+			get { return (object)GetValue(ContentProperty); }
+			set { SetValue(ContentProperty, value); }
+		}
+		public static readonly DependencyProperty ContentProperty =
+			DependencyProperty.Register("Content", typeof(object), typeof(MessageBoxInfo), new PropertyMetadata());
+
+		public object AdditionalContentTemplateKey
+		{
+			get { return (object)GetValue(AdditionalContentTemplateKeyProperty); }
+			set { SetValue(AdditionalContentTemplateKeyProperty, value); }
+		}
+		public static readonly DependencyProperty AdditionalContentTemplateKeyProperty =
+			DependencyProperty.Register("AdditionalContentTemplateKey", typeof(object), typeof(MessageBoxInfo), new PropertyMetadata());
+
+		public object Footer
+		{
+			get { return (object)GetValue(FooterProperty); }
+			set { SetValue(FooterProperty, value); }
+		}
+		public static readonly DependencyProperty FooterProperty =
+			DependencyProperty.Register("Footer", typeof(object), typeof(MessageBoxInfo), new PropertyMetadata());
+
+		public object FooterTemplateKey
+		{
+			get { return (object)GetValue(FooterTemplateKeyProperty); }
+			set { SetValue(FooterTemplateKeyProperty, value); }
+		}
+		public static readonly DependencyProperty FooterTemplateKeyProperty =
+			DependencyProperty.Register("FooterTemplateKey", typeof(object), typeof(MessageBoxInfo), new PropertyMetadata());
+
+		public object ContentTemplateKey
+		{
+			get { return (object)GetValue(ContentTemplateKeyProperty); }
+			set { SetValue(ContentTemplateKeyProperty, value); }
+		}
+		public static readonly DependencyProperty ContentTemplateKeyProperty =
+			DependencyProperty.Register("ContentTemplateKey", typeof(object), typeof(MessageBoxInfo), new PropertyMetadata());
+
+		public object IconBrushKey
+		{
+			get { return (object)GetValue(IconBrushKeyProperty); }
+			set { SetValue(IconBrushKeyProperty, value); }
+		}
+		public static readonly DependencyProperty IconBrushKeyProperty =
+			DependencyProperty.Register("IconBrushKey", typeof(object), typeof(MessageBoxInfo), new PropertyMetadata());
+
+		public string ScopeName
+		{
+			get { return (string)GetValue(ScopeNameProperty); }
+			set { SetValue(ScopeNameProperty, value); }
+		}
+		public static readonly DependencyProperty ScopeNameProperty =
+			DependencyProperty.Register("ScopeName", typeof(string), typeof(MessageBoxInfo), new PropertyMetadata());
 
 		public Action<MessageBoxButton> Action
 		{
@@ -37,9 +92,15 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty ActionProperty =
 			DependencyProperty.Register("Action", typeof(Action<MessageBoxButton>), typeof(MessageBoxInfo), new PropertyMetadata());
 
-		public MessageBoxButtons Buttons { get; set; }
+		public MessageBoxButtons Buttons
+		{
+			get { return (MessageBoxButtons)GetValue(ButtonsProperty); }
+			set { SetValue(ButtonsProperty, value); }
+		}
+		public static readonly DependencyProperty ButtonsProperty =
+			DependencyProperty.Register("Buttons", typeof(MessageBoxButtons), typeof(MessageBoxInfo), new PropertyMetadata());
 
-		public static MessageBoxInfo GetDefaultInfo(MessageBoxType type, string header, string content, Action<MessageBoxButton> action = null)
+		public static MessageBoxInfo New(MessageBoxType type, string header, string content, Action<MessageBoxButton> action = null)
 		{
 			MessageBoxInfo result = new MessageBoxInfo
 			{

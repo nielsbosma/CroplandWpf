@@ -202,7 +202,7 @@
 
 								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderHeader" Background="{DynamicResource brushToolWindow_Header_Background}" CornerRadius="1"></Border>
 								<c:WindowControlThumb Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource styleThumb_Window_Move}" Role="Move" AllowMaximize="False"></c:WindowControlThumb>
-								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="16,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt"></TextBlock>
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="16,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt" IsHitTestVisible="False"></TextBlock>
 								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_MessageBoxPresenter_Close}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxButton.Close}"></Button>
 
 								<Grid Grid.Row="1" Grid.ColumnSpan="2">
