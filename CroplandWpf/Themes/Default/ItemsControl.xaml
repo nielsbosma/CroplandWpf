@@ -201,7 +201,7 @@
 	<Style x:Key="{x:Type c:RemovableItemsItemsControl}" TargetType="c:RemovableItemsItemsControl">
 		<Setter Property="a:ItemsControlHelper.Orientation" Value="Vertical"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushItemsControl_Background}"></Setter>
-		<Setter Property="Padding" Value="11,0,0,0"></Setter>
+		<Setter Property="Padding" Value="0,0,0,0"></Setter>
 		<Setter Property="MinHeight" Value="52"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>

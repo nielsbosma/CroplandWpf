@@ -503,7 +503,13 @@
 
 						<StackPanel Orientation="Vertical" VerticalAlignment="Top">
 							<TextBlock Margin="5" FontWeight="Bold"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>
-							<c:RemovableItemsItemsControl Margin="5" a:ToolTipBeacon.InheritedGroupName="files" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}" ItemContainerStyle="{StaticResource styleRemovableItem_Files1}" HorizontalAlignment="Stretch" />
+							<c:RemovableItemsItemsControl 
+							        a:ToolTipBeacon.InheritedGroupName="files" 
+							        ItemTemplate="{StaticResource templateRemovableItemTest}" 
+							        ItemsSource="{Binding TestRemovableItemsItemsSource}" 
+							        a:RemoveRequestHelper.RemoveRequestCommand="{Binding RemoveRequestTestCommand}" 
+							        a:ItemsControlHelper.Orientation="Horizontal" CustomPartContentTemplate="{StaticResource templateRemovableList_CustomContent}" 
+							        ItemContainerStyle="{StaticResource styleRemovableItem_Files1}" HorizontalAlignment="Stretch" />
 							<!--<c:RemovableItemsItemsControl Margin="0,50,0,0" a:ToolTipBeacon.InheritedGroupName="files2" ItemTemplate="{StaticResource templateRemovableItemTest}" ItemsSource="{Binding TestRemovableItemsItemsSource}" a:ItemsControlHelper.Orientation="Horizontal" a:ToolTipBeacon.PlacementPriority="Top" ItemContainerStyle="{StaticResource styleRemovableItem_Files2}"/>-->
 						</StackPanel>
 					</StackPanel>
