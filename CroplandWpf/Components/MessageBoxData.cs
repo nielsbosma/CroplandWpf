@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace CroplandWpf.Components
@@ -139,7 +138,7 @@ namespace CroplandWpf.Components
 			Footer = null;
 			FooterTemplateKey = null;
 			ContentTemplateKey = null;
-			Buttons = MessageBoxButtons.OK;
+			Buttons = new MessageBoxButtons();
 		}
 
 		public void ExecuteAction(MessageBoxButton actionButton)
@@ -178,10 +177,21 @@ namespace CroplandWpf.Components
 	[TypeConverter(typeof(MessageBoxButtonTypeConverter))]
 	public struct MessageBoxButton
 	{
+		public static bool GetIsPrimaryAttached(DependencyObject obj)
+		{
+			return (bool)obj.GetValue(IsPrimaryAttachedProperty);
+		}
+		public static void SetIsPrimaryAttached(DependencyObject obj, bool value)
+		{
+			obj.SetValue(IsPrimaryAttachedProperty, value);
+		}
+		public static readonly DependencyProperty IsPrimaryAttachedProperty =
+			DependencyProperty.RegisterAttached("IsPrimaryAttached", typeof(bool), typeof(MessageBoxButton), new PropertyMetadata());
+
 		#region Standard buttons
 		public static MessageBoxButton OK
 		{
-			get { return new MessageBoxButton("OK"); }
+			get { return new MessageBoxButton("OK", true); }
 		}
 
 		public static MessageBoxButton Cancel
@@ -191,7 +201,7 @@ namespace CroplandWpf.Components
 
 		public static MessageBoxButton Yes
 		{
-			get { return new MessageBoxButton("Yes"); }
+			get { return new MessageBoxButton("Yes", true); }
 		}
 
 		public static MessageBoxButton No
@@ -201,7 +211,7 @@ namespace CroplandWpf.Components
 
 		public static MessageBoxButton YesToAll
 		{
-			get { return new MessageBoxButton("Yes To All"); }
+			get { return new MessageBoxButton("Yes To All", true); }
 		}
 
 		public static MessageBoxButton NoToAll
@@ -217,9 +227,17 @@ namespace CroplandWpf.Components
 
 		public string Header { get; private set; }
 
-		public MessageBoxButton(string header = "")
+		public bool IsPrimary { get; private set; }
+
+		public MessageBoxButton(string header = "", bool isPrimary = false)
 		{
 			Header = String.IsNullOrEmpty(header) ? String.Empty : header;
+			IsPrimary = isPrimary;
+		}
+
+		public MessageBoxButton MakePrimary()
+		{
+			return new MessageBoxButton(Header, true);
 		}
 
 		public override bool Equals(object obj)
@@ -230,7 +248,7 @@ namespace CroplandWpf.Components
 					return other.Header == null;
 				if (other.Header == null)
 					return Header == null;
-				return Header.ToLowerInvariant().Equals(other.Header.ToLowerInvariant());
+				return Header.ToLowerInvariant().Equals(other.Header.ToLowerInvariant()) && IsPrimary == other.IsPrimary;
 			}
 			return base.Equals(obj);
 		}
@@ -240,14 +258,22 @@ namespace CroplandWpf.Components
 			return Header.GetHashCode();
 		}
 
-		public static bool operator !=(MessageBoxButton mbb1, MessageBoxButton mbb2)
+		public static bool operator !=(object mbb1, MessageBoxButton mbb2)
 		{
-			return !mbb1.Equals(mbb2);
+			if (mbb1 == null)
+				return false;
+			if (mbb1 is MessageBoxButton mbb_1)
+				return !mbb1.Equals(mbb2);
+			return false;
 		}
 
-		public static bool operator ==(MessageBoxButton mbb1, MessageBoxButton mbb2)
+		public static bool operator ==(object mbb1, MessageBoxButton mbb2)
 		{
-			return mbb1.Equals(mbb2);
+			if (mbb1 == null)
+				return false;
+			if (mbb1 is MessageBoxButton mbb_1)
+				return mbb1.Equals(mbb2);
+			return false;
 		}
 
 		public override string ToString()
@@ -316,6 +342,20 @@ namespace CroplandWpf.Components
 		{
 			for (int index = Count - 1; index >= 0; index--)
 				yield return this[index];
+		}
+
+		public List<MessageBoxButton> GetFinalButtonsList()
+		{
+			if (Count == 0)
+				Add(MessageBoxButton.OK);
+			if (!this.Any(mbb => mbb.IsPrimary))
+			{
+				MessageBoxButton mbb = this.First();
+				mbb = mbb.MakePrimary();
+				RemoveAt(0);
+				Insert(0, mbb);
+			}
+			return new List<MessageBoxButton>(this);
 		}
 
 		public override string ToString()

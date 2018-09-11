@@ -1027,7 +1027,7 @@ namespace CroplandWpf.Test
 			#endregion
 
 			#region 
-				StartProgressTestCommand = new DelegateCommand(StartProgressTestCommand_Execute, StartProgressTestCommand_CanExecute);
+			StartProgressTestCommand = new DelegateCommand(StartProgressTestCommand_Execute, StartProgressTestCommand_CanExecute);
 			StartLongOperationCommand = new DelegateCommand(StartLongOperationCommand_Execute, StartLongOperationCommand_CanExecute);
 			StartVeryLongOperationCommand = new DelegateCommand(StartVeryLongOperationCommand_Execute, StartVeryLongOperationCommand_CanExecute);
 			#endregion

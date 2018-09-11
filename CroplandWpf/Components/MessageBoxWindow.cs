@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -109,13 +110,21 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty ControlButtonCommandProperty =
 			DependencyProperty.Register("ControlButtonCommand", typeof(DelegateCommand), typeof(MessageBoxWindow), new PropertyMetadata());
 
-		public ObservableCollection<MessageBoxButton> Buttons
+		public List<MessageBoxButton> Buttons
 		{
-			get { return (ObservableCollection<MessageBoxButton>)GetValue(ButtonsProperty); }
+			get { return (List<MessageBoxButton>)GetValue(ButtonsProperty); }
 			private set { SetValue(ButtonsProperty, value); }
 		}
 		public static readonly DependencyProperty ButtonsProperty =
-			DependencyProperty.Register("Buttons", typeof(ObservableCollection<MessageBoxButton>), typeof(MessageBoxWindow), new PropertyMetadata());
+			DependencyProperty.Register("Buttons", typeof(List<MessageBoxButton>), typeof(MessageBoxWindow), new PropertyMetadata());
+
+		public DelegateCommand ControlButtonLoadedCommand
+		{
+			get { return (DelegateCommand)GetValue(ControlButtonLoadedCommandProperty); }
+			private set { SetValue(ControlButtonLoadedCommandProperty, value); }
+		}
+		public static readonly DependencyProperty ControlButtonLoadedCommandProperty =
+			DependencyProperty.Register("ControlButtonLoadedCommand", typeof(DelegateCommand), typeof(MessageBoxWindow), new PropertyMetadata());
 		#endregion
 
 		static MessageBoxWindow()
@@ -127,6 +136,7 @@ namespace CroplandWpf.Components
 		{
 			ControlButtonCommand = new DelegateCommand(ControlButtonCommand_Execute, ControlButtonCommand_CanExecute);
 			WindowStartupLocation = WindowStartupLocation.CenterOwner;
+			ControlButtonLoadedCommand = new DelegateCommand(ControlButtonLoadedCommand_Execute);
 		}
 
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -150,13 +160,19 @@ namespace CroplandWpf.Components
 						SetResourceReference(FooterTemplateProperty, Info.FooterTemplateKey);
 					if (Info.AdditionalContentTemplateKey != null)
 						SetResourceReference(AdditionalContentTemplateProperty, Info.AdditionalContentTemplateKey);
-					Buttons = new ObservableCollection<MessageBoxButton>(Info.Buttons);
+					Buttons = Info.Buttons.GetFinalButtonsList();
 				}
 				if (e.OldValue != null)
 					Resources.Clear();
 			}
 			if (e.Property == AdditionalContentTemplateProperty)
 				AdditionalContentAvailable = e.NewValue != null;
+		}
+
+		public void Show(MessageBoxInfo info)
+		{
+			Info = info;
+			ShowDialog();
 		}
 
 		private bool ControlButtonCommand_CanExecute(object arg)
@@ -172,10 +188,13 @@ namespace CroplandWpf.Components
 			Close();
 		}
 
-		public void Show(MessageBoxInfo info)
+		private void ControlButtonLoadedCommand_Execute(object obj)
 		{
-			Info = info;
-			ShowDialog();
+			System.Windows.Controls.Button loadedButton = obj as System.Windows.Controls.Button;
+			if(loadedButton.DataContext == Buttons.First())
+			{
+				loadedButton.Focus();
+			}
 		}
 	}
 }

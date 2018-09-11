@@ -13,6 +13,8 @@ namespace CroplandWpf.Components
 {
 	public class MessageBoxService
 	{
+		public static string DefaultWindowHeader = "Cropland";
+
 		private static MessageBoxWindow window;
 
 		public static MessageBoxButton Show(MessageBoxInfo info)
@@ -31,13 +33,36 @@ namespace CroplandWpf.Components
 		{
 			if(obj is MessageBoxInfo info)
 			{
-				window = new MessageBoxWindow
-				{
-					Owner = WindowHelper.GetActiveWindowInstance()
-				};
+				window = GetWindow();
 				window.Show(info);
 				info.ExecuteAction(window.Result);
 			}
+		}
+
+		public static MessageBoxButton ShowException(string header, ExceptionInfo exceptionInfo)
+		{
+			MessageBoxInfo info = new MessageBoxInfo();
+			info.IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception;
+			info.Buttons = MessageBoxButtons.OK;
+			if (String.IsNullOrWhiteSpace(header))
+				header = DefaultWindowHeader;
+			window = GetWindow();
+			window.Show(info);
+			return window.Result;
+		}
+
+		//public static MessageBoxButton ShowInfo()
+		//{
+
+		//}
+
+		private static MessageBoxWindow GetWindow()
+		{
+			window = new MessageBoxWindow
+			{
+				Owner = WindowHelper.GetActiveWindowInstance()
+			};
+			return window;
 		}
 	}
 }

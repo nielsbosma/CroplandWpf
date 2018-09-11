@@ -310,6 +310,7 @@
     <Compile Include="MVVM\Helper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PresentationHelpers\EventCommandInvocator.cs" />
     <Compile Include="PresentationHelpers\ImageHelper.cs" />
     <Compile Include="PresentationHelpers\KeyboardFocusRedirectControl.cs" />
     <Compile Include="PresentationHelpers\ProgressBarAnimationHelper.cs" />
