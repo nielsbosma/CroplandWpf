@@ -248,7 +248,7 @@ namespace CroplandWpf.Components
 					return other.Header == null;
 				if (other.Header == null)
 					return Header == null;
-				return Header.ToLowerInvariant().Equals(other.Header.ToLowerInvariant()) && IsPrimary == other.IsPrimary;
+				return Header.ToLowerInvariant().Equals(other.Header.ToLowerInvariant());
 			}
 			return base.Equals(obj);
 		}

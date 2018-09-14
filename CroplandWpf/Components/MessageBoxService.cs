@@ -19,10 +19,7 @@ namespace CroplandWpf.Components
 
 		public static MessageBoxButton Show(MessageBoxInfo info)
 		{
-			window = new MessageBoxWindow
-			{
-				Owner = WindowHelper.GetActiveWindowInstance()
-			};
+			window = GetWindow();
 			window.Show(info);
 			return window.Result;
 		}
@@ -39,22 +36,58 @@ namespace CroplandWpf.Components
 			}
 		}
 
-		public static MessageBoxButton ShowException(string header, ExceptionInfo exceptionInfo)
+		public static MessageBoxButton ShowException(string windowHeader, ExceptionInfo exceptionInfo)
 		{
-			MessageBoxInfo info = new MessageBoxInfo();
-			info.IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception;
-			info.Buttons = MessageBoxButtons.OK;
-			if (String.IsNullOrWhiteSpace(header))
-				header = DefaultWindowHeader;
+			MessageBoxInfo info = new MessageBoxInfo
+			{
+				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
+				Buttons = MessageBoxButtons.OK
+			};
 			window = GetWindow();
 			window.Show(info);
 			return window.Result;
 		}
 
-		//public static MessageBoxButton ShowInfo()
-		//{
+		public static MessageBoxButton ShowException(string windowHeader, string exceptionName, string exception, string stackTrace)
+		{
+			MessageBoxInfo info = new MessageBoxInfo
+			{
+				Header = windowHeader,
+				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
+				Buttons = MessageBoxButtons.OK,
+				Content = new ExceptionInfo
+				{
+					Name = exceptionName,
+					Exception = exception,
+					StackTrace = stackTrace
+				},
+				ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception
+			};
+			window = GetWindow();
+			window.Show(info);
+			return window.Result;
+		}
 
-		//}
+		public static MessageBoxButton ShowInformation(string windowHeader, string infoText)
+		{
+			MessageBoxInfo info = new MessageBoxInfo()
+			{
+				Header = windowHeader,
+				Buttons = MessageBoxButtons.OK,
+				Content = infoText,
+				IconBrushKey = MessageBoxIconBrushDefaultKeys.Information
+			};
+			return ShowWindow(info);
+		}
+
+		private static MessageBoxButton ShowWindow(MessageBoxInfo info)
+		{
+			if (String.IsNullOrWhiteSpace(info.Header))
+				info.Header = DefaultWindowHeader;
+			window = GetWindow();
+			window.Show(info);
+			return window.Result;
+		}
 
 		private static MessageBoxWindow GetWindow()
 		{

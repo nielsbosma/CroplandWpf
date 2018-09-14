@@ -128,7 +128,7 @@
 		<Setter Property="Background" Value="{DynamicResource brushItemsControl_Item_Background}"></Setter>
 		<Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-		<Setter Property="Margin" Value="0,11,11,8"></Setter>
+		<Setter Property="Margin" Value="5.5,11,5.5,8"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:RemovableItemContentControl">
@@ -137,16 +137,16 @@
 							<ColumnDefinition></ColumnDefinition>
 							<ColumnDefinition Width="Auto"></ColumnDefinition>
 						</Grid.ColumnDefinitions>
-						<a:ToolTipBeacon ></a:ToolTipBeacon>
+						<a:ToolTipBeacon></a:ToolTipBeacon>
 						<Border Grid.ColumnSpan="2" x:Name="borderEffect" Opacity="0.0" Background="{TemplateBinding Background}" CornerRadius="2" Effect="{DynamicResource effectShadow_Small}" ClipToBounds="False"></Border>
 						<Border Grid.ColumnSpan="2" x:Name="borderBackground" Background="{TemplateBinding Background}" CornerRadius="2"></Border>
 						<ContentPresenter Grid.Column="0" Margin="8,0" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>
 						<Button Grid.Column="1" VerticalAlignment="Center" Style="{DynamicResource styleButton_RemoveRequest}" HorizontalAlignment="Center" Margin="6,0" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:RemovableItemContentControl}, Path=(a:RemoveRequestHelper.RemoveRequestCommand)}" CommandParameter="{Binding}"></Button>
 					</Grid>
 					<ControlTemplate.Triggers>
-						<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(a:VisualHelper.IsLastItem)}" Value="True">
+						<!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(a:VisualHelper.IsLastItem)}" Value="True">
 							<Setter Property="Margin" Value="0,11,0,8"></Setter>
-						</DataTrigger>
+						</DataTrigger>-->
 						<Trigger Property="IsMouseOver" Value="True">
 							<Trigger.EnterActions>
 								<BeginStoryboard>
@@ -201,7 +201,7 @@
 	<Style x:Key="{x:Type c:RemovableItemsItemsControl}" TargetType="c:RemovableItemsItemsControl">
 		<Setter Property="a:ItemsControlHelper.Orientation" Value="Vertical"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushItemsControl_Background}"></Setter>
-		<Setter Property="Padding" Value="0,0,0,0"></Setter>
+		<Setter Property="Padding" Value="5.5,0,0,0"></Setter>
 		<Setter Property="MinHeight" Value="52"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
@@ -216,7 +216,8 @@
 								<ScrollViewer Grid.Column="0" x:Name="scrollViewer" Style="{StaticResource styleScrollViewer_RemovableItemsItemsControl}" Margin="{TemplateBinding Padding}">
 									<c:RemovableItemsPanel x:Name="PART_ItemsHost" IsItemsHost="True" Orientation="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:ItemsControlHelper.Orientation)}"></c:RemovableItemsPanel>
 								</ScrollViewer>
-								<ContentControl Grid.Column="1" x:Name="contentControl_CustomContent" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CustomPartContent}" ContentTemplate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CustomPartContentTemplate}" Margin="11,0"></ContentControl>
+								<ContentControl Grid.Column="1" x:Name="contentControl_CustomContent" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CustomPartContent}" ContentTemplate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CustomPartContentTemplate}" Margin="5.5,0"></ContentControl>
+								<TextBlock Grid.Column="1" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualHeight}" VerticalAlignment="Bottom"></TextBlock>
 							</Grid>
 						</Grid>
 					</Border>

@@ -101,8 +101,8 @@ namespace CroplandWpf.Components
 
 		private void RefreshItemsFirstLastIndicator()
 		{
-			foreach (UIElement container in itemsHost.Children)
-				SetFirstOrLastItem(container);
+			//foreach (UIElement container in itemsHost.Children)
+			//	SetFirstOrLastItem(container);
 		}
 
 		private void SetFirstOrLastItem(UIElement container)
@@ -135,6 +135,7 @@ namespace CroplandWpf.Components
 		protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
 		{
 			base.OnVisualChildrenChanged(visualAdded, visualRemoved);
+			return;
 			if (OnVisualAdded != null)
 				NotifyOnVisualAdded(visualAdded, visualRemoved);
 		}

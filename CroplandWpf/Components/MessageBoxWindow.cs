@@ -61,14 +61,6 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty InfoProperty =
 			DependencyProperty.Register("Info", typeof(MessageBoxInfo), typeof(MessageBoxWindow), new PropertyMetadata());
 
-		public DelegateCommand CloseRequestCommand
-		{
-			get { return (DelegateCommand)GetValue(CloseRequestCommandProperty); }
-			private set { SetValue(CloseRequestCommandProperty, value); }
-		}
-		public static readonly DependencyProperty CloseRequestCommandProperty =
-			DependencyProperty.Register("CloseRequestCommand", typeof(DelegateCommand), typeof(MessageBoxWindow), new PropertyMetadata());
-
 		public object AdditionalContent
 		{
 			get { return (object)GetValue(AdditionalContentProperty); }

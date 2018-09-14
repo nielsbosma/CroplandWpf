@@ -670,7 +670,10 @@
 						</StackPanel>
 
 						<StackPanel Orientation="Vertical" VerticalAlignment="Top">
+							<StackPanel.Resources>
+							</StackPanel.Resources>
 							<TextBlock Margin="5" FontWeight="Bold"><Run Text="Removable items ItemsControl (with item tooltips)"/></TextBlock>
+							<Path x:Name="Shape_4" Data="F1M6,1C6,1 6,6 6,6 6,6 1,6 1,6 1,6 1,8 1,8 1,8 6,8 6,8 6,8 6,13 6,13 6,13 8,13 8,13 8,13 8,8 8,8 8,8 13,8 13,8 13,8 13,6 13,6 13,6 8,6 8,6 8,6 8,1 8,1 8,1 6,1 6,1z" Fill="#FF507360" Height="14" Canvas.Left="54" Canvas.Top="24" Width="14"/>
 							<c:RemovableItemsItemsControl 
 							        a:ToolTipBeacon.InheritedGroupName="files" 
 							        ItemTemplate="{StaticResource templateRemovableItemTest}" 
