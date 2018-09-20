@@ -48,19 +48,14 @@ namespace CroplandWpf.Components
 			return window.Result;
 		}
 
-		public static MessageBoxButton ShowException(string windowHeader, string exceptionName, string exception, string stackTrace)
+		public static MessageBoxButton ShowException(string windowHeader, string exceptionName, string innerExceptionName, string message, string stackTrace)
 		{
 			MessageBoxInfo info = new MessageBoxInfo
 			{
 				Header = windowHeader,
 				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
 				Buttons = MessageBoxButtons.OK,
-				Content = new ExceptionInfo
-				{
-					Name = exceptionName,
-					Exception = exception,
-					StackTrace = stackTrace
-				},
+				Content = new ExceptionInfo(exceptionName, innerExceptionName, message, stackTrace),
 				ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception
 			};
 			window = GetWindow();
@@ -76,6 +71,18 @@ namespace CroplandWpf.Components
 				Buttons = MessageBoxButtons.OK,
 				Content = infoText,
 				IconBrushKey = MessageBoxIconBrushDefaultKeys.Information
+			};
+			return ShowWindow(info);
+		}
+
+		public static MessageBoxButton ShowError(string windowHeader, string errorText)
+		{
+			MessageBoxInfo info = new MessageBoxInfo()
+			{
+				Header = windowHeader,
+				Buttons= MessageBoxButtons.OK,
+				IconBrushKey = MessageBoxIconBrushDefaultKeys.Error,
+				Content = errorText
 			};
 			return ShowWindow(info);
 		}

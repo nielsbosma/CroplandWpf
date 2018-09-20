@@ -32,5 +32,38 @@ namespace CroplandWpf.Attached
 		}
 		public static readonly DependencyProperty DataItemContainerProperty =
 			DependencyProperty.RegisterAttached("DataItemContainer", typeof(Control), typeof(ItemsControlHelper), new PropertyMetadata());
+
+		public static Thickness GetFirstItemMargin(DependencyObject obj)
+		{
+			return (Thickness)obj.GetValue(FirstItemMarginProperty);
+		}
+		public static void SetFirstItemMargin(DependencyObject obj, Thickness value)
+		{
+			obj.SetValue(FirstItemMarginProperty, value);
+		}
+		public static readonly DependencyProperty FirstItemMarginProperty =
+			DependencyProperty.RegisterAttached("FirstItemMargin", typeof(Thickness), typeof(ItemsControlHelper), new PropertyMetadata());
+
+		public static Thickness GetRegularItemMargin(DependencyObject obj)
+		{
+			return (Thickness)obj.GetValue(RegularItemMarginProperty);
+		}
+		public static void SetRegularItemMargin(DependencyObject obj, Thickness value)
+		{
+			obj.SetValue(RegularItemMarginProperty, value);
+		}
+		public static readonly DependencyProperty RegularItemMarginProperty =
+			DependencyProperty.RegisterAttached("RegularItemMargin", typeof(Thickness), typeof(ItemsControlHelper), new PropertyMetadata());
+
+		public static Thickness GetLastItemMargin(DependencyObject obj)
+		{
+			return (Thickness)obj.GetValue(LastItemMarginProperty);
+		}
+		public static void SetLastItemMargin(DependencyObject obj, Thickness value)
+		{
+			obj.SetValue(LastItemMarginProperty, value);
+		}
+		public static readonly DependencyProperty LastItemMarginProperty =
+			DependencyProperty.RegisterAttached("LastItemMargin", typeof(Thickness), typeof(ItemsControlHelper), new PropertyMetadata());
 	}
 }

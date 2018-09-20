@@ -166,12 +166,38 @@ namespace CroplandWpf.Components
 		public static string Question { get; } = "templateMessageBoxContent_Question";
 	}
 
+	public static class MessageBoxAdditionalContentTemplateDefaultKeys
+	{
+		public static string Exception { get; } = "templateMessageBoxContent_Exception_AdditionalContent";
+	}
+
 	public class ExceptionInfo
 	{
 		public string Name { get; set; }
 		public string Exception { get; set; }
 		public string Message { get; set; }
 		public string StackTrace { get; set; }
+
+		public ExceptionInfo()
+		{
+
+		}
+
+		public ExceptionInfo(string name, string exception, string message, string stackTrace)
+		{
+			Name = name;
+			Exception = exception;
+			Message = message;
+			StackTrace = stackTrace;
+		}
+
+		public ExceptionInfo(Exception exception)
+		{
+			Name = exception.ToString();
+			Exception = exception.InnerException.ToString();
+			Message = exception.Message;
+			StackTrace = exception.StackTrace;
+		}
 	}
 
 	[TypeConverter(typeof(MessageBoxButtonTypeConverter))]

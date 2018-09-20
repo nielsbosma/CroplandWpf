@@ -1128,8 +1128,7 @@ namespace CroplandWpf.Test
 		#region DataGrid
 		private void RemovePersonItemCommand_Execute(object parameter)
 		{
-			Person person = parameter as Person;
-			if (person != null && PersonsTestSource.Contains(person))
+			if (parameter is Person person && PersonsTestSource.Contains(person))
 				PersonsTestSource.Remove(person);
 		}
 
@@ -1148,8 +1147,7 @@ namespace CroplandWpf.Test
 
 		private void PersonItemMoveDownCommand_Execute(object parameter)
 		{
-			Person person = parameter as Person;
-			if (person == null)
+			if (!(parameter is Person person))
 				return;
 			int currentIndex = PersonsTestSource.IndexOf(person);
 			PersonsTestSource.Move(currentIndex, currentIndex + 1);
@@ -1157,8 +1155,7 @@ namespace CroplandWpf.Test
 
 		private void PersonItemMoveUpCommand_Execute(object parameter)
 		{
-			Person p = parameter as Person;
-			if (p == null)
+			if (!(parameter is Person p))
 				return;
 			int currentIndex = PersonsTestSource.IndexOf(p);
 			PersonsTestSource.Move(currentIndex, currentIndex - 1);

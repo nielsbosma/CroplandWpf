@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attached\AlignmentControlHelper.cs" />
+    <Compile Include="Attached\DesigntimeHelper.cs" />
     <Compile Include="Attached\EditorBinding.cs" />
     <Compile Include="Attached\InternalStyleApplicator.cs" />
     <Compile Include="Attached\RadioButtonHelper.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Exceptions\TemplatePartNotFoundException.cs" />
     <Compile Include="Helpers\CustomSourceResourceDictionary.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
+    <Compile Include="Helpers\DesignTimeResourceDictionary.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="MVVM\SliderInfo.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
