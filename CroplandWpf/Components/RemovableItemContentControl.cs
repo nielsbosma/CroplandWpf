@@ -19,5 +19,10 @@ namespace CroplandWpf.Components
 		{
 
 		}
+
+		public override string ToString()
+		{
+			return DataContext != null? DataContext.ToString(): "RemovableItemContentControl";
+		}
 	}
 }

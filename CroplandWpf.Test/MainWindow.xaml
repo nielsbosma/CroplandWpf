@@ -269,7 +269,7 @@
 
 		<DataTemplate x:Key="templateRemovableList_CustomContent">
 			<Grid>
-				<Button Style="{DynamicResource styleButton_AddFile}" Command="{Binding ShowAddNewFileInputDialogCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{StaticResource inputDialogInfo_AddNewFileItem}" VerticalAlignment="Top" Margin="0,12,0,0"/>
+				<Button Style="{DynamicResource styleButton_AddFile}" Command="{Binding ShowAddNewFileInputDialogCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{StaticResource inputDialogInfo_AddNewFileItem}" VerticalAlignment="Center"/>
 			</Grid>
 		</DataTemplate>
 

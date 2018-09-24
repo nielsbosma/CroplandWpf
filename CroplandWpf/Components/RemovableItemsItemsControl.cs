@@ -1,11 +1,7 @@
 ﻿using CroplandWpf.Attached;
-using CroplandWpf.Exceptions;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using CroplandWpf.Helpers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
 
 namespace CroplandWpf.Components
 {
@@ -35,7 +31,7 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty HasCustomContentProperty =
 			DependencyProperty.Register("HasCustomContent", typeof(bool), typeof(RemovableItemsItemsControl), new PropertyMetadata());
 
-		private RemovableItemsPanel itemsHost;
+		private ItemsSourceHelper itemsSourceHelper;
 
 		static RemovableItemsItemsControl()
 		{
@@ -44,20 +40,7 @@ namespace CroplandWpf.Components
 
 		public RemovableItemsItemsControl()
 		{
-			Loaded += RemovableItemsItemsControl_Loaded;
-			Unloaded += RemovableItemsItemsControl_Unloaded;
-		}
-
-		private void RemovableItemsItemsControl_Loaded(object sender, RoutedEventArgs e)
-		{
-			if (itemsHost != null && itemsHost.OnVisualAdded == null)
-				itemsHost.OnVisualAdded = OnVisualAdded;
-		}
-
-		private void RemovableItemsItemsControl_Unloaded(object sender, RoutedEventArgs e)
-		{
-			if (itemsHost != null && itemsHost.OnVisualAdded != null)
-				itemsHost.OnVisualAdded = null;
+			itemsSourceHelper = new ItemsSourceHelper();
 		}
 
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -65,20 +48,8 @@ namespace CroplandWpf.Components
 			base.OnPropertyChanged(e);
 			if (e.Property == CustomPartContentProperty || e.Property == CustomPartContentTemplateProperty)
 				HasCustomContent = CustomPartContent != null || CustomPartContentTemplate != null;
-		}
-
-		public override void OnApplyTemplate()
-		{
-			base.OnApplyTemplate();
-			itemsHost = Template.FindName("PART_ItemsHost", this) as RemovableItemsPanel;
-			if (itemsHost == null)
-				throw new TemplatePartNotFoundException("PART_ItemsHost", GetType());
-			itemsHost.OnVisualAdded = OnVisualAdded;
-		}
-
-		private void OnVisualAdded(DependencyObject addedChild, DependencyObject removedChild)
-		{
-			RefreshItemsFirstLastIndicator();
+			if (e.Property == ItemsSourceProperty)
+				itemsSourceHelper.ItemContainerPairs.Clear();
 		}
 
 		protected override DependencyObject GetContainerForItemOverride()
@@ -96,56 +67,37 @@ namespace CroplandWpf.Components
 			RemovableItemContentControl control = element as RemovableItemContentControl;
 			control.ContentTemplate = ItemTemplate;
 			control.Content = item;
+			itemsSourceHelper.RegisterItemContainerPair(item, element as FrameworkElement);
+			int itemIndex = itemsSourceHelper.ItemIndex(item);
+			if (itemIndex == 0)
+			{
+				if (itemsSourceHelper.ItemsCount() > 1)
+					control.Margin = ItemsControlHelper.GetFirstItemMargin(this);
+				else
+					control.Margin = ItemsControlHelper.GetLastItemMargin(this);
+			}
+			else if (itemsSourceHelper.HasItems() && itemIndex + 1 < itemsSourceHelper.ItemsCount())
+				control.Margin = ItemsControlHelper.GetRegularItemMargin(this);
+			else
+				control.Margin = ItemsControlHelper.GetLastItemMargin(this);
+			if (itemsSourceHelper.GetPreviousContainer(item) is RemovableItemContentControl previous)
+				previous.Margin = ItemsControlHelper.GetRegularItemMargin(this);
 			base.PrepareContainerForItemOverride(element, item);
 		}
 
-		private void RefreshItemsFirstLastIndicator()
+		protected override void ClearContainerForItemOverride(DependencyObject element, object item)
 		{
-			//foreach (UIElement container in itemsHost.Children)
-			//	SetFirstOrLastItem(container);
-		}
-
-		private void SetFirstOrLastItem(UIElement container)
-		{
-			if (container == null)
-				return;
-			int itemsCount = itemsHost.Children.Count, index = itemsHost.Children.IndexOf(container);
-			if (index == 0 || index == itemsCount - 1)
+			FrameworkElement previousContainer = itemsSourceHelper.GetPreviousContainer(item);
+			FrameworkElement nextContainer = itemsSourceHelper.GetNextContainer(item);
+			if (previousContainer != null)
 			{
-				VisualHelper.SetIsFirstItem(container, index == 0);
-				VisualHelper.SetIsLastItem(container, index == itemsCount - 1);
+				if (nextContainer == null)
+					previousContainer.Margin = ItemsControlHelper.GetLastItemMargin(this);
+				else
+					previousContainer.Margin = ItemsControlHelper.GetRegularItemMargin(this);
 			}
-			else
-			{
-				VisualHelper.SetIsFirstItem(container, false);
-				VisualHelper.SetIsLastItem(container, false);
-			}
-		}
-	}
-
-	public class RemovableItemsPanel : StackPanel
-	{
-		public Action<DependencyObject, DependencyObject> OnVisualAdded;
-
-		public RemovableItemsPanel()
-		{
-			Orientation = Orientation.Horizontal;
-		}
-
-		protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
-		{
-			base.OnVisualChildrenChanged(visualAdded, visualRemoved);
-			return;
-			if (OnVisualAdded != null)
-				NotifyOnVisualAdded(visualAdded, visualRemoved);
-		}
-
-		private async void NotifyOnVisualAdded(DependencyObject visualAdded, DependencyObject visualRemoved)
-		{
-			await Task.Run(() =>
-			{
-				Dispatcher.BeginInvoke(new Action(() => { OnVisualAdded.Invoke(visualAdded, visualRemoved); }), DispatcherPriority.Background);
-			});
+			itemsSourceHelper.UnregisterItemContainerPair(item);
+			base.ClearContainerForItemOverride(element, item);
 		}
 	}
 }

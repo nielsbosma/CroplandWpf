@@ -99,6 +99,11 @@ namespace CroplandWpf.Test
 		public string Path { get; set; }
 
 		public FileItem() { }
+
+		public override string ToString()
+		{
+			return String.Format("{0} ({1})", Name, Size_Mb);
+		}
 	}
 
 	public class CustomSearchItem : ViewModelBase
