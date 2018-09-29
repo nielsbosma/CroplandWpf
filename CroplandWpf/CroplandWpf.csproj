@@ -127,6 +127,7 @@
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\DesignTimeResourceDictionary.cs" />
     <Compile Include="Helpers\ItemsSourceHelper.cs" />
+    <Compile Include="Helpers\MessageBoxContentWidthHelper.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="MVVM\SliderInfo.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />

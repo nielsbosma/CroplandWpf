@@ -96,6 +96,7 @@
 		<Setter Property="FontSize" Value="13pt"></Setter>
 		<Setter Property="FontWeight" Value="Light"></Setter>
 		<Setter Property="Padding" Value="0"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">

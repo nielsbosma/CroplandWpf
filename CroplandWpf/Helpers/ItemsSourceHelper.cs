@@ -7,6 +7,7 @@ using System.Windows.Controls;
 namespace CroplandWpf.Helpers
 {
 	public class ItemsSourceHelper
+
 	{
 		public ItemContainerPairCollection ItemContainerPairs { get; private set; }
 

@@ -175,7 +175,7 @@
 			</DataTemplate.Triggers>
 		</DataTemplate>
 
-		<c:MessageBoxInfo x:Key="mbiFromResources" ContentTemplateKey="templateMbiFromResources_Content" Header="MessageBoxInfo defined in resources" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="MessageBoxInfo with a custom ContentTemplate defined in XAML locally. Has the footer template defined too" Footer="some random footer" FooterTemplateKey="templateMbiFromResources_Footer" Buttons="Ok;Cancel" ph:DataContextBridge.SourceScopeName="vm_main" Action="{Binding MessageBoxAction}">
+		<c:MessageBoxInfo x:Key="mbiFromResources" ContentTemplateKey="templateMbiFromResources_Content" Title="MessageBoxInfo defined in resources" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="MessageBoxInfo with a custom ContentTemplate defined in XAML locally. Has the footer template defined too" Footer="some random footer" FooterTemplateKey="templateMbiFromResources_Footer" Buttons="Ok;Cancel" ph:DataContextBridge.SourceScopeName="vm_main" Action="{Binding MessageBoxAction}">
 			<!--Buttons="YesNoCancel"-->
 			<c:MessageBoxInfo.Resources>
 				<DataTemplate x:Key="templateMbiFromResources_Content">
@@ -195,7 +195,7 @@
 			</c:MessageBoxInfo.Resources>
 		</c:MessageBoxInfo>
 
-		<c:MessageBoxInfo x:Key="mbiRandomButtons" ContentTemplateKey="templateMbiRandomButtons_Content" Header="Some Random Buttons MessageBox" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="Choose the button you like" Footer="some random footer" FooterTemplateKey="templateMbiRandomButtons_Footer" Buttons="Oi;Yes To Something;No To Everything;Just Cancel;Some random button">
+		<c:MessageBoxInfo x:Key="mbiRandomButtons" ContentTemplateKey="templateMbiRandomButtons_Content" Title="Some Random Buttons MessageBox" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="Choose the button you like" Footer="some random footer" FooterTemplateKey="templateMbiRandomButtons_Footer" Buttons="Oi;Yes To Something;No To Everything;Just Cancel;Some random button">
 			<c:MessageBoxInfo.Resources>
 				<DataTemplate x:Key="templateMbiFromResources_Content">
 					<TextBlock>
@@ -299,226 +299,228 @@
 						<ColumnDefinition/>
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
-					<StackPanel Grid.Column="0">
-						<StackPanel.Resources>
-							<Style x:Key="styleButton_MessageBox_2" TargetType="Button">
-								<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-								<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
-								<Setter Property="Foreground" Value="{DynamicResource brushButtonUtil_Foreground}"></Setter>
-								<Setter Property="FontSize" Value="10.5pt"></Setter>
-								<Setter Property="Padding" Value="13,6"></Setter>
-								<Setter Property="BorderBrush" Value="Transparent"></Setter>
-								<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
-								<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
-								<Setter Property="Template">
-									<Setter.Value>
-										<ControlTemplate TargetType="Button">
-											<Grid>
-												<Border x:Name="border_EffectHost" Effect="{DynamicResource effectShadow_Small}" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}" Background="{Binding ElementName=borderBackground, Path=Background}"></Border>
-												<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3"></Border>
-												<Border Grid.Column="0" x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="{DynamicResource brushListBoxItem_MouseOver_Background}" CornerRadius="2"></Border>
-												<Border x:Name="borderBackground_Overlap_Disabled" Opacity="0.0" Background="{DynamicResource brushControl_Background_Disabled_Dark}" CornerRadius="3"></Border>
-												<Rectangle RadiusX="2" RadiusY="2" Opacity="0.8" Stroke="{DynamicResource brushControl_Background_Dark}" StrokeThickness="0.5" Margin="2" StrokeDashArray="8,3"></Rectangle>
-												<ContentPresenter x:Name="presenter" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}"></ContentPresenter>
-											</Grid>
-											<ControlTemplate.Triggers>
-												<Trigger Property="IsPressed" Value="True">
-													<Trigger.EnterActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.100"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.2" Duration="00:00:00.100"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.EnterActions>
-													<Trigger.ExitActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.100"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.ExitActions>
-												</Trigger>
+					<ScrollViewer Grid.Column="0">
+						<StackPanel Grid.Column="0">
+							<StackPanel.Resources>
+								<Style x:Key="styleButton_MessageBox_2" TargetType="Button">
+									<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+									<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
+									<Setter Property="Foreground" Value="{DynamicResource brushButtonUtil_Foreground}"></Setter>
+									<Setter Property="FontSize" Value="10.5pt"></Setter>
+									<Setter Property="Padding" Value="13,6"></Setter>
+									<Setter Property="BorderBrush" Value="Transparent"></Setter>
+									<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+									<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="Button">
+												<Grid>
+													<Border x:Name="border_EffectHost" Effect="{DynamicResource effectShadow_Small}" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}" Background="{Binding ElementName=borderBackground, Path=Background}"></Border>
+													<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3"></Border>
+													<Border Grid.Column="0" x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="{DynamicResource brushListBoxItem_MouseOver_Background}" CornerRadius="2"></Border>
+													<Border x:Name="borderBackground_Overlap_Disabled" Opacity="0.0" Background="{DynamicResource brushControl_Background_Disabled_Dark}" CornerRadius="3"></Border>
+													<Rectangle RadiusX="2" RadiusY="2" Opacity="0.8" Stroke="{DynamicResource brushControl_Background_Dark}" StrokeThickness="0.5" Margin="2" StrokeDashArray="8,3"></Rectangle>
+													<ContentPresenter x:Name="presenter" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}"></ContentPresenter>
+												</Grid>
+												<ControlTemplate.Triggers>
+													<Trigger Property="IsPressed" Value="True">
+														<Trigger.EnterActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
+																	<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.100"></DoubleAnimation>
+																	<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.2" Duration="00:00:00.100"></DoubleAnimation>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.EnterActions>
+														<Trigger.ExitActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.100"></DoubleAnimation>
+																	<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
+																	<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.ExitActions>
+													</Trigger>
 
-												<Trigger Property="IsEnabled" Value="False">
-													<Trigger.EnterActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.EnterActions>
-													<Trigger.ExitActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.ExitActions>
-												</Trigger>
+													<Trigger Property="IsEnabled" Value="False">
+														<Trigger.EnterActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.EnterActions>
+														<Trigger.ExitActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.ExitActions>
+													</Trigger>
 
-												<Trigger Property="IsMouseOver" Value="True">
-													<Setter Property="Foreground" Value="{DynamicResource brushButtonLight_Foreground_MouseOver}"></Setter>
-													<Trigger.EnterActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.EnterActions>
-													<Trigger.ExitActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.ExitActions>
-												</Trigger>
-											</ControlTemplate.Triggers>
-										</ControlTemplate>
-									</Setter.Value>
-								</Setter>
-							</Style>
+													<Trigger Property="IsMouseOver" Value="True">
+														<Setter Property="Foreground" Value="{DynamicResource brushButtonLight_Foreground_MouseOver}"></Setter>
+														<Trigger.EnterActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.EnterActions>
+														<Trigger.ExitActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.ExitActions>
+													</Trigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
 
-							<Style x:Key="styleButton_MessageBox_1" TargetType="Button">
-								<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-								<Setter Property="Background" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
-								<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
-								<Setter Property="FontSize" Value="10.5pt"></Setter>
-								<Setter Property="Padding" Value="13,6"></Setter>
-								<Setter Property="BorderBrush" Value="Transparent"></Setter>
-								<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
-								<Setter Property="Margin" Value="0,10,10,10"></Setter>
-								<Setter Property="MinWidth" Value="80"></Setter>
-								<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
-								<Setter Property="Template">
-									<Setter.Value>
-										<ControlTemplate TargetType="Button">
-											<Grid>
-												<Border x:Name="border_EffectHost" Effect="{DynamicResource effectShadow_Small}" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}" Background="{Binding ElementName=borderBackground, Path=Background}"></Border>
-												<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3"></Border>
-												<Border x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="{DynamicResource brushControl_Background_MouseOver}" Margin="1" CornerRadius="3"></Border>
-												<Border x:Name="borderBackground_Overlap_Disabled" Opacity="0.0" Background="{DynamicResource brushControl_Background_Disabled_Dark}" CornerRadius="3"></Border>
-												<Rectangle RadiusX="2" RadiusY="2" Opacity="0.8" Stroke="{DynamicResource brushControl_Foreground_Light}" StrokeThickness="0.5" Margin="2" StrokeDashArray="8,3"></Rectangle>
-												<ContentPresenter x:Name="presenter" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}"></ContentPresenter>
-											</Grid>
-											<ControlTemplate.Triggers>
-												<Trigger Property="IsPressed" Value="True">
-													<Trigger.EnterActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.150"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.150"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.2" Duration="00:00:00.150"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.EnterActions>
-													<Trigger.ExitActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.150"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.150"></DoubleAnimation>
-																<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.3" Duration="00:00:00.150"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.ExitActions>
-												</Trigger>
+								<Style x:Key="styleButton_MessageBox_1" TargetType="Button">
+									<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+									<Setter Property="Background" Value="{DynamicResource brushControl_Background_Dark}"></Setter>
+									<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Light}"></Setter>
+									<Setter Property="FontSize" Value="10.5pt"></Setter>
+									<Setter Property="Padding" Value="13,6"></Setter>
+									<Setter Property="BorderBrush" Value="Transparent"></Setter>
+									<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+									<Setter Property="Margin" Value="0,10,10,10"></Setter>
+									<Setter Property="MinWidth" Value="80"></Setter>
+									<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="Button">
+												<Grid>
+													<Border x:Name="border_EffectHost" Effect="{DynamicResource effectShadow_Small}" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}" Background="{Binding ElementName=borderBackground, Path=Background}"></Border>
+													<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3"></Border>
+													<Border x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="{DynamicResource brushControl_Background_MouseOver}" Margin="1" CornerRadius="3"></Border>
+													<Border x:Name="borderBackground_Overlap_Disabled" Opacity="0.0" Background="{DynamicResource brushControl_Background_Disabled_Dark}" CornerRadius="3"></Border>
+													<Rectangle RadiusX="2" RadiusY="2" Opacity="0.8" Stroke="{DynamicResource brushControl_Foreground_Light}" StrokeThickness="0.5" Margin="2" StrokeDashArray="8,3"></Rectangle>
+													<ContentPresenter x:Name="presenter" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}"></ContentPresenter>
+												</Grid>
+												<ControlTemplate.Triggers>
+													<Trigger Property="IsPressed" Value="True">
+														<Trigger.EnterActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.150"></DoubleAnimation>
+																	<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.150"></DoubleAnimation>
+																	<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.2" Duration="00:00:00.150"></DoubleAnimation>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.EnterActions>
+														<Trigger.ExitActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.150"></DoubleAnimation>
+																	<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.150"></DoubleAnimation>
+																	<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.3" Duration="00:00:00.150"></DoubleAnimation>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.ExitActions>
+													</Trigger>
 
-												<Trigger Property="IsEnabled" Value="False">
-													<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Disabled_Dark}"></Setter>
-													<Setter TargetName="border_EffectHost" Property="Visibility" Value="Collapsed"></Setter>
-													<Setter TargetName="presenter" Property="Opacity" Value="0.26"></Setter>
-													<Trigger.EnterActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.EnterActions>
-													<Trigger.ExitActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.ExitActions>
-												</Trigger>
+													<Trigger Property="IsEnabled" Value="False">
+														<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Disabled_Dark}"></Setter>
+														<Setter TargetName="border_EffectHost" Property="Visibility" Value="Collapsed"></Setter>
+														<Setter TargetName="presenter" Property="Opacity" Value="0.26"></Setter>
+														<Trigger.EnterActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.EnterActions>
+														<Trigger.ExitActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.ExitActions>
+													</Trigger>
 
-												<Trigger Property="IsMouseOver" Value="True">
-													<Trigger.EnterActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.EnterActions>
-													<Trigger.ExitActions>
-														<BeginStoryboard>
-															<Storyboard>
-																<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
-															</Storyboard>
-														</BeginStoryboard>
-													</Trigger.ExitActions>
-												</Trigger>
-											</ControlTemplate.Triggers>
-										</ControlTemplate>
-									</Setter.Value>
-								</Setter>
-							</Style>
-						</StackPanel.Resources>
-						<Button Style="{StaticResource styleButton_MessageBox_1}" HorizontalAlignment="Left" Margin="5" Content="CANCEL"></Button>
-						<Button Style="{StaticResource styleButton_MessageBox_2}" HorizontalAlignment="Left" Margin="5" Content="CANCEL"></Button>
-						<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(h:WindowHelper.AllowResize), Mode=TwoWay}">Allow main window resize</CheckBox>
-						<!--<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(ph:ButtonHelper.ConvertToUpper), Mode=TwoWay}">All buttons content to uppercase</CheckBox>-->
-						<Button Margin="5" Content="{Binding UpperCaseTestContent}" HorizontalAlignment="Left"></Button>
-						<TextBlock FontWeight="Bold" Margin="5"><Run Text="Button"/></TextBlock>
-						<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left" Content="insert"/>
-						<StackPanel Orientation="Horizontal">
-							<Button x:Name="buttonTest" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5" Content="DisAbLEd"/>
-							<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonTest, Mode=TwoWay}" Content="IsEnabled"/>
-						</StackPanel>
-						<StackPanel Orientation="Horizontal">
-							<Button x:Name="buttonLight" Margin="5" Style="{DynamicResource styleButton_Light}" Content="Abort"/>
-							<CheckBox Margin="20,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonLight, Mode=TwoWay}" Content="IsEnabled"/>
-						</StackPanel>
-						<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left" />
-						<TextBlock Margin="5">"Cloud" button</TextBlock>
-						<Button HorizontalAlignment="Left" Style="{DynamicResource styleButton_Cloud}"></Button>
-						<StackPanel Orientation="Horizontal">
-							<Button Margin="5" Style="{DynamicResource styleButton_AddFile}"/>
-							<Button x:Name="buttonRemoveTest" Margin="0,5,5,5" Style="{DynamicResource styleButton_RemoveFile}"/>
-							<CheckBox IsChecked="{Binding IsEnabled, ElementName=buttonRemoveTest, Mode=TwoWay}" Content="IsEnabled"/>
-						</StackPanel>
-						<StackPanel Orientation="Horizontal">
-							<c:HyperlinkButton x:Name="hyperlinkTest" Command="{Binding HyperlinkTestCommand}" CommandParameter="{Binding HyperlinkTest}" Content="Hyperlink"/>
-							<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=hyperlinkTest, Mode=TwoWay}" Content="IsEnabled"/>
-						</StackPanel>
-						<c:HyperlinkButton IsUnderlined="False" HorizontalAlignment="Left" Content="no underline"/>
-						<Button Margin="5" HorizontalAlignment="Left" Style="{DynamicResource styleButton_RemoveRequest}"/>
-						<StackPanel Orientation="Horizontal">
-							<Button x:Name="buttonStar" Style="{DynamicResource styleButton_Star}" Margin="5"/>
-							<CheckBox IsChecked="{Binding IsEnabled, ElementName=buttonStar, Mode=TwoWay}" Margin="20,0,0,0" Content="IsEnabled"/>
-						</StackPanel>
-						<StackPanel Orientation="Horizontal">
-							<Button x:Name="buttonInfo" Style="{DynamicResource styleButton_Info}" Margin="5"/>
-							<CheckBox IsChecked="{Binding IsEnabled, ElementName=buttonInfo, Mode=TwoWay}" Margin="20,0,0,0" Content="IsEnabled"/>
-						</StackPanel>
-						<TextBlock Margin="5" Text="PasswordBox" FontWeight="Bold"/>
-						<StackPanel Orientation="Horizontal" Margin="5">
-							<PasswordBox a:PasswordHelper.AttachedController="{Binding UserPasswordController}" MinWidth="150"/>
-							<Button Margin="5,0" Command="{Binding UpdateUserPasswordCommand}" Content="OK"/>
-						</StackPanel>
+													<Trigger Property="IsMouseOver" Value="True">
+														<Trigger.EnterActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.EnterActions>
+														<Trigger.ExitActions>
+															<BeginStoryboard>
+																<Storyboard>
+																	<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+																</Storyboard>
+															</BeginStoryboard>
+														</Trigger.ExitActions>
+													</Trigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+							</StackPanel.Resources>
+							<Button Style="{StaticResource styleButton_Util}" HorizontalAlignment="Left" Margin="5" Content="CANCEL"></Button>
+							<Button Style="{StaticResource styleButton_MessageBox_2}" HorizontalAlignment="Left" Margin="5" Content="CANCEL"></Button>
+							<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(h:WindowHelper.AllowResize), Mode=TwoWay}">Allow main window resize</CheckBox>
+							<!--<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(ph:ButtonHelper.ConvertToUpper), Mode=TwoWay}">All buttons content to uppercase</CheckBox>-->
+							<Button Margin="5" Content="{Binding UpperCaseTestContent}" HorizontalAlignment="Left"></Button>
+							<TextBlock FontWeight="Bold" Margin="5"><Run Text="Button"/></TextBlock>
+							<Button VerticalAlignment="Top" Margin="5" HorizontalAlignment="Left" Content="insert"/>
+							<StackPanel Orientation="Horizontal">
+								<Button x:Name="buttonTest" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Margin="5" Content="DisAbLEd"/>
+								<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonTest, Mode=TwoWay}" Content="IsEnabled"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal">
+								<Button x:Name="buttonLight" Margin="5" Style="{DynamicResource styleButton_Light}" Content="Abort"/>
+								<CheckBox Margin="20,0,0,0" IsChecked="{Binding IsEnabled, ElementName=buttonLight, Mode=TwoWay}" Content="IsEnabled"/>
+							</StackPanel>
+							<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left" />
+							<TextBlock Margin="5">"Cloud" button</TextBlock>
+							<Button HorizontalAlignment="Left" Style="{DynamicResource styleButton_Cloud}"></Button>
+							<StackPanel Orientation="Horizontal">
+								<Button Margin="5" Style="{DynamicResource styleButton_AddFile}"/>
+								<Button x:Name="buttonRemoveTest" Margin="0,5,5,5" Style="{DynamicResource styleButton_RemoveFile}"/>
+								<CheckBox IsChecked="{Binding IsEnabled, ElementName=buttonRemoveTest, Mode=TwoWay}" Content="IsEnabled"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal">
+								<c:HyperlinkButton x:Name="hyperlinkTest" Command="{Binding HyperlinkTestCommand}" CommandParameter="{Binding HyperlinkTest}" Content="Hyperlink"/>
+								<CheckBox Margin="24,0,0,0" IsChecked="{Binding IsEnabled, ElementName=hyperlinkTest, Mode=TwoWay}" Content="IsEnabled"/>
+							</StackPanel>
+							<c:HyperlinkButton IsUnderlined="False" HorizontalAlignment="Left" Content="no underline"/>
+							<Button Margin="5" HorizontalAlignment="Left" Style="{DynamicResource styleButton_RemoveRequest}"/>
+							<StackPanel Orientation="Horizontal">
+								<Button x:Name="buttonStar" Style="{DynamicResource styleButton_Star}" Margin="5"/>
+								<CheckBox IsChecked="{Binding IsEnabled, ElementName=buttonStar, Mode=TwoWay}" Margin="20,0,0,0" Content="IsEnabled"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal">
+								<Button x:Name="buttonInfo" Style="{DynamicResource styleButton_Info}" Margin="5"/>
+								<CheckBox IsChecked="{Binding IsEnabled, ElementName=buttonInfo, Mode=TwoWay}" Margin="20,0,0,0" Content="IsEnabled"/>
+							</StackPanel>
+							<TextBlock Margin="5" Text="PasswordBox" FontWeight="Bold"/>
+							<StackPanel Orientation="Horizontal" Margin="5">
+								<PasswordBox a:PasswordHelper.AttachedController="{Binding UserPasswordController}" MinWidth="150"/>
+								<Button Margin="5,0" Command="{Binding UpdateUserPasswordCommand}" Content="OK"/>
+							</StackPanel>
 
-						<StackPanel Orientation="Vertical">
-							<TextBlock Text="Tool Window" Margin="5"></TextBlock>
-							<Button HorizontalAlignment="Left" Margin="5" Command="{Binding SummonToolWindowCommand}">Summon sample tool window</Button>
-							<CheckBox IsChecked="{Binding AllowToolWindowResize, Mode=TwoWay}">Allow Resize</CheckBox>
+							<StackPanel Orientation="Vertical">
+								<TextBlock Text="Tool Window" Margin="5"></TextBlock>
+								<Button HorizontalAlignment="Left" Margin="5" Command="{Binding SummonToolWindowCommand}">Summon sample tool window</Button>
+								<CheckBox IsChecked="{Binding AllowToolWindowResize, Mode=TwoWay}">Allow Resize</CheckBox>
+							</StackPanel>
 						</StackPanel>
-					</StackPanel>
-
+					</ScrollViewer>
+					
 					<StackPanel Grid.Column="1" x:Name="stackPanel_IgnoreUpperCaseButtons" Orientation="Vertical">
 						<CheckBox Margin="5" IsChecked="{Binding ElementName=stackPanel_IgnoreUpperCaseButtons, Path=(ph:ButtonHelper.IgnoreConvertToUpper), Mode=TwoWay}">Locally ignore uppercase modifier for buttons</CheckBox>
 						<Rectangle Fill="DarkGray" Height="1"/>
@@ -716,7 +718,7 @@
 
 						<TextBlock Margin="5" FontWeight="Bold"><Run Text="MessageBox"/></TextBlock>
 						<WrapPanel Orientation="Horizontal">
-							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Exception}" Content="Simple Exception (OK)"/>
+							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" Content="Simple Exception (OK)"/>
 							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Question}" Content="Simple Question (Yes/No)"/>
 							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
 							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_YYNC}" Content="Yes/Yes to All/No/Cancel"/>

@@ -103,9 +103,11 @@ namespace CroplandWpf.Components
 		{
 			if (info == null)
 				throw new ArgumentNullException("info");
-			InputDialog dialog = new InputDialog();
-			dialog.Info = info;
-			dialog.Owner = WindowHelper.GetActiveWindowInstance();
+			InputDialog dialog = new InputDialog
+			{
+				Info = info,
+				Owner = WindowHelper.GetActiveWindowInstance()
+			};
 			dialog.ShowDialog();
 			return dialog.Result;
 		}
@@ -184,6 +186,7 @@ namespace CroplandWpf.Components
 		}
 		#endregion
 	}
+
 	public class InputDialogInfo : FrameworkElement
 	{
 		public string Title

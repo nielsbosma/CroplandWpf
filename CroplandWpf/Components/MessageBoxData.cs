@@ -1,10 +1,12 @@
-﻿using System;
+﻿using CroplandWpf.MVVM;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Input;
 
 namespace CroplandWpf.Components
 {
@@ -19,13 +21,13 @@ namespace CroplandWpf.Components
 
 	public class MessageBoxInfo : FrameworkElement
 	{
-		public string Header
+		public string Title
 		{
-			get { return (string)GetValue(HeaderProperty); }
-			set { SetValue(HeaderProperty, value); }
+			get { return (string)GetValue(TitleProperty); }
+			set { SetValue(TitleProperty, value); }
 		}
-		public static readonly DependencyProperty HeaderProperty =
-			DependencyProperty.Register("Header", typeof(string), typeof(MessageBoxInfo), new PropertyMetadata());
+		public static readonly DependencyProperty TitleProperty =
+			DependencyProperty.Register("Title", typeof(string), typeof(MessageBoxInfo), new PropertyMetadata());
 
 		public object Content
 		{
@@ -99,14 +101,24 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty ButtonsProperty =
 			DependencyProperty.Register("Buttons", typeof(MessageBoxButtons), typeof(MessageBoxInfo), new PropertyMetadata());
 
-		public static MessageBoxInfo New(MessageBoxType type, string header, string content, Action<MessageBoxButton> action = null)
+		public MessageBoxFooterButtonsCollection FooterButtons
+		{
+			get { return (MessageBoxFooterButtonsCollection)GetValue(FooterButtonsProperty); }
+			set { SetValue(FooterButtonsProperty, value); }
+		}
+		public static readonly DependencyProperty FooterButtonsProperty =
+			DependencyProperty.Register("FooterButtons", typeof(MessageBoxFooterButtonsCollection), typeof(MessageBoxInfo), new PropertyMetadata());
+
+		public static MessageBoxInfo New(MessageBoxType type, string header, string content, MessageBoxFooterButtonsCollection footerButtons = null, Action<MessageBoxButton> action = null)
 		{
 			MessageBoxInfo result = new MessageBoxInfo
 			{
-				Header = header,
+				Title = header,
 				Content = content,
 				Action = action,
+				FooterButtons = footerButtons
 			};
+
 			switch (type)
 			{
 				case MessageBoxType.Question:
@@ -133,7 +145,7 @@ namespace CroplandWpf.Components
 
 		public MessageBoxInfo()
 		{
-			Header = "Message";
+			Title = "Message";
 			Content = "Message content";
 			Footer = null;
 			FooterTemplateKey = null;
@@ -145,6 +157,13 @@ namespace CroplandWpf.Components
 		{
 			if (Action != null)
 				Action.Invoke(actionButton);
+		}
+
+		public List<MessageBoxFooterButton> GetFooterButtonsFinal()
+		{
+			if (FooterButtons == null)
+				FooterButtons = new MessageBoxFooterButtonsCollection();
+			return FooterButtons;
 		}
 	}
 
@@ -364,12 +383,6 @@ namespace CroplandWpf.Components
 			return new MessageBoxButtons(buttons);
 		}
 
-		public IEnumerable<MessageBoxButton> ReverseOrder()
-		{
-			for (int index = Count - 1; index >= 0; index--)
-				yield return this[index];
-		}
-
 		public List<MessageBoxButton> GetFinalButtonsList()
 		{
 			if (Count == 0)
@@ -491,6 +504,69 @@ namespace CroplandWpf.Components
 		public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
 		{
 			return new StandardValuesCollection(new[] { MessageBoxButtons.OK, MessageBoxButtons.OKCancel, MessageBoxButtons.YesNo, MessageBoxButtons.YesNoCancel });
+		}
+	}
+
+	public class MessageBoxFooterButton : DependencyObject
+	{
+		public string Header
+		{
+			get { return (string)GetValue(HeaderProperty); }
+			set { SetValue(HeaderProperty, value); }
+		}
+		public static readonly DependencyProperty HeaderProperty =
+			DependencyProperty.Register("Header", typeof(string), typeof(MessageBoxFooterButton), new PropertyMetadata());
+
+		public Action<object> CommandExecute
+		{
+			get { return (Action<object>)GetValue(CommandExecuteProperty); }
+			set { SetValue(CommandExecuteProperty, value); }
+		}
+		public static readonly DependencyProperty CommandExecuteProperty =
+			DependencyProperty.Register("CommandExecute", typeof(Action<object>), typeof(MessageBoxFooterButton), new PropertyMetadata());
+
+		public ICommand Command
+		{
+			get { return (ICommand)GetValue(CommandProperty); }
+			set { SetValue(CommandProperty, value); }
+		}
+		public static readonly DependencyProperty CommandProperty =
+			DependencyProperty.Register("Command", typeof(ICommand), typeof(MessageBoxFooterButton), new PropertyMetadata());
+
+		public MessageBoxFooterButton(string header, Action<object> commandExecute = null)
+		{
+			Header = header;
+			CommandExecute = commandExecute;
+		}
+
+		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+		{
+			base.OnPropertyChanged(e);
+			if (e.Property == CommandExecuteProperty && e.NewValue != null)
+				Command = new DelegateCommand(CommandExecute);
+		}
+	}
+
+	public class MessageBoxFooterButtonsCollection : List<MessageBoxFooterButton>
+	{
+		public static MessageBoxFooterButtonsCollection OptOut(Action<object> optOutAction, string optOutButtonHeader = "Don`t show again")
+		{
+			return new MessageBoxFooterButtonsCollection { new MessageBoxFooterButton(optOutButtonHeader, optOutAction) };
+		}
+
+		public static MessageBoxFooterButtonsCollection New(params MessageBoxFooterButton[] buttons)
+		{
+			return new MessageBoxFooterButtonsCollection(buttons);
+		}
+
+		public MessageBoxFooterButtonsCollection()
+		{
+
+		}
+
+		public MessageBoxFooterButtonsCollection(MessageBoxFooterButton[] buttons) : base(buttons)
+		{
+			
 		}
 	}
 }

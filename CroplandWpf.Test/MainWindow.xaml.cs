@@ -828,9 +828,9 @@ namespace CroplandWpf.Test
 				new FileItem{ Name = "File6.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
 				new FileItem{ Name = "File7.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
 				new FileItem{ Name = "File8.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
-				new FileItem{ Name = "File9.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
-				new FileItem{ Name = "File10.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
-				new FileItem{ Name = "File11.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) }
+				//new FileItem{ Name = "File9.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				//new FileItem{ Name = "File10.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				//new FileItem{ Name = "File11.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) }
 			};
 
 			SearchAutocompleteTestSource_String = new ObservableCollection<string>
@@ -1009,13 +1009,13 @@ namespace CroplandWpf.Test
 			ShowMessageBoxCommand = new DelegateCommand(ShowMessageBoxCommand_Execute, ShowMessageBoxCommand_CanExecute);
 			Mbi_Exception = new MessageBoxInfo()
 			{
-				Header = "SeoTool",
+				Title = "SeoTool",
 				Buttons = MessageBoxButtons.OK,
 				Content = new ExceptionInfo
 				{
 					Name = "XPathonUrl",
 					Exception = "ArgumentException",
-					Message = "Missing the 'Url' argument. Check if you supplied the URL, or nothing good will happen.",
+					Message = "Missing the 'Url' argument. Check if you supplied the URL, or nothing good will happen. take care!",
 					#region StackTrace
 					StackTrace = "at CroplandWpf.Components.InputDialog.Show(InputDialogInfo info) in D:\\Visual Studio Projects\\Cropland\\CroplandWpf\\CroplandWpf\\Components\\InputDialog.cs:line 105\r\n   at CroplandWpf.Test.MainWindow.ShowSearchInputBoxCommand_Execute(Object arg) in D:\\Visual Studio Projects\\Cropland\\CroplandWpf\\CroplandWpf.Test\\MainWindow.xaml.cs:line 798\r\n   at CroplandWpf.MVVM.DelegateCommand.Execute(Object parameter) in D:\\Visual Studio Projects\\Cropland\\CroplandWpf\\CroplandWpf\\MVVM\\DelegateCommand.cs:line 72\r\n   at MS.Internal.Commands.CommandHelpers.CriticalExecuteCommandSource(ICommandSource commandSource, Boolean userInitiated)\r\n   at System.Windows.Controls.Primitives.ButtonBase.OnClick()\r\n   at System.Windows.Controls.Button.OnClick()\r\n   at System.Windows.Controls.Primitives.ButtonBase.OnMouseLeftButtonUp(MouseButtonEventArgs e)\r\n   at System.Windows.UIElement.OnMouseLeftButtonUpThunk(Object sender, MouseButtonEventArgs e)\r\n   at System.Windows.Input.MouseButtonEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)\r\n   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)\r\n   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)\r\n   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)\r\n   at System.Windows.UIElement.ReRaiseEventAs(DependencyObject sender, RoutedEventArgs args, RoutedEvent newEvent)\r\n   at System.Windows.UIElement.OnMouseUpThunk(Object sender, MouseButtonEventArgs e)\r\n   at System.Windows.Input.MouseButtonEventArgs.InvokeEventHandler(Delegate genericHandler, Object genericTarget)\r\n   at System.Windows.RoutedEventArgs.InvokeHandler(Delegate handler, Object target)\r\n   at System.Windows.RoutedEventHandlerInfo.InvokeHandler(Object target, RoutedEventArgs routedEventArgs)\r\n   at System.Windows.EventRoute.InvokeHandlersImpl(Object source, RoutedEventArgs args, Boolean reRaised)\r\n   at System.Windows.UIElement.RaiseEventImpl(DependencyObject sender, RoutedEventArgs args)\r\n   at System.Windows.UIElement.RaiseTrustedEvent(RoutedEventArgs args)\r\n   at System.Windows.UIElement.RaiseEvent(RoutedEventArgs args, Boolean trusted)\r\n   at System.Windows.Input.InputManager.ProcessStagingArea()\r\n   at System.Windows.Input.InputManager.ProcessInput(InputEventArgs input)\r\n   at System.Windows.Input.InputProviderSite.ReportInput(InputReport inputReport)\r\n   at System.Windows.Interop.HwndMouseInputProvider.ReportInput(IntPtr hwnd, InputMode mode, Int32 timestamp, RawMouseActions actions, Int32 x, Int32 y, Int32 wheel)\r\n   at System.Windows.Interop.HwndMouseInputProvider.FilterMessage(IntPtr hwnd, WindowMessage msg, IntPtr wParam, IntPtr lParam, Boolean & handled)\r\n   at System.Windows.Interop.HwndSource.InputFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean & handled)\r\n   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean & handled)\r\n   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)\r\n   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)\r\n   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)\r\n   at System.Windows.Threading.Dispatcher.LegacyInvokeImpl(DispatcherPriority priority, TimeSpan timeout, Delegate method, Object args, Int32 numArgs)\r\n   at MS.Win32.HwndSubclass.SubclassWndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam)\r\n   at MS.Win32.UnsafeNativeMethods.DispatchMessage(MSG & msg)\r\n   at System.Windows.Threading.Dispatcher.PushFrameImpl(DispatcherFrame frame)\r\n   at System.Windows.Threading.Dispatcher.PushFrame(DispatcherFrame frame)\r\n   at System.Windows.Application.RunDispatcher(Object ignore)\r\n   at System.Windows.Application.RunInternal(Window window)\r\n   at System.Windows.Application.Run(Window window)\r\n   at System.Windows.Application.Run()\r\n   at CroplandWpf.Test.App.Main()"
 					#endregion
@@ -1024,10 +1024,10 @@ namespace CroplandWpf.Test
 				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
 				ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception
 			};
-			Mbi_Question = MessageBoxInfo.New(MessageBoxType.Question, "FileStar", "Can you answer the question?..");
-			Mbi_Warning = MessageBoxInfo.New(MessageBoxType.Warning, "SuperTsar", "Congratulations! You received a warning!");
-			Mbi_YYNC = new MessageBoxInfo() { Header = "Apply the following action?", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question, Content = "Wanna do something to all these innocent items?..", Buttons = new MessageBoxButtons(CroplandWpf.Components.MessageBoxButton.Yes, CroplandWpf.Components.MessageBoxButton.YesToAll, CroplandWpf.Components.MessageBoxButton.No, CroplandWpf.Components.MessageBoxButton.Cancel) };
-			Mbi_OYNaCR = new MessageBoxInfo() { Header = "Some Random Buttons MessageBox", Content = new { MainContent = "Choose the button you like", AdditionalContent = "spme footer" }, Buttons = MessageBoxButtons.CreateNew("Oi", "Yes to something", "NO to everything", "Just cancel", "some random button"), ContentTemplateKey = "templateMessageBoxContent_RandomButtons", IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception };
+			Mbi_Question = MessageBoxInfo.New(MessageBoxType.Question, "FileStar", "Can you answer the question?.. or maybe better check something else. and again, testing the text wrapping inside messagebox window");
+			Mbi_Warning = MessageBoxInfo.New(MessageBoxType.Warning, "SuperTsar", "Congratulations! You received a warning! here we are checking the text wrapping too. let`s have a look");
+			Mbi_YYNC = new MessageBoxInfo() { Title = "Apply the following action?", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question, Content = "Wanna do something to all these innocent items?.. Or maybe test the text wrapping inside message box? Let`s have a look", Buttons = new MessageBoxButtons(CroplandWpf.Components.MessageBoxButton.Yes, CroplandWpf.Components.MessageBoxButton.YesToAll, CroplandWpf.Components.MessageBoxButton.No, CroplandWpf.Components.MessageBoxButton.Cancel) };
+			Mbi_OYNaCR = new MessageBoxInfo() { Title = "Some Random Buttons MessageBox", Content = new { MainContent = "Choose the button you like", AdditionalContent = "spme footer" }, Buttons = MessageBoxButtons.CreateNew("Oi", "Yes to something", "NO to everything", "Just cancel", "some random button"), ContentTemplateKey = "templateMessageBoxContent_RandomButtons", IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception };
 			MessageBoxAction = new Action<Components.MessageBoxButton>(MessageBoxActionMethod);
 			#endregion
 
@@ -1175,12 +1175,33 @@ namespace CroplandWpf.Test
 		#region MessageBox
 		private void ShowMessageBoxCommand_Execute(object obj)
 		{
-			MessageBoxResult = MessageBoxService.Show(obj as MessageBoxInfo);
+			if (obj == null)
+			{
+				try
+				{
+					int i = 0;
+					double d = 2 / i;
+				}
+				catch (Exception ex)
+				{
+					MessageBoxService.ShowException(ex, exceptionHeader: "Division By Zero", windowTitle: null, 
+						exceptionMessageOverride: "Message override", 
+						footerButtons: MessageBoxFooterButtonsCollection.New(
+							new MessageBoxFooterButton("Show Again"), new MessageBoxFooterButton("Never Show Again", (p) => MessageBox.Show("Never show again clicked")),
+							new MessageBoxFooterButton("Try Something Else", (p) => MessageBox.Show("Try Something Else clicked")),
+							new MessageBoxFooterButton("Random Button", (p) => MessageBox.Show("Random Button clicked")))
+						);
+				}
+			}
+			else if (obj is MessageBoxInfo info)
+			{
+				MessageBoxResult = MessageBoxService.Show(info);
+			}
 		}
 
 		private bool ShowMessageBoxCommand_CanExecute(object arg)
 		{
-			return arg as MessageBoxInfo != null;
+			return true;
 		}
 
 		private void MessageBoxActionMethod(Components.MessageBoxButton button)

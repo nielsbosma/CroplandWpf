@@ -1,11 +1,7 @@
 ﻿using CroplandWpf.MVVM;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Media;
 
@@ -37,13 +33,13 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty FooterProperty =
 			DependencyProperty.Register("Footer", typeof(object), typeof(MessageBoxWindow), new PropertyMetadata());
 
-		public DataTemplate FooterTemplate
-		{
-			get { return (DataTemplate)GetValue(FooterTemplateProperty); }
-			set { SetValue(FooterTemplateProperty, value); }
-		}
-		public static readonly DependencyProperty FooterTemplateProperty =
-			DependencyProperty.Register("FooterTemplate", typeof(DataTemplate), typeof(MessageBoxWindow), new PropertyMetadata());
+		//public DataTemplate FooterTemplate
+		//{
+		//	get { return (DataTemplate)GetValue(FooterTemplateProperty); }
+		//	set { SetValue(FooterTemplateProperty, value); }
+		//}
+		//public static readonly DependencyProperty FooterTemplateProperty =
+		//	DependencyProperty.Register("FooterTemplate", typeof(DataTemplate), typeof(MessageBoxWindow), new PropertyMetadata());
 
 		public MessageBoxButton Result
 		{
@@ -110,6 +106,14 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty ButtonsProperty =
 			DependencyProperty.Register("Buttons", typeof(List<MessageBoxButton>), typeof(MessageBoxWindow), new PropertyMetadata());
 
+		public ObservableCollection<MessageBoxFooterButton> FooterButtons
+		{
+			get { return (ObservableCollection<MessageBoxFooterButton>)GetValue(FooterButtonsProperty); }
+			private set { SetValue(FooterButtonsProperty, value); }
+		}
+		public static readonly DependencyProperty FooterButtonsProperty =
+			DependencyProperty.Register("FooterButtons", typeof(ObservableCollection<MessageBoxFooterButton>), typeof(MessageBoxWindow), new PropertyMetadata());
+
 		public DelegateCommand ControlButtonLoadedCommand
 		{
 			get { return (DelegateCommand)GetValue(ControlButtonLoadedCommandProperty); }
@@ -117,6 +121,14 @@ namespace CroplandWpf.Components
 		}
 		public static readonly DependencyProperty ControlButtonLoadedCommandProperty =
 			DependencyProperty.Register("ControlButtonLoadedCommand", typeof(DelegateCommand), typeof(MessageBoxWindow), new PropertyMetadata());
+
+		public DelegateCommand FooterButtonCommandInternal
+		{
+			get { return (DelegateCommand)GetValue(FooterButtonCommandInternalProperty); }
+			private set { SetValue(FooterButtonCommandInternalProperty, value); }
+		}
+		public static readonly DependencyProperty FooterButtonCommandInternalProperty =
+			DependencyProperty.Register("FooterButtonCommandInternal", typeof(DelegateCommand), typeof(MessageBoxWindow), new PropertyMetadata());
 		#endregion
 
 		static MessageBoxWindow()
@@ -129,6 +141,7 @@ namespace CroplandWpf.Components
 			ControlButtonCommand = new DelegateCommand(ControlButtonCommand_Execute, ControlButtonCommand_CanExecute);
 			WindowStartupLocation = WindowStartupLocation.CenterOwner;
 			ControlButtonLoadedCommand = new DelegateCommand(ControlButtonLoadedCommand_Execute);
+			FooterButtonCommandInternal = new DelegateCommand(FooterButtonCommandInternal_Execute);
 		}
 
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -141,18 +154,19 @@ namespace CroplandWpf.Components
 					if (Info.Resources.Count > 0)
 						foreach (object key in Info.Resources.Keys)
 							Resources.Add(key, Info.Resources[key]);
-					Title = Info.Header;
+					Title = Info.Title;
 					Content = Info.Content;
 					Footer = Info.Footer;
 					if (Info.IconBrushKey != null)
 						SetResourceReference(IconBrushProperty, Info.IconBrushKey);
 					if (Info.ContentTemplateKey != null)
 						SetResourceReference(ContentTemplateProperty, Info.ContentTemplateKey);
-					if (Info.FooterTemplateKey != null)
-						SetResourceReference(FooterTemplateProperty, Info.FooterTemplateKey);
+					//if (Info.FooterTemplateKey != null)
+					//	SetResourceReference(FooterTemplateProperty, Info.FooterTemplateKey);
 					if (Info.AdditionalContentTemplateKey != null)
 						SetResourceReference(AdditionalContentTemplateProperty, Info.AdditionalContentTemplateKey);
 					Buttons = Info.Buttons.GetFinalButtonsList();
+					FooterButtons = new ObservableCollection<MessageBoxFooterButton>(Info.GetFooterButtonsFinal());
 				}
 				if (e.OldValue != null)
 					Resources.Clear();
@@ -183,9 +197,18 @@ namespace CroplandWpf.Components
 		private void ControlButtonLoadedCommand_Execute(object obj)
 		{
 			System.Windows.Controls.Button loadedButton = obj as System.Windows.Controls.Button;
-			if(loadedButton.DataContext == Buttons.First())
+			if (loadedButton.DataContext == Buttons.First())
 			{
 				loadedButton.Focus();
+			}
+		}
+
+		private void FooterButtonCommandInternal_Execute(object parameter)
+		{
+			Close();
+			if (parameter is MessageBoxFooterButton footerButtonDescriptor && footerButtonDescriptor.Command != null)
+			{
+				footerButtonDescriptor.Command.Execute(parameter);
 			}
 		}
 	}

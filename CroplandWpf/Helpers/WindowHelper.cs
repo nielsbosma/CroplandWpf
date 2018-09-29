@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using WinInterop = System.Windows.Interop;
@@ -88,7 +85,12 @@ namespace CroplandWpf.Helpers
 		public static Window GetActiveWindowInstance()
 		{
 			IntPtr result = GetActiveWindow();
-			Window activeWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(window => new WindowInteropHelper(window).Handle == result);
+			Window activeWindow = null;
+			try
+			{
+				activeWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(window => new WindowInteropHelper(window).Handle == result);
+			}
+			catch { activeWindow = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive); }
 			return activeWindow;
 		}
 

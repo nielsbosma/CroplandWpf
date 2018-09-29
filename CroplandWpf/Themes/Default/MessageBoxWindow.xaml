@@ -2,11 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:c="clr-namespace:CroplandWpf.Components"
 					xmlns:a="clr-namespace:CroplandWpf.Attached"
-					xmlns:h="clr-namespace:CroplandWpf.PresentationHelpers"
+					xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers"
+					xmlns:h="clr-namespace:CroplandWpf.Helpers"
                     xmlns:local="clr-namespace:CroplandWpf.Themes.Default">
 
 	<DataTemplate x:Key="templateMessageBoxContent_Default">
-		<TextBlock Text="{Binding}"></TextBlock>
+		<TextBlock Text="{Binding}" TextWrapping="Wrap"></TextBlock>
 	</DataTemplate>
 
 	<Style x:Key="styleButton_Light_FocusVisual">
@@ -36,7 +37,7 @@
 		<Setter Property="FontSize" Value="10.5pt"></Setter>
 		<Setter Property="Padding" Value="13,6"></Setter>
 		<Setter Property="BorderBrush" Value="Transparent"></Setter>
-		<Setter Property="h:ButtonHelper.ConvertToUpper" Value="True"></Setter>
+		<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
 		<!--<Setter Property="FocusVisualStyle" Value="{StaticResource styleButton_Light_FocusVisual}"></Setter>-->
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
@@ -137,7 +138,7 @@
 		<Setter Property="Padding" Value="13,6"></Setter>
 		<Setter Property="BorderBrush" Value="Transparent"></Setter>
 		<Setter Property="MinWidth" Value="80"></Setter>
-		<Setter Property="h:ButtonHelper.ConvertToUpper" Value="True"></Setter>
+		<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
 		<!--<Setter Property="FocusVisualStyle" Value="{StaticResource styleButton_Dark_FocusVisual}"></Setter>-->
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
@@ -282,7 +283,7 @@
 							<ColumnDefinition Width="Auto"></ColumnDefinition>
 							<ColumnDefinition></ColumnDefinition>
 						</Grid.ColumnDefinitions>
-						<Path Grid.Column="0" Margin="7,0" x:Name="pathIndicator" Data="{DynamicResource geometryComboBox_SingleArrow}" Width="10" Height="5" RenderTransformOrigin="0.5,0.5" Fill="{DynamicResource brushToggleButton_MessageBoxWindow_ShowDetails_Arrow_Background}" Stretch="Fill">
+						<Path Grid.Column="0" x:Name="pathIndicator" Data="{DynamicResource geometryComboBox_SingleArrow}" Width="10" Height="5" RenderTransformOrigin="0.5,0.5" Fill="{DynamicResource brushToggleButton_MessageBoxWindow_ShowDetails_Arrow_Background}" Stretch="Fill">
 							<Path.RenderTransform>
 								<ScaleTransform ScaleX="1.0" ScaleY="-1.0"></ScaleTransform>
 							</Path.RenderTransform>
@@ -303,9 +304,71 @@
 		</Setter>
 	</Style>
 
+	<DataTemplate x:Key="templateHyperlinkContent">
+		<TextBlock x:Name="textBlock_Presenter" Text="{Binding}" TextDecorations="Underline"></TextBlock>
+		<DataTemplate.Triggers>
+			<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:HyperlinkButton}, Path=IsUnderlined}" Value="False">
+				<Setter TargetName="textBlock_Presenter" Property="TextDecorations" Value="{x:Null}"></Setter>
+			</DataTrigger>
+		</DataTemplate.Triggers>
+	</DataTemplate>
+
+	<Style x:Key="styleHyperlinkButton_MessageBox" TargetType="{x:Type c:HyperlinkButton}">
+		<Setter Property="Foreground" Value="{DynamicResource brushHyperlink_Foreground}"></Setter>
+		<Setter Property="Cursor" Value="Hand"></Setter>
+		<Setter Property="ContentTemplate" Value="{StaticResource templateHyperlinkContent}"></Setter>
+		<Setter Property="Padding" Value="3,4"></Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="c:HyperlinkButton">
+					<Border Background="{TemplateBinding Background}">
+						<Grid>
+							<ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+							<ContentPresenter x:Name="presenterHover" Opacity="0.0" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" TextBlock.Foreground="{DynamicResource brushHyperlink_Foreground_MouseOver}"></ContentPresenter>
+						</Grid>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="presenterHover" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="presenterHover" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.6"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.6" To="1.0"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
 	<DataTemplate x:Key="templateMessageBoxControlButton" DataType="{x:Type c:MessageBoxButton}">
 		<Grid>
-			<h:EventCommandInvocator Event="Loaded" EventCommand="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=ControlButtonLoadedCommand}" Target="{Binding ElementName=button}"></h:EventCommandInvocator>
+			<ph:EventCommandInvocator Event="Loaded" EventCommand="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=ControlButtonLoadedCommand}" Target="{Binding ElementName=button}"></ph:EventCommandInvocator>
 			<Button x:Name="button" Content="{Binding Header}" Style="{StaticResource styleButton_MessageBox_Primary}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=ControlButtonCommand}" CommandParameter="{Binding}" Margin="0,10,10,10"></Button>
 		</Grid>
 		<DataTemplate.Triggers>
@@ -313,6 +376,10 @@
 				<Setter TargetName="button" Property="Style" Value="{StaticResource styleButton_MessageBox_Regular}"></Setter>
 			</DataTrigger>
 		</DataTemplate.Triggers>
+	</DataTemplate>
+
+	<DataTemplate x:Key="templateMessageBoxFooterButton" DataType="{x:Type c:MessageBoxFooterButton}">
+		<c:HyperlinkButton Style="{StaticResource styleHyperlinkButton_MessageBox}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=FooterButtonCommandInternal}" CommandParameter="{Binding}" Margin="0,0,10,0" VerticalAlignment="Center" Content="{Binding Header}"></c:HyperlinkButton>
 	</DataTemplate>
 
 	<Style x:Key="{x:Type c:MessageBoxWindow}" TargetType="c:MessageBoxWindow">
@@ -324,11 +391,12 @@
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
 		<Setter Property="MinHeight" Value="150"></Setter>
-		<Setter Property="MinWidth" Value="350"></Setter>
-		<Setter Property="Padding" Value="15"></Setter>
-		<Setter Property="MaxWidth" Value="700"></Setter>
+		<Setter Property="MinWidth" Value="400"></Setter>
+		<Setter Property="Padding" Value="15,10"></Setter>
+		<Setter Property="MaxWidth" Value="1000"></Setter>
 		<Setter Property="SizeToContent" Value="WidthAndHeight"></Setter>
 		<Setter Property="ShowInTaskbar" Value="False"></Setter>
+		<Setter Property="ContentTemplate" Value="{StaticResource templateMessageBoxContent_Default}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:MessageBoxWindow">
@@ -347,15 +415,17 @@
 									<ColumnDefinition Width="Auto"></ColumnDefinition>
 								</Grid.ColumnDefinitions>
 
+								<h:MessageBoxContentWidthHelper x:Name="contentWidthHelper" MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=MinWidth}" FooterSectionWidth="{Binding ElementName=gridButtons, Path=ActualWidth}"></h:MessageBoxContentWidthHelper>
+
 								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderHeader" Background="{DynamicResource brushToolWindow_Header_Background}" CornerRadius="1"></Border>
 								<c:WindowControlThumb Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource styleThumb_Window_Move}" Role="Move" AllowMaximize="False"></c:WindowControlThumb>
 								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="16,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt" IsHitTestVisible="False"></TextBlock>
 								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_MessageBoxPresenter_Close}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxButton.Close}" Focusable="False"></Button>
 
-								<Grid Grid.Row="1" Grid.ColumnSpan="2">
+								<Grid Grid.Row="1" Grid.ColumnSpan="2" MaxWidth="{Binding ElementName=contentWidthHelper, Path=CalculatedContentMaxWidth}">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="Auto"></ColumnDefinition>
-										<ColumnDefinition></ColumnDefinition>
+										<ColumnDefinition Width="*"></ColumnDefinition>
 									</Grid.ColumnDefinitions>
 									<Grid.RowDefinitions>
 										<RowDefinition Height="Auto"></RowDefinition>
@@ -370,17 +440,29 @@
 									</ScrollViewer>
 								</Grid>
 
-								<Grid Grid.Row="2" Grid.ColumnSpan="2" Background="#FFeaeaea">
+								<Grid Grid.Row="2" Grid.ColumnSpan="2" x:Name="gridButtons" Background="#FFeaeaea">
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="Auto"></ColumnDefinition>
-										<ColumnDefinition></ColumnDefinition>
+										<ColumnDefinition Width="*"></ColumnDefinition>
+										<ColumnDefinition Width="Auto"></ColumnDefinition>
 									</Grid.ColumnDefinitions>
+
+									<Rectangle x:Name="rectangleWidthConstraint" Grid.ColumnSpan="3"></Rectangle>
 
 									<!--<ContentControl Grid.Column="0" Margin="15,0" Content="{TemplateBinding Footer}" ContentTemplate="{TemplateBinding FooterTemplate}"></ContentControl>-->
 
-									<ToggleButton Grid.Column="0" x:Name="toggeButton_AdditionalContentVisibility" Visibility="Collapsed" Style="{StaticResource styleToggleButton_MessageBox_ShowDetails}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=AdditionalContentVisible, Mode=TwoWay}" Margin="15,0,0,0" Focusable="False">Show Details</ToggleButton>
+									<StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15,0">
+										<ItemsControl x:Name="itemsControl_FooterButtons" Margin="10,0,0,0" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FooterButtons}" ItemTemplate="{StaticResource templateMessageBoxFooterButton}">
+											<ItemsControl.ItemsPanel>
+												<ItemsPanelTemplate>
+													<StackPanel Orientation="Horizontal"></StackPanel>
+												</ItemsPanelTemplate>
+											</ItemsControl.ItemsPanel>
+										</ItemsControl>
+										<ToggleButton x:Name="toggeButton_AdditionalContentVisibility" Visibility="Collapsed" Style="{StaticResource styleToggleButton_MessageBox_ShowDetails}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=AdditionalContentVisible, Mode=TwoWay}" Margin="10,0,0,0" Focusable="False">Show Details</ToggleButton>
+									</StackPanel>
 
-									<ItemsControl Grid.Column="1" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Buttons}" HorizontalAlignment="Right" Margin="10,0,0,0" VerticalAlignment="Center" ItemTemplate="{StaticResource templateMessageBoxControlButton}" KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Cycle">
+									<ItemsControl Grid.Column="2" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Buttons}" HorizontalAlignment="Right" Margin="10,0,0,0" VerticalAlignment="Center" ItemTemplate="{StaticResource templateMessageBoxControlButton}" KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Cycle">
 										<ItemsControl.ItemsPanel>
 											<ItemsPanelTemplate>
 												<StackPanel Orientation="Horizontal"></StackPanel>
@@ -402,6 +484,10 @@
 						<Trigger Property="AdditionalContentVisible" Value="True">
 							<Setter TargetName="PART_AdditionalContentHost" Property="Visibility" Value="Visible"></Setter>
 						</Trigger>
+						<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=FooterButtons.Count}" Value="0">
+							<Setter TargetName="itemsControl_FooterButtons" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="toggeButton_AdditionalContentVisibility" Property="Margin" Value="0,0,0,0"></Setter>
+						</DataTrigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>

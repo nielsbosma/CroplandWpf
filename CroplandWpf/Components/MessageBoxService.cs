@@ -2,18 +2,12 @@
 using CroplandWpf.MVVM;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Interop;
 
 namespace CroplandWpf.Components
 {
 	public class MessageBoxService
 	{
-		public static string DefaultWindowHeader = "Cropland";
+		public static string DefaultWindowTitle = "Cropland";
 
 		private static MessageBoxWindow window;
 
@@ -28,7 +22,7 @@ namespace CroplandWpf.Components
 
 		private static void ShowCommand_Execute(object obj)
 		{
-			if(obj is MessageBoxInfo info)
+			if (obj is MessageBoxInfo info)
 			{
 				window = GetWindow();
 				window.Show(info);
@@ -36,38 +30,12 @@ namespace CroplandWpf.Components
 			}
 		}
 
-		public static MessageBoxButton ShowException(string windowHeader, ExceptionInfo exceptionInfo)
+		public static MessageBoxButton ShowInformation(string windowTitle, string infoText)
 		{
-			MessageBoxInfo info = new MessageBoxInfo
-			{
-				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
-				Buttons = MessageBoxButtons.OK
-			};
-			window = GetWindow();
-			window.Show(info);
-			return window.Result;
-		}
-
-		public static MessageBoxButton ShowException(string windowHeader, string exceptionName, string innerExceptionName, string message, string stackTrace)
-		{
-			MessageBoxInfo info = new MessageBoxInfo
-			{
-				Header = windowHeader,
-				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
-				Buttons = MessageBoxButtons.OK,
-				Content = new ExceptionInfo(exceptionName, innerExceptionName, message, stackTrace),
-				ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception
-			};
-			window = GetWindow();
-			window.Show(info);
-			return window.Result;
-		}
-
-		public static MessageBoxButton ShowInformation(string windowHeader, string infoText)
-		{
+			string finalWindowTitle = windowTitle ?? DefaultWindowTitle;
 			MessageBoxInfo info = new MessageBoxInfo()
 			{
-				Header = windowHeader,
+				Title = finalWindowTitle,
 				Buttons = MessageBoxButtons.OK,
 				Content = infoText,
 				IconBrushKey = MessageBoxIconBrushDefaultKeys.Information
@@ -79,8 +47,8 @@ namespace CroplandWpf.Components
 		{
 			MessageBoxInfo info = new MessageBoxInfo()
 			{
-				Header = windowHeader,
-				Buttons= MessageBoxButtons.OK,
+				Title = windowHeader,
+				Buttons = MessageBoxButtons.OK,
 				IconBrushKey = MessageBoxIconBrushDefaultKeys.Error,
 				Content = errorText
 			};
@@ -89,8 +57,8 @@ namespace CroplandWpf.Components
 
 		private static MessageBoxButton ShowWindow(MessageBoxInfo info)
 		{
-			if (String.IsNullOrWhiteSpace(info.Header))
-				info.Header = DefaultWindowHeader;
+			if (String.IsNullOrWhiteSpace(info.Title))
+				info.Title = DefaultWindowTitle;
 			window = GetWindow();
 			window.Show(info);
 			return window.Result;
@@ -103,6 +71,26 @@ namespace CroplandWpf.Components
 				Owner = WindowHelper.GetActiveWindowInstance()
 			};
 			return window;
+		}
+
+		public static void ShowException(Exception exception, string windowTitle = null, string exceptionHeader = null, string exceptionMessageOverride = null, MessageBoxFooterButtonsCollection footerButtons = null)
+		{
+			string finalWIndowTitle = windowTitle ?? DefaultWindowTitle;
+			MessageBoxInfo info = new MessageBoxInfo
+			{
+				Title = finalWIndowTitle,
+				Content = exception != null ?
+					new ExceptionInfo(exceptionHeader, exception.GetType().Name, exceptionMessageOverride ?? exception.Message, exception.StackTrace) :
+					new ExceptionInfo(exceptionHeader, null, exceptionMessageOverride, null),
+				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
+				ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception,
+				AdditionalContentTemplateKey = MessageBoxAdditionalContentTemplateDefaultKeys.Exception,
+				FooterButtons = footerButtons,
+				Buttons = MessageBoxButtons.OK
+			};
+
+			window = GetWindow();
+			window.Show(info);
 		}
 	}
 }

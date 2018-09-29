@@ -324,7 +324,7 @@ namespace CroplandWpf.Components
 		{
 			if (GetShowDefaultRemoveConfirmation(TargetDataGrid))
 			{
-				MessageBoxButton result = MessageBoxService.Show(new MessageBoxInfo { Header = "Remove Confirmation", Content = string.Format("Remove {0}?", DataContext), Buttons = MessageBoxButtons.YesNo });
+				MessageBoxButton result = MessageBoxService.Show(new MessageBoxInfo { Title = "Remove Confirmation", Content = string.Format("Remove {0}?", DataContext), Buttons = MessageBoxButtons.YesNo });
 				if (result == MessageBoxButton.No || result == MessageBoxButton.Close)
 					return;
 			}

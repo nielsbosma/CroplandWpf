@@ -4,35 +4,56 @@
                     xmlns:local="clr-namespace:CroplandWpf.Themes.Default">
 
 	<DataTemplate x:Key="templateMessageBoxContent_Info">
-		<TextBlock Text="{Binding}"></TextBlock>
+		<TextBlock Text="{Binding}" TextWrapping="Wrap"></TextBlock>
+	</DataTemplate>
+
+	<DataTemplate x:Key="templateMessageBoxContent_Question">
+		<TextBlock Text="{Binding}" TextWrapping="Wrap"></TextBlock>
 	</DataTemplate>
 
 	<DataTemplate x:Key="templateMessageBoxContent_Warning">
 		<TextBlock>
 			<TextBlock Text="Warning: " FontWeight="Bold"></TextBlock>
-			<TextBlock Text="{Binding}"></TextBlock>
+			<TextBlock Text="{Binding}" TextWrapping="Wrap"></TextBlock>
 		</TextBlock>
 	</DataTemplate>
 
 	<DataTemplate x:Key="templateMessageBoxContent_Exception" DataType="{x:Type c:ExceptionInfo}">
 		<StackPanel Orientation="Vertical">
 			<TextBlock FontSize="20pt" Text="{Binding Name}" Padding="0"></TextBlock>
-			<TextBlock Margin="0,20,0,0" Padding="0">
+			<TextBlock x:Name="textBlock_Exception" Margin="0,14,0,0" Padding="0" TextWrapping="Wrap">
 				<Run Text="Exception: " FontWeight="Bold"></Run>
 				<Run Text="{Binding Exception}"></Run>
 			</TextBlock>
-			<TextBlock Margin="0,15,0,0" TextWrapping="Wrap" Padding="0">
+			<TextBlock x:Name="textBlock_Message" Margin="0,14,0,0" TextWrapping="Wrap" Padding="0">
 				<Run Text="Message: " FontWeight="Bold"></Run>
 				<Run Text="{Binding Message}"></Run>
 			</TextBlock>
 		</StackPanel>
+		<DataTemplate.Triggers>
+			<DataTrigger Binding="{Binding Exception}" Value="{x:Null}">
+				<Setter TargetName="textBlock_Exception" Property="Visibility" Value="Collapsed"></Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Message}" Value="{x:Null}">
+				<Setter TargetName="textBlock_Message" Property="Visibility" Value="Collapsed"></Setter>
+			</DataTrigger>
+		</DataTemplate.Triggers>
 	</DataTemplate>
 
+	<DataTemplate x:Key="templateMessageBoxContent_Error">
+		<TextBlock Text="{Binding}" TextWrapping="Wrap"></TextBlock>
+	</DataTemplate>
+	
 	<DataTemplate x:Key="templateMessageBoxContent_Exception_AdditionalContent" DataType="{x:Type c:ExceptionInfo}">
-		<StackPanel Orientation="Vertical">
+		<StackPanel x:Name="panelStackTraceHost" Orientation="Vertical">
 			<TextBlock Text="Stack Trace" FontWeight="Bold"></TextBlock>
 			<TextBlock Text="{Binding StackTrace}" TextWrapping="Wrap"></TextBlock>
 		</StackPanel>
+		<DataTemplate.Triggers>
+			<DataTrigger Binding="{Binding StackTrace}" Value="{x:Null}">
+				<Setter TargetName="panelStackTraceHost" Property="Visibility" Value="Collapsed"></Setter>
+			</DataTrigger>
+		</DataTemplate.Triggers>
 	</DataTemplate>
 
 	<DataTemplate x:Key="templateMessageBoxContent_RandomButtons">
