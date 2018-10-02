@@ -233,12 +233,15 @@
 
 								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderHeader" Background="{DynamicResource brushControl_Background_Dark}" CornerRadius="1"></Border>
 								<c:WindowControlThumb Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource styleThumb_Window_Move}" Role="Move" AllowMaximize="False"></c:WindowControlThumb>
-								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="13,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt"></TextBlock>
+								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="13,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt" IsHitTestVisible="False"></TextBlock>
 								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_InputDialog_Close}" CommandParameter="{x:Static c:InputDialogResultActionType.Close}" Command="{TemplateBinding ControlButtonCommand}"></Button>
 
-								<ContentPresenter Grid.Row="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}" ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>
+								<Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}">
+									<TextBlock Text=""></TextBlock>
+									<ContentPresenter Grid.Row="1" ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>
+								</Grid>
 
-								<StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="15" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+								<StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="13,0,13,13" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
 									<Button Style="{StaticResource styleButton_InputDialog_Control_NegativeAction}" Margin="0,0,15,0" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NegativeActionButtonHeader}" CommandParameter="{x:Static c:InputDialogResultActionType.Negative}" Command="{TemplateBinding ControlButtonCommand}" VerticalAlignment="Center"></Button>
 									<Button Style="{StaticResource styleButton_InputDialog_Control}" Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PositiveActionButtonHeader}" CommandParameter="{x:Static c:InputDialogResultActionType.Positive}" Command="{TemplateBinding ControlButtonCommand}" VerticalAlignment="Center"></Button>
 								</StackPanel>

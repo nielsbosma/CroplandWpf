@@ -1,8 +1,8 @@
 ﻿<h:ReplacableValuesResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:h="clr-namespace:CroplandWpf.Helpers"
-					ReplacementSource="CroplandColors.xaml">
-
+					>
+	<!--ReplacementSource="CroplandColors.xaml"-->
 	<Color x:Key="colorControl_Background_Dark">#FF227347</Color>
 	<Color x:Key="colorControl_Background_Light">#FFffffff</Color>
 	<Color x:Key="colorControl_Foreground_Light">#FFffffff</Color>

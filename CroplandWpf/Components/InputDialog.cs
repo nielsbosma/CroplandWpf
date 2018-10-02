@@ -74,7 +74,7 @@ namespace CroplandWpf.Components
 		public string NegativeActionButtonHeader
 		{
 			get { return (string)GetValue(NegativeActionButtonHeaderProperty); }
-			set { SetValue(NegativeActionButtonHeaderProperty, value); }
+			private set { SetValue(NegativeActionButtonHeaderProperty, value); }
 		}
 		public static readonly DependencyProperty NegativeActionButtonHeaderProperty =
 			DependencyProperty.Register("NegativeActionButtonHeader", typeof(string), typeof(InputDialog), new PropertyMetadata());
@@ -82,10 +82,18 @@ namespace CroplandWpf.Components
 		public string PositiveActionButtonHeader
 		{
 			get { return (string)GetValue(PositiveActionButtonHeaderProperty); }
-			set { SetValue(PositiveActionButtonHeaderProperty, value); }
+			private set { SetValue(PositiveActionButtonHeaderProperty, value); }
 		}
 		public static readonly DependencyProperty PositiveActionButtonHeaderProperty =
 			DependencyProperty.Register("PositiveActionButtonHeader", typeof(string), typeof(InputDialog), new PropertyMetadata());
+
+		public string Header
+		{
+			get { return (string)GetValue(HeaderProperty); }
+			private set { SetValue(HeaderProperty, value); }
+		}
+		public static readonly DependencyProperty HeaderProperty =
+			DependencyProperty.Register("Header", typeof(string), typeof(InputDialog), new PropertyMetadata());
 
 		#region Commands
 		public DelegateCommand ControlButtonCommand
@@ -144,7 +152,8 @@ namespace CroplandWpf.Components
 						SetResourceReference(ContentTemplateProperty, Info.ContentTemplateKey);
 					NegativeActionButtonHeader = Info.NegativeActionButtonHeader;
 					PositiveActionButtonHeader = Info.PositiveActionButtonHeader;
-					Title = Info.Title;
+					Title = Info.WindowTitle;
+					Header = Info.Header;
 				}
 				if (e.OldValue != null)
 					Resources.Clear();
@@ -189,13 +198,13 @@ namespace CroplandWpf.Components
 
 	public class InputDialogInfo : FrameworkElement
 	{
-		public string Title
+		public string WindowTitle
 		{
-			get { return (string)GetValue(TitleProperty); }
-			set { SetValue(TitleProperty, value); }
+			get { return (string)GetValue(WindowTitleProperty); }
+			set { SetValue(WindowTitleProperty, value); }
 		}
-		public static readonly DependencyProperty TitleProperty =
-			DependencyProperty.Register("Title", typeof(string), typeof(InputDialogInfo), new PropertyMetadata("Input Dialog"));
+		public static readonly DependencyProperty WindowTitleProperty =
+			DependencyProperty.Register("WindowTitle", typeof(string), typeof(InputDialogInfo), new PropertyMetadata("Input Dialog"));
 
 		public object Content
 		{
@@ -212,6 +221,14 @@ namespace CroplandWpf.Components
 		}
 		public static readonly DependencyProperty ContentTemplateKeyProperty =
 			DependencyProperty.Register("ContentTemplateKey", typeof(object), typeof(InputDialogInfo), new PropertyMetadata());
+
+		public string Header
+		{
+			get { return (string)GetValue(HeaderProperty); }
+			set { SetValue(HeaderProperty, value); }
+		}
+		public static readonly DependencyProperty HeaderProperty =
+			DependencyProperty.Register("Header", typeof(string), typeof(InputDialogInfo), new PropertyMetadata());
 
 		public Type ContentType
 		{

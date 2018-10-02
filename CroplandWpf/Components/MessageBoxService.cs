@@ -13,6 +13,10 @@ namespace CroplandWpf.Components
 
 		public static MessageBoxButton Show(MessageBoxInfo info)
 		{
+			if (info == null)
+				return MessageBoxButton.Close;
+			if (String.IsNullOrWhiteSpace(info.Title))
+				info.Title = GetFinalWindowTitle();
 			window = GetWindow();
 			window.Show(info);
 			return window.Result;
@@ -24,30 +28,28 @@ namespace CroplandWpf.Components
 		{
 			if (obj is MessageBoxInfo info)
 			{
-				window = GetWindow();
-				window.Show(info);
+				Show(info);
 				info.ExecuteAction(window.Result);
 			}
 		}
 
 		public static MessageBoxButton ShowInformation(string windowTitle, string infoText)
 		{
-			string finalWindowTitle = windowTitle ?? DefaultWindowTitle;
 			MessageBoxInfo info = new MessageBoxInfo()
 			{
-				Title = finalWindowTitle,
+				Title = GetFinalWindowTitle(windowTitle),
 				Buttons = MessageBoxButtons.OK,
 				Content = infoText,
 				IconBrushKey = MessageBoxIconBrushDefaultKeys.Information
 			};
-			return ShowWindow(info);
+			return Show(info);
 		}
 
-		public static MessageBoxButton ShowError(string windowHeader, string errorText)
+		public static MessageBoxButton ShowError(string windowTitle, string errorText)
 		{
 			MessageBoxInfo info = new MessageBoxInfo()
 			{
-				Title = windowHeader,
+				Title = GetFinalWindowTitle(windowTitle),
 				Buttons = MessageBoxButtons.OK,
 				IconBrushKey = MessageBoxIconBrushDefaultKeys.Error,
 				Content = errorText
@@ -59,9 +61,12 @@ namespace CroplandWpf.Components
 		{
 			if (String.IsNullOrWhiteSpace(info.Title))
 				info.Title = DefaultWindowTitle;
-			window = GetWindow();
-			window.Show(info);
-			return window.Result;
+			return Show(info);
+		}
+
+		private static string GetFinalWindowTitle(string customTitle = null)
+		{
+			return customTitle ?? DefaultWindowTitle;
 		}
 
 		private static MessageBoxWindow GetWindow()
@@ -89,8 +94,7 @@ namespace CroplandWpf.Components
 				Buttons = MessageBoxButtons.OK
 			};
 
-			window = GetWindow();
-			window.Show(info);
+			Show(info);
 		}
 	}
 }

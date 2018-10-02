@@ -520,7 +520,7 @@
 							</StackPanel>
 						</StackPanel>
 					</ScrollViewer>
-					
+
 					<StackPanel Grid.Column="1" x:Name="stackPanel_IgnoreUpperCaseButtons" Orientation="Vertical">
 						<CheckBox Margin="5" IsChecked="{Binding ElementName=stackPanel_IgnoreUpperCaseButtons, Path=(ph:ButtonHelper.IgnoreConvertToUpper), Mode=TwoWay}">Locally ignore uppercase modifier for buttons</CheckBox>
 						<Rectangle Fill="DarkGray" Height="1"/>
@@ -697,90 +697,92 @@
 						<ColumnDefinition Width="1.0*"/>
 					</Grid.ColumnDefinitions>
 
-					<StackPanel Grid.Column="0" Orientation="Vertical">
-						<TextBlock FontWeight="Bold"><Run Text="BusyIndicator"/></TextBlock>
-						<StackPanel Orientation="Horizontal">
-							<c:BusyIndicator x:Name="busyIndicator" Margin="5"/>
-							<CheckBox Margin="15,0,0,0" IsChecked="{Binding IsEnabled, ElementName=busyIndicator, Mode=TwoWay}" Content="IsEnabled"/>
-						</StackPanel>
-						<TextBlock Margin="5" Text="IntegerUpDown (Xceed)" FontWeight="Bold"/>
-						<StackPanel Orientation="Horizontal">
-							<tk:IntegerUpDown x:Name="integerUpDown" Margin="5,5,0,5" HorizontalAlignment="Left" Width="80" Value="{Binding IntegerValueTest}" />
-							<Grid Margin="15,5,5,5">
-								<Grid.RowDefinitions>
-									<RowDefinition/>
-									<RowDefinition Height="Auto"/>
-								</Grid.RowDefinitions>
-								<TextBlock Grid.Row="0" Text="{Binding IntegerValueTest, StringFormat=IntegerValueTest: \{0\}}"/>
-								<CheckBox Grid.Row="1" IsChecked="{Binding IsEnabled, ElementName=integerUpDown, Mode=TwoWay}" Content="IsEnabled"/>
-							</Grid>
-						</StackPanel>
-
-						<TextBlock Margin="5" FontWeight="Bold"><Run Text="MessageBox"/></TextBlock>
-						<WrapPanel Orientation="Horizontal">
-							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" Content="Simple Exception (OK)"/>
-							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Question}" Content="Simple Question (Yes/No)"/>
-							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
-							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_YYNC}" Content="Yes/Yes to All/No/Cancel"/>
-							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiRandomButtons}" Content="Some random message box"/>
-							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_OYNaCR}">Show random message box created in code</Button>
-							<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
-							<Button Margin="2" Command="{x:Static c:MessageBoxService.ShowCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="Static Show Command"/>
-						</WrapPanel>
-						<Grid>
+					<ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled">
+						<StackPanel Grid.Column="0" Orientation="Vertical">
+							<TextBlock FontWeight="Bold"><Run Text="BusyIndicator"/></TextBlock>
 							<StackPanel Orientation="Horizontal">
-								<Grid x:Name="gridWarning" Width="54" Height="54">
-									<Path Fill="#FFF5A623" Stroke="{x:Null}" Stretch="Uniform">
-										<Path.Data>
-											<PathGeometry Figures="M27,0L54,47 0,47z"></PathGeometry>
-										</Path.Data>
-									</Path>
-									<Path Stretch="Uniform" Data="M30,18L29.3262032,32.4986523 24.6737968,32.4986523 24,18 30,18z M29.8716578,34.9299191L29.8716578,40 24.1604278,40 24.1604278,34.9299191 29.8716578,34.9299191z" Fill="#FF000000" Margin="16,21,16,11" />
-								</Grid>
-
-								<Grid x:Name="gridError" Width="54" Height="54">
-									<Path Fill="#FFd5283d" Stretch="Fill">
-										<Path.Data>
-											<EllipseGeometry RadiusX="27" RadiusY="27" Center="25,25">
-											</EllipseGeometry>
-										</Path.Data>
-									</Path>
-									<Path Data="{DynamicResource geometryCross}" Stretch="Fill" Width="22" Height="22" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{DynamicResource brushControl_Background_Light}" Stroke="{DynamicResource brushControl_Background_Light}" StrokeThickness="1"></Path>
-								</Grid>
-
-								<Grid x:Name="gridInfo" Width="54" Height="54">
-									<Path Fill="#FF3f95e2" Stroke="{x:Null}">
-										<Path.Data>
-											<EllipseGeometry RadiusX="27" RadiusY="27" Center="27,27"></EllipseGeometry>
-										</Path.Data>
-									</Path>
-									<StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-										<Path Data="F1M4,1C5.657,1 7,2.343 7,4 7,5.657 5.657,7 4,7 2.343,7 1,5.657 1,4 1,2.343 2.343,1 4,1z" Fill="#FFffffff" Height="6" Width="6" Stretch="Fill" HorizontalAlignment="Center"/>
-										<Path Data="F1M1,1C1,1 1,17 1,17 1,17 5,17 5,17 5,17 5,1 5,1 5,1 1,1 1,1z" Fill="#FFffffff" Height="18" Width="6" HorizontalAlignment="Center" Margin="0,3,0,0" Stretch="Fill"/>
-									</StackPanel>
+								<c:BusyIndicator x:Name="busyIndicator" Margin="5"/>
+								<CheckBox Margin="15,0,0,0" IsChecked="{Binding IsEnabled, ElementName=busyIndicator, Mode=TwoWay}" Content="IsEnabled"/>
+							</StackPanel>
+							<TextBlock Margin="5" Text="IntegerUpDown (Xceed)" FontWeight="Bold"/>
+							<StackPanel Orientation="Horizontal">
+								<tk:IntegerUpDown x:Name="integerUpDown" Margin="5,5,0,5" HorizontalAlignment="Left" Width="80" Value="{Binding IntegerValueTest}" />
+								<Grid Margin="15,5,5,5">
+									<Grid.RowDefinitions>
+										<RowDefinition/>
+										<RowDefinition Height="Auto"/>
+									</Grid.RowDefinitions>
+									<TextBlock Grid.Row="0" Text="{Binding IntegerValueTest, StringFormat=IntegerValueTest: \{0\}}"/>
+									<CheckBox Grid.Row="1" IsChecked="{Binding IsEnabled, ElementName=integerUpDown, Mode=TwoWay}" Content="IsEnabled"/>
 								</Grid>
 							</StackPanel>
-						</Grid>
-						<TextBlock Margin="20,5,0,5"><InlineUIContainer>
+
+							<TextBlock Margin="5" FontWeight="Bold"><Run Text="MessageBox"/></TextBlock>
+							<WrapPanel Orientation="Horizontal">
+								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" Content="Simple Exception (OK)"/>
+								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Question}" Content="Simple Question (Yes/No)"/>
+								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
+								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_YYNC}" Content="Yes/Yes to All/No/Cancel"/>
+								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiRandomButtons}" Content="Some random message box"/>
+								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_OYNaCR}">Show random message box created in code</Button>
+								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
+								<Button Margin="2" Command="{x:Static c:MessageBoxService.ShowCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="Static Show Command"/>
+							</WrapPanel>
+							<Grid>
+								<StackPanel Orientation="Horizontal">
+									<Grid x:Name="gridWarning" Width="54" Height="54">
+										<Path Fill="#FFF5A623" Stroke="{x:Null}" Stretch="Uniform">
+											<Path.Data>
+												<PathGeometry Figures="M27,0L54,47 0,47z"></PathGeometry>
+											</Path.Data>
+										</Path>
+										<Path Stretch="Uniform" Data="M30,18L29.3262032,32.4986523 24.6737968,32.4986523 24,18 30,18z M29.8716578,34.9299191L29.8716578,40 24.1604278,40 24.1604278,34.9299191 29.8716578,34.9299191z" Fill="#FF000000" Margin="16,21,16,11" />
+									</Grid>
+
+									<Grid x:Name="gridError" Width="54" Height="54">
+										<Path Fill="#FFd5283d" Stretch="Fill">
+											<Path.Data>
+												<EllipseGeometry RadiusX="27" RadiusY="27" Center="25,25">
+												</EllipseGeometry>
+											</Path.Data>
+										</Path>
+										<Path Data="{DynamicResource geometryCross}" Stretch="Fill" Width="22" Height="22" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{DynamicResource brushControl_Background_Light}" Stroke="{DynamicResource brushControl_Background_Light}" StrokeThickness="1"></Path>
+									</Grid>
+
+									<Grid x:Name="gridInfo" Width="54" Height="54">
+										<Path Fill="#FF3f95e2" Stroke="{x:Null}">
+											<Path.Data>
+												<EllipseGeometry RadiusX="27" RadiusY="27" Center="27,27"></EllipseGeometry>
+											</Path.Data>
+										</Path>
+										<StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+											<Path Data="F1M4,1C5.657,1 7,2.343 7,4 7,5.657 5.657,7 4,7 2.343,7 1,5.657 1,4 1,2.343 2.343,1 4,1z" Fill="#FFffffff" Height="6" Width="6" Stretch="Fill" HorizontalAlignment="Center"/>
+											<Path Data="F1M1,1C1,1 1,17 1,17 1,17 5,17 5,17 5,17 5,1 5,1 5,1 1,1 1,1z" Fill="#FFffffff" Height="18" Width="6" HorizontalAlignment="Center" Margin="0,3,0,0" Stretch="Fill"/>
+										</StackPanel>
+									</Grid>
+								</StackPanel>
+							</Grid>
+							<TextBlock Margin="20,5,0,5"><InlineUIContainer>
 								<TextBlock Text="MessageBoxResult:"/>
 							</InlineUIContainer><Run Text=" "/><Run Text=" "/><Run Text=" "/><InlineUIContainer>
 								<TextBlock Margin="10,0,0,0" Text="{Binding MessageBoxResult}" FontWeight="Bold"/>
 							</InlineUIContainer></TextBlock>
-						<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
-						<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
-						<StackPanel Orientation="Vertical" Margin="5">
-							<c:DateInervalControl SelectedInterval="{Binding SelectedDateInterval, Mode=TwoWay}"/>
-							<TextBlock Margin="15,10,0,5" Text="{Binding SelectedDateInterval}"/>
+							<TextBlock Margin="5" FontWeight="Bold"><Run Text="DatePicker"/></TextBlock>
+							<DatePicker x:Name="datePicker" Margin="5" SelectedDate="{Binding DateTimeTest, Mode=TwoWay}" HorizontalAlignment="Left" />
+							<StackPanel Orientation="Vertical" Margin="5">
+								<c:DateInervalControl SelectedInterval="{Binding SelectedDateInterval, Mode=TwoWay}"/>
+								<TextBlock Margin="15,10,0,5" Text="{Binding SelectedDateInterval}"/>
+							</StackPanel>
+							<TextBlock Margin="5" FontWeight="Bold"><Run Text="TimePicker (Xceed)"/></TextBlock>
+							<StackPanel Orientation="Horizontal">
+								<tk:TimePicker x:Name="timePicker" Margin="5" HorizontalAlignment="Left" MinWidth="100" Value="{Binding TimeValue, Mode=TwoWay}" StartTime="00:00:00" EndTime="23:59:59" AllowSpin="True" AllowTextInput="True" Minimum="00:00:00" Maximum="23:59:59"/>
+								<CheckBox IsChecked="{Binding IsEnabled, ElementName=timePicker, Mode=TwoWay}" Margin="20,0,0,0" Content="IsEnabled"/>
+							</StackPanel>
+							<TextBlock Margin="5" FontWeight="Bold"><Run Text="DateTimePicker (Xceed)"/></TextBlock>
+							<tk:DateTimePicker Margin="5" HorizontalAlignment="Stretch" Value="{Binding SelectedDateTime, Mode=TwoWay}"/>
 						</StackPanel>
-						<TextBlock Margin="5" FontWeight="Bold"><Run Text="TimePicker (Xceed)"/></TextBlock>
-						<StackPanel Orientation="Horizontal">
-							<tk:TimePicker x:Name="timePicker" Margin="5" HorizontalAlignment="Left" MinWidth="100" Value="{Binding TimeValue, Mode=TwoWay}" StartTime="00:00:00" EndTime="23:59:59" AllowSpin="True" AllowTextInput="True" Minimum="00:00:00" Maximum="23:59:59"/>
-							<CheckBox IsChecked="{Binding IsEnabled, ElementName=timePicker, Mode=TwoWay}" Margin="20,0,0,0" Content="IsEnabled"/>
-						</StackPanel>
-						<TextBlock Margin="5" FontWeight="Bold"><Run Text="DateTimePicker (Xceed)"/></TextBlock>
-						<tk:DateTimePicker Margin="5" HorizontalAlignment="Stretch" Value="{Binding SelectedDateTime, Mode=TwoWay}"/>
-					</StackPanel>
-
+					</ScrollViewer>
+					
 					<StackPanel Grid.Column="1" Orientation="Vertical">
 						<Grid>
 							<Grid.ColumnDefinitions>

@@ -87,7 +87,6 @@ namespace CroplandWpf.Helpers
 		/// <summary>Restores the replacement source if it was failed to load it from the given replacement source string</summary>
 		private void RestoreReplacementDictionary()
 		{
-			
 			if (!File.Exists(replacementSourceFullPath))
 			{
 				using (FileStream fs = new FileStream(replacementSourceFullPath, FileMode.Create, FileAccess.ReadWrite))

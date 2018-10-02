@@ -415,7 +415,7 @@
 									<ColumnDefinition Width="Auto"></ColumnDefinition>
 								</Grid.ColumnDefinitions>
 
-								<h:MessageBoxContentWidthHelper x:Name="contentWidthHelper" MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=MinWidth}" FooterSectionWidth="{Binding ElementName=gridButtons, Path=ActualWidth}"></h:MessageBoxContentWidthHelper>
+								<h:MessageBoxContentWidthHelper x:Name="contentWidthHelper" MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=MinWidth}" FooterSectionWidth="{Binding ElementName=gridButtons, Path=ActualWidth}" Visibility="Collapsed"></h:MessageBoxContentWidthHelper>
 
 								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderHeader" Background="{DynamicResource brushToolWindow_Header_Background}" CornerRadius="1"></Border>
 								<c:WindowControlThumb Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource styleThumb_Window_Move}" Role="Move" AllowMaximize="False"></c:WindowControlThumb>

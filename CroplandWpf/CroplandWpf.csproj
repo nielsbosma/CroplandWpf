@@ -138,11 +138,10 @@
     <Compile Include="PresentationHelpers\DataContextBridge.cs" />
     <Compile Include="PresentationHelpers\DataGridComboBoxHelper.cs" />
     <Compile Include="PresentationHelpers\DynamicColorAnimator.cs" />
-    <Content Include="CroplandColors.xaml">
+    <Resource Include="CroplandColors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
     <Page Include="Themes\Cropland.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
