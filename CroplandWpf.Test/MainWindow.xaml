@@ -229,7 +229,13 @@
 						<TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Text="Name:" Margin="10,0" VerticalAlignment="Center"/>
 						<TextBox Grid.Row="0" Grid.Column="1" Margin="0,5" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 						<TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Text="Size:" Margin="10,0" VerticalAlignment="Center"/>
-						<tk:IntegerUpDown Grid.Row="1" Grid.Column="1" Margin="0,5" Value="{Binding Size_Mb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+						<ContentControl Grid.Row="1" Grid.Column="1" Margin="0,5" Padding="5">
+							<ContentControl.ContentTemplate>
+								<DataTemplate>
+									<tk:IntegerUpDown Value="{Binding Size_Mb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+								</DataTemplate>
+							</ContentControl.ContentTemplate>
+						</ContentControl>
 					</Grid>
 				</DataTemplate>
 			</c:InputDialogInfo.Resources>
@@ -782,7 +788,7 @@
 							<tk:DateTimePicker Margin="5" HorizontalAlignment="Stretch" Value="{Binding SelectedDateTime, Mode=TwoWay}"/>
 						</StackPanel>
 					</ScrollViewer>
-					
+
 					<StackPanel Grid.Column="1" Orientation="Vertical">
 						<Grid>
 							<Grid.ColumnDefinitions>

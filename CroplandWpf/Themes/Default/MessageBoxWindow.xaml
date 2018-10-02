@@ -379,7 +379,7 @@
 	</DataTemplate>
 
 	<DataTemplate x:Key="templateMessageBoxFooterButton" DataType="{x:Type c:MessageBoxFooterButton}">
-		<c:HyperlinkButton Style="{StaticResource styleHyperlinkButton_MessageBox}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=FooterButtonCommandInternal}" CommandParameter="{Binding}" Margin="0,0,10,0" VerticalAlignment="Center" Content="{Binding Header}"></c:HyperlinkButton>
+		<c:HyperlinkButton Style="{StaticResource styleHyperlinkButton_MessageBox}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=FooterButtonCommandInternal}" CommandParameter="{Binding CommandParameter}" Margin="0,0,10,0" VerticalAlignment="Center" Content="{Binding Header}"></c:HyperlinkButton>
 	</DataTemplate>
 
 	<Style x:Key="{x:Type c:MessageBoxWindow}" TargetType="c:MessageBoxWindow">

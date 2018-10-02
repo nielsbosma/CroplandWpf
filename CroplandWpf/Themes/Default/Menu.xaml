@@ -16,6 +16,10 @@
 	<Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="Separator">
 		<Setter Property="Height" Value="2"/>
 		<Setter Property="Margin" Value="0,3"/>
+		<Setter Property="IsHitTestVisible" Value="False"></Setter>
+		<Setter Property="Focusable" Value="False"></Setter>
+		<Setter Property="KeyboardNavigation.IsTabStop" Value="False"></Setter>
+		<Setter Property="KeyboardNavigation.DirectionalNavigation" Value="None"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Separator">
@@ -224,6 +228,9 @@
 				<Setter Property="IsHitTestVisible" Value="False"></Setter>
 				<Setter TargetName="separator" Property="Visibility" Value="Visible"></Setter>
 				<Setter TargetName="gridRoot" Property="Margin" Value="0"></Setter>
+				<Setter Property="IsHitTestVisible" Value="False"></Setter>
+				<Setter Property="KeyboardNavigation.DirectionalNavigation" Value="None"></Setter>
+				<Setter Property="Focusable" Value="False"></Setter>
 			</DataTrigger>
 			<!--<Trigger Property="IsChecked" Value="true">
 				<Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>

@@ -533,10 +533,19 @@ namespace CroplandWpf.Components
 		public static readonly DependencyProperty CommandProperty =
 			DependencyProperty.Register("Command", typeof(ICommand), typeof(MessageBoxFooterButton), new PropertyMetadata());
 
-		public MessageBoxFooterButton(string header, Action<object> commandExecute = null)
+		public object CommandParameter
+		{
+			get { return (object)GetValue(CommandParameterProperty); }
+			set { SetValue(CommandParameterProperty, value); }
+		}
+		public static readonly DependencyProperty CommandParameterProperty =
+			DependencyProperty.Register("CommandParameter", typeof(object), typeof(MessageBoxFooterButton), new PropertyMetadata());
+
+		public MessageBoxFooterButton(string header, Action<object> commandExecute = null, object commandParameter = null)
 		{
 			Header = header;
 			CommandExecute = commandExecute;
+			CommandParameter = commandParameter ?? this;
 		}
 
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -549,14 +558,19 @@ namespace CroplandWpf.Components
 
 	public class MessageBoxFooterButtonsCollection : List<MessageBoxFooterButton>
 	{
-		public static MessageBoxFooterButtonsCollection OptOut(Action<object> optOutAction, string optOutButtonHeader = "Don`t show again")
+		public static MessageBoxFooterButtonsCollection OptOut(Action<object> optOutAction, string optOutButtonHeader = "Don`t show again", object commandParameter = null)
 		{
-			return new MessageBoxFooterButtonsCollection { new MessageBoxFooterButton(optOutButtonHeader, optOutAction) };
+			return Single(optOutButtonHeader, optOutAction, commandParameter);
 		}
 
 		public static MessageBoxFooterButtonsCollection New(params MessageBoxFooterButton[] buttons)
 		{
 			return new MessageBoxFooterButtonsCollection(buttons);
+		}
+
+		public static MessageBoxFooterButtonsCollection Single(string buttonHeader, Action<object> action, object commandParameter = null)
+		{
+			return new MessageBoxFooterButtonsCollection { new MessageBoxFooterButton (buttonHeader, action, commandParameter) };
 		}
 
 		public MessageBoxFooterButtonsCollection()

@@ -13,6 +13,7 @@
 		<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
 		<Setter Property="Padding" Value="15,0,50,0"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ToggleButton">
@@ -77,6 +78,7 @@
 		<Setter Property="CalendarButtonStyle" Value="{DynamicResource styleCalendarButton}"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="ph:CalendarHelper.IsForceLooseMouseCaptureEnabled" Value="True"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Calendar">
@@ -131,6 +133,7 @@
 	<Style x:Key="{x:Type c:DateInervalControl}" TargetType="c:DateInervalControl">
 		<Setter Property="MinHeight" Value="36"></Setter>
 		<Setter Property="Height" Value="36"></Setter>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:DateInervalControl">

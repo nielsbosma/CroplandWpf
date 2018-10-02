@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -235,9 +236,8 @@ namespace CroplandWpf.Attached
 		public static readonly DependencyProperty WidthConstraintSourceProperty =
 			DependencyProperty.RegisterAttached("WidthConstraintSource", typeof(FrameworkElement), typeof(VisualHelper), new PropertyMetadata((o, e) =>
 			{
-				FrameworkElement target = o as FrameworkElement;
 				FrameworkElement source = e.NewValue as FrameworkElement;
-				if (target != null && source != null)
+				if (o is FrameworkElement target && source != null)
 					target.SetBinding(FrameworkElement.MaxWidthProperty, new Binding { Source = source, Path = new PropertyPath(FrameworkElement.ActualWidthProperty), Mode = BindingMode.OneWay });
 			}));
 
@@ -262,5 +262,23 @@ namespace CroplandWpf.Attached
 		}
 		public static readonly DependencyProperty IsLastItemProperty =
 			DependencyProperty.RegisterAttached("IsLastItem", typeof(bool), typeof(VisualHelper), new PropertyMetadata());
+
+		public static bool GetDisableFocusVisualStyle(DependencyObject obj)
+		{
+			return (bool)obj.GetValue(DisableFocusVisualStyleProperty);
+		}
+		public static void SetDisableFocusVisualStyle(DependencyObject obj, bool value)
+		{
+			obj.SetValue(DisableFocusVisualStyleProperty, value);
+		}
+		public static readonly DependencyProperty DisableFocusVisualStyleProperty =
+			DependencyProperty.RegisterAttached("DisableFocusVisualStyle", typeof(bool), typeof(VisualHelper), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits, (o, e) =>
+			{
+				if (o is FrameworkElement fe && fe.FocusVisualStyle != null)
+				{
+					fe.FocusVisualStyle = null;
+					//Trace.WriteLine("FocusVisualStyle disabled on " + fe);
+				}
+			}));
 	}
 }
