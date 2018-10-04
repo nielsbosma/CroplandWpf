@@ -1024,7 +1024,8 @@ namespace CroplandWpf.Test
 				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
 				ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception
 			};
-			Mbi_Question = MessageBoxInfo.New(MessageBoxType.Question, "FileStar", "Can you answer the question?.. or maybe better check something else. and again, testing the text wrapping inside messagebox window");
+			Mbi_Question = new MessageBoxInfo {IconBrushKey = null, Title = "No Icon MessageBox", Content = "This message box goes without icon specified" };
+			//MessageBoxInfo.New(MessageBoxType.Question, "FileStar", "Can you answer the question?.. or maybe better check something else. and again, testing the text wrapping inside messagebox window");
 			Mbi_Warning = MessageBoxInfo.New(MessageBoxType.Warning, "SuperTsar", "Congratulations! You received a warning! here we are checking the text wrapping too. let`s have a look");
 			Mbi_YYNC = new MessageBoxInfo() { Title = "Apply the following action?", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question, Content = "Wanna do something to all these innocent items?.. Or maybe test the text wrapping inside message box? Let`s have a look", Buttons = new MessageBoxButtons(CroplandWpf.Components.MessageBoxButton.Yes, CroplandWpf.Components.MessageBoxButton.YesToAll, CroplandWpf.Components.MessageBoxButton.No, CroplandWpf.Components.MessageBoxButton.Cancel) };
 			Mbi_OYNaCR = new MessageBoxInfo() { Title = "Some Random Buttons MessageBox", Content = new { MainContent = "Choose the button you like", AdditionalContent = "spme footer" }, Buttons = MessageBoxButtons.CreateNew("Oi", "Yes to something", "NO to everything", "Just cancel", "some random button"), ContentTemplateKey = "templateMessageBoxContent_RandomButtons", IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception };

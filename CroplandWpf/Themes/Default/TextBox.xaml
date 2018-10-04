@@ -22,11 +22,12 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="TextBox">
 					<c:HeaderFooterContentControl HeaderFooterPropertiesSource="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-						<Border Grid.Column="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" MinHeight="{TemplateBinding MinHeight}" MinWidth="{TemplateBinding MinWidth}">
+						<Border Grid.Column="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" MinHeight="{TemplateBinding MinHeight}" MinWidth="{TemplateBinding MinWidth}" CornerRadius="2">
 							<Grid>
-								<Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
+								<Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="2"></Border>
 								<ph:KeyboardFocusRedirectControl FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
 								<ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="10,0"></ScrollViewer>
+								<Border x:Name="borderFocusVisual" Opacity="0.0" IsHitTestVisible="False" BorderBrush="{DynamicResource brushControl_Background_Dark}" BorderThickness="1" CornerRadius="2"></Border>
 							</Grid>
 						</Border>
 					</c:HeaderFooterContentControl>
@@ -75,18 +76,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.2" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.0" To="0.5" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.5" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -125,9 +122,10 @@
 					<c:HeaderFooterContentControl HeaderFooterPropertiesSource="{Binding RelativeSource={RelativeSource TemplatedParent}}">
 						<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.CornerRadius)}" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}">
 							<Grid>
-								<Border x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}"></Border>
+								<!--<Border x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}"></Border>-->
 								<ph:KeyboardFocusRedirectControl FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
 								<ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="6,0"></ScrollViewer>
+								<Border x:Name="borderFocusVisual" Opacity="0.0" IsHitTestVisible="False" BorderBrush="{DynamicResource brushControl_Background_Dark}" BorderThickness="1" CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.CornerRadius)}"></Border>
 							</Grid>
 						</Border>
 					</c:HeaderFooterContentControl>
@@ -152,14 +150,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost_Focused" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.0" To="0.5" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost_Focused" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.5" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -182,16 +180,17 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:CommandTextBox">
-					<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+					<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2">
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="*"></ColumnDefinition>
 								<ColumnDefinition Width="Auto"></ColumnDefinition>
 							</Grid.ColumnDefinitions>
-							<Border Grid.ColumnSpan="2" x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
-							<Border Grid.ColumnSpan="2" x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}"></Border>
+							<Border Grid.ColumnSpan="2" x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="2"></Border>
+							<Border Grid.ColumnSpan="2" x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}" CornerRadius="2"></Border>
 							<ph:KeyboardFocusRedirectControl Grid.Column="0" FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
 							<ScrollViewer Grid.Column="0" x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="10,0"></ScrollViewer>
+							<Border Grid.Column="0" x:Name="borderFocusVisual" Opacity="0.0" IsHitTestVisible="False" BorderBrush="{DynamicResource brushControl_Background_Dark}" BorderThickness="1" CornerRadius="2"></Border>
 							<Button Grid.Column="1" x:Name="PART_Button"></Button>
 						</Grid>
 					</Border>
@@ -240,18 +239,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.2" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.0" To="0.5" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.5" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>

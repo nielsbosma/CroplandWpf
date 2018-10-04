@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CroplandWpf.Helpers;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +47,7 @@ namespace CroplandWpf.Components
 			DependencyProperty.Register("ValueUpdatedCommand", typeof(ICommand), typeof(ModifiedInputTextBox), new PropertyMetadata());
 
 		private string textBackup;
+		private Action<object, RoutedEventArgs> windowMouseDownAction;
 
 		static ModifiedInputTextBox()
 		{
@@ -56,6 +59,12 @@ namespace CroplandWpf.Components
 			Loaded += ModifiedInputTextBox_Loaded;
 			Unloaded += ModifiedInputTextBox_Unloaded;
 		}
+
+		//protected override void OnLostFocus(RoutedEventArgs e)
+		//{
+		//	base.OnLostFocus(e);
+		//	UpdateSource();
+		//}
 
 		private void ModifiedInputTextBox_Loaded(object sender, RoutedEventArgs e)
 		{
@@ -102,6 +111,29 @@ namespace CroplandWpf.Components
 			base.OnGotKeyboardFocus(e);
 			textBackup = Text;
 			SelectAllAfterFocus();
+			if (windowMouseDownAction == null)
+			{
+				windowMouseDownAction = new Action<object, RoutedEventArgs>(Window_PreviewMouseDownHandler);
+				WindowHelper.RegisterHandler(this, PreviewMouseDownEvent, windowMouseDownAction);
+				//Trace.WriteLine("Added handler");
+			}
+		}
+
+		private void Window_PreviewMouseDownHandler(object sender, RoutedEventArgs e)
+		{
+			UpdateSource();
+			Keyboard.ClearFocus();
+		}
+
+		protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+		{
+			base.OnLostKeyboardFocus(e);
+			if (windowMouseDownAction != null)
+			{
+				WindowHelper.UnregisterHandler(this, PreviewMouseDownEvent);
+				windowMouseDownAction = null;
+				//Trace.WriteLine("Removed handler");
+			}
 		}
 
 		protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)

@@ -215,7 +215,7 @@ namespace CroplandWpf.Helpers
 
 		private void LocalEventHandler(object sender, RoutedEventArgs e)
 		{
-			foreach (EventHandlerObjectInfo eh in from reh in registeredHandlers
+			foreach (EventHandlerObjectInfo eh in from reh in registeredHandlers.ToList()
 												  where reh.Event == e.RoutedEvent
 												  select reh)
 				eh.Handler.Invoke(sender, e);

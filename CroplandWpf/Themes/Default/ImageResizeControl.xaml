@@ -25,11 +25,11 @@
 					<c:HeaderFooterContentControl HeaderFooterPropertiesSource="{Binding RelativeSource={RelativeSource TemplatedParent}}">
 						<Grid>
 							<Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
-							<Border x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}"></Border>
 							<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.CornerRadius)}" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}">
 								<Grid>
 									<ph:KeyboardFocusRedirectControl FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
 									<ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="6,0"></ScrollViewer>
+									<Border x:Name="borderFocusVisual" Opacity="0.0" IsHitTestVisible="False" BorderBrush="{DynamicResource brushControl_Background_Dark}" BorderThickness="1" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}"></Border>
 								</Grid>
 							</Border>
 						</Grid>
@@ -55,14 +55,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost_Focused" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.0" To="0.5" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderEffectHost_Focused" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.5" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>

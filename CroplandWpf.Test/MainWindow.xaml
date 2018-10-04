@@ -249,7 +249,7 @@
 			</c:InputDialogInfo.Resources>
 		</c:InputDialogInfo>
 
-		<c:InputDialogInfo x:Key="inputDialogInfo_TextInput" ph:DataContextBridge.SourceScopeName="vm_main" PositiveActionButtonHeader="YES" NegativeActionButtonHeader="NO" CanPositiveActionExecute="{Binding TextInputDialogValidator}" ContentType="{x:Type mvvm:vmTextInputDialog}" ContentTemplateKey="templateInputDialog_TextInput">
+		<c:InputDialogInfo x:Key="inputDialogInfo_TextInput" ph:DataContextBridge.SourceScopeName="vm_main" CanPositiveActionExecute="{Binding TextInputDialogValidator}" ContentType="{x:Type mvvm:vmTextInputDialog}" ContentTemplateKey="templateInputDialog_TextInput">
 			<c:InputDialogInfo.Resources>
 				<DataTemplate x:Key="templateInputDialog_TextInput">
 					<TextBox Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

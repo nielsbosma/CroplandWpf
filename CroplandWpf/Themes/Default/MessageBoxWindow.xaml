@@ -10,26 +10,6 @@
 		<TextBlock Text="{Binding}" TextWrapping="Wrap"></TextBlock>
 	</DataTemplate>
 
-	<Style x:Key="styleButton_Light_FocusVisual">
-		<Setter Property="Control.Template">
-			<Setter.Value>
-				<ControlTemplate>
-					<Rectangle RadiusX="2" RadiusY="2" Opacity="0.8" Stroke="{DynamicResource brushControl_Background_Dark}" StrokeThickness="0.5" Margin="2" StrokeDashArray="8,3"></Rectangle>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-	<Style x:Key="styleButton_Dark_FocusVisual">
-		<Setter Property="Control.Template">
-			<Setter.Value>
-				<ControlTemplate>
-					<Rectangle RadiusX="2" RadiusY="2" Opacity="0.8" Stroke="{DynamicResource brushControl_Foreground_Light}" StrokeThickness="0.5" Margin="2" StrokeDashArray="8,3"></Rectangle>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
 	<Style x:Key="styleButton_MessageBox_Regular" TargetType="Button">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
@@ -38,8 +18,8 @@
 		<Setter Property="Padding" Value="13,6"></Setter>
 		<Setter Property="BorderBrush" Value="Transparent"></Setter>
 		<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
-		<!--<Setter Property="FocusVisualStyle" Value="{StaticResource styleButton_Light_FocusVisual}"></Setter>-->
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+		<Setter Property="MinWidth" Value="80"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
@@ -139,7 +119,6 @@
 		<Setter Property="BorderBrush" Value="Transparent"></Setter>
 		<Setter Property="MinWidth" Value="80"></Setter>
 		<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
-		<!--<Setter Property="FocusVisualStyle" Value="{StaticResource styleButton_Dark_FocusVisual}"></Setter>-->
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
