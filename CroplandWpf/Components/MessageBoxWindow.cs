@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace CroplandWpf.Components
@@ -192,6 +193,16 @@ namespace CroplandWpf.Components
 			if (obj is MessageBoxButton mbb)
 				Result = mbb;
 			Close();
+		}
+
+		protected override void OnPreviewKeyDown(KeyEventArgs e)
+		{
+			base.OnPreviewKeyDown(e);
+			if(e.Key == Key.Escape)
+			{
+				Result = MessageBoxButton.Close;
+				Close();
+			}
 		}
 
 		private void ControlButtonLoadedCommand_Execute(object obj)

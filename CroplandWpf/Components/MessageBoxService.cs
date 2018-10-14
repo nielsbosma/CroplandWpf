@@ -1,7 +1,9 @@
 ﻿using CroplandWpf.Helpers;
 using CroplandWpf.MVVM;
 using System;
-using System.Collections.Generic;
+using System.Threading;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace CroplandWpf.Components
 {
@@ -11,15 +13,32 @@ namespace CroplandWpf.Components
 
 		private static MessageBoxWindow window;
 
+		delegate void ShowInfoDelegate(MessageBoxInfo info);
+
+		private static Dispatcher currentDispatcher
+		{
+			get { return Application.Current.Dispatcher; }
+		}
+
 		public static MessageBoxButton Show(MessageBoxInfo info)
 		{
 			if (info == null)
 				return MessageBoxButton.Close;
 			if (String.IsNullOrWhiteSpace(info.Title))
 				info.Title = GetFinalWindowTitle();
-			window = GetWindow();
-			window.Show(info);
-			return window.Result;
+			if (currentDispatcher.Thread != Thread.CurrentThread && info.CanFreeze)
+			{
+				info.Freeze();
+			}
+			DispatcherOperation<MessageBoxButton> op = currentDispatcher.InvokeAsync(
+				new Func<MessageBoxButton>(() =>
+				{
+					window = GetWindow();
+					window.Show(info);
+					return window.Result;
+				}),
+				DispatcherPriority.Normal);
+			return op.Result;
 		}
 
 		public static DelegateCommand ShowCommand { get; } = new DelegateCommand(ShowCommand_Execute);
@@ -81,20 +100,22 @@ namespace CroplandWpf.Components
 		public static void ShowException(Exception exception, string windowTitle = null, string exceptionHeader = null, string exceptionMessageOverride = null, MessageBoxFooterButtonsCollection footerButtons = null)
 		{
 			string finalWIndowTitle = windowTitle ?? DefaultWindowTitle;
-			MessageBoxInfo info = new MessageBoxInfo
+			currentDispatcher.Invoke(new Action(() =>
 			{
-				Title = finalWIndowTitle,
-				Content = exception != null ?
+				MessageBoxInfo info = new MessageBoxInfo
+				{
+					Title = finalWIndowTitle,
+					Content = exception != null ?
 					new ExceptionInfo(exceptionHeader, exception.GetType().Name, exceptionMessageOverride ?? exception.Message, exception.StackTrace) :
 					new ExceptionInfo(exceptionHeader, null, exceptionMessageOverride, null),
-				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
-				ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception,
-				AdditionalContentTemplateKey = MessageBoxAdditionalContentTemplateDefaultKeys.Exception,
-				FooterButtons = footerButtons,
-				Buttons = MessageBoxButtons.OK
-			};
-
-			Show(info);
+					IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
+					ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception,
+					AdditionalContentTemplateKey = MessageBoxAdditionalContentTemplateDefaultKeys.Exception,
+					FooterButtons = footerButtons,
+					Buttons = MessageBoxButtons.OK
+				};
+				Show(info);
+			}));
 		}
 	}
 }

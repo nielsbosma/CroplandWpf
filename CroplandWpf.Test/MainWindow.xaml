@@ -183,7 +183,7 @@
 						<TextBlock Text="This MessageBox text will go in Italic style:"/>
 						<LineBreak/>
 						<TextBlock FontStyle="Italic" Text="{Binding}" TextWrapping="Wrap"/>
-						</TextBlock>
+					</TextBlock>
 				</DataTemplate>
 
 				<DataTemplate x:Key="templateMbiFromResources_Footer">
@@ -195,13 +195,13 @@
 			</c:MessageBoxInfo.Resources>
 		</c:MessageBoxInfo>
 
-		<c:MessageBoxInfo x:Key="mbiRandomButtons" ContentTemplateKey="templateMbiRandomButtons_Content" Title="Some Random Buttons MessageBox" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="Choose the button you like" Footer="some random footer" FooterTemplateKey="templateMbiRandomButtons_Footer" Buttons="Oi;Yes To Something;No To Everything;Just Cancel;Some random button">
+		<c:MessageBoxInfo x:Key="mbiRandomButtons" ContentTemplateKey="templateMbiRandomButtons_Content" Title="Some Random Buttons MessageBox" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="Choose the button you like" Footer="some random footer" Buttons="Oi;Yes To Something;No To Everything;Just Cancel;Some random button">
 			<c:MessageBoxInfo.Resources>
-				<DataTemplate x:Key="templateMbiFromResources_Content">
+				<DataTemplate x:Key="templateMbiRandomButtons_Content">
 					<TextBlock>
-						<TextBlock FontStyle="Italic" Text="Custom header" TextWrapping="Wrap"/>
+						<TextBlock FontStyle="Oblique" Text="Custom header" TextWrapping="Wrap"/>
 						<LineBreak/>
-						<TextBlock FontWeight="Bold" Text="{Binding}" TextWrapping="Wrap"/>
+						<TextBlock FontWeight="UltraBlack" Text="{Binding}" TextWrapping="Wrap"/>
 					</TextBlock>
 				</DataTemplate>
 
@@ -733,6 +733,7 @@
 								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_OYNaCR}">Show random message box created in code</Button>
 								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
 								<Button Margin="2" Command="{x:Static c:MessageBoxService.ShowCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="Static Show Command"/>
+								<Button Margin="2" Command="{Binding ShowMessageBox_AnotherThread}" Content="From another thread (2s delay)"/>
 							</WrapPanel>
 							<Grid>
 								<StackPanel Orientation="Horizontal">

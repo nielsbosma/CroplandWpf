@@ -51,9 +51,8 @@ namespace CroplandWpf.PresentationHelpers
 
 		private static void SourceScopeNameChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-			FrameworkElement target = sender as FrameworkElement;
 			string name = e.NewValue as string;
-			if (target != null && !String.IsNullOrWhiteSpace(name))
+			if (sender is FrameworkElement target && !String.IsNullOrWhiteSpace(name))
 			{
 				DataContextBridge bridge = registeredBridges.FirstOrDefault(b => b.ScopeName == name);
 				if (bridge != null)

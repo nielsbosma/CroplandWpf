@@ -85,6 +85,22 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty Mbi_QuestionProperty =
 			DependencyProperty.Register("Mbi_Question", typeof(MessageBoxInfo), typeof(MainWindow), new PropertyMetadata());
 
+		public MessageBoxInfo Mbi_OtherThread
+		{
+			get { return (MessageBoxInfo)GetValue(Mbi_OtherThreadProperty); }
+			private set { SetValue(Mbi_OtherThreadProperty, value); }
+		}
+		public static readonly DependencyProperty Mbi_OtherThreadProperty =
+			DependencyProperty.Register("Mbi_OtherThread", typeof(MessageBoxInfo), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand ShowMessageBox_AnotherThread
+		{
+			get { return (DelegateCommand)GetValue(ShowMessageBox_AnotherThreadProperty); }
+			private set { SetValue(ShowMessageBox_AnotherThreadProperty, value); }
+		}
+		public static readonly DependencyProperty ShowMessageBox_AnotherThreadProperty =
+			DependencyProperty.Register("ShowMessageBox_AnotherThread", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
 		public MessageBoxInfo Mbi_Exception
 		{
 			get { return (MessageBoxInfo)GetValue(Mbi_ExceptionProperty); }
@@ -1030,6 +1046,7 @@ namespace CroplandWpf.Test
 			Mbi_YYNC = new MessageBoxInfo() { Title = "Apply the following action?", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question, Content = "Wanna do something to all these innocent items?.. Or maybe test the text wrapping inside message box? Let`s have a look", Buttons = new MessageBoxButtons(CroplandWpf.Components.MessageBoxButton.Yes, CroplandWpf.Components.MessageBoxButton.YesToAll, CroplandWpf.Components.MessageBoxButton.No, CroplandWpf.Components.MessageBoxButton.Cancel) };
 			Mbi_OYNaCR = new MessageBoxInfo() { Title = "Some Random Buttons MessageBox", Content = new { MainContent = "Choose the button you like", AdditionalContent = "spme footer" }, Buttons = MessageBoxButtons.CreateNew("Oi", "Yes to something", "NO to everything", "Just cancel", "some random button"), ContentTemplateKey = "templateMessageBoxContent_RandomButtons", IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception };
 			MessageBoxAction = new Action<Components.MessageBoxButton>(MessageBoxActionMethod);
+			ShowMessageBox_AnotherThread = new DelegateCommand(ShowMessageBox_AnotherThread_Execute);
 			#endregion
 
 			#region 
@@ -1185,7 +1202,7 @@ namespace CroplandWpf.Test
 				}
 				catch (Exception ex)
 				{
-					MessageBoxService.ShowException(ex, exceptionHeader: "Division By Zero", windowTitle: null, 
+					MessageBoxService.ShowException(ex, exceptionHeader: "Division By Zero", windowTitle: null,
 						exceptionMessageOverride: "Message override",
 						footerButtons: MessageBoxFooterButtonsCollection.OptOut((p) => MessageBox.Show("Never show again clicked: " + p))
 						//footerButtons: MessageBoxFooterButtonsCollection.New(
@@ -1199,6 +1216,40 @@ namespace CroplandWpf.Test
 			{
 				MessageBoxResult = MessageBoxService.Show(info);
 			}
+		}
+
+		private void ShowMessageBox_AnotherThread_Execute(object obj)
+		{
+			TryShowMessageBoxInSeparateThread();
+		}
+
+		private async void TryShowMessageBoxInSeparateThread()
+		{
+			Components.MessageBoxButton result = await Task.Run<Components.MessageBoxButton>(() =>
+			{
+				Thread.Sleep(2000);
+				MessageBoxInfo info = new MessageBoxInfo { IconBrushKey = MessageBoxIconBrushDefaultKeys.Question, Content = "Do you see this message box shown from other thread?", Buttons = MessageBoxButtons.YesNo };
+				MessageBoxService.ShowError(null, "Another thread error occured");
+				try
+				{
+					int i = 0;
+					double d = 2 / i;
+				}
+				catch (Exception ex)
+				{
+					MessageBoxService.ShowException(ex, exceptionHeader: "Division By Zero", windowTitle: null,
+						exceptionMessageOverride: "Message override",
+						footerButtons: MessageBoxFooterButtonsCollection.OptOut((p) => MessageBox.Show("Never show again clicked: " + p))
+						//footerButtons: MessageBoxFooterButtonsCollection.New(
+						//	new MessageBoxFooterButton("Show Again"), new MessageBoxFooterButton("Never Show Again", (p) => MessageBox.Show("Never show again clicked")),
+						//	new MessageBoxFooterButton("Try Something Else", (p) => MessageBox.Show("Try Something Else clicked")),
+						//	new MessageBoxFooterButton("Random Button", (p) => MessageBox.Show("Random Button clicked")))
+						);
+				}
+				MessageBoxService.ShowInformation(null, "Some info from another thread");
+				return MessageBoxService.Show(info);
+			});
+			MessageBoxResult = result;
 		}
 
 		private bool ShowMessageBoxCommand_CanExecute(object arg)
