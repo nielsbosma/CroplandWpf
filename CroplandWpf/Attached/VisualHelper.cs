@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using CroplandWpf.Components;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -280,5 +281,16 @@ namespace CroplandWpf.Attached
 					//Trace.WriteLine("FocusVisualStyle disabled on " + fe);
 				}
 			}));
+
+		public static AutoFocusMode GetAutoFocusMode(DependencyObject obj)
+		{
+			return (AutoFocusMode)obj.GetValue(AutoFocusModeProperty);
+		}
+		public static void SetAutoFocusMode(DependencyObject obj, AutoFocusMode value)
+		{
+			obj.SetValue(AutoFocusModeProperty, value);
+		}
+		public static readonly DependencyProperty AutoFocusModeProperty =
+			DependencyProperty.RegisterAttached("AutoFocusMode", typeof(AutoFocusMode), typeof(VisualHelper), new PropertyMetadata(AutoFocusMode.None));
 	}
 }

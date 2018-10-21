@@ -1,7 +1,9 @@
-﻿using System;
+﻿using CroplandWpf.Attached;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -59,16 +61,40 @@ namespace CroplandWpf.Components
 
 		public CommandTextBox()
 		{
+			Loaded += CommandTextBox_Loaded;
+			IsVisibleChanged += CommandTextBox_IsVisibleChanged;
+		}
 
+		private void CommandTextBox_Loaded(object sender, RoutedEventArgs e)
+		{
+			if (VisualHelper.GetAutoFocusMode(this) == AutoFocusMode.OnLoad)
+				AutoFocus();
+		}
+
+		private void CommandTextBox_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+			if (IsVisible && VisualHelper.GetAutoFocusMode(this) == AutoFocusMode.OnVisible)
+				AutoFocus();
+		}
+
+		private async void AutoFocus()
+		{
+			await Task.Run(() =>
+			{
+				Thread.Sleep(500);
+				Dispatcher.Invoke(() =>
+				{
+					Keyboard.Focus(this);
+				});
+			});
 		}
 
 		public override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();
-			Button button = Template.FindName("PART_Button", this) as Button;
-			if(button != null)
+			if (Template.FindName("PART_Button", this) is Button button)
 			{
-				button.SetBinding(Button.StyleProperty, new Binding { Source = this, Path = new PropertyPath(ButtonStyleProperty), Mode = BindingMode.OneWay});
+				button.SetBinding(Button.StyleProperty, new Binding { Source = this, Path = new PropertyPath(ButtonStyleProperty), Mode = BindingMode.OneWay });
 				button.SetBinding(Button.CommandProperty, new Binding { Source = this, Path = new PropertyPath(CommandProperty), Mode = BindingMode.OneWay });
 				button.SetBinding(Button.CommandParameterProperty, new Binding { Source = this, Path = new PropertyPath(TextProperty), Mode = BindingMode.OneWay });
 				button.SetBinding(Button.ContentProperty, new Binding { Source = this, Path = new PropertyPath(ButtonContentProperty), Mode = BindingMode.OneWay });

@@ -380,9 +380,9 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="c:MessageBoxWindow">
 					<Grid>
-						<Border x:Name="border_EffectHost" Margin="{Binding ElementName=borderClip, Path=Margin}" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window_Light}" CornerRadius="{Binding ElementName=borderClip, Path=CornerRadius}">
+						<Border x:Name="border_EffectHost" Margin="26,7,26,39" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window_Light}" CornerRadius="4">
 						</Border>
-						<c:ClippingBorder x:Name="borderClip" CornerRadius="3" Background="{TemplateBinding Background}" Margin="24,5,24,37">
+						<c:ClippingBorder x:Name="borderClip" CornerRadius="3" Background="{TemplateBinding Background}" Margin="24,5,24,37" BorderThickness="0" BorderBrush="Transparent">
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="42"></RowDefinition>

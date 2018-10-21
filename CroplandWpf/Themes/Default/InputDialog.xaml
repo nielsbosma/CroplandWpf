@@ -1,7 +1,17 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers"
+					xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
+					xmlns:a="clr-namespace:CroplandWpf.Attached"
                     xmlns:c="clr-namespace:CroplandWpf.Components">
+
+	<DataTemplate x:Key="templateInputDialog_Text" DataType="{x:Type c:InputDialogTextViewModel}">
+		<c:CommandTextBox Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:InputDialog}, Path=PositiveActionCommand}" Text="{Binding ResultValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsButtonVisible="False" a:VisualHelper.AutoFocusMode="OnLoad"></c:CommandTextBox>
+	</DataTemplate>
+
+	<DataTemplate x:Key="templateInputDialog_Double">
+		<tk:IntegerUpDown></tk:IntegerUpDown>
+	</DataTemplate>
 
 	<Style x:Key="styleButton_InputDialog_Regular" TargetType="Button">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
@@ -250,6 +260,7 @@
 		<Setter Property="MinHeight" Value="200"></Setter>
 		<Setter Property="MinWidth" Value="350"></Setter>
 		<Setter Property="Padding" Value="15"></Setter>
+		<Setter Property="MaxWidth" Value="600"></Setter>
 		<Setter Property="SizeToContent" Value="WidthAndHeight"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
@@ -272,10 +283,14 @@
 								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderHeader" Background="{DynamicResource brushControl_Background_Dark}" CornerRadius="1"></Border>
 								<c:WindowControlThumb Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource styleThumb_Window_Move}" Role="Move" AllowMaximize="False"></c:WindowControlThumb>
 								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="13,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt" IsHitTestVisible="False"></TextBlock>
-								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_InputDialog_Close}" CommandParameter="{x:Static c:InputDialogResultActionType.Close}" Command="{TemplateBinding ControlButtonCommand}"></Button>
+								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_InputDialog_Close}" CommandParameter="{x:Static c:InputDialogResultActionType.Close}" Command="{TemplateBinding ControlButtonCommand}" Focusable="False"></Button>
 
 								<Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}">
-									<TextBlock Text=""></TextBlock>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto"></RowDefinition>
+										<RowDefinition></RowDefinition>
+									</Grid.RowDefinitions>
+									<TextBlock Grid.Row="0" x:Name="textBlock_Header" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Header}" Margin="0,0,0,10" TextWrapping="Wrap"></TextBlock>
 									<ContentPresenter Grid.Row="1" ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>
 								</Grid>
 
@@ -286,6 +301,11 @@
 							</Grid>
 						</c:ClippingBorder>
 					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="Header" Value="{x:Null}">
+							<Setter TargetName="textBlock_Header" Property="Visibility" Value="Collapsed"></Setter>
+						</Trigger>
+					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

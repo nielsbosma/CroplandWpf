@@ -92,9 +92,39 @@ namespace CroplandWpf.Test
 
 	public class FileItem : ViewModelBase
 	{
-		public string Name { get; set; }
+		public string Name
+		{
+			get
+			{
+				return _name;
+			}
+			set
+			{
+				if (_name != value)
+				{
+					_name = value;
+					OnPropertyChanged("Name");
+				}
+			}
+		}
+		private string _name;
 
-		public double Size_Mb { get; set; }
+		public double Size_Mb
+		{
+			get
+			{
+				return _size_Mb;
+			}
+			set
+			{
+				if(_size_Mb != value)
+				{
+					_size_Mb = value;
+					OnPropertyChanged("Size_Mb");
+				}
+			}
+		}
+		private double _size_Mb = 0;
 
 		public string Path { get; set; }
 

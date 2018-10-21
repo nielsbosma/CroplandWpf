@@ -214,7 +214,7 @@
 			</c:MessageBoxInfo.Resources>
 		</c:MessageBoxInfo>
 
-		<c:InputDialogInfo x:Key="inputDialogInfo_AddNewFileItem" ContentType="{x:Type local:FileItem}" ContentTemplateKey="templateInputDialogContent_FileItem" ph:DataContextBridge.SourceScopeName="vm_main" CanPositiveActionExecute="{Binding NewFileItemValidator}">
+		<c:InputDialogInfo x:Key="inputDialogInfo_AddNewFileItem" ContentType="{x:Type local:FileItem}" ContentTemplateKey="templateInputDialogContent_FileItem" ph:DataContextBridge.SourceScopeName="vm_main" CanPositiveActionExecute="{Binding NewFileItemValidator}" >
 			<c:InputDialogInfo.Resources>
 				<DataTemplate x:Key="templateInputDialogContent_FileItem" DataType="{x:Type local:FileItem}">
 					<Grid>
@@ -229,13 +229,14 @@
 						<TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Text="Name:" Margin="10,0" VerticalAlignment="Center"/>
 						<TextBox Grid.Row="0" Grid.Column="1" Margin="0,5" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 						<TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Text="Size:" Margin="10,0" VerticalAlignment="Center"/>
-						<ContentControl Grid.Row="1" Grid.Column="1" Margin="0,5" Padding="5">
+						<tk:IntegerUpDown Grid.Row="1" Grid.Column="1" Margin="0,5" Value="{Binding Size_Mb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
+						<!--<ContentControl >
 							<ContentControl.ContentTemplate>
 								<DataTemplate>
 									<tk:IntegerUpDown Value="{Binding Size_Mb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 								</DataTemplate>
 							</ContentControl.ContentTemplate>
-						</ContentControl>
+						</ContentControl>-->
 					</Grid>
 				</DataTemplate>
 			</c:InputDialogInfo.Resources>
@@ -787,6 +788,8 @@
 							</StackPanel>
 							<TextBlock Margin="5" FontWeight="Bold"><Run Text="DateTimePicker (Xceed)"/></TextBlock>
 							<tk:DateTimePicker Margin="5" HorizontalAlignment="Stretch" Value="{Binding SelectedDateTime, Mode=TwoWay}"/>
+							<Button Command="{Binding ShowTextInputPromptCommand}" HorizontalAlignment="Left" Margin="5">Show Text Input Prompt</Button>
+							<TextBlock Margin="5" Text="{Binding TextPromptResult}"></TextBlock>
 						</StackPanel>
 					</ScrollViewer>
 

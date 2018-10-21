@@ -393,21 +393,21 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty NewFileInputDialogInfoProperty =
 			DependencyProperty.Register("NewFileInputDialogInfo", typeof(InputDialogInfo), typeof(MainWindow), new PropertyMetadata());
 
-		public Func<InputDialogResultActionType, object, bool> NewFileItemValidator
+		public Func<object, bool> NewFileItemValidator
 		{
-			get { return (Func<InputDialogResultActionType, object, bool>)GetValue(NewFileItemValidatorProperty); }
+			get { return (Func<object, bool>)GetValue(NewFileItemValidatorProperty); }
 			set { SetValue(NewFileItemValidatorProperty, value); }
 		}
 		public static readonly DependencyProperty NewFileItemValidatorProperty =
-			DependencyProperty.Register("NewFileItemValidator", typeof(Func<InputDialogResultActionType, object, bool>), typeof(MainWindow), new PropertyMetadata());
+			DependencyProperty.Register("NewFileItemValidator", typeof(Func<object, bool>), typeof(MainWindow), new PropertyMetadata());
 
-		public Func<InputDialogResultActionType, object, bool> TextInputDialogValidator
+		public Func<object, bool> TextInputDialogValidator
 		{
-			get { return (Func<InputDialogResultActionType, object, bool>)GetValue(TextInputDialogValidatorProperty); }
+			get { return (Func<object, bool>)GetValue(TextInputDialogValidatorProperty); }
 			set { SetValue(TextInputDialogValidatorProperty, value); }
 		}
 		public static readonly DependencyProperty TextInputDialogValidatorProperty =
-			DependencyProperty.Register("TextInputDialogValidator", typeof(Func<InputDialogResultActionType, object, bool>), typeof(MainWindow), new PropertyMetadata());
+			DependencyProperty.Register("TextInputDialogValidator", typeof(Func<object, bool>), typeof(MainWindow), new PropertyMetadata());
 
 		public vmSearchInputDialog SearchInputDialogViewModel
 		{
@@ -424,6 +424,30 @@ namespace CroplandWpf.Test
 		}
 		public static readonly DependencyProperty TextInputDialogViewModelProperty =
 			DependencyProperty.Register("TextInputDialogViewModel", typeof(vmTextInputDialog), typeof(MainWindow), new PropertyMetadata());
+
+		public InputDialogInfo TextInputPromptDialogInfo
+		{
+			get { return (InputDialogInfo)GetValue(TextInputPromptDialogInfoProperty); }
+			private set { SetValue(TextInputPromptDialogInfoProperty, value); }
+		}
+		public static readonly DependencyProperty TextInputPromptDialogInfoProperty =
+			DependencyProperty.Register("TextInputPromptDialogInfo", typeof(InputDialogInfo), typeof(MainWindow), new PropertyMetadata());
+
+		public string TextPromptResult
+		{
+			get { return (string)GetValue(TextPromptResultProperty); }
+			set { SetValue(TextPromptResultProperty, value); }
+		}
+		public static readonly DependencyProperty TextPromptResultProperty =
+			DependencyProperty.Register("TextPromptResult", typeof(string), typeof(MainWindow), new PropertyMetadata());
+
+		public DelegateCommand ShowTextInputPromptCommand
+		{
+			get { return (DelegateCommand)GetValue(ShowTextInputPromptCommandProperty); }
+			private set { SetValue(ShowTextInputPromptCommandProperty, value); }
+		}
+		public static readonly DependencyProperty ShowTextInputPromptCommandProperty =
+			DependencyProperty.Register("ShowTextInputPromptCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 
 		public string TextInputDialogResult
 		{
@@ -836,14 +860,14 @@ namespace CroplandWpf.Test
 			TestRemovableItemsItemsSource = new ObservableCollection<FileItem>
 			{
 				new FileItem{ Name = "File1.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
-				new FileItem{ Name = "File2.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
-				new FileItem{ Name = "File3.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
-				new FileItem{ Name = "Some Longer File Name.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
-				new FileItem{ Name = "File4.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
-				new FileItem{ Name = "File5.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
-				new FileItem{ Name = "File6.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
-				new FileItem{ Name = "File7.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
-				new FileItem{ Name = "File8.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				//new FileItem{ Name = "File2.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				//new FileItem{ Name = "File3.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				//new FileItem{ Name = "Some Longer File Name.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				//new FileItem{ Name = "File4.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				//new FileItem{ Name = "File5.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				//new FileItem{ Name = "File6.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				//new FileItem{ Name = "File7.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
+				//new FileItem{ Name = "File8.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
 				//new FileItem{ Name = "File9.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
 				//new FileItem{ Name = "File10.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) },
 				//new FileItem{ Name = "File11.xslx", Path = AppDomain.CurrentDomain.BaseDirectory, Size_Mb = random.Next(1,256000) }
@@ -987,15 +1011,12 @@ namespace CroplandWpf.Test
 			#endregion
 
 			#region InputDialog
-			NewFileInputDialogInfo = new InputDialogInfo() { Content = new FileItem(), ContentTemplateKey = "templateInputDialog_FileItem" };
+			NewFileInputDialogInfo = new InputDialogInfo() { Content = new FileItem(), ContentTemplateKey = "templateInputDialog_FileItem", Header = "Input details" };
 			ShowAddNewFileInputDialogCommand = new DelegateCommand(ShowAddNewFileInputDialogCommand_Execute);
-			NewFileItemValidator = new Func<InputDialogResultActionType, object, bool>((at, fi) =>
+			NewFileItemValidator = new Func<object, bool>((fi) =>
 			{
-				FileItem item = fi as FileItem;
-				if (at == InputDialogResultActionType.Positive)
-					return item != null && !String.IsNullOrWhiteSpace(item.Name) && item.Size_Mb > 0;
-				else
-					return true;
+				bool result = fi is FileItem item && !String.IsNullOrWhiteSpace(item.Name) && item.Size_Mb > 0;
+				return result;
 			});
 			SearchInputDialogViewModel = new vmSearchInputDialog();
 			SearchInputDialogViewModel.RefreshSearchResults_ExecuteFunction = new Func<object, IEnumerable, IEnumerable>((parameter, itemsSource) =>
@@ -1015,10 +1036,13 @@ namespace CroplandWpf.Test
 			ShowSearchInputBoxCommand = new DelegateCommand(ShowSearchInputBoxCommand_Execute);
 			TextInputDialogViewModel = new vmTextInputDialog();
 			ShowTextInputDialogCommand = new DelegateCommand(ShowTextInputDialogCommand_Execute);
-			TextInputDialogValidator = new Func<InputDialogResultActionType, object, bool>((at, tid) =>
+			TextInputDialogValidator = new Func<object, bool>((tid) =>
 			{
 				return tid as vmTextInputDialog != null && !String.IsNullOrEmpty((tid as vmTextInputDialog).Text);
 			});
+
+			ShowTextInputPromptCommand = new DelegateCommand(ShowTextInputPromptCommand_Execute);
+
 			#endregion
 
 			#region MessageBox
@@ -1040,7 +1064,7 @@ namespace CroplandWpf.Test
 				IconBrushKey = MessageBoxIconBrushDefaultKeys.Exception,
 				ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Exception
 			};
-			Mbi_Question = new MessageBoxInfo {IconBrushKey = null, Title = "No Icon MessageBox", Content = "This message box goes without icon specified" };
+			Mbi_Question = new MessageBoxInfo { IconBrushKey = null, Title = "No Icon MessageBox", Content = "This message box goes without icon specified" };
 			//MessageBoxInfo.New(MessageBoxType.Question, "FileStar", "Can you answer the question?.. or maybe better check something else. and again, testing the text wrapping inside messagebox window");
 			Mbi_Warning = MessageBoxInfo.New(MessageBoxType.Warning, "SuperTsar", "Congratulations! You received a warning! here we are checking the text wrapping too. let`s have a look");
 			Mbi_YYNC = new MessageBoxInfo() { Title = "Apply the following action?", IconBrushKey = MessageBoxIconBrushDefaultKeys.Question, Content = "Wanna do something to all these innocent items?.. Or maybe test the text wrapping inside message box? Let`s have a look", Buttons = new MessageBoxButtons(CroplandWpf.Components.MessageBoxButton.Yes, CroplandWpf.Components.MessageBoxButton.YesToAll, CroplandWpf.Components.MessageBoxButton.No, CroplandWpf.Components.MessageBoxButton.Cancel) };
@@ -1102,6 +1126,14 @@ namespace CroplandWpf.Test
 			#region Button upper case content
 			UpperCaseTestContent = "Regular Case Content";
 			#endregion
+		}
+
+		private void ShowTextInputPromptCommand_Execute(object obj)
+		{
+			TextPromptResult = InputDialog.ShowStringInputPrompt(windowTitle: null, header: "Input some text", defaultValue: "null", validator: (c) =>
+			{
+				return c is InputDialogTextViewModel s && !String.IsNullOrWhiteSpace(s.ResultValue);
+			});
 		}
 
 		private void FocusCustomSearchAutoCompleteControlCommand_Execute(object obj)

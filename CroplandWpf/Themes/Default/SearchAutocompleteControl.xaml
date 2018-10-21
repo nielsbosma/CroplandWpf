@@ -123,6 +123,7 @@
 							<Path x:Name="pathLoupe" Opacity="1.0" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0" Fill="{DynamicResource brushIconFill}" Width="16" Height="16" Stretch="Fill" Data="{DynamicResource geometryIcon_Lens}" RenderTransformOrigin="0.5,0.5" RenderTransform="{DynamicResource transformScale_VerticalFlip}"></Path>
 							<ph:KeyboardFocusRedirectControl Grid.ColumnSpan="2" FocusTarget="{Binding ElementName=PART_EditableTextBox}"></ph:KeyboardFocusRedirectControl>
 							<TextBox Grid.Column="1" x:Name="PART_EditableTextBox" Margin="{TemplateBinding Padding}" Style="{StaticResource styleTextBox_SearchAutocompleteControl}" Focusable="True"></TextBox>
+							<Border Grid.ColumnSpan="2" x:Name="borderFocusVisual" Opacity="0.0" IsHitTestVisible="False" BorderBrush="{DynamicResource brushControl_Background_Dark}" BorderThickness="1" CornerRadius="2"></Border>
 							<Popup x:Name="PART_Popup" AllowsTransparency="True" StaysOpen="True" Placement="Bottom" HorizontalOffset="-3">
 								<Grid>
 									<Border Margin="3,0,3,4" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="0,0,2,2" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,1,0,0" MinWidth="{Binding ElementName=rectanglePopupWidth, Path=ActualWidth}">
@@ -167,6 +168,22 @@
 								<BeginStoryboard>
 									<Storyboard>
 										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger SourceName="PART_EditableTextBox" Property="IsKeyboardFocused" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.0" To="0.5" Duration="00:00:00.100"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.5" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
