@@ -135,6 +135,7 @@
     <Compile Include="MVVM\vmSearchInputDialog.cs" />
     <Compile Include="MVVM\vmTextInputDialog.cs" />
     <Compile Include="PresentationHelpers\CalendarHelper.cs" />
+    <Compile Include="PresentationHelpers\CroppedWindowBackgroundHelper.cs" />
     <Compile Include="PresentationHelpers\DataContextBridge.cs" />
     <Compile Include="PresentationHelpers\DataGridComboBoxHelper.cs" />
     <Compile Include="PresentationHelpers\DynamicColorAnimator.cs" />

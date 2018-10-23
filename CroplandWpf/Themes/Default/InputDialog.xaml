@@ -266,12 +266,13 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="c:InputDialog">
 					<Grid>
-						<Border x:Name="border_EffectHost" Margin="{Binding ElementName=borderClip, Path=Margin}" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window_Light}" CornerRadius="{Binding ElementName=borderClip, Path=CornerRadius}">
+						<Border x:Name="border_EffectHost" Margin="25,6,26,38" Background="{DynamicResource brushControl_Background_Dark}" Effect="{DynamicResource effectShadow_Window_Light}" CornerRadius="{Binding ElementName=borderClip, Path=CornerRadius}">
 						</Border>
-						<c:ClippingBorder x:Name="borderClip" CornerRadius="3" Background="{TemplateBinding Background}" Margin="24,5,24,37">
+						<ph:CroppedWindowBackgroundHelper x:Name="backgroundHelper" HeaderSectionHeight="{Binding ElementName=rowHeader, Path=ActualHeight}" TotalHeight="{Binding ElementName=borderClip, Path=ActualHeight}" ContentBackgroundColor="{DynamicResource colorControl_Background_Light}" HeaderBackgroundColor="{DynamicResource colorControl_Background_Dark}"></ph:CroppedWindowBackgroundHelper>
+						<c:ClippingBorder x:Name="borderClip" CornerRadius="3" Background="{Binding ElementName=backgroundHelper, Path=WindowBackgroundBrush, Mode=OneWay}" Margin="24,5,24,37" BorderThickness="0">
 							<Grid>
 								<Grid.RowDefinitions>
-									<RowDefinition Height="40"></RowDefinition>
+									<RowDefinition x:Name="rowHeader" Height="42"></RowDefinition>
 									<RowDefinition></RowDefinition>
 									<RowDefinition Height="Auto" MinHeight="31"></RowDefinition>
 								</Grid.RowDefinitions>
@@ -280,7 +281,8 @@
 									<ColumnDefinition Width="Auto"></ColumnDefinition>
 								</Grid.ColumnDefinitions>
 
-								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderHeader" Background="{DynamicResource brushControl_Background_Dark}" CornerRadius="1"></Border>
+								<!--<Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Fill="{DynamicResource brushControl_Background_Dark}" RadiusX="3" RadiusY="3"></Rectangle>-->
+								<!--<Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="borderBackground" Background="{TemplateBinding Background}" CornerRadius="0,0,3,3"></Border>-->
 								<c:WindowControlThumb Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource styleThumb_Window_Move}" Role="Move" AllowMaximize="False"></c:WindowControlThumb>
 								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="13,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt" IsHitTestVisible="False"></TextBlock>
 								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_InputDialog_Close}" CommandParameter="{x:Static c:InputDialogResultActionType.Close}" Command="{TemplateBinding ControlButtonCommand}" Focusable="False"></Button>

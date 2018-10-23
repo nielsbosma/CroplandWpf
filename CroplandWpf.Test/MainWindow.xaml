@@ -477,6 +477,17 @@
 									</Setter>
 								</Style>
 							</StackPanel.Resources>
+
+							<Rectangle Height="100">
+								<Rectangle.Fill>
+									<LinearGradientBrush StartPoint="0,0" EndPoint="0,100" MappingMode="Absolute">
+										<GradientStop Color="Green" Offset="0.0"></GradientStop>
+										<GradientStop Color="Green" Offset="0.5"></GradientStop>
+										<GradientStop Color="Yellow" Offset="0.5"></GradientStop>
+									</LinearGradientBrush>
+								</Rectangle.Fill>
+							</Rectangle>
+							
 							<Button Style="{StaticResource styleButton_Util}" HorizontalAlignment="Left" Margin="5" Content="CANCEL"></Button>
 							<Button Style="{StaticResource styleButton_MessageBox_2}" HorizontalAlignment="Left" Margin="5" Content="CANCEL"></Button>
 							<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(h:WindowHelper.AllowResize), Mode=TwoWay}">Allow main window resize</CheckBox>

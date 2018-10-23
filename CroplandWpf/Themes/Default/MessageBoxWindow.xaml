@@ -382,10 +382,11 @@
 					<Grid>
 						<Border x:Name="border_EffectHost" Margin="26,7,26,39" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Window_Light}" CornerRadius="4">
 						</Border>
-						<c:ClippingBorder x:Name="borderClip" CornerRadius="3" Background="{TemplateBinding Background}" Margin="24,5,24,37" BorderThickness="0" BorderBrush="Transparent">
+						<ph:CroppedWindowBackgroundHelper x:Name="backgroundHelper" HeaderSectionHeight="{Binding ElementName=rowHeader, Path=ActualHeight}" TotalHeight="{Binding ElementName=borderClip, Path=ActualHeight}" ContentBackgroundColor="{DynamicResource colorControl_Background_Light}" HeaderBackgroundColor="{DynamicResource colorControl_Background_Dark}"></ph:CroppedWindowBackgroundHelper>
+						<c:ClippingBorder x:Name="borderClip" CornerRadius="3" Background="{Binding ElementName=backgroundHelper, Path=WindowBackgroundBrush, Mode=OneWay}" Margin="24,5,24,37">
 							<Grid>
 								<Grid.RowDefinitions>
-									<RowDefinition Height="42"></RowDefinition>
+									<RowDefinition x:Name="rowHeader" Height="42"></RowDefinition>
 									<RowDefinition Height="Auto"></RowDefinition>
 									<RowDefinition Height="Auto" MinHeight="31"></RowDefinition>
 								</Grid.RowDefinitions>
@@ -396,7 +397,6 @@
 
 								<h:MessageBoxContentWidthHelper x:Name="contentWidthHelper" MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=MinWidth}" FooterSectionWidth="{Binding ElementName=gridButtons, Path=ActualWidth}" Visibility="Collapsed"></h:MessageBoxContentWidthHelper>
 
-								<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderHeader" Background="{DynamicResource brushToolWindow_Header_Background}" CornerRadius="1"></Border>
 								<c:WindowControlThumb Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource styleThumb_Window_Move}" Role="Move" AllowMaximize="False"></c:WindowControlThumb>
 								<TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding Title}" Margin="16,0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{DynamicResource brushControl_Foreground_Light}" FontSize="10.5pt" IsHitTestVisible="False"></TextBlock>
 								<Button Grid.Row="0" Grid.Column="1" Style="{StaticResource styleButton_MessageBoxPresenter_Close}" Command="{TemplateBinding ControlButtonCommand}" CommandParameter="{x:Static c:MessageBoxButton.Close}" Focusable="False"></Button>
