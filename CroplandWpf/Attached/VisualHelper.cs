@@ -292,5 +292,16 @@ namespace CroplandWpf.Attached
 		}
 		public static readonly DependencyProperty AutoFocusModeProperty =
 			DependencyProperty.RegisterAttached("AutoFocusMode", typeof(AutoFocusMode), typeof(VisualHelper), new PropertyMetadata(AutoFocusMode.None));
+
+		public static bool GetIsFocused(DependencyObject obj)
+		{
+			return (bool)obj.GetValue(IsFocusedProperty);
+		}
+		public static void SetIsFocused(DependencyObject obj, bool value)
+		{
+			obj.SetValue(IsFocusedProperty, value);
+		}
+		public static readonly DependencyProperty IsFocusedProperty =
+			DependencyProperty.RegisterAttached("IsFocused", typeof(bool), typeof(VisualHelper), new PropertyMetadata());
 	}
 }

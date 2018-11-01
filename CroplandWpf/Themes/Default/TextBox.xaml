@@ -190,8 +190,8 @@
 							<Border Grid.ColumnSpan="2" x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}" CornerRadius="2"></Border>
 							<ph:KeyboardFocusRedirectControl Grid.Column="0" FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
 							<ScrollViewer Grid.Column="0" x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="10,0"></ScrollViewer>
-							<Border Grid.Column="0" x:Name="borderFocusVisual" Opacity="0.0" IsHitTestVisible="False" BorderBrush="{DynamicResource brushControl_Background_Dark}" BorderThickness="1" CornerRadius="2"></Border>
-							<Button Grid.Column="1" x:Name="PART_Button"></Button>
+							<Border Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderFocusVisual" Opacity="0.0" IsHitTestVisible="False" BorderBrush="{DynamicResource brushControl_Background_Dark}" BorderThickness="1" CornerRadius="2"></Border>
+							<Button Grid.Column="1" x:Name="PART_Button" a:VisualHelper.IsFocused="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsKeyboardFocused, Mode=OneWay}"></Button>
 						</Grid>
 					</Border>
 					<ControlTemplate.Triggers>
