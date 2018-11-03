@@ -139,7 +139,12 @@
 						<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="1"></Border>
 						<Border x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="{DynamicResource brushListBoxItem_MouseOver_Background}" Margin="1" CornerRadius="1"></Border>
 						<Border x:Name="borderBackground_Overlap_IsSelected" Opacity="0.0" Background="{DynamicResource brushListBoxItem_IsSelected_Background}" CornerRadius="1"></Border>
-						<ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
+						<Border x:Name="borderBackground_Overlap_IsSelected_MouseOver" Opacity="0.0" Background="{DynamicResource brushControl_Selected_MouseOver_Background}" CornerRadius="1"></Border>
+						<ContentPresenter x:Name="contentPresenter" Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+							<ContentPresenter.Effect>
+								<DropShadowEffect Direction="270" ShadowDepth="0" Color="#FF000000" Opacity="0.0" BlurRadius="2"></DropShadowEffect>
+							</ContentPresenter.Effect>
+						</ContentPresenter>
 					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsEnabled" Value="False">
@@ -193,6 +198,28 @@
 								</BeginStoryboard>
 							</Trigger.ExitActions>
 						</Trigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsSelected" Value="True"></Condition>
+								<Condition Property="IsMouseOver" Value="True"></Condition>
+							</MultiTrigger.Conditions>
+							<MultiTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_IsSelected_MouseOver" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="contentPresenter" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.0" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.EnterActions>
+							<MultiTrigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_IsSelected_MouseOver" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="contentPresenter" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="1.0" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</MultiTrigger.ExitActions>
+						</MultiTrigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>

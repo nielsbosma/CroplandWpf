@@ -28,18 +28,18 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.150"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.150"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.2" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="1.2" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="4.0" To="10.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.2" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.150"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.150"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.3" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" From="4.0" To="1.2" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.BlurRadius)" From="10.0" To="4.0" Duration="00:00:00.100"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="border_EffectHost" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.2" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -52,14 +52,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -69,14 +69,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -137,14 +137,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_Disabled" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -154,14 +154,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -238,14 +238,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.3"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.3"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.3" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.3" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -255,14 +255,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="ellipseBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -302,14 +302,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="presenterHover" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="presenterHover" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="presenterHover" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="presenterHover" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -318,14 +318,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.6"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.6"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.6" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.6" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -356,14 +356,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="presenterHover" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="presenterHover" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="presenterHover" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="presenterHover" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -372,14 +372,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.6"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.6"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.6" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.6" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -415,14 +415,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -745,14 +745,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="0.0" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.200" From="1.0" To="0.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -766,7 +766,7 @@
 
 	<Style x:Key="styleButton_GoBack" TargetType="Button">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-		<Setter Property="Background" Value="Transparent"></Setter>
+		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushIconFill}"></Setter>
 		<Setter Property="MinWidth" Value="44"></Setter>
 		<Setter Property="Padding" Value="5,11,10,9"></Setter>
@@ -782,8 +782,12 @@
 							<ColumnDefinition Width="Auto"></ColumnDefinition>
 							<ColumnDefinition Width="*"></ColumnDefinition>
 						</Grid.ColumnDefinitions>
-						<Border Grid.Column="0" Grid.ColumnSpan="2" Background="{TemplateBinding Background}"></Border>
-						<Border Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="{DynamicResource brushListBoxItem_MouseOver_Background}" CornerRadius="2" Effect="{DynamicResource effectShadow_Small}"></Border>
+						<Border Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderBackground" Background="{TemplateBinding Background}" CornerRadius="2">
+							<Border.Effect>
+								<DropShadowEffect Direction="270" ShadowDepth="1.2" Color="#FF000000" Opacity="0.0" BlurRadius="4"></DropShadowEffect>
+							</Border.Effect>
+						</Border>
+						<Border Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="{DynamicResource brushListBoxItem_MouseOver_Background}" CornerRadius="2"></Border>
 						<Path Grid.Column="0" x:Name="pathArrow" VerticalAlignment="Center" HorizontalAlignment="Center" Width="12" Height="12" Stretch="Fill" Margin="10,0,0,0" Fill="{TemplateBinding Foreground}" Data="{DynamicResource geometryArrow_Right}" RenderTransformOrigin="0.5,0.5">
 							<Path.RenderTransform>
 								<ScaleTransform ScaleX="-1.0" ScaleY="1.0"></ScaleTransform>
@@ -797,6 +801,7 @@
 								<BeginStoryboard>
 									<Storyboard>
 										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="0.0" To="1.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.0" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
@@ -804,6 +809,7 @@
 								<BeginStoryboard>
 									<Storyboard>
 										<DoubleAnimation Storyboard.TargetName="borderBackground_Overlap_MouseOver" Storyboard.TargetProperty="Opacity" Duration="00:00:00.100" From="1.0" To="0.0"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -859,14 +865,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.0" To="0.3" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.0" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -875,14 +881,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -919,14 +925,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.0" To="0.3" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.0" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -935,14 +941,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -977,14 +983,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.0" To="0.3" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.0" To="0.3" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="grid" Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" From="0.3" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
@@ -993,14 +999,14 @@
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>

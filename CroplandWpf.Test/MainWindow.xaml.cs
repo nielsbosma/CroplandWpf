@@ -433,6 +433,14 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty TextInputPromptDialogInfoProperty =
 			DependencyProperty.Register("TextInputPromptDialogInfo", typeof(InputDialogInfo), typeof(MainWindow), new PropertyMetadata());
 
+		public DelegateCommand ShowTextInputPromptCommand
+		{
+			get { return (DelegateCommand)GetValue(ShowTextInputPromptCommandProperty); }
+			private set { SetValue(ShowTextInputPromptCommandProperty, value); }
+		}
+		public static readonly DependencyProperty ShowTextInputPromptCommandProperty =
+			DependencyProperty.Register("ShowTextInputPromptCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+
 		public string TextPromptResult
 		{
 			get { return (string)GetValue(TextPromptResultProperty); }
@@ -441,13 +449,13 @@ namespace CroplandWpf.Test
 		public static readonly DependencyProperty TextPromptResultProperty =
 			DependencyProperty.Register("TextPromptResult", typeof(string), typeof(MainWindow), new PropertyMetadata());
 
-		public DelegateCommand ShowTextInputPromptCommand
+		public DelegateCommand ShowThreadedTextInputPromptCommand
 		{
-			get { return (DelegateCommand)GetValue(ShowTextInputPromptCommandProperty); }
-			private set { SetValue(ShowTextInputPromptCommandProperty, value); }
+			get { return (DelegateCommand)GetValue(ShowThreadedTextInputPromptCommandProperty); }
+			private set { SetValue(ShowThreadedTextInputPromptCommandProperty, value); }
 		}
-		public static readonly DependencyProperty ShowTextInputPromptCommandProperty =
-			DependencyProperty.Register("ShowTextInputPromptCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
+		public static readonly DependencyProperty ShowThreadedTextInputPromptCommandProperty =
+			DependencyProperty.Register("ShowThreadedTextInputPromptCommand", typeof(DelegateCommand), typeof(MainWindow), new PropertyMetadata());
 
 		public string TextInputDialogResult
 		{
@@ -1042,7 +1050,7 @@ namespace CroplandWpf.Test
 			});
 
 			ShowTextInputPromptCommand = new DelegateCommand(ShowTextInputPromptCommand_Execute);
-
+			ShowThreadedTextInputPromptCommand = new DelegateCommand(ShowThreadedTextInputPromptCommand_Execute);
 			#endregion
 
 			#region MessageBox
@@ -1126,14 +1134,6 @@ namespace CroplandWpf.Test
 			#region Button upper case content
 			UpperCaseTestContent = "Regular Case Content";
 			#endregion
-		}
-
-		private void ShowTextInputPromptCommand_Execute(object obj)
-		{
-			TextPromptResult = InputDialog.ShowStringInputPrompt(windowTitle: null, header: "Input some text", defaultValue: "null", validator: (c) =>
-			{
-				return c is InputDialogTextViewModel s && !String.IsNullOrWhiteSpace(s.ResultValue);
-			});
 		}
 
 		private void FocusCustomSearchAutoCompleteControlCommand_Execute(object obj)
@@ -1372,6 +1372,19 @@ namespace CroplandWpf.Test
 				if (resultValue != null)
 					TextInputDialogResult = resultValue.Text;
 			}
+		}
+
+		private void ShowTextInputPromptCommand_Execute(object obj)
+		{
+			TextPromptResult = InputDialog.ShowStringInputPrompt(windowTitle: null, header: "Input some text", defaultValue: "null", validator: (c) =>
+			{
+				return c is InputDialogTextViewModel s && !String.IsNullOrWhiteSpace(s.ResultValue);
+			});
+		}
+
+		private void ShowThreadedTextInputPromptCommand_Execute(object obj)
+		{
+			
 		}
 		#endregion
 

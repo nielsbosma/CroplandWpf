@@ -145,6 +145,8 @@
 
 	<SolidColorBrush x:Key="brushIcon_LoadingIndicator_InnerRing" Color="#FF227347"></SolidColorBrush>
 
+	<SolidColorBrush x:Key="brushControl_Selected_MouseOver_Background" Color="#FF438862"></SolidColorBrush>
+
 	<VisualBrush x:Key="brushIcon_MessageBox_Error" Stretch="Uniform">
 		<VisualBrush.Visual>
 			<Grid Width="54" Height="54">

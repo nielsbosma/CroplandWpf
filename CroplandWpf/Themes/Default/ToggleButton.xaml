@@ -43,7 +43,7 @@
 								<BeginStoryboard>
 									<Storyboard>
 										<DoubleAnimation Storyboard.TargetName="transformTick" Storyboard.TargetProperty="X" From="0.0" To="18.0" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_IsChecked" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_IsChecked" Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
@@ -51,10 +51,11 @@
 								<BeginStoryboard>
 									<Storyboard>
 										<DoubleAnimation Storyboard.TargetName="transformTick" Storyboard.TargetProperty="X" From="18.0" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
-										<DoubleAnimation Storyboard.TargetName="borderBackground_IsChecked" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.150"></DoubleAnimation>
+										<DoubleAnimation Storyboard.TargetName="borderBackground_IsChecked" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
+							<Setter TargetName="borderBackground_Disabled" Property="Background" Value="{DynamicResource brushControl_Background_Disabled_Dark}"></Setter>
 						</Trigger>
 						<MultiDataTrigger>
 							<MultiDataTrigger.Conditions>

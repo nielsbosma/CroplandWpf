@@ -801,6 +801,8 @@
 							<tk:DateTimePicker Margin="5" HorizontalAlignment="Stretch" Value="{Binding SelectedDateTime, Mode=TwoWay}"/>
 							<Button Command="{Binding ShowTextInputPromptCommand}" HorizontalAlignment="Left" Margin="5">Show Text Input Prompt</Button>
 							<TextBlock Margin="5" Text="{Binding TextPromptResult}"></TextBlock>
+							<Button Command="{Binding ShowThreadedTextInputPromptCommand}" HorizontalAlignment="Left" Margin="5">Show Text Input Prompt (separate thread)</Button>
+							<TextBlock Margin="5" Text="{Binding ThreadedTextPromptResult}"></TextBlock>
 						</StackPanel>
 					</ScrollViewer>
 

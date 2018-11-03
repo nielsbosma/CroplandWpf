@@ -62,7 +62,7 @@
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="BorderBrush" Value="Transparent"/>
-		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="BorderThickness" Value="0"/>
 		<Setter Property="MinHeight" Value="30"></Setter>
 		<Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -84,6 +84,7 @@
 				</MultiDataTrigger.Conditions>
 				<Setter Property="Background" Value="{DynamicResource brushListBoxItem_MouseOver_Background}"/>
 				<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"/>
+				<Setter Property="BorderBrush" Value="{DynamicResource brushListBoxItem_MouseOver_Background}"></Setter>
 			</MultiDataTrigger>
 			<Trigger Property="IsSelected" Value="True">
 				<!--<Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>-->
@@ -451,11 +452,13 @@
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Background" Value="{DynamicResource brushToggleButton_ComboBox_DataGridComboBoxColumn_Background}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushToggleButton_ComboBox_DataGridComboBoxColumn_Arrow_Background}"></Setter>
+		<Setter Property="BorderBrush" Value="{DynamicResource brushToggleButton_ComboBox_DataGridComboBoxColumn_Background}"></Setter>
+		<Setter Property="BorderThickness" Value="1"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ToggleButton">
 					<Grid>
-						<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2"></Border>
+						<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0"></Border>
 						<Border x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="#FFffffff" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="1" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}"></Border>
 						<Path x:Name="pathIndicator" Stretch="Fill" HorizontalAlignment="Right" VerticalAlignment="Center" Data="{DynamicResource geometryComboBox_SingleArrow}" Width="10" Height="5" Fill="{TemplateBinding Foreground}" Margin="10,0" RenderTransformOrigin="0.5,0.5">
 							<Path.RenderTransform>
@@ -466,7 +469,8 @@
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsChecked" Value="True">
 							<Setter TargetName="pathIndicator" Property="RenderTransform" Value="{x:Null}"></Setter>
-							<Setter TargetName="borderBackground" Property="CornerRadius" Value="2,2,0,0"></Setter>
+							<Setter Property="BorderBrush" Value="#FFb4b4b4"></Setter>
+							<!--<Setter TargetName="borderBackground" Property="CornerRadius" Value="2,2,0,0"></Setter>-->
 						</Trigger>
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
@@ -491,6 +495,9 @@
 						<Trigger Property="IsEnabled" Value="False">
 							<Setter Property="Opacity" Value="0.6"></Setter>
 						</Trigger>
+						<DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=DataGridCell}, Path=IsSelected}" Value="True">
+							
+						</DataTrigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
@@ -516,11 +523,12 @@
 							<ColumnDefinition></ColumnDefinition>
 							<ColumnDefinition Width="Auto"></ColumnDefinition>
 						</Grid.ColumnDefinitions>
-						<ToggleButton Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource styleToggleButton_ComboBox_DataGridComboBoxColumn}"></ToggleButton>
+						<ToggleButton Grid.ColumnSpan="2" x:Name="PART_ToggleButton" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource styleToggleButton_ComboBox_DataGridComboBoxColumn}"></ToggleButton>
 						<ContentPresenter Grid.Column="0" TextBlock.Foreground="{TemplateBinding Foreground}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
 						<Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}" Placement="Bottom">
-							<Border Margin="2,0,2,4" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="0,0,2,2">
-								<ScrollViewer MinHeight="50" MaxHeight="250" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}">
+							<Border Margin="2,0,2,4" Background="{DynamicResource brushControl_Background_Light}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="0,0,2,2" MinWidth="{Binding ElementName=PART_ToggleButton, Path=ActualWidth}" BorderBrush="#FFb4b4b4" BorderThickness="1">
+								<ScrollViewer MinHeight="50" MaxHeight="250">
+									<!--Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActualWidth}"-->
 									<ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
 								</ScrollViewer>
 							</Border>
