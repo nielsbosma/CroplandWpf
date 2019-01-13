@@ -545,12 +545,14 @@ namespace CroplandWpf.Components
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
+        public bool CloseWindowOnCommand { get; set; }
+
 		public MessageBoxFooterButton()
 		{
 
 		}
 
-		public MessageBoxFooterButton(string header, Action<object> commandExecute = null, object commandParameter = null)
+		public MessageBoxFooterButton(string header, Action<object> commandExecute = null, object commandParameter = null, bool closeWindowOnCommand = true)
 		{
 			Header = header;
 			CommandExecute = commandExecute;
@@ -584,9 +586,9 @@ namespace CroplandWpf.Components
 			return new MessageBoxFooterButtonsCollection(buttons);
 		}
 
-		public static MessageBoxFooterButtonsCollection Single(string buttonHeader, Action<object> action, object commandParameter = null)
+		public static MessageBoxFooterButtonsCollection Single(string buttonHeader, Action<object> action, object commandParameter = null, bool closeWindowOnCommand = true)
 		{
-			return new MessageBoxFooterButtonsCollection { new MessageBoxFooterButton(buttonHeader, action, commandParameter) };
+			return new MessageBoxFooterButtonsCollection { new MessageBoxFooterButton(buttonHeader, action, commandParameter, closeWindowOnCommand) };
 		}
 
 		public MessageBoxFooterButtonsCollection()

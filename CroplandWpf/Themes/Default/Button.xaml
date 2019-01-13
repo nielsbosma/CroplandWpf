@@ -766,7 +766,7 @@
 
 	<Style x:Key="styleButton_GoBack" TargetType="Button">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource brushWindowBackground_Dark}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushIconFill}"></Setter>
 		<Setter Property="MinWidth" Value="44"></Setter>
 		<Setter Property="Padding" Value="5,11,10,9"></Setter>

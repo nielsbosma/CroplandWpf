@@ -216,11 +216,18 @@ namespace CroplandWpf.Components
 
 		private void FooterButtonCommandInternal_Execute(object parameter)
 		{
-			Close();
 			if (parameter is MessageBoxFooterButton footerButtonDescriptor && footerButtonDescriptor.Command != null)
 			{
-				footerButtonDescriptor.Command.Execute(parameter);
+                if (footerButtonDescriptor.CloseWindowOnCommand)
+                {
+                    Close();
+                }
+                footerButtonDescriptor.Command.Execute(parameter);
 			}
+            else
+            {
+                Close();
+            }
 		}
 	}
 }
