@@ -32,23 +32,24 @@
 						</Border>
 					</c:HeaderFooterContentControl>
 					<ControlTemplate.Triggers>
-						<Trigger Property="IsEnabled" Value="False">
-							<Trigger.EnterActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.EnterActions>
-							<Trigger.ExitActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.ExitActions>
-						</Trigger>
-						<MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <!--
+                        <MultiTrigger>
 							<MultiTrigger.Conditions>
 								<Condition Property="IsMouseOver" Value="True"></Condition>
 								<Condition Property="IsKeyboardFocused" Value="False"></Condition>
@@ -72,6 +73,7 @@
 								</BeginStoryboard>
 							</MultiTrigger.ExitActions>
 						</MultiTrigger>
+                        -->
 						<Trigger Property="IsKeyboardFocused" Value="True">
 							<Trigger.EnterActions>
 								<BeginStoryboard>
@@ -187,7 +189,7 @@
 								<ColumnDefinition Width="Auto"></ColumnDefinition>
 							</Grid.ColumnDefinitions>
 							<Border Grid.ColumnSpan="2" x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="2"></Border>
-							<Border Grid.ColumnSpan="2" x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}" CornerRadius="2"></Border>
+                            <Border Grid.ColumnSpan="2" x:Name="borderEffectHost_Focused" Opacity="0.0" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Large}" CornerRadius="2"></Border>
 							<ph:KeyboardFocusRedirectControl Grid.Column="0" FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
 							<ScrollViewer Grid.Column="0" x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="10,0"></ScrollViewer>
 							<Border Grid.Column="0" Grid.ColumnSpan="2" x:Name="borderFocusVisual" Opacity="0.0" IsHitTestVisible="False" BorderBrush="{DynamicResource brushControl_Background_Dark}" BorderThickness="1" CornerRadius="2"></Border>
@@ -211,6 +213,7 @@
 								</BeginStoryboard>
 							</Trigger.ExitActions>
 						</Trigger>
+                        <!--
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
 								<Condition Property="IsMouseOver" Value="True"></Condition>
@@ -235,6 +238,7 @@
 								</BeginStoryboard>
 							</MultiTrigger.ExitActions>
 						</MultiTrigger>
+                        -->
 						<Trigger Property="IsKeyboardFocused" Value="True">
 							<Trigger.EnterActions>
 								<BeginStoryboard>

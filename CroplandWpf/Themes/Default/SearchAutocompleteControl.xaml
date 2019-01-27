@@ -105,7 +105,9 @@
 
 	<Style x:Key="{x:Type c:SearchAutocompleteControl}" TargetType="c:SearchAutocompleteControl">
 		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
+        <!--
 		<Setter Property="BorderBrush" Value="{DynamicResource brushItemsControl_Border}"></Setter>
+        -->
 		<Setter Property="BorderThickness" Value="1"></Setter>
 		<Setter Property="Padding" Value="0,12,12,12"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>

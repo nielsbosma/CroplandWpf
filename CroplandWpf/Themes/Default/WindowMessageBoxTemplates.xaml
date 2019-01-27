@@ -46,7 +46,7 @@
 	
 	<DataTemplate x:Key="templateMessageBoxContent_Exception_AdditionalContent" DataType="{x:Type c:ExceptionInfo}">
 		<StackPanel x:Name="panelStackTraceHost" Orientation="Vertical">
-			<TextBlock Text="Stack Trace" FontWeight="Bold"></TextBlock>
+			<TextBlock Text="Stack Trace:" FontWeight="Bold"></TextBlock>
 			<TextBlock Text="{Binding StackTrace}" TextWrapping="Wrap"></TextBlock>
 		</StackPanel>
 		<DataTemplate.Triggers>

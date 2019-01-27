@@ -844,7 +844,8 @@
 					<StackPanel Grid.Column="2" Orientation="Vertical">
 						<TextBlock FontWeight="Bold" Margin="5" TextWrapping="Wrap"><Run Text="SearchAutocompleteControl (left-aligned tooltip)"/></TextBlock>
 						<c:SearchAutocompleteControl x:Name="searchAutocomplete_String" AutoFocusMode="OnVisible" a:ToolTipBeacon.InheritedGroupName="s_a" a:ToolTipBeacon.ToolTipTemplateKey="templateToolTip_SearchAutoComplete_LeftPlacement" a:ToolTipBeacon.PlacementPriority="Right" SearchResultRefreshCommand="{Binding ConversionSearchResultRefreshCommand}" ItemsSource="{Binding StringSearchResults}" SearchCompleteCommand="{Binding StringSearchCompleteCommand}" NoMatchesButtonCommand="{Binding NoMatchesFoundCommand}" SeeAllOptionsCommand="{Binding SeeMoreSearchOptionsCommand}"/>
-						<Button Content="Show search input dialog" Command="{Binding ShowSearchInputBoxCommand}" CommandParameter="{StaticResource inputDialogInfo_Search}" HorizontalAlignment="Left" Margin="10,5,0,10" Style="{DynamicResource styleButton_Light}"/>
+                        <TextBox Margin="0,10"/>
+                        <Button Content="Show search input dialog" Command="{Binding ShowSearchInputBoxCommand}" CommandParameter="{StaticResource inputDialogInfo_Search}" HorizontalAlignment="Left" Margin="10,5,0,10" Style="{DynamicResource styleButton_Light}"/>
 						<Label Content="{Binding StringSearchResultInfo}">
 							<Label.ContentTemplate>
 								<DataTemplate DataType="{x:Type c:SearchResultInfo}">

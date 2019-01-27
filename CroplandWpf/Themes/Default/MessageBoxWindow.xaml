@@ -19,8 +19,9 @@
 		<Setter Property="BorderBrush" Value="Transparent"></Setter>
 		<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
-		<Setter Property="MinWidth" Value="80"></Setter>
-		<Setter Property="Template">
+        <Setter Property="MinWidth" Value="80"></Setter>
+        <Setter Property="Height" Value="38"></Setter>
+        <Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="Button">
 					<Grid>
@@ -28,7 +29,7 @@
 						<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3"></Border>
 						<Border Grid.Column="0" x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="{DynamicResource brushListBoxItem_MouseOver_Background}" CornerRadius="2"></Border>
 						<Border x:Name="borderBackground_Overlap_Disabled" Opacity="0.0" Background="{DynamicResource brushControl_Background_Disabled_Dark}" CornerRadius="3"></Border>
-						<Rectangle x:Name="rectangleFocusVisual" RadiusX="2" RadiusY="2" Opacity="0.0" Stroke="{DynamicResource brushControl_Background_Dark}" StrokeThickness="0.5" Margin="2" StrokeDashArray="8,3"></Rectangle>
+						<Rectangle x:Name="rectangleFocusVisual" RadiusX="2" RadiusY="2" Opacity="0.0" Stroke="{DynamicResource brushControl_Background_Dark}" StrokeThickness="2" Margin="0"></Rectangle>
 						<ContentPresenter x:Name="presenter" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}"></ContentPresenter>
 					</Grid>
 					<ControlTemplate.Triggers>
@@ -117,8 +118,9 @@
 		<Setter Property="FontSize" Value="10.5pt"></Setter>
 		<Setter Property="Padding" Value="13,6"></Setter>
 		<Setter Property="BorderBrush" Value="Transparent"></Setter>
-		<Setter Property="MinWidth" Value="80"></Setter>
-		<Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
+        <Setter Property="MinWidth" Value="80"></Setter>
+        <Setter Property="Height" Value="38"></Setter>
+        <Setter Property="ph:ButtonHelper.ConvertToUpper" Value="True"></Setter>
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
@@ -128,7 +130,7 @@
 						<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3"></Border>
 						<Border x:Name="borderBackground_Overlap_MouseOver" Opacity="0.0" Background="{DynamicResource brushControl_Background_MouseOver}" Margin="1" CornerRadius="3"></Border>
 						<Border x:Name="borderBackground_Overlap_Disabled" Opacity="0.0" Background="{DynamicResource brushControl_Background_Disabled_Dark}" CornerRadius="3"></Border>
-						<Rectangle x:Name="rectangleFocusVisual" RadiusX="2" RadiusY="2" Opacity="0.0" Stroke="{DynamicResource brushControl_Foreground_Light}" StrokeThickness="0.5" Margin="2" StrokeDashArray="8,3"></Rectangle>
+						<Rectangle x:Name="rectangleFocusVisual" RadiusX="2" RadiusY="2" Opacity="0.0" Stroke="{DynamicResource brushControl_Foreground_Light}" StrokeThickness="2" Margin="0"></Rectangle>
 						<ContentPresenter x:Name="presenter" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}"></ContentPresenter>
 					</Grid>
 					<ControlTemplate.Triggers>
@@ -366,11 +368,11 @@
 		<Setter Property="ResizeMode" Value="NoResize"></Setter>
 		<Setter Property="WindowStyle" Value="None"></Setter>
 		<Setter Property="WindowState" Value="Normal"></Setter>
-		<Setter Property="FontFamily" Value="pack://application:,,,/CroplandWpf;component/Fonts/#Roboto"></Setter>
-		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
+        <Setter Property="FontFamily" Value="pack://application:,,,/CroplandWpf;component/Fonts/#Roboto"></Setter>
+        <Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
 		<Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
-		<Setter Property="MinHeight" Value="150"></Setter>
-		<Setter Property="MinWidth" Value="400"></Setter>
+		<Setter Property="MinHeight" Value="250"></Setter>
+		<Setter Property="MinWidth" Value="550"></Setter>
 		<Setter Property="Padding" Value="15,10"></Setter>
 		<Setter Property="MaxWidth" Value="1000"></Setter>
 		<Setter Property="SizeToContent" Value="WidthAndHeight"></Setter>
@@ -387,8 +389,8 @@
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition x:Name="rowHeader" Height="42"></RowDefinition>
-									<RowDefinition Height="Auto"></RowDefinition>
-									<RowDefinition Height="Auto" MinHeight="31"></RowDefinition>
+									<RowDefinition Height="*"></RowDefinition>
+									<RowDefinition Height="Auto" MinHeight="60"></RowDefinition>
 								</Grid.RowDefinitions>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition></ColumnDefinition>
@@ -426,11 +428,9 @@
 										<ColumnDefinition Width="Auto"></ColumnDefinition>
 									</Grid.ColumnDefinitions>
 
-									<Rectangle x:Name="rectangleWidthConstraint" Grid.ColumnSpan="3"></Rectangle>
+                                    <Rectangle x:Name="rectangleWidthConstraint" Grid.ColumnSpan="3"></Rectangle>
 
-									<!--<ContentControl Grid.Column="0" Margin="15,0" Content="{TemplateBinding Footer}" ContentTemplate="{TemplateBinding FooterTemplate}"></ContentControl>-->
-
-									<StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15,0">
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0">
 										<ItemsControl x:Name="itemsControl_FooterButtons" Margin="10,0,0,0" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FooterButtons}" ItemTemplate="{StaticResource templateMessageBoxFooterButton}">
 											<ItemsControl.ItemsPanel>
 												<ItemsPanelTemplate>
@@ -438,7 +438,7 @@
 												</ItemsPanelTemplate>
 											</ItemsControl.ItemsPanel>
 										</ItemsControl>
-										<ToggleButton x:Name="toggeButton_AdditionalContentVisibility" Visibility="Collapsed" Style="{StaticResource styleToggleButton_MessageBox_ShowDetails}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=AdditionalContentVisible, Mode=TwoWay}" Margin="10,0,0,0" Focusable="False">Show Details</ToggleButton>
+										<ToggleButton x:Name="toggeButton_AdditionalContentVisibility" Visibility="Collapsed" Style="{StaticResource styleToggleButton_MessageBox_ShowDetails}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=AdditionalContentVisible, Mode=TwoWay}" Margin="0,0,0,0" Focusable="False">Show Details</ToggleButton>
 									</StackPanel>
 
 									<ItemsControl Grid.Column="2" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Buttons}" HorizontalAlignment="Right" Margin="10,0,0,0" VerticalAlignment="Center" ItemTemplate="{StaticResource templateMessageBoxControlButton}" KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Cycle">
