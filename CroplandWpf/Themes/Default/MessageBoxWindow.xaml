@@ -412,7 +412,7 @@
 										<RowDefinition Height="Auto"></RowDefinition>
 										<RowDefinition Height="*"></RowDefinition>
 									</Grid.RowDefinitions>
-									<Rectangle Grid.Row="0" Grid.Column="0" x:Name="rectangleIcon" Margin="16,16,0,16" Fill="{TemplateBinding IconBrush}" Stretch="Uniform" Width="32" Height="32" VerticalAlignment="Top"></Rectangle>
+									<Rectangle Grid.Row="0" Grid.Column="0" x:Name="rectangleIcon" Margin="16,16,0,16" Fill="{TemplateBinding IconBrush}" Stretch="Uniform" Width="64" Height="64" VerticalAlignment="Top"></Rectangle>
 									<ScrollViewer x:Name="scrollViewer_ContentHost" Focusable="False" IsTabStop="False" KeyboardNavigation.IsTabStop="False" KeyboardNavigation.TabNavigation="None" KeyboardNavigation.DirectionalNavigation="None" VerticalScrollBarVisibility="Disabled"  HorizontalScrollBarVisibility="Disabled" Grid.Row="0" Grid.Column="1" MaxHeight="400">
 										<StackPanel Orientation="Vertical">
 											<ContentPresenter Margin="{TemplateBinding Padding}" ContentTemplate="{TemplateBinding ContentTemplate}"></ContentPresenter>
@@ -438,7 +438,7 @@
 												</ItemsPanelTemplate>
 											</ItemsControl.ItemsPanel>
 										</ItemsControl>
-										<ToggleButton x:Name="toggeButton_AdditionalContentVisibility" Visibility="Collapsed" Style="{StaticResource styleToggleButton_MessageBox_ShowDetails}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=AdditionalContentVisible, Mode=TwoWay}" Margin="0,0,0,0" Focusable="False">Show Details</ToggleButton>
+										<ToggleButton x:Name="toggeButton_AdditionalContentVisibility" Visibility="Collapsed" Style="{StaticResource styleToggleButton_MessageBox_ShowDetails}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=AdditionalContentVisible, Mode=TwoWay}" Margin="10,0,0,0" Focusable="False">Show Details</ToggleButton>
 									</StackPanel>
 
 									<ItemsControl Grid.Column="2" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Buttons}" HorizontalAlignment="Right" Margin="10,0,0,0" VerticalAlignment="Center" ItemTemplate="{StaticResource templateMessageBoxControlButton}" KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Cycle">

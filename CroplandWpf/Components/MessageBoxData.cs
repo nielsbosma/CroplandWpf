@@ -131,7 +131,6 @@ namespace CroplandWpf.Components
 			{
 				case MessageBoxType.Question:
 					result.IconBrushKey = MessageBoxIconBrushDefaultKeys.Question;
-					result.ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Question;
 					result.Buttons = MessageBoxButtons.YesNo;
 					break;
 				case MessageBoxType.Exception:
@@ -141,11 +140,11 @@ namespace CroplandWpf.Components
 					break;
 				case MessageBoxType.Information:
 					result.IconBrushKey = MessageBoxIconBrushDefaultKeys.Information;
-					result.Buttons = MessageBoxButtons.OK;
+                    result.Buttons = MessageBoxButtons.OK;
 					break;
 				case MessageBoxType.Warning:
 					result.IconBrushKey = MessageBoxIconBrushDefaultKeys.Warning;
-					result.Buttons = MessageBoxButtons.OK;
+                    result.Buttons = MessageBoxButtons.OK;
 					break;
 			}
 			return result;
@@ -158,8 +157,8 @@ namespace CroplandWpf.Components
 			Content = "Message content";
 			Footer = null;
 			FooterTemplateKey = null;
-			ContentTemplateKey = null;
-			Buttons = new MessageBoxButtons();
+            ContentTemplateKey = MessageBoxContentTemplateDefaultKeys.Simple;
+            Buttons = new MessageBoxButtons();
 		}
 
 		public void ExecuteAction(MessageBoxButton actionButton)
@@ -195,20 +194,17 @@ namespace CroplandWpf.Components
 
 	public static class MessageBoxIconBrushDefaultKeys
 	{
-		public static string Warning { get; } = "brushIcon_MessageBox_Warning";
-		public static string Error { get; } = "brushIcon_MessageBox_Error";
-		public static string Exception { get; } = "brushIcon_MessageBox_Exception";
-		public static string Question { get; } = "brushIcon_MessageBox_Question";
-		public static string Information { get; } = "brushIcon_MessageBox_Info";
+		public static string Warning { get; } = "brushIcon_Alert";
+		public static string Error { get; } = "brushIcon_Alert";
+		public static string Exception { get; } = "brushIcon_Bug";
+		public static string Question { get; } = "brushIcon_Help";
+		public static string Information { get; } = "brushIcon_Info";
 	}
 
 	public static class MessageBoxContentTemplateDefaultKeys
 	{
-		public static string Info { get; } = "templateMessageBoxContent_Info";
-		public static string Warning { get; } = "templateMessageBoxContent_Warning";
-		public static string Error { get; } = "templateMessageBoxContent_Error";
+		public static string Simple { get; } = "templateMessageBoxContent_Simple";
 		public static string Exception { get; } = "templateMessageBoxContent_Exception";
-		public static string Question { get; } = "templateMessageBoxContent_Question";
 	}
 
 	public static class MessageBoxAdditionalContentTemplateDefaultKeys

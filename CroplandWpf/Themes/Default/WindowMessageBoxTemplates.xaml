@@ -3,24 +3,13 @@
 					xmlns:c="clr-namespace:CroplandWpf.Components"
                     xmlns:local="clr-namespace:CroplandWpf.Themes.Default">
 
-	<DataTemplate x:Key="templateMessageBoxContent_Info">
-		<TextBlock Text="{Binding}" TextWrapping="Wrap"></TextBlock>
-	</DataTemplate>
+    <DataTemplate x:Key="templateMessageBoxContent_Simple">
+        <TextBlock Text="{Binding}" TextWrapping="Wrap" FontSize="12pt"></TextBlock>
+    </DataTemplate>
 
-	<DataTemplate x:Key="templateMessageBoxContent_Question">
-		<TextBlock Text="{Binding}" TextWrapping="Wrap"></TextBlock>
-	</DataTemplate>
-
-	<DataTemplate x:Key="templateMessageBoxContent_Warning">
-		<TextBlock>
-			<TextBlock Text="Warning: " FontWeight="Bold"></TextBlock>
-			<TextBlock Text="{Binding}" TextWrapping="Wrap"></TextBlock>
-		</TextBlock>
-	</DataTemplate>
-
-	<DataTemplate x:Key="templateMessageBoxContent_Exception" DataType="{x:Type c:ExceptionInfo}">
-		<StackPanel Orientation="Vertical">
-			<TextBlock FontSize="20pt" Text="{Binding Name}" Padding="0"></TextBlock>
+    <DataTemplate x:Key="templateMessageBoxContent_Exception" DataType="{x:Type c:ExceptionInfo}">
+        <StackPanel Orientation="Vertical">
+			<TextBlock FontSize="15pt" Text="{Binding Name}" Padding="0"></TextBlock>
 			<TextBlock x:Name="textBlock_Exception" Margin="0,14,0,0" Padding="0" TextWrapping="Wrap">
 				<Run Text="Exception: " FontWeight="Bold"></Run>
 				<Run Text="{Binding Exception}"></Run>
@@ -40,10 +29,6 @@
 		</DataTemplate.Triggers>
 	</DataTemplate>
 
-	<DataTemplate x:Key="templateMessageBoxContent_Error">
-		<TextBlock Text="{Binding}" TextWrapping="Wrap"></TextBlock>
-	</DataTemplate>
-	
 	<DataTemplate x:Key="templateMessageBoxContent_Exception_AdditionalContent" DataType="{x:Type c:ExceptionInfo}">
 		<StackPanel x:Name="panelStackTraceHost" Orientation="Vertical">
 			<TextBlock Text="Stack Trace:" FontWeight="Bold"></TextBlock>

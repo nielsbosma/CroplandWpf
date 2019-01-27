@@ -147,7 +147,49 @@
 
 	<SolidColorBrush x:Key="brushControl_Selected_MouseOver_Background" Color="#FF438862"></SolidColorBrush>
 
-	<VisualBrush x:Key="brushIcon_MessageBox_Error" Stretch="Uniform">
+    <VisualBrush x:Key="brushIcon_Cloud" Stretch="Uniform">
+        <VisualBrush.Visual>
+            <Grid Width="24" Height="24">
+                <Path Fill="{DynamicResource brushControl_Background_Dark}" Data="M19.35,10.04C18.67,6.59 15.64,4 12,4C9.11,4 6.6,5.64 5.35,8.04C2.34,8.36 0,10.91 0,14A6,6 0 0,0 6,20H19A5,5 0 0,0 24,15C24,12.36 21.95,10.22 19.35,10.04M19,18H6A4,4 0 0,1 2,14C2,11.95 3.53,10.24 5.56,10.03L6.63,9.92L7.13,8.97C8.08,7.14 9.94,6 12,6C14.62,6 16.88,7.86 17.39,10.43L17.69,11.93L19.22,12.04C20.78,12.14 22,13.45 22,15A3,3 0 0,1 19,18M8,13H10.55V16H13.45V13H16L12,9L8,13Z" />
+            </Grid>
+        </VisualBrush.Visual>
+    </VisualBrush>
+
+    <VisualBrush x:Key="brushIcon_Bug" Stretch="Uniform">
+        <VisualBrush.Visual>
+            <Grid Width="24" Height="24">
+                <Path Fill="{DynamicResource brushControl_Background_Dark}" Data="M20,8H17.19C16.74,7.2 16.12,6.5 15.37,6L17,4.41L15.59,3L13.42,5.17C12.96,5.06 12.5,5 12,5C11.5,5 11.05,5.06 10.59,5.17L8.41,3L7,4.41L8.62,6C7.87,6.5 7.26,7.21 6.81,8H4V10H6.09C6.03,10.33 6,10.66 6,11V12H4V14H6V15C6,15.34 6.03,15.67 6.09,16H4V18H6.81C8.47,20.87 12.14,21.84 15,20.18C15.91,19.66 16.67,18.9 17.19,18H20V16H17.91C17.97,15.67 18,15.34 18,15V14H20V12H18V11C18,10.66 17.97,10.33 17.91,10H20V8M16,15A4,4 0 0,1 12,19A4,4 0 0,1 8,15V11A4,4 0 0,1 12,7A4,4 0 0,1 16,11V15M14,10V12H10V10H14M10,14H14V16H10V14Z" />
+            </Grid>
+        </VisualBrush.Visual>
+    </VisualBrush>
+
+    <VisualBrush x:Key="brushIcon_Alert" Stretch="Uniform">
+        <VisualBrush.Visual>
+            <Grid Width="24" Height="24">
+                <Path Fill="{DynamicResource brushControl_Background_Dark}" Data="M11,15H13V17H11V15M11,7H13V13H11V7M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z" />
+            </Grid>
+        </VisualBrush.Visual>
+    </VisualBrush>
+
+    <VisualBrush x:Key="brushIcon_Help" Stretch="Uniform">
+        <VisualBrush.Visual>
+            <Grid Width="24" Height="24">
+                <Path Fill="{DynamicResource brushControl_Background_Dark}" Data="M11,18H13V16H11V18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,6A4,4 0 0,0 8,10H10A2,2 0 0,1 12,8A2,2 0 0,1 14,10C14,12 11,11.75 11,15H13C13,12.75 16,12.5 16,10A4,4 0 0,0 12,6Z" />
+            </Grid>
+        </VisualBrush.Visual>
+    </VisualBrush>
+
+    <VisualBrush x:Key="brushIcon_Info" Stretch="Uniform">
+        <VisualBrush.Visual>
+            <Grid Width="24" Height="24">
+                <Path Fill="{DynamicResource brushControl_Background_Dark}" Data="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" />
+            </Grid>
+        </VisualBrush.Visual>
+    </VisualBrush>
+
+    <!--
+
+    <VisualBrush x:Key="brushIcon_MessageBox_Error" Stretch="Uniform">
 		<VisualBrush.Visual>
 			<Grid Width="54" Height="54">
 				<Path Fill="#FFd5283d" Stretch="Fill">
@@ -211,6 +253,8 @@
 			</Grid>
 		</VisualBrush.Visual>
 	</VisualBrush>
+    
+    -->
 
 	<SolidColorBrush x:Key="brushProgressbar_Track_Background" Color="#FFe2e7ee"></SolidColorBrush>
 

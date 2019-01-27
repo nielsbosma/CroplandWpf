@@ -747,40 +747,6 @@
 								<Button Margin="2" Command="{x:Static c:MessageBoxService.ShowCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="Static Show Command"/>
 								<Button Margin="2" Command="{Binding ShowMessageBox_AnotherThread}" Content="From another thread (2s delay)"/>
 							</WrapPanel>
-							<Grid>
-								<StackPanel Orientation="Horizontal">
-									<Grid x:Name="gridWarning" Width="54" Height="54">
-										<Path Fill="#FFF5A623" Stroke="{x:Null}" Stretch="Uniform">
-											<Path.Data>
-												<PathGeometry Figures="M27,0L54,47 0,47z"></PathGeometry>
-											</Path.Data>
-										</Path>
-										<Path Stretch="Uniform" Data="M30,18L29.3262032,32.4986523 24.6737968,32.4986523 24,18 30,18z M29.8716578,34.9299191L29.8716578,40 24.1604278,40 24.1604278,34.9299191 29.8716578,34.9299191z" Fill="#FF000000" Margin="16,21,16,11" />
-									</Grid>
-
-									<Grid x:Name="gridError" Width="54" Height="54">
-										<Path Fill="#FFd5283d" Stretch="Fill">
-											<Path.Data>
-												<EllipseGeometry RadiusX="27" RadiusY="27" Center="25,25">
-												</EllipseGeometry>
-											</Path.Data>
-										</Path>
-										<Path Data="{DynamicResource geometryCross}" Stretch="Fill" Width="22" Height="22" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{DynamicResource brushControl_Background_Light}" Stroke="{DynamicResource brushControl_Background_Light}" StrokeThickness="1"></Path>
-									</Grid>
-
-									<Grid x:Name="gridInfo" Width="54" Height="54">
-										<Path Fill="#FF3f95e2" Stroke="{x:Null}">
-											<Path.Data>
-												<EllipseGeometry RadiusX="27" RadiusY="27" Center="27,27"></EllipseGeometry>
-											</Path.Data>
-										</Path>
-										<StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-											<Path Data="F1M4,1C5.657,1 7,2.343 7,4 7,5.657 5.657,7 4,7 2.343,7 1,5.657 1,4 1,2.343 2.343,1 4,1z" Fill="#FFffffff" Height="6" Width="6" Stretch="Fill" HorizontalAlignment="Center"/>
-											<Path Data="F1M1,1C1,1 1,17 1,17 1,17 5,17 5,17 5,17 5,1 5,1 5,1 1,1 1,1z" Fill="#FFffffff" Height="18" Width="6" HorizontalAlignment="Center" Margin="0,3,0,0" Stretch="Fill"/>
-										</StackPanel>
-									</Grid>
-								</StackPanel>
-							</Grid>
 							<TextBlock Margin="20,5,0,5"><InlineUIContainer>
 								<TextBlock Text="MessageBoxResult:"/>
 							</InlineUIContainer><Run Text=" "/><Run Text=" "/><Run Text=" "/><InlineUIContainer>
@@ -940,7 +906,19 @@
 					<c:ImageCropControl Grid.Row="1" x:Name="imageCropControl" AutoCrop="False" MinHeight="500" MinWidth="500" SourceFileInfo="{Binding CropImageSourceFileInfo}" Margin="5" SubmitCropResultRectCommand="{Binding CropImageCommand}"/>
 				</Grid>
 			</TabItem>
-		</c:TabControlEx>
+
+            <TabItem Header="Icons">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Margin="16,16,0,16" Fill="{DynamicResource brushIcon_Cloud}" Stretch="Uniform" Width="64" Height="64" VerticalAlignment="Top"></Rectangle>
+                    <Rectangle Margin="16,16,0,16" Fill="{DynamicResource brushIcon_Alert}" Stretch="Uniform" Width="64" Height="64" VerticalAlignment="Top"></Rectangle>
+                    <Rectangle Margin="16,16,0,16" Fill="{DynamicResource brushIcon_Bug}" Stretch="Uniform" Width="64" Height="64" VerticalAlignment="Top"></Rectangle>
+                    <Rectangle Margin="16,16,0,16" Fill="{DynamicResource brushIcon_Help}" Stretch="Uniform" Width="64" Height="64" VerticalAlignment="Top"></Rectangle>
+                    <Rectangle Margin="16,16,0,16" Fill="{DynamicResource brushIcon_Info}" Stretch="Uniform" Width="64" Height="64" VerticalAlignment="Top"></Rectangle>
+                </StackPanel>
+            </TabItem>
+
+
+        </c:TabControlEx>
 		<!--<Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="400" Height="300" Fill="Red">
 			<Rectangle.Clip>
 				<CombinedGeometry GeometryCombineMode="Exclude">
