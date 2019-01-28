@@ -175,9 +175,8 @@
 			</DataTemplate.Triggers>
 		</DataTemplate>
 
-		<c:MessageBoxInfo x:Key="mbiFromResources" ContentTemplateKey="templateMbiFromResources_Content" Title="MessageBoxInfo defined in resources" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="MessageBoxInfo with a custom ContentTemplate defined in XAML locally. Has the footer template defined too" Footer="some random footer" FooterTemplateKey="templateMbiFromResources_Footer" Buttons="Ok;Cancel" ph:DataContextBridge.SourceScopeName="vm_main" Action="{Binding MessageBoxAction}">
-			<!--Buttons="YesNoCancel"-->
-			<c:MessageBoxInfo.Resources>
+        <c:MessageBoxInfo x:Key="mbiFromResources" ContentTemplateKey="templateMbiFromResources_Content" Title="MessageBoxInfo defined in resources" IconBrushKey="{x:Static c:MessageBoxIconBrushDefaultKeys.Warning}" Content="MessageBoxInfo with a custom ContentTemplate defined in XAML locally. Has the footer template defined too" Footer="some random footer" FooterTemplateKey="templateMbiFromResources_Footer" Buttons="Ok;Cancel" ph:DataContextBridge.SourceScopeName="vm_main" Action="{Binding MessageBoxAction}">
+            <c:MessageBoxInfo.Resources>
 				<DataTemplate x:Key="templateMbiFromResources_Content">
 					<TextBlock>
 						<TextBlock Text="This MessageBox text will go in Italic style:"/>
@@ -736,17 +735,7 @@
 							</StackPanel>
 
 							<TextBlock Margin="5" FontWeight="Bold"><Run Text="MessageBox"/></TextBlock>
-							<WrapPanel Orientation="Horizontal">
-								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" Content="Simple Exception (OK)"/>
-								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Question}" Content="Simple Question (Yes/No)"/>
-								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
-								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_YYNC}" Content="Yes/Yes to All/No/Cancel"/>
-								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiRandomButtons}" Content="Some random message box"/>
-								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_OYNaCR}">Show random message box created in code</Button>
-								<Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
-								<Button Margin="2" Command="{x:Static c:MessageBoxService.ShowCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="Static Show Command"/>
-								<Button Margin="2" Command="{Binding ShowMessageBox_AnotherThread}" Content="From another thread (2s delay)"/>
-							</WrapPanel>
+							
 							<TextBlock Margin="20,5,0,5"><InlineUIContainer>
 								<TextBlock Text="MessageBoxResult:"/>
 							</InlineUIContainer><Run Text=" "/><Run Text=" "/><Run Text=" "/><InlineUIContainer>
@@ -891,9 +880,8 @@
 
 			<TabItem Header="ImageCropControl">
 				<Grid >
-					<Grid.Resources>
-
-					</Grid.Resources>
+                    <Grid.Resources>
+                    </Grid.Resources>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition/>
@@ -907,6 +895,20 @@
 				</Grid>
 			</TabItem>
 
+            <TabItem Header="MessageBoxes">
+                <WrapPanel Orientation="Horizontal">
+                    <Button Margin="2" Command="{Binding ShowMessageBoxCommand}" Content="Simple Exception (OK)"/>
+                    <Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Question}" Content="Simple Question (Yes/No)"/>
+                    <Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_Warning}" Content="Simple Warning (OK)"/>
+                    <Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_YYNC}" Content="Yes/Yes to All/No/Cancel"/>
+                    <Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiRandomButtons}" Content="Some random message box"/>
+                    <Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{Binding Mbi_OYNaCR}">Show random message box created in code</Button>
+                    <Button Margin="2" Command="{Binding ShowMessageBoxCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="From Resources"/>
+                    <Button Margin="2" Command="{x:Static c:MessageBoxService.ShowCommand}" CommandParameter="{StaticResource mbiFromResources}" Content="Static Show Command"/>
+                    <Button Margin="2" Command="{Binding ShowMessageBox_AnotherThread}" Content="From another thread (2s delay)"/>
+                </WrapPanel>
+            </TabItem>
+
             <TabItem Header="Icons">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Margin="16,16,0,16" Fill="{DynamicResource brushIcon_Cloud}" Stretch="Uniform" Width="64" Height="64" VerticalAlignment="Top"></Rectangle>
@@ -917,19 +919,7 @@
                 </StackPanel>
             </TabItem>
 
-
         </c:TabControlEx>
-		<!--<Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="400" Height="300" Fill="Red">
-			<Rectangle.Clip>
-				<CombinedGeometry GeometryCombineMode="Exclude">
-					<CombinedGeometry.Geometry1>
-						<RectangleGeometry Rect="0,0,400,300"></RectangleGeometry>
-					</CombinedGeometry.Geometry1>
-					<CombinedGeometry.Geometry2>
-						<RectangleGeometry Rect="100,100,200,50"></RectangleGeometry>
-					</CombinedGeometry.Geometry2>
-				</CombinedGeometry>
-			</Rectangle.Clip>
-		</Rectangle>-->
+
 	</Grid>
 </Window>

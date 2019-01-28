@@ -374,7 +374,7 @@
 		<Setter Property="MinHeight" Value="250"></Setter>
 		<Setter Property="MinWidth" Value="550"></Setter>
 		<Setter Property="Padding" Value="15,10"></Setter>
-		<Setter Property="MaxWidth" Value="1000"></Setter>
+		<Setter Property="MaxWidth" Value="1200"></Setter>
 		<Setter Property="SizeToContent" Value="WidthAndHeight"></Setter>
 		<Setter Property="ShowInTaskbar" Value="False"></Setter>
 		<Setter Property="ContentTemplate" Value="{StaticResource templateMessageBoxContent_Default}"></Setter>
@@ -430,15 +430,15 @@
 
                                     <Rectangle x:Name="rectangleWidthConstraint" Grid.ColumnSpan="3"></Rectangle>
 
-                                    <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0">
-										<ItemsControl x:Name="itemsControl_FooterButtons" Margin="10,0,0,0" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FooterButtons}" ItemTemplate="{StaticResource templateMessageBoxFooterButton}">
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15,0">
+										<ItemsControl x:Name="itemsControl_FooterButtons" Margin="0,0,0,0" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FooterButtons}" ItemTemplate="{StaticResource templateMessageBoxFooterButton}">
 											<ItemsControl.ItemsPanel>
 												<ItemsPanelTemplate>
 													<StackPanel Orientation="Horizontal"></StackPanel>
 												</ItemsPanelTemplate>
 											</ItemsControl.ItemsPanel>
 										</ItemsControl>
-										<ToggleButton x:Name="toggeButton_AdditionalContentVisibility" Visibility="Collapsed" Style="{StaticResource styleToggleButton_MessageBox_ShowDetails}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=AdditionalContentVisible, Mode=TwoWay}" Margin="10,0,0,0" Focusable="False">Show Details</ToggleButton>
+										<ToggleButton x:Name="toggeButton_AdditionalContentVisibility" Visibility="Collapsed" Style="{StaticResource styleToggleButton_MessageBox_ShowDetails}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:MessageBoxWindow}, Path=AdditionalContentVisible, Mode=TwoWay}" Margin="0,0,0,0" Focusable="False">Show Details</ToggleButton>
 									</StackPanel>
 
 									<ItemsControl Grid.Column="2" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Buttons}" HorizontalAlignment="Right" Margin="10,0,0,0" VerticalAlignment="Center" ItemTemplate="{StaticResource templateMessageBoxControlButton}" KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Cycle">

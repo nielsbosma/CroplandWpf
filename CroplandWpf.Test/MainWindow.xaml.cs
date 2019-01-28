@@ -1234,14 +1234,13 @@ namespace CroplandWpf.Test
 				}
 				catch (Exception ex)
 				{
-					MessageBoxService.ShowException(ex, exceptionHeader: "Division By Zero", windowTitle: null,
-						exceptionMessageOverride: "Message override",
-						footerButtons: MessageBoxFooterButtonsCollection.OptOut((p) => MessageBox.Show("Never show again clicked: " + p))
+					MessageBoxService.ShowException(ex, exceptionHeader: "Division By Zero", windowTitle: null, exceptionMessageOverride: "Message override"
+						//footerButtons: MessageBoxFooterButtonsCollection.OptOut((p) => MessageBox.Show("Never show again clicked: " + p))
 						//footerButtons: MessageBoxFooterButtonsCollection.New(
 						//	new MessageBoxFooterButton("Show Again"), new MessageBoxFooterButton("Never Show Again", (p) => MessageBox.Show("Never show again clicked")),
 						//	new MessageBoxFooterButton("Try Something Else", (p) => MessageBox.Show("Try Something Else clicked")),
 						//	new MessageBoxFooterButton("Random Button", (p) => MessageBox.Show("Random Button clicked")))
-						);
+					);
 				}
 			}
 			else if (obj is MessageBoxInfo info)
