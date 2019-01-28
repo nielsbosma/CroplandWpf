@@ -85,7 +85,12 @@ namespace CroplandWpf.Helpers
 		public static Window GetActiveWindowInstance()
 		{
 			IntPtr result = GetActiveWindow();
-			Window activeWindow = null;
+		    if (result == IntPtr.Zero)
+		    {
+		        result = GetForegroundWindow();
+		    }
+
+            Window activeWindow = null;
 			try
 			{
 				activeWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(window => new WindowInteropHelper(window).Handle == result);
@@ -142,7 +147,10 @@ namespace CroplandWpf.Helpers
 		[DllImport("user32.dll")]
 		static extern IntPtr GetActiveWindow();
 
-		private static System.IntPtr WindowProc(System.IntPtr hwnd, int msg, System.IntPtr wParam, System.IntPtr lParam, ref bool handled)
+	    [DllImport("user32.dll")]
+	    static extern IntPtr GetForegroundWindow();
+
+        private static System.IntPtr WindowProc(System.IntPtr hwnd, int msg, System.IntPtr wParam, System.IntPtr lParam, ref bool handled)
 		{
 			switch (msg)
 			{
