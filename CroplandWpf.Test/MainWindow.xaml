@@ -476,19 +476,7 @@
 									</Setter>
 								</Style>
 							</StackPanel.Resources>
-
-							<Rectangle Height="100">
-								<Rectangle.Fill>
-									<LinearGradientBrush StartPoint="0,0" EndPoint="0,100" MappingMode="Absolute">
-										<GradientStop Color="Green" Offset="0.0"></GradientStop>
-										<GradientStop Color="Green" Offset="0.5"></GradientStop>
-										<GradientStop Color="Yellow" Offset="0.5"></GradientStop>
-									</LinearGradientBrush>
-								</Rectangle.Fill>
-							</Rectangle>
-							
-							<Button Style="{StaticResource styleButton_Util}" HorizontalAlignment="Left" Margin="5" Content="CANCEL"></Button>
-							<Button Style="{StaticResource styleButton_MessageBox_2}" HorizontalAlignment="Left" Margin="5" Content="CANCEL"></Button>
+		
 							<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(h:WindowHelper.AllowResize), Mode=TwoWay}">Allow main window resize</CheckBox>
 							<!--<CheckBox Margin="5" IsChecked="{Binding ElementName=windowMain, Path=(ph:ButtonHelper.ConvertToUpper), Mode=TwoWay}">All buttons content to uppercase</CheckBox>-->
 							<Button Margin="5" Content="{Binding UpperCaseTestContent}" HorizontalAlignment="Left"></Button>
@@ -504,7 +492,7 @@
 							</StackPanel>
 							<Button Margin="5" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left" />
 							<TextBlock Margin="5">"Cloud" button</TextBlock>
-							<Button HorizontalAlignment="Left" Style="{DynamicResource styleButton_Cloud}"></Button>
+							
 							<StackPanel Orientation="Horizontal">
 								<Button Margin="5" Style="{DynamicResource styleButton_AddFile}"/>
 								<Button x:Name="buttonRemoveTest" Margin="0,5,5,5" Style="{DynamicResource styleButton_RemoveFile}"/>
@@ -920,10 +908,41 @@
             <TabItem Header="Form">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10,10">
                     <CheckBox x:Name="Form_IsEnabled" IsChecked="True"/>
-
                     <TextBox Text="Name" Margin="0,10,0,0" Width="200" IsEnabled="{Binding IsChecked, ElementName=Form_IsEnabled}"/>
                     <ComboBox Margin="0,10,0,0" Style="{DynamicResource styleComboBox_Light}" Width="200" ItemsSource="{Binding TestItemsSource}" SelectedValue="Item 1" IsEnabled="{Binding IsChecked, ElementName=Form_IsEnabled}"/>
                 </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Buttons">
+                <DockPanel LastChildFill="True">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10,10" DockPanel.Dock="Left">
+
+                        <CheckBox x:Name="Buttons_IsEnabled" IsChecked="True" Content="IsEnabled" />
+
+                        <Button Content="hello" Margin="0,10,0,0" IsEnabled="{Binding IsChecked, ElementName=Buttons_IsEnabled}" HorizontalAlignment="Left"/>
+
+                        <Button Style="{StaticResource styleButton_Util}" Content="ADVANCED" Margin="0,10,0,0" IsEnabled="{Binding IsChecked, ElementName=Buttons_IsEnabled}" HorizontalAlignment="Left"/>
+
+                        <ToggleButton Content="ToggleButton" Margin="0,10,0,0" IsEnabled="{Binding IsChecked, ElementName=Buttons_IsEnabled}" HorizontalAlignment="Left"/>
+
+                        <Button Margin="0,10,0,0" Style="{DynamicResource styleButton_Light}" Content="Abort" IsEnabled="{Binding IsChecked, ElementName=Buttons_IsEnabled}" HorizontalAlignment="Left"/>
+
+                        <Button HorizontalAlignment="Left" Style="{DynamicResource styleButton_Cloud}" Margin="0,10,0,0" IsEnabled="{Binding IsChecked, ElementName=Buttons_IsEnabled}"/>
+
+                        <Button Margin="0,10,0,0" Style="{DynamicResource styleButton_GoBack}" HorizontalAlignment="Left" IsEnabled="{Binding IsChecked, ElementName=Buttons_IsEnabled}"/>
+
+                        <c:HyperlinkButton  Command="{Binding HyperlinkTestCommand}" CommandParameter="{Binding HyperlinkTest}" Content="Hyperlink" Margin="0,10,0,0" HorizontalAlignment="Left" IsEnabled="{Binding IsChecked, ElementName=Buttons_IsEnabled}"/>
+
+                        <c:HyperlinkButton IsUnderlined="False" HorizontalAlignment="Left" Content="No underline" Margin="0,10,0,0" IsEnabled="{Binding IsChecked, ElementName=Buttons_IsEnabled}"/>
+
+                        <Button Margin="0,10,0,0" HorizontalAlignment="Left" Style="{DynamicResource styleButton_RemoveRequest}" IsEnabled="{Binding IsChecked, ElementName=Buttons_IsEnabled}"/>
+
+                        <Button Style="{DynamicResource styleButton_Star}" Margin="0,10,0,0" HorizontalAlignment="Left" IsEnabled="{Binding IsChecked, ElementName=Buttons_IsEnabled}"/>
+
+                        <Button Style="{DynamicResource styleButton_Info}" Margin="0,10,0,0" HorizontalAlignment="Left" IsEnabled="{Binding IsChecked, ElementName=Buttons_IsEnabled}"/>
+
+                    </StackPanel>
+                </DockPanel>
             </TabItem>
 
         </c:TabControlEx>
