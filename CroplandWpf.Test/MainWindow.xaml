@@ -665,9 +665,7 @@
 							<ComboBox x:Name="comboBoxTest" ItemsSource="{Binding TestItemsSource}" />
 							<TextBlock Margin="5"><Run Text="ComboBox (light)"/></TextBlock>
 							<ComboBox Margin="3" Style="{DynamicResource styleComboBox_Light}" ItemsSource="{Binding TestItemsSource}"/>
-
 							<CheckBox Margin="3" IsChecked="{Binding IsEnabled, ElementName=comboBoxTest, Mode=TwoWay}" Content="IsEnabled"/>
-
 						</StackPanel>
 					</ScrollViewer>
 
@@ -916,6 +914,15 @@
                     <Rectangle Margin="16,16,0,16" Fill="{DynamicResource brushIcon_Bug}" Stretch="Uniform" Width="64" Height="64" VerticalAlignment="Top"></Rectangle>
                     <Rectangle Margin="16,16,0,16" Fill="{DynamicResource brushIcon_Help}" Stretch="Uniform" Width="64" Height="64" VerticalAlignment="Top"></Rectangle>
                     <Rectangle Margin="16,16,0,16" Fill="{DynamicResource brushIcon_Info}" Stretch="Uniform" Width="64" Height="64" VerticalAlignment="Top"></Rectangle>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Form">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10,10">
+                    <CheckBox x:Name="Form_IsEnabled" IsChecked="True"/>
+
+                    <TextBox Text="Name" Margin="0,10,0,0" Width="200" IsEnabled="{Binding IsChecked, ElementName=Form_IsEnabled}"/>
+                    <ComboBox Margin="0,10,0,0" Style="{DynamicResource styleComboBox_Light}" Width="200" ItemsSource="{Binding TestItemsSource}" SelectedValue="Item 1" IsEnabled="{Binding IsChecked, ElementName=Form_IsEnabled}"/>
                 </StackPanel>
             </TabItem>
 

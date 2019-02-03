@@ -45,10 +45,28 @@
 								</BeginStoryboard>
 							</MultiTrigger.ExitActions>
 						</MultiTrigger>
+                        <!--
 						<Trigger Property="IsEnabled" Value="False">
 							<Setter TargetName="borderBackground" Property="Effect" Value="{x:Null}"></Setter>
 						</Trigger>
-					</ControlTemplate.Triggers>
+                        -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -78,6 +96,7 @@
 							<Setter TargetName="borderBackground" Property="CornerRadius" Value="2,2,0,0"></Setter>
 							<Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
 						</Trigger>
+                        <!--
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
 								<Condition Property="IsMouseOver" Value="True"></Condition>
@@ -98,10 +117,31 @@
 								</BeginStoryboard>
 							</MultiTrigger.ExitActions>
 						</MultiTrigger>
+                        -->
+                        <!--
 						<Trigger Property="IsEnabled" Value="False">
 							<Setter TargetName="borderBackground" Property="Effect" Value="{x:Null}"></Setter>
 						</Trigger>
-					</ControlTemplate.Triggers>
+                        -->
+                        <!--
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        -->
+                    </ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -273,7 +313,6 @@
 		</Setter>
 	</Style>
 
-
 	<Style x:Key="styleComboBox_Light" TargetType="ComboBox">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="MinHeight" Value="36"></Setter>
@@ -296,26 +335,26 @@
 							</Border>
 						</Popup>
 						<ToggleButton Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource styleToggleButton_ComboBox_Light}"></ToggleButton>
-						<ContentPresenter Grid.Column="0" TextBlock.Foreground="{DynamicResource brushControl_Foreground_Dark}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="15,0,30,0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
+						<ContentPresenter Grid.Column="0" TextBlock.Foreground="{DynamicResource brushControl_Foreground_Dark}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="12,0,30,0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
 					</Grid>
 					<ControlTemplate.Triggers>
-						<Trigger Property="IsEnabled" Value="False">
-							<Trigger.EnterActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.150"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.EnterActions>
-							<Trigger.ExitActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.150"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.ExitActions>
-						</Trigger>
-					</ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
