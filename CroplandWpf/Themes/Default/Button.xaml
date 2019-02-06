@@ -336,7 +336,6 @@
 		</Setter>
 	</Style>
 
-
 	<Style x:Key="styleButton_Util" TargetType="Button">
 		<Setter Property="Foreground" Value="{DynamicResource brushButton_Foreground_Green}"></Setter>
 		<Setter Property="Cursor" Value="Hand"></Setter>
@@ -975,7 +974,11 @@
 							<Grid.Effect>
 								<DropShadowEffect ShadowDepth="0" Color="#FF000000" Opacity="0.0"></DropShadowEffect>
 							</Grid.Effect>
-							<Path x:Name="pathCloud" Width="24" Height="16" Fill="{TemplateBinding Background}" Stretch="Uniform" Data="{DynamicResource geometryIcon_Cloud}" Margin="{TemplateBinding Padding}"></Path>
+                            <!--
+                            <Path x:Name="pathCloud" Width="24" Height="16" Fill="{TemplateBinding Background}" Stretch="Uniform" Data="{DynamicResource geometryIcon_Cloud}" Margin="{TemplateBinding Padding}"></Path>
+                            -->
+                            <Rectangle Margin="0" Fill="{DynamicResource brushIcon_Cloud}" Width="32" Height="32" VerticalAlignment="Top"></Rectangle>
+
 						</Grid>
 					</Grid>
 					<ControlTemplate.Triggers>

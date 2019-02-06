@@ -103,7 +103,6 @@
 		</Setter>
 	</Style>
 
-
 	<Style x:Key="{x:Type c:ModifiedInputTextBox}" TargetType="c:ModifiedInputTextBox">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>

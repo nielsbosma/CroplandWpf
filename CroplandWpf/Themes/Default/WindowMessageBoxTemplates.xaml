@@ -9,21 +9,11 @@
 
     <DataTemplate x:Key="templateMessageBoxContent_Exception" DataType="{x:Type c:ExceptionInfo}">
         <StackPanel Orientation="Vertical">
-			<TextBlock FontSize="15pt" Text="{Binding Name}" Padding="0"></TextBlock>
-			<TextBlock x:Name="textBlock_Exception" Margin="0,14,0,0" Padding="0" TextWrapping="Wrap">
-				<Run Text="Exception: " FontWeight="Bold"></Run>
-				<Run Text="{Binding Exception}"></Run>
-			</TextBlock>
-			<TextBlock x:Name="textBlock_Message" Margin="0,14,0,0" TextWrapping="Wrap" Padding="0">
-				<Run Text="Message: " FontWeight="Bold"></Run>
-				<Run Text="{Binding Message}"></Run>
-			</TextBlock>
+            <TextBlock FontSize="15pt" Text="{Binding Name}" Padding="0"></TextBlock>
+            <TextBlock FontSize="12pt" x:Name="textBlock_Message" Margin="0,10,0,0" TextWrapping="Wrap" Padding="0" Text="{Binding Message}"/>
 		</StackPanel>
-		<DataTemplate.Triggers>
-			<DataTrigger Binding="{Binding Exception}" Value="{x:Null}">
-				<Setter TargetName="textBlock_Exception" Property="Visibility" Value="Collapsed"></Setter>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding Message}" Value="{x:Null}">
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Message}" Value="{x:Null}">
 				<Setter TargetName="textBlock_Message" Property="Visibility" Value="Collapsed"></Setter>
 			</DataTrigger>
 		</DataTemplate.Triggers>
@@ -31,11 +21,18 @@
 
 	<DataTemplate x:Key="templateMessageBoxContent_Exception_AdditionalContent" DataType="{x:Type c:ExceptionInfo}">
 		<StackPanel x:Name="panelStackTraceHost" Orientation="Vertical">
-			<TextBlock Text="Stack Trace:" FontWeight="Bold"></TextBlock>
+            <TextBlock x:Name="textBlock_Exception" Padding="0" TextWrapping="Wrap">
+                <Run Text="Exception: " FontWeight="Bold"></Run>
+                <Run Text="{Binding Exception}"></Run>
+            </TextBlock>
+            <TextBlock Text="Stack Trace:" FontWeight="Bold" Margin="0,14,0,0"></TextBlock>
 			<TextBlock Text="{Binding StackTrace}" TextWrapping="Wrap"></TextBlock>
 		</StackPanel>
 		<DataTemplate.Triggers>
-			<DataTrigger Binding="{Binding StackTrace}" Value="{x:Null}">
+            <DataTrigger Binding="{Binding Exception}" Value="{x:Null}">
+                <Setter TargetName="textBlock_Exception" Property="Visibility" Value="Collapsed"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding StackTrace}" Value="{x:Null}">
 				<Setter TargetName="panelStackTraceHost" Property="Visibility" Value="Collapsed"></Setter>
 			</DataTrigger>
 		</DataTemplate.Triggers>

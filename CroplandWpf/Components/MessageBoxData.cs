@@ -229,7 +229,7 @@ namespace CroplandWpf.Components
 			Name = name;
 			Exception = exception;
 			Message = message;
-			StackTrace = stackTrace;
+			StackTrace = stackTrace.Trim();
 		}
 
 		public ExceptionInfo(Exception exception)
