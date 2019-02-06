@@ -198,6 +198,7 @@ namespace CroplandWpf.Components
 			if (e.Property == SearchStringProperty)
 			{
 				IsPopupOpen = !String.IsNullOrEmpty(e.NewValue as string);
+			    _editableTextBox.Text = e.NewValue as string;
 			}
 			if (e.Property == SelectedItemProperty)
 			{
