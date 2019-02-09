@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers"
 					xmlns:c="clr-namespace:CroplandWpf.Components"
-                    xmlns:local="clr-namespace:CroplandWpf.Themes.Default">
+                    xmlns:local="clr-namespace:CroplandWpf.Themes.Default"
+                    xmlns:b="clr-namespace:CroplandWpf.Behaviors">
 
 	<Style x:Key="styleThumb_ColumnHeaderGripper" TargetType="Thumb">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
@@ -348,6 +349,7 @@
 		<Setter Property="Padding" Value="10,0"></Setter>
 		<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
 		<Setter Property="TextTrimming" Value="CharacterEllipsis"></Setter>
+	    <Setter Property="b:TextBoxBehavior.TripleClickSelectAll" Value="True"></Setter>
 	</Style>
 
 	<Style x:Key="styleTextBox_DataGridTextColumn" TargetType="TextBox">
@@ -358,6 +360,7 @@
 		<Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
 		<Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
 		<Setter Property="Padding" Value="5,0"></Setter>
+	    <Setter Property="b:TextBoxBehavior.TripleClickSelectAll" Value="True"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="TextBox">

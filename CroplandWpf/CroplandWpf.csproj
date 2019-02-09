@@ -89,6 +89,7 @@
     <Compile Include="Attached\ToggleButtonHelper.cs" />
     <Compile Include="Attached\ToolTipBeacon.cs" />
     <Compile Include="Attached\VisualHelper.cs" />
+    <Compile Include="Behaviors\TextBoxBehavior.cs" />
     <Compile Include="Components\AlignmentEditor.cs" />
     <Compile Include="Components\BusyIndicator.cs" />
     <Compile Include="Components\ClippingBorder.cs" />

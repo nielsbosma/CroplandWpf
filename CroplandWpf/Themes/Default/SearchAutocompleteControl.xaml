@@ -2,7 +2,8 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"	
 					xmlns:a="clr-namespace:CroplandWpf.Attached"
                     xmlns:c="clr-namespace:CroplandWpf.Components"
-					xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers">
+					xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers"
+					xmlns:b="clr-namespace:CroplandWpf.Behaviors">
 
 	<Style x:Key="styleTextBox_SearchAutocompleteControl" TargetType="TextBox">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
@@ -11,6 +12,7 @@
 		<Setter Property="MinHeight" Value="20"/>
 		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
 		<Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+        <Setter Property="b:TextBoxBehavior.TripleClickSelectAll" Value="True"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="TextBox">

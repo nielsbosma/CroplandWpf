@@ -3,7 +3,8 @@
 					xmlns:c="clr-namespace:CroplandWpf.Components"
 					xmlns:a="clr-namespace:CroplandWpf.Attached"
 					xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers"
-                    xmlns:local="clr-namespace:CroplandWpf.Themes">
+                    xmlns:local="clr-namespace:CroplandWpf.Themes"
+                    xmlns:b="clr-namespace:CroplandWpf.Behaviors">
 
 	<Style x:Key="{x:Type TextBox}" TargetType="TextBox">
 		<Setter Property="OverridesDefaultStyle" Value="True"></Setter>
@@ -18,6 +19,7 @@
 		<Setter Property="a:VisualHelper.HeaderVerticalAlignment" Value="Center"></Setter>
 		<Setter Property="a:VisualHelper.FooterVerticalAlignment" Value="Center"></Setter>
 		<Setter Property="a:VisualHelper.HeaderHorizontalAlignment" Value="Right"></Setter>
+        <Setter Property="b:TextBoxBehavior.TripleClickSelectAll" Value="True"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="TextBox">
