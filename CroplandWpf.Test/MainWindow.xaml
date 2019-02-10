@@ -24,9 +24,8 @@
 		x:Name="windowMain"
 		a:VisualHelper.IconBrush="{DynamicResource brushAppIcon_FileStar}"
 		Style="{DynamicResource styleWindow_Light}">
-	<!--Style="{DynamicResource {x:Type Window}}"-->
 
-	<Window.Resources>
+    <Window.Resources>
 		<DataTemplate x:Key="templateStringTest">
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Text="Text:"/>

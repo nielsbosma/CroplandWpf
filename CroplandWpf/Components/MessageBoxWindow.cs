@@ -220,12 +220,14 @@ namespace CroplandWpf.Components
 			{
                 if (footerButtonDescriptor.CloseWindowOnCommand)
                 {
+                    Result = MessageBoxButton.Close;
                     Close();
                 }
                 footerButtonDescriptor.Command.Execute(parameter);
 			}
             else
             {
+                Result = MessageBoxButton.Close;
                 Close();
             }
 		}

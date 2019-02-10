@@ -553,6 +553,7 @@ namespace CroplandWpf.Components
 			Header = header;
 			CommandExecute = commandExecute;
 			CommandParameter = commandParameter ?? this;
+            CloseWindowOnCommand = closeWindowOnCommand;
 			if (CommandExecute != null)
 				Command = new DelegateCommand(CommandExecute);
 		}
