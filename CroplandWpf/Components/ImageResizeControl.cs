@@ -1,20 +1,15 @@
 ﻿using CroplandWpf.MVVM;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.ComponentModel;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using System.Diagnostics;
+using System.Windows.Media.Imaging;
 
 namespace CroplandWpf.Components
 {
-	public class ImageResizeControl : Control
+    public class ImageResizeControl : Control
 	{
 		public static Guid GetUniqueSourceId(DependencyObject obj)
 		{
@@ -409,8 +404,8 @@ namespace CroplandWpf.Components
 		public override bool Equals(object obj)
 		{
 			ImageResizeInfo other = (ImageResizeInfo)obj;
-			if ((SourceImage == null || other.SourceImage == null) && SourceImage != other.SourceImage)
-				return false;
+		    if (SourceImage == null || other.SourceImage == null)
+                return false;
 			return ImageResizeControl.GetUniqueSourceId(SourceImage) == ImageResizeControl.GetUniqueSourceId(other.SourceImage) && WidthResizeInfo.Equals(other.WidthResizeInfo) && HeightResizeInfo.Equals(other.HeightResizeInfo);
 		}
 
