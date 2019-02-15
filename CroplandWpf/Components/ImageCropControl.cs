@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace CroplandWpf.Components
 {
-	public class ImageCropControl : Control
+    public class ImageCropControl : Control
 	{
 		#region DPs
 		public FileInfo SourceFileInfo
@@ -524,9 +524,13 @@ namespace CroplandWpf.Components
 		{
 			Clear();
 			BitmapImage source = new BitmapImage();
-			source.BeginInit();
-			source.UriSource = new Uri(SourceFileInfo.FullName);
-			source.EndInit();
+		    using (var stream = File.OpenRead(SourceFileInfo.FullName))
+		    {
+                source.BeginInit();
+	    	    source.CacheOption = BitmapCacheOption.OnLoad;
+		        source.StreamSource = stream;
+			    source.EndInit();
+		    }
 			ImageSource = source;
 			AverageBrightness = ImageHelper.CalculateAverageLightness(ImageSource);
 			Color overlayColor = default(Color);
