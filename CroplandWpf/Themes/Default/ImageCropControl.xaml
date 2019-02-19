@@ -257,8 +257,8 @@
 											</a:VisualHelper.Header>
 										</c:ModifiedInputTextBox>
 									</StackPanel>
-									
-									<Button HorizontalAlignment="Center" Margin="0,20,0,0" Command="{TemplateBinding ApplyCommandInternal}">Apply</Button>
+
+                                    <Button x:Name="buttonApply" HorizontalAlignment="Center" Margin="0,20,0,0" Command="{TemplateBinding ApplyCommandInternal}">Apply</Button>
 								</StackPanel>
 
 								<StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,20,0,0">
