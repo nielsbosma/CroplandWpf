@@ -271,7 +271,7 @@ namespace CroplandWpf.Components
             else
                 TargetHeight = (HeightResizeMode == ResizeMode.Relative)
                     ? newWidth
-                    : Math.Round(newWidth * Target.Width / 100 / absoluteSizeAspectRatio);
+                    : Math.Round(newWidth * Target.PixelWidth / 100 / absoluteSizeAspectRatio);
             isConstraintRefresing = false;
         }
 
@@ -287,7 +287,7 @@ namespace CroplandWpf.Components
             else
                 TargetWidth = (WidthResizeMode == ResizeMode.Relative)
                     ? newHeight
-                    : Math.Round(newHeight * Target.Height / 100 * absoluteSizeAspectRatio);
+                    : Math.Round(newHeight * Target.PixelHeight / 100 * absoluteSizeAspectRatio);
             isConstraintRefresing = false;
         }
 
