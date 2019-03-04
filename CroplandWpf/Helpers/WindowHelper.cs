@@ -60,7 +60,18 @@ namespace CroplandWpf.Helpers
 				}
 			}));
 
-		public static System.IntPtr GetHwndPointer(DependencyObject obj)
+	    public static double GetUiScale(DependencyObject obj)
+	    {
+	        return Convert.ToDouble(obj.GetValue(UiScaleProperty));
+	    }
+	    public static void SetUiScale(DependencyObject obj, double value)
+	    {
+	        obj.SetValue(UiScaleProperty, value);
+	    }
+	    public static readonly DependencyProperty UiScaleProperty =
+	        DependencyProperty.RegisterAttached("UiScale", typeof(double), typeof(WindowHelper), new PropertyMetadata(1.0));
+
+        public static System.IntPtr GetHwndPointer(DependencyObject obj)
 		{
 			return (System.IntPtr)obj.GetValue(HwndPointerProperty);
 		}

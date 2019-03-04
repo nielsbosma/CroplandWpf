@@ -345,6 +345,13 @@
 										<ColumnDefinition></ColumnDefinition>
 										<ColumnDefinition Width="Auto"></ColumnDefinition>
 									</Grid.ColumnDefinitions>
+                                    <Grid.LayoutTransform>
+                                        <ScaleTransform 
+                                            CenterX="0" 
+                                            CenterY="0" 
+                                            ScaleX="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(h:WindowHelper.UiScale)}" 
+                                            ScaleY="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(h:WindowHelper.UiScale)}"/>
+                                    </Grid.LayoutTransform>
 
 									<a:RootAdornerLayerHelper Window="{Binding RelativeSource={RelativeSource TemplatedParent}}"></a:RootAdornerLayerHelper>
 
