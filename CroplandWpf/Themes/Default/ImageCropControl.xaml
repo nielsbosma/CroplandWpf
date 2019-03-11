@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:a="clr-namespace:CroplandWpf.Attached"
 					xmlns:ph="clr-namespace:CroplandWpf.PresentationHelpers"
-                    xmlns:c="clr-namespace:CroplandWpf.Components">
+                    xmlns:c="clr-namespace:CroplandWpf.Components"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
 
 	<Style x:Key="{x:Type c:ImageCropThumb}" TargetType="{x:Type c:ImageCropThumb}">
 		<Setter Property="Template">
@@ -256,6 +257,19 @@
 												<TextBlock FontWeight="Bold" Style="{StaticResource styleTextBlock_SupportsDisabled}">Height</TextBlock>
 											</a:VisualHelper.Header>
 										</c:ModifiedInputTextBox>
+
+                                        <ComboBox 
+                                            x:Name="ComboBoxAspectRatio"
+                                            Margin="0,10,0,0" 
+                                            Style="{DynamicResource styleComboBox_Light}" 
+                                            ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=AspectRatioItemsSource, Mode=OneWay}" 
+                                            SelectedIndex="0">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="SelectionChanged">
+                                                    <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=AspectRatioUpdatedCommand}"></i:InvokeCommandAction>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </ComboBox>
 
                                         <TextBlock Margin="5,5,5,0">Scale</TextBlock>
 									    <Slider Margin="5,5,5,0" Minimum="0.1" Maximum="5.0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageScaleFactor, Mode=TwoWay}" a:Slider.ValueStringFormat="{}{0:P0}"></Slider>

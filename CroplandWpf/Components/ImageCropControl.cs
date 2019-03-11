@@ -3,6 +3,7 @@ using CroplandWpf.Helpers;
 using CroplandWpf.MVVM;
 using CroplandWpf.PresentationHelpers;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +18,24 @@ namespace CroplandWpf.Components
 {
     public class ImageCropControl : Control
     {
+        #region Constants
+        private const string AR_FREEFORM = "Freeform";
+        private const string AR_SAMPLE_AS_ORIGINAL = "Sample as original";
+        private const string AR_SQUARE = "Square";
+        private const string AR_GOLDEN_RADIO = "Golden Radio";
+        private const string AR_2X3_IPHONE = "2 X 3 (iPhone)";
+        private const string AR_3X5 = "3 X 5";
+        private const string AR_4X3 = "4 X 3";
+        private const string AR_4X6_POSTCARD = "4 X 6 (Postcard)";
+        private const string AR_5X7 = "5 X 7";
+        private const string AR_8X10 = "8 X 10";
+        private const string AR_16X9 = "16 X 9";
+        private const string AR_FACEBOOK_COVER_PHOTO = "Facebook Cover Photo";
+        private const string AR_640X1136_IPHONE5 = "640 X 1136 (iPhone 5)";
+        private const string AR_1080X1920_IPHONE6PLUS = "1080 X 1920 (iPhone 6 plus)";
+        private const string AR_YOUR_SCREEN = "Your Screen";
+        #endregion
+
         #region DPs
         public FileInfo SourceFileInfo
         {
@@ -212,7 +231,7 @@ namespace CroplandWpf.Components
 
         private static object CoerceImageCropX(DependencyObject o, object value)
         {
-            if (value is int intValue && o is ImageCropControl c)
+            if (coerceImageCrop && value is int intValue && o is ImageCropControl c)
             {
                 if (intValue < 0)
                     return 0;
@@ -224,7 +243,7 @@ namespace CroplandWpf.Components
 
         private static object CoerceImageCropY(DependencyObject o, object value)
         {
-            if (value is int intValue && o is ImageCropControl c)
+            if (coerceImageCrop && value is int intValue && o is ImageCropControl c)
             {
                 if (intValue < 0)
                     return 0;
@@ -236,7 +255,7 @@ namespace CroplandWpf.Components
 
         private static object CoerceImageCropWidth(DependencyObject o, object value)
         {
-            if (value is int intValue && o is ImageCropControl c)
+            if (coerceImageCrop && value is int intValue && o is ImageCropControl c)
             {
                 if (c.IsRectEditable)
                 {
@@ -253,7 +272,7 @@ namespace CroplandWpf.Components
 
         private static object CoerceImageCropHeight(DependencyObject o, object value)
         {
-            if (value is int intValue && o is ImageCropControl c)
+            if (coerceImageCrop && value is int intValue && o is ImageCropControl c)
             {
                 if (c.IsRectEditable)
                 {
@@ -283,6 +302,16 @@ namespace CroplandWpf.Components
         }
         public static readonly DependencyProperty ResizeThumbScaleFactorProperty =
             DependencyProperty.Register("ResizeThumbScaleFactor", typeof(double), typeof(ImageCropControl), new PropertyMetadata(1.0));
+
+        public List<string> AspectRatioItemsSource
+        {
+            get { return (List<string>)GetValue(AspectRatioItemsSourceProperty); }
+            private set { SetValue(AspectRatioItemsSourceProperty, value); }
+        }
+        public static readonly DependencyProperty AspectRatioItemsSourceProperty =
+            DependencyProperty.Register("AspectRatioItemsSource", typeof(List<string>), typeof(ImageCropControl), new PropertyMetadata());
+
+        #endregion
 
         #region Commands
         public DelegateCommand ResizeThumbDragCommand
@@ -323,7 +352,14 @@ namespace CroplandWpf.Components
         }
         public static readonly DependencyProperty CropValueUpdatedCommandProperty =
             DependencyProperty.Register("CropValueUpdatedCommand", typeof(DelegateCommand), typeof(ImageCropControl), new PropertyMetadata());
-        #endregion
+
+        public DelegateCommand AspectRatioUpdatedCommand
+        {
+            get => (DelegateCommand)GetValue(AspectRationUpdatedCommandProperty);
+            private set => SetValue(AspectRationUpdatedCommandProperty, value);
+        }
+        public static readonly DependencyProperty AspectRationUpdatedCommandProperty =
+            DependencyProperty.Register("AspectRatioUpdatedCommand", typeof(DelegateCommand), typeof(ImageCropControl), new PropertyMetadata());
         #endregion
 
         #region Fields
@@ -346,6 +382,14 @@ namespace CroplandWpf.Components
         private ScrollViewer imageScrollViewer;
 
         private ImageCropRect lastSubmittedRect = default(ImageCropRect);
+
+        private ComboBox aspectRatioComboBox;
+
+        private static bool coerceImageCrop = true;
+
+        private bool keepConstraint;
+
+        private double absoluteSizeAspectRatio = 1.0;
         #endregion
 
         #region Ctor/init
@@ -372,6 +416,26 @@ namespace CroplandWpf.Components
             Loaded += ImageCropControl_Loaded;
             Unloaded += ImageCropControl_Unloaded;
             CropValueUpdatedCommand = new DelegateCommand(CropValueUpdatedCommand_Execute);
+            AspectRatioUpdatedCommand = new DelegateCommand(AspectRatioUpdatedCommand_Execute);
+
+            AspectRatioItemsSource = new List<string>
+            {
+                AR_FREEFORM,
+                AR_SAMPLE_AS_ORIGINAL,
+                AR_SQUARE,
+                AR_GOLDEN_RADIO,
+                AR_2X3_IPHONE,
+                AR_3X5,
+                AR_4X3,
+                AR_4X6_POSTCARD,
+                AR_5X7,
+                AR_8X10,
+                AR_16X9,
+                AR_FACEBOOK_COVER_PHOTO,
+                AR_640X1136_IPHONE5,
+                AR_1080X1920_IPHONE6PLUS,
+                AR_YOUR_SCREEN
+            };
         }
 
         private void ImageCropControl_Loaded(object sender, RoutedEventArgs e)
@@ -407,6 +471,10 @@ namespace CroplandWpf.Components
             imageScrollViewer = Template.FindName("PART_ScrollViewer", this) as ScrollViewer;
             if (imageScrollViewer == null)
                 throw new TemplatePartNotFoundException("PART_ScrollViewer", GetType());
+
+            aspectRatioComboBox = Template.FindName("ComboBoxAspectRatio", this) as ComboBox;
+            if (aspectRatioComboBox == null)
+                throw new TemplatePartNotFoundException("ComboBoxAspectRatio", GetType());
         }
         #endregion
 
@@ -482,40 +550,57 @@ namespace CroplandWpf.Components
                     break;
 
                 case ResizeThumbRole.ResizeLeftTop:
-                    CropResultRect = CropResultRect.AddX(hDelta).AddY(vDelta).AddWidth(-hDelta).AddHeight(-vDelta);
+                    CropResultRect = keepConstraint
+                        ? CropResultRect.AddX(vDelta * absoluteSizeAspectRatio).AddY(vDelta).AddWidth(-vDelta * absoluteSizeAspectRatio).AddHeight(-vDelta)
+                        : CropResultRect.AddX(hDelta).AddY(vDelta).AddWidth(-hDelta).AddHeight(-vDelta);
                     break;
 
                 case ResizeThumbRole.ResizeTop:
-                    CropResultRect = CropResultRect.AddY(vDelta).AddHeight(-vDelta);
+                    CropResultRect = keepConstraint
+                        ? CropResultRect.AddX(vDelta * absoluteSizeAspectRatio * .5).AddY(vDelta).AddWidth(-vDelta * absoluteSizeAspectRatio).AddHeight(-vDelta)
+                        : CropResultRect.AddY(vDelta).AddHeight(-vDelta);
                     break;
 
                 case ResizeThumbRole.ResizeRightTop:
-                    CropResultRect = CropResultRect.AddY(vDelta).AddHeight(-vDelta).AddWidth(hDelta);
+                    CropResultRect = keepConstraint
+                        ? CropResultRect.AddY(vDelta).AddWidth(-vDelta * absoluteSizeAspectRatio).AddHeight(-vDelta)
+                        : CropResultRect.AddY(vDelta).AddHeight(-vDelta).AddWidth(hDelta);
                     break;
 
                 case ResizeThumbRole.ResizeLeft:
-                    CropResultRect = CropResultRect.AddX(hDelta).AddWidth(-hDelta);
+                    CropResultRect = keepConstraint
+                        ? CropResultRect.AddX(hDelta).AddY(hDelta * .5 / absoluteSizeAspectRatio).AddWidth(-hDelta).AddHeight(-hDelta / absoluteSizeAspectRatio)
+                        : CropResultRect.AddX(hDelta).AddWidth(-hDelta);
                     break;
 
                 case ResizeThumbRole.ResizeRight:
-                    CropResultRect = CropResultRect.AddWidth(hDelta);
+                    CropResultRect = keepConstraint
+                        ? CropResultRect.AddWidth(hDelta).AddY(-hDelta * .5 / absoluteSizeAspectRatio).AddHeight(hDelta / absoluteSizeAspectRatio)
+                        : CropResultRect.AddWidth(hDelta);
                     break;
 
                 case ResizeThumbRole.ResizeLeftBottom:
-                    CropResultRect = CropResultRect.AddX(hDelta).AddWidth(-hDelta).AddHeight(vDelta);
+                    CropResultRect = keepConstraint
+                        ? CropResultRect.AddX(-vDelta * absoluteSizeAspectRatio).AddWidth(vDelta * absoluteSizeAspectRatio).AddHeight(vDelta)
+                        : CropResultRect.AddX(hDelta).AddWidth(-hDelta).AddHeight(vDelta);
                     break;
 
                 case ResizeThumbRole.ResizeBottom:
-                    CropResultRect = CropResultRect.AddHeight(vDelta);
+                    CropResultRect = keepConstraint
+                        ? CropResultRect.AddX(-vDelta * absoluteSizeAspectRatio * .5).AddWidth(vDelta * absoluteSizeAspectRatio).AddHeight(vDelta)
+                        : CropResultRect.AddHeight(vDelta);
                     break;
 
                 case ResizeThumbRole.ResizeRightBottom:
-                    CropResultRect = CropResultRect.AddWidth(hDelta).AddHeight(vDelta);
+                    CropResultRect = keepConstraint
+                        ? CropResultRect.AddWidth(vDelta * absoluteSizeAspectRatio).AddHeight(vDelta)
+                        : CropResultRect.AddWidth(hDelta).AddHeight(vDelta);
                     break;
 
                 default:
                     break;
             }
+            if (keepConstraint) NormalizeImageProportions();
             refreshCropElementsPosition = false;
         }
 
@@ -631,6 +716,89 @@ namespace CroplandWpf.Components
             CropResultRect = new ImageCropRect(CropX, CropY, CropWidth, CropHeight);
             refreshCropElementsPosition = false;
         }
+
+        private void AspectRatioUpdatedCommand_Execute(object obj)
+        {
+            var width = (int)imageCanvas.Width;
+            var height = (int)imageCanvas.Height;
+            var hCoef = 1;
+            var wCoef = 1;
+            keepConstraint = true;
+            coerceImageCrop = false;
+
+            switch (aspectRatioComboBox.SelectedValue)
+            {
+                case AR_FREEFORM:
+                    CropX = 0;
+                    CropY = 0;
+                    CropWidth = width;
+                    CropHeight = height;
+                    keepConstraint = false;
+                    break;
+
+                case AR_SAMPLE_AS_ORIGINAL:
+                    CropX = 0;
+                    CropY = 0;
+                    CropWidth = width;
+                    CropHeight = height;
+                    absoluteSizeAspectRatio = (double)width / height;
+                    break;
+
+                case AR_SQUARE:
+                    GenerateCropResultByAspectRatio(1, 1);
+                    break;
+
+                case AR_GOLDEN_RADIO:
+                    GenerateCropResultByAspectRatio(62, 38);
+                    break;
+
+                case AR_2X3_IPHONE:
+                    GenerateCropResultByAspectRatio(2, 3);
+                    break;
+
+                case AR_3X5:
+                    GenerateCropResultByAspectRatio(3, 5);
+                    break;
+
+                case AR_4X3:
+                    GenerateCropResultByAspectRatio(4, 3);
+                    break;
+
+                case AR_4X6_POSTCARD:
+                    GenerateCropResultByAspectRatio(4, 6);
+                    break;
+
+                case AR_5X7:
+                    GenerateCropResultByAspectRatio(5, 7);
+                    break;
+
+                case AR_8X10:
+                    GenerateCropResultByAspectRatio(8, 10);
+                    break;
+
+                case AR_16X9:
+                    GenerateCropResultByAspectRatio(16, 9);
+                    break;
+
+                case AR_FACEBOOK_COVER_PHOTO:
+                    GenerateCropResultByAspectRatio(851, 315);
+                    break;
+
+                case AR_640X1136_IPHONE5:
+                    GenerateCropResultByAspectRatio(640, 1136);
+                    break;
+
+                case AR_1080X1920_IPHONE6PLUS:
+                    GenerateCropResultByAspectRatio(9, 16);
+                    break;
+
+                case AR_YOUR_SCREEN:
+                    GenerateCropResultByAspectRatio((int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight);
+                    break;
+            }
+            CropValueUpdatedCommand_Execute(null);
+            coerceImageCrop = true;
+        }
         #endregion
 
         #region Private methods
@@ -717,6 +885,34 @@ namespace CroplandWpf.Components
             lastSubmittedRect = default(ImageCropRect);
             IsRectEditable = false;
             CropResultRect = default(ImageCropRect);
+        }
+
+        private void GenerateCropResultByAspectRatio(float wRatio, float hRatio)
+        {
+            var width = (int)imageCanvas.Width;
+            var height = (int)imageCanvas.Height;
+            absoluteSizeAspectRatio = (double)wRatio / hRatio;
+
+            if (width / wRatio < height / hRatio)
+            {
+                CropWidth = width;
+                CropHeight = (int)(width / wRatio * hRatio);
+                CropX = 0;
+                CropY = (int)((height - CropHeight) * .5);
+            }
+            else
+            {
+                CropWidth = (int)(height / hRatio * wRatio);
+                CropHeight = height;
+                CropX = (int)((width - CropWidth) * .5);
+                CropY = 0;
+            }
+        }
+
+        private void NormalizeImageProportions()
+        {
+            var widthOffset = CropResultRect.Height * absoluteSizeAspectRatio - CropResultRect.Width;
+            CropResultRect = CropResultRect.AddWidth(widthOffset);
         }
         #endregion
     }
