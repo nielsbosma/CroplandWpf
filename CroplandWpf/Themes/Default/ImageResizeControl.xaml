@@ -18,13 +18,14 @@
 		<Setter Property="a:VisualHelper.FooterHorizontalAlignment" Value="Left"></Setter>
 		<Setter Property="a:VisualHelper.HeaderVerticalAlignment" Value="Center"></Setter>
 		<Setter Property="a:VisualHelper.FooterVerticalAlignment" Value="Center"></Setter>
+        <Setter Property="a:VisualHelper.CornerRadius" Value="2"></Setter>
 		<Setter Property="InputModifierType" Value="{x:Type c:SizeValueTextModifier}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:ModifiedInputTextBox">
 					<c:HeaderFooterContentControl HeaderFooterPropertiesSource="{Binding RelativeSource={RelativeSource TemplatedParent}}">
 						<Grid>
-							<Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
+                            <Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}" CornerRadius="2"></Border>
 							<Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.CornerRadius)}" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}">
 								<Grid>
 									<ph:KeyboardFocusRedirectControl FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
@@ -140,6 +141,7 @@
 	<Style x:Key="{x:Type c:ImageResizeControl}" TargetType="c:ImageResizeControl">
 		<Setter Property="MinWidth" Value="252"></Setter>
 		<Setter Property="BorderBrush" Value="Transparent"></Setter>
+	    <Setter Property="BorderThickness" Value="1"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="c:ImageResizeControl">
