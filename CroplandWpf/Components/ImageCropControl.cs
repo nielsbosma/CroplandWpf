@@ -367,6 +367,8 @@ namespace CroplandWpf.Components
 
         private Canvas imageCanvas;
 
+        private ImageCropThumb imageCropThumb;
+
         private CombinedGeometry overlayClipGeometry;
 
         private Grid imageHost;
@@ -468,6 +470,10 @@ namespace CroplandWpf.Components
             if (imageCanvas == null)
                 throw new TemplatePartNotFoundException("PART_ImageCanvas", GetType());
 
+            imageCropThumb = Template.FindName("cropThumb", this) as ImageCropThumb;
+            if (imageCropThumb == null)
+                throw new TemplatePartNotFoundException("cropThumb", GetType());
+
             imageScrollViewer = Template.FindName("PART_ScrollViewer", this) as ScrollViewer;
             if (imageScrollViewer == null)
                 throw new TemplatePartNotFoundException("PART_ScrollViewer", GetType());
@@ -498,6 +504,21 @@ namespace CroplandWpf.Components
                     ImageBrush = new ImageBrush(ImageSource) { AlignmentX = AlignmentX.Left, AlignmentY = AlignmentY.Top, Stretch = Stretch.Fill };
                     imageCanvas.Width = ImageSource.PixelWidth;
                     imageCanvas.Height = ImageSource.PixelHeight;
+                    imageCanvas.MouseDown += (sender, args) =>
+                    {
+                        cropOverlay.Visibility = Visibility.Collapsed;
+                        ResizeWrapperVisibility = Visibility.Collapsed;
+                        CropX = 0;
+                        CropY = 0;
+                        CropWidth = 0;
+                        CropHeight = 0;
+                        lastSubmittedRect = default(ImageCropRect);
+                        IsRectEditable = false;
+                        CropResultRect = default(ImageCropRect);
+
+                        var pos = args.GetPosition(imageCanvas);
+                        imageCropThumb.RaiseEvent(new DragStartedEventArgs(pos.X, pos.Y));
+                    };
                     ImageScaleFactor = Math.Min((imageScrollViewer.ViewportWidth - 10) / ImageSource.PixelWidth,
                         (imageScrollViewer.ViewportHeight - 10) / ImageSource.PixelHeight);
                 }
@@ -537,10 +558,10 @@ namespace CroplandWpf.Components
             //TODO --validation
             double hDelta = deltaInfo.hChange, vDelta = deltaInfo.vChange;
 
-            if ((hDelta < 0 && CropResultRect.X == 0) || (hDelta > 0 && (CropResultRect.X + CropResultRect.Width) > imageCanvas.Width))
+            if ((hDelta < 0 && CropResultRect.X + hDelta < 0) || (hDelta > 0 && (CropResultRect.X + CropResultRect.Width + hDelta) > imageCanvas.Width))
                 hDelta = 0;
 
-            if ((vDelta < 0 && CropResultRect.Y == 0) || (vDelta > 0 && (CropResultRect.Y + CropResultRect.Height) > imageCanvas.Height))
+            if ((vDelta < 0 && CropResultRect.Y + vDelta < 0) || (vDelta > 0 && (CropResultRect.Y + CropResultRect.Height + vDelta) > imageCanvas.Height))
                 vDelta = 0;
 
             switch (deltaInfo.Role)
