@@ -230,7 +230,7 @@
 									<RowDefinition Height="Auto"></RowDefinition>
 								</Grid.RowDefinitions>
 
-								<Grid x:Name="panelControlsHost" MinWidth="200">
+								<Grid x:Name="panelControlsHost" MinWidth="210">
                                     <Grid.RowDefinitions>
                                         <RowDefinition></RowDefinition>
                                         <RowDefinition></RowDefinition>
