@@ -521,6 +521,17 @@ namespace CroplandWpf.Components
                     };
                     ImageScaleFactor = Math.Min((imageScrollViewer.ViewportWidth - 10) / ImageSource.PixelWidth,
                         (imageScrollViewer.ViewportHeight - 10) / ImageSource.PixelHeight);
+
+                    CropResultRect = new ImageCropRect(0, 0, imageCanvas.Width, imageCanvas.Height);
+                    CropX = CropResultRect.X;
+                    CropY = CropResultRect.Y;
+                    CropWidth = CropResultRect.Width;
+                    CropHeight = CropResultRect.Height;
+                    clipGeometry1.Rect = new Rect(0, 0, imageCanvas.Width, imageCanvas.Height);
+                    clipGeometry2.Rect = new Rect(0, 0, imageCanvas.Width, imageCanvas.Height);
+                    IsRectEditable = true;
+                    ResizeWrapperVisibility = Visibility.Visible;
+                    cropOverlay.Visibility = Visibility.Visible;
                 }
             }
             if (e.Property == DragStartPointProperty || e.Property == CurrentDragPointProperty || e.Property == DragCompletedPointProperty)
@@ -558,15 +569,16 @@ namespace CroplandWpf.Components
             //TODO --validation
             double hDelta = deltaInfo.hChange, vDelta = deltaInfo.vChange;
 
-            if ((hDelta < 0 && CropResultRect.X + hDelta < 0) || (hDelta > 0 && (CropResultRect.X + CropResultRect.Width + hDelta) > imageCanvas.Width))
-                hDelta = 0;
-
-            if ((vDelta < 0 && CropResultRect.Y + vDelta < 0) || (vDelta > 0 && (CropResultRect.Y + CropResultRect.Height + vDelta) > imageCanvas.Height))
-                vDelta = 0;
 
             switch (deltaInfo.Role)
             {
                 case ResizeThumbRole.Move:
+                    if ((hDelta < 0 && CropResultRect.X + hDelta < 0) || (hDelta > 0 && (CropResultRect.X + CropResultRect.Width + hDelta) > imageCanvas.Width))
+                        hDelta = 0;
+
+                    if ((vDelta < 0 && CropResultRect.Y + vDelta < 0) || (vDelta > 0 && (CropResultRect.Y + CropResultRect.Height + vDelta) > imageCanvas.Height))
+                        vDelta = 0;
+
                     CropResultRect = CropResultRect.AddX(hDelta).AddY(vDelta);
                     break;
 
