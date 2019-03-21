@@ -5,244 +5,244 @@
                     xmlns:c="clr-namespace:CroplandWpf.Components"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
 
-	<Style x:Key="{x:Type c:ImageCropThumb}" TargetType="{x:Type c:ImageCropThumb}">
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="c:ImageCropThumb">
-					<Border Background="Transparent"></Border>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-	<Style x:Key="styleControlResizeThumb_ImageCropControl" TargetType="c:ImageCropResizeThumb">
-		<Setter Property="Width" Value="10"></Setter>
-		<Setter Property="Height" Value="10"></Setter>
-		<Setter Property="MinWidth" Value="1"></Setter>
-		<Setter Property="MinHeight" Value="1"></Setter>
-		<Setter Property="RenderTransformOrigin" Value="0,0"></Setter>
-		<Setter Property="Background" Value="Transparent"></Setter>
-		<Setter Property="HorizontalAlignment" Value="Left"></Setter>
-		<Setter Property="VerticalAlignment" Value="Top"></Setter>
-		<Setter Property="Cursor" Value="SizeNWSE"></Setter>
-		<Setter Property="RenderTransform">
-			<Setter.Value>
-				<ScaleTransform ScaleX="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:ImageResizeWrapper}, Path=ScaleFactor, Mode=OneWay}" ScaleY="{Binding RelativeSource={RelativeSource Self}, Path=ScaleX}"></ScaleTransform>
-			</Setter.Value>
-		</Setter>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="c:ImageCropResizeThumb">
-					<Grid Background="{TemplateBinding Background}">
-						<Rectangle x:Name="rectangleH" Fill="Black" Height="2" VerticalAlignment="Top" HorizontalAlignment="Stretch"></Rectangle>
-						<Rectangle x:Name="rectangleV" Fill="Black" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Left"></Rectangle>
-					</Grid>
-					<ControlTemplate.Triggers>
-						<Trigger Property="Role" Value="ResizeTop">
-							<Setter TargetName="rectangleV" Property="Visibility" Value="Collapsed"></Setter>
-							<Setter Property="RenderTransformOrigin" Value="0.5, 0.0"></Setter>
-							<Setter Property="Height" Value="4.0"></Setter>
-							<Setter Property="HorizontalAlignment" Value="Center"></Setter>
-							<Setter Property="Cursor" Value="SizeNS"></Setter>
-						</Trigger>
-						<Trigger Property="Role" Value="ResizeRightTop">
-							<Setter TargetName="rectangleV" Property="HorizontalAlignment" Value="Right"></Setter>
-							<Setter Property="RenderTransformOrigin" Value="1.0,0.0"></Setter>
-							<Setter Property="HorizontalAlignment" Value="Right"></Setter>
-							<Setter Property="Cursor" Value="SizeNESW"></Setter>
-						</Trigger>
-						<Trigger Property="Role" Value="ResizeLeft">
-							<Setter TargetName="rectangleH" Property="Visibility" Value="Collapsed"></Setter>
-							<Setter Property="RenderTransformOrigin" Value="0.0,0.5"></Setter>
-							<Setter Property="Width" Value="4.0"></Setter>
-							<Setter Property="VerticalAlignment" Value="Center"></Setter>
-							<Setter Property="Cursor" Value="SizeWE"></Setter>
-						</Trigger>
-						<Trigger Property="Role" Value="ResizeRight">
-							<Setter TargetName="rectangleH" Property="Visibility" Value="Collapsed"></Setter>
-							<Setter Property="RenderTransformOrigin" Value="1.0,0.5"></Setter>
-							<Setter Property="Width" Value="4.0"></Setter>
-							<Setter Property="VerticalAlignment" Value="Center"></Setter>
-							<Setter Property="HorizontalAlignment" Value="Right"></Setter>
-							<Setter Property="Cursor" Value="SizeWE"></Setter>
-							<Setter TargetName="rectangleV" Property="HorizontalAlignment" Value="Right"></Setter>
-						</Trigger>
-						<Trigger Property="Role" Value="ResizeLeftBottom">
-							<Setter TargetName="rectangleH" Property="VerticalAlignment" Value="Bottom"></Setter>
-							<Setter Property="RenderTransformOrigin" Value="0.0,1.0"></Setter>
-							<Setter Property="VerticalAlignment" Value="Bottom"></Setter>
-							<Setter Property="Cursor" Value="SizeNESW"></Setter>
-						</Trigger>
-						<Trigger Property="Role" Value="ResizeBottom">
-							<Setter TargetName="rectangleV" Property="Visibility" Value="Collapsed"></Setter>
-							<Setter Property="Height" Value="4.0"></Setter>
-							<Setter Property="RenderTransformOrigin" Value="0.5,1.0"></Setter>
-							<Setter Property="VerticalAlignment" Value="Bottom"></Setter>
-							<Setter Property="HorizontalAlignment" Value="Center"></Setter>
-							<Setter Property="Cursor" Value="SizeNS"></Setter>
-							<Setter TargetName="rectangleH" Property="VerticalAlignment" Value="Bottom"></Setter>
-						</Trigger>
-						<Trigger Property="Role" Value="ResizeRightBottom">
-							<Setter TargetName="rectangleH" Property="VerticalAlignment" Value="Bottom"></Setter>
-							<Setter TargetName="rectangleV" Property="HorizontalAlignment" Value="Right"></Setter>
-							<Setter Property="RenderTransformOrigin" Value="1.0,1.0"></Setter>
-							<Setter Property="VerticalAlignment" Value="Bottom"></Setter>
-							<Setter Property="HorizontalAlignment" Value="Right"></Setter>
-						</Trigger>
-						<Trigger Property="Role" Value="Move">
-							<Setter TargetName="rectangleH" Property="Visibility" Value="Collapsed"></Setter>
-							<Setter TargetName="rectangleV" Property="Visibility" Value="Collapsed"></Setter>
-							<Setter Property="Width" Value="Auto"></Setter>
-							<Setter Property="Height" Value="Auto"></Setter>
-							<Setter Property="Cursor" Value="SizeAll"></Setter>
-							<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
-							<Setter Property="VerticalAlignment" Value="Stretch"></Setter>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-	<Style x:Key="styleImageResizeWrapper_ImageCropControl" TargetType="c:ImageResizeWrapper">
-		<Setter Property="MinWidth" Value="1"></Setter>
-		<Setter Property="MinHeight" Value="1"></Setter>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="c:ImageResizeWrapper">
-					<c:ClippingBorder Background="Transparent">
-						<Grid>
-							<c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="Move"></c:ImageCropResizeThumb>
-							<c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeLeftTop"></c:ImageCropResizeThumb>
-							<c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeTop"></c:ImageCropResizeThumb>
-							<c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeRightTop"></c:ImageCropResizeThumb>
-							<c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeLeft"></c:ImageCropResizeThumb>
-							<c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeRight"></c:ImageCropResizeThumb>
-							<c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeLeftBottom"></c:ImageCropResizeThumb>
-							<c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeBottom"></c:ImageCropResizeThumb>
-							<c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeRightBottom"></c:ImageCropResizeThumb>
-						</Grid>
-					</c:ClippingBorder>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-	<Style x:Key="styleModifiedInputTextBox_ImageCropControl" TargetType="c:ModifiedInputTextBox">
-	    <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-	    <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
-	    <Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
-	    <Setter Property="FontSize" Value="9.5pt"></Setter>
-	    <Setter Property="MinHeight" Value="30"></Setter>
-	    <Setter Property="MinWidth" Value="75"></Setter>
-	    <Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
-	    <Setter Property="a:VisualHelper.HeaderAlignment" Value="Left"></Setter>
-	    <Setter Property="a:VisualHelper.FooterAlignment" Value="Right"></Setter>
-	    <Setter Property="a:VisualHelper.HeaderHorizontalAlignment" Value="Right"></Setter>
-	    <Setter Property="a:VisualHelper.FooterHorizontalAlignment" Value="Left"></Setter>
-	    <Setter Property="a:VisualHelper.HeaderVerticalAlignment" Value="Center"></Setter>
-	    <Setter Property="a:VisualHelper.FooterVerticalAlignment" Value="Center"></Setter>
-	    <Setter Property="InputModifierType" Value="{x:Type c:SizeValueTextModifier}"></Setter>
-	    <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
+    <Style x:Key="{x:Type c:ImageCropThumb}" TargetType="{x:Type c:ImageCropThumb}">
         <Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="c:ModifiedInputTextBox">
-					<c:HeaderFooterContentControl HeaderFooterPropertiesSource="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-					    <Grid>
-					        <Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
-					        <Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.CornerRadius)}" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}">
-					            <Grid>
-					                <ph:KeyboardFocusRedirectControl FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
-					                <ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="6,0"></ScrollViewer>
-					                <Border x:Name="borderFocusVisual" Opacity="0.0" IsHitTestVisible="False" BorderBrush="{DynamicResource brushControl_Background_Dark}" BorderThickness="1" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}"></Border>
-					            </Grid>
-					        </Border>
-					    </Grid>
+            <Setter.Value>
+                <ControlTemplate TargetType="c:ImageCropThumb">
+                    <Border Background="Transparent"></Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="styleControlResizeThumb_ImageCropControl" TargetType="c:ImageCropResizeThumb">
+        <Setter Property="Width" Value="10"></Setter>
+        <Setter Property="Height" Value="10"></Setter>
+        <Setter Property="MinWidth" Value="1"></Setter>
+        <Setter Property="MinHeight" Value="1"></Setter>
+        <Setter Property="RenderTransformOrigin" Value="0,0"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+        <Setter Property="Cursor" Value="SizeNWSE"></Setter>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=c:ImageResizeWrapper}, Path=ScaleFactor, Mode=OneWay}" ScaleY="{Binding RelativeSource={RelativeSource Self}, Path=ScaleX}"></ScaleTransform>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:ImageCropResizeThumb">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Rectangle x:Name="rectangleH" Fill="Black" Height="2" VerticalAlignment="Top" HorizontalAlignment="Stretch"></Rectangle>
+                        <Rectangle x:Name="rectangleV" Fill="Black" Width="2" VerticalAlignment="Stretch" HorizontalAlignment="Left"></Rectangle>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Role" Value="ResizeTop">
+                            <Setter TargetName="rectangleV" Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter Property="RenderTransformOrigin" Value="0.5, 0.0"></Setter>
+                            <Setter Property="Height" Value="4.0"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                            <Setter Property="Cursor" Value="SizeNS"></Setter>
+                        </Trigger>
+                        <Trigger Property="Role" Value="ResizeRightTop">
+                            <Setter TargetName="rectangleV" Property="HorizontalAlignment" Value="Right"></Setter>
+                            <Setter Property="RenderTransformOrigin" Value="1.0,0.0"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+                            <Setter Property="Cursor" Value="SizeNESW"></Setter>
+                        </Trigger>
+                        <Trigger Property="Role" Value="ResizeLeft">
+                            <Setter TargetName="rectangleH" Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter Property="RenderTransformOrigin" Value="0.0,0.5"></Setter>
+                            <Setter Property="Width" Value="4.0"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                            <Setter Property="Cursor" Value="SizeWE"></Setter>
+                        </Trigger>
+                        <Trigger Property="Role" Value="ResizeRight">
+                            <Setter TargetName="rectangleH" Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter Property="RenderTransformOrigin" Value="1.0,0.5"></Setter>
+                            <Setter Property="Width" Value="4.0"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+                            <Setter Property="Cursor" Value="SizeWE"></Setter>
+                            <Setter TargetName="rectangleV" Property="HorizontalAlignment" Value="Right"></Setter>
+                        </Trigger>
+                        <Trigger Property="Role" Value="ResizeLeftBottom">
+                            <Setter TargetName="rectangleH" Property="VerticalAlignment" Value="Bottom"></Setter>
+                            <Setter Property="RenderTransformOrigin" Value="0.0,1.0"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+                            <Setter Property="Cursor" Value="SizeNESW"></Setter>
+                        </Trigger>
+                        <Trigger Property="Role" Value="ResizeBottom">
+                            <Setter TargetName="rectangleV" Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter Property="Height" Value="4.0"></Setter>
+                            <Setter Property="RenderTransformOrigin" Value="0.5,1.0"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                            <Setter Property="Cursor" Value="SizeNS"></Setter>
+                            <Setter TargetName="rectangleH" Property="VerticalAlignment" Value="Bottom"></Setter>
+                        </Trigger>
+                        <Trigger Property="Role" Value="ResizeRightBottom">
+                            <Setter TargetName="rectangleH" Property="VerticalAlignment" Value="Bottom"></Setter>
+                            <Setter TargetName="rectangleV" Property="HorizontalAlignment" Value="Right"></Setter>
+                            <Setter Property="RenderTransformOrigin" Value="1.0,1.0"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+                        </Trigger>
+                        <Trigger Property="Role" Value="Move">
+                            <Setter TargetName="rectangleH" Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter TargetName="rectangleV" Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter Property="Width" Value="Auto"></Setter>
+                            <Setter Property="Height" Value="Auto"></Setter>
+                            <Setter Property="Cursor" Value="SizeAll"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="styleImageResizeWrapper_ImageCropControl" TargetType="c:ImageResizeWrapper">
+        <Setter Property="MinWidth" Value="1"></Setter>
+        <Setter Property="MinHeight" Value="1"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:ImageResizeWrapper">
+                    <c:ClippingBorder Background="Transparent">
+                        <Grid>
+                            <c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="Move"></c:ImageCropResizeThumb>
+                            <c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeLeftTop"></c:ImageCropResizeThumb>
+                            <c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeTop"></c:ImageCropResizeThumb>
+                            <c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeRightTop"></c:ImageCropResizeThumb>
+                            <c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeLeft"></c:ImageCropResizeThumb>
+                            <c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeRight"></c:ImageCropResizeThumb>
+                            <c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeLeftBottom"></c:ImageCropResizeThumb>
+                            <c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeBottom"></c:ImageCropResizeThumb>
+                            <c:ImageCropResizeThumb DragCommand="{TemplateBinding ThumbDragCommand}" Style="{StaticResource styleControlResizeThumb_ImageCropControl}" Role="ResizeRightBottom"></c:ImageCropResizeThumb>
+                        </Grid>
+                    </c:ClippingBorder>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="styleModifiedInputTextBox_ImageCropControl" TargetType="c:ModifiedInputTextBox">
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+        <Setter Property="Foreground" Value="{DynamicResource brushControl_Foreground_Dark}"></Setter>
+        <Setter Property="FontSize" Value="9.5pt"></Setter>
+        <Setter Property="MinHeight" Value="30"></Setter>
+        <Setter Property="MinWidth" Value="75"></Setter>
+        <Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
+        <Setter Property="a:VisualHelper.HeaderAlignment" Value="Left"></Setter>
+        <Setter Property="a:VisualHelper.FooterAlignment" Value="Right"></Setter>
+        <Setter Property="a:VisualHelper.HeaderHorizontalAlignment" Value="Right"></Setter>
+        <Setter Property="a:VisualHelper.FooterHorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="a:VisualHelper.HeaderVerticalAlignment" Value="Center"></Setter>
+        <Setter Property="a:VisualHelper.FooterVerticalAlignment" Value="Center"></Setter>
+        <Setter Property="InputModifierType" Value="{x:Type c:SizeValueTextModifier}"></Setter>
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:ModifiedInputTextBox">
+                    <c:HeaderFooterContentControl HeaderFooterPropertiesSource="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                        <Grid>
+                            <Border x:Name="borderEffectHost" Background="{TemplateBinding Background}" Effect="{DynamicResource effectShadow_Small}"></Border>
+                            <Border x:Name="borderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(a:VisualHelper.CornerRadius)}" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}">
+                                <Grid>
+                                    <ph:KeyboardFocusRedirectControl FocusTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"></ph:KeyboardFocusRedirectControl>
+                                    <ScrollViewer x:Name="PART_ContentHost" Style="{DynamicResource styleScrollViewer_TextBox}" Margin="6,0"></ScrollViewer>
+                                    <Border x:Name="borderFocusVisual" Opacity="0.0" IsHitTestVisible="False" BorderBrush="{DynamicResource brushControl_Background_Dark}" BorderThickness="1" CornerRadius="{Binding ElementName=borderBackground, Path=CornerRadius}"></Border>
+                                </Grid>
+                            </Border>
+                        </Grid>
                     </c:HeaderFooterContentControl>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsEnabled" Value="False">
-							<Trigger.EnterActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.100"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.EnterActions>
-							<Trigger.ExitActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.100"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.ExitActions>
-						</Trigger>
-						<Trigger Property="IsKeyboardFocused" Value="True">
-							<Trigger.EnterActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.0" To="0.5" Duration="00:00:00.100"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.EnterActions>
-							<Trigger.ExitActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.5" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.ExitActions>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.6" Duration="00:00:00.100"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1.0" Duration="00:00:00.100"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.0" To="0.5" Duration="00:00:00.100"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="borderFocusVisual" Storyboard.TargetProperty="Opacity" From="0.5" To="0.0" Duration="00:00:00.100"></DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-	<Style x:Key="styleTextBlock_SupportsDisabled" TargetType="TextBlock">
-		<Style.Triggers>
-			<Trigger Property="IsEnabled" Value="False">
-				<Setter Property="Opacity" Value="0.6"></Setter>
-			</Trigger>
-		</Style.Triggers>
-	</Style>
+    <Style x:Key="styleTextBlock_SupportsDisabled" TargetType="TextBlock">
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.6"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
-	<DataTemplate x:Key="templateToolTip_ImageCropControl_Scale">
-		<TextBlock Text="{Binding StringFormat='{}{0:P0}'}" Background="Red"></TextBlock>
-	</DataTemplate>
+    <DataTemplate x:Key="templateToolTip_ImageCropControl_Scale">
+        <TextBlock Text="{Binding StringFormat='{}{0:P0}'}" Background="Red"></TextBlock>
+    </DataTemplate>
 
-	<Style x:Key="{x:Type c:ImageCropControl}" TargetType="c:ImageCropControl">
-		<Setter Property="BorderBrush" Value="LightGray"></Setter>
-		<Setter Property="BorderThickness" Value="1"></Setter>
-		<Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
-	    <Setter Property="MinWidth" Value="252"></Setter>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="c:ImageCropControl">
-					<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3">
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"></ColumnDefinition>
-								<ColumnDefinition Width="*"></ColumnDefinition>
-							</Grid.ColumnDefinitions>
+    <Style x:Key="{x:Type c:ImageCropControl}" TargetType="c:ImageCropControl">
+        <Setter Property="BorderBrush" Value="LightGray"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="Background" Value="{DynamicResource brushControl_Background_Light}"></Setter>
+        <Setter Property="MinWidth" Value="252"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:ImageCropControl">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
-							<Grid Grid.Column="0" Margin="10">
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto"></RowDefinition>
-								</Grid.RowDefinitions>
+                            <Grid Grid.Column="0" Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
 
-								<Grid x:Name="panelControlsHost" MinWidth="210">
+                                <Grid x:Name="panelControlsHost" MinWidth="210">
                                     <Grid.RowDefinitions>
                                         <RowDefinition></RowDefinition>
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
-								    <!--<TextBlock FontWeight="Bold" Style="{StaticResource styleTextBlock_SupportsDisabled}">Original size:</TextBlock>
+                                    <!--<TextBlock FontWeight="Bold" Style="{StaticResource styleTextBlock_SupportsDisabled}">Original size:</TextBlock>
 									<TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OriginalImageSize}" Margin="0,5,0,0" Style="{StaticResource styleTextBlock_SupportsDisabled}"></TextBlock>-->
 
-									<Grid Grid.Row="0" IsSharedSizeScope="True" IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsRectEditable, Mode=OneWay}">
+                                    <Grid Grid.Row="0" IsSharedSizeScope="True" IsEnabled="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsRectEditable, Mode=OneWay}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-									    <Grid.RowDefinitions>
+                                        <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"></RowDefinition>
                                             <RowDefinition Height="Auto"></RowDefinition>
                                             <RowDefinition Height="Auto"></RowDefinition>
@@ -252,12 +252,12 @@
                                             <RowDefinition Height="Auto"></RowDefinition>
                                             <RowDefinition Height="Auto"></RowDefinition>
                                         </Grid.RowDefinitions>
-									    <c:ModifiedInputTextBox Grid.Row="0" Margin="5,4" Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" a:VisualHelper.Header="X:" a:VisualHelper.HeaderSharedGroupName="a1" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropX, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}" />
+                                        <c:ModifiedInputTextBox Grid.Row="0" Margin="5,4" Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" a:VisualHelper.Header="X:" a:VisualHelper.HeaderSharedGroupName="a1" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropX, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}" />
                                         <c:ModifiedInputTextBox Grid.Row="1" Margin="5,4" Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" a:VisualHelper.Header="Y:" a:VisualHelper.HeaderSharedGroupName="a1" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropY, Mode=TwoWay, UpdateSourceTrigger=Explicit}"  ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}" />
                                         <c:ModifiedInputTextBox Grid.Row="2" Margin="5,4" Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" a:VisualHelper.Header="Width:" a:VisualHelper.HeaderSharedGroupName="a1" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropWidth, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}"/>
                                         <c:ModifiedInputTextBox Grid.Row="3" Margin="5,4" Style="{StaticResource styleModifiedInputTextBox_ImageCropControl}" a:VisualHelper.Header="Height:" a:VisualHelper.HeaderSharedGroupName="a1" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropHeight, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ValueUpdatedCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropValueUpdatedCommand}"/>
 
-									    <TextBlock Grid.Row="4" Margin="5,10,5,0">Aspect Ratio:</TextBlock>
+                                        <TextBlock Grid.Row="4" Margin="5,10,5,0">Aspect Ratio:</TextBlock>
                                         <ComboBox 
                                             x:Name="ComboBoxAspectRatio"
                                             Grid.Row="5" 
@@ -277,35 +277,37 @@
                                     </Grid>
 
                                     <Button x:Name="buttonApply" Grid.Row="1" HorizontalAlignment="Center" Margin="0,20,0,0" Command="{TemplateBinding ApplyCommandInternal}">Apply</Button>
-								</Grid>
-							</Grid>
+                                </Grid>
+                            </Grid>
 
-							<ScrollViewer Grid.Column="1" x:Name="PART_ScrollViewer">
-								<Grid x:Name="PART_ImageHost" RenderTransformOrigin="0.5,0.5" Background="{DynamicResource brushImageCropControl_Background}">
-									<!--<Grid.LayoutTransform>
+                            <ScrollViewer Grid.Column="1" x:Name="PART_ScrollViewer">
+                                <DockPanel Background="{DynamicResource brushImageCropControl_Background}">
+                                    <Grid x:Name="PART_ImageHost" RenderTransformOrigin="0.5,0.5">
+                                        <!--<Grid.LayoutTransform>
 															<ScaleTransform ScaleX="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageScaleFactor, Mode=OneWay}" ScaleY="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageScaleFactor, Mode=OneWay}"></ScaleTransform>
 														</Grid.LayoutTransform>-->
-                                    <Canvas x:Name="PART_ImageCanvas" Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageBrush}">
-										<c:ImageResizeWrapper x:Name="PART_ResizeWrapper" Canvas.Left="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropX}" Canvas.Top="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropY}" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropWidth}" Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropHeight}" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ResizeWrapperVisibility, Mode=OneWay}" Style="{StaticResource styleImageResizeWrapper_ImageCropControl}" ThumbDragCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ResizeThumbDragCommand, Mode=OneWay}" ScaleFactor="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ResizeThumbScaleFactor, Mode=OneWay}"></c:ImageResizeWrapper>
-										<!--<Rectangle Canvas.Left="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropX}" Canvas.Top="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropY}" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropWidth}" Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropHeight}" Fill="Red" IsHitTestVisible="False"></Rectangle>-->
-									</Canvas>
-									<Rectangle x:Name="PART_CropOverlay" Fill="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropOverlayBrush}" IsHitTestVisible="False" Width="{Binding ElementName=PART_ImageCanvas, Path=ActualWidth}" Height="{Binding ElementName=PART_ImageCanvas, Path=ActualHeight}" Clip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OverlayClip}"></Rectangle>
-									<c:ImageCropThumb x:Name="cropThumb" DragActionCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DragActionCommand}"></c:ImageCropThumb>
-								</Grid>
-							</ScrollViewer>
-						</Grid>
-					</Border>
-					<ControlTemplate.Triggers>
-						<Trigger Property="ImageSource" Value="{x:Null}">
-							<Setter TargetName="panelControlsHost" Property="IsEnabled" Value="False"></Setter>
-						</Trigger>
-						<Trigger Property="ResizeWrapperVisibility" Value="Visible">
-							<Setter TargetName="cropThumb" Property="Visibility" Value="Collapsed"></Setter>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
+                                        <Canvas x:Name="PART_ImageCanvas" Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageBrush}">
+                                            <c:ImageResizeWrapper x:Name="PART_ResizeWrapper" Canvas.Left="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropX}" Canvas.Top="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropY}" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropWidth}" Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropHeight}" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ResizeWrapperVisibility, Mode=OneWay}" Style="{StaticResource styleImageResizeWrapper_ImageCropControl}" ThumbDragCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ResizeThumbDragCommand, Mode=OneWay}" ScaleFactor="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ResizeThumbScaleFactor, Mode=OneWay}"></c:ImageResizeWrapper>
+                                            <!--<Rectangle Canvas.Left="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropX}" Canvas.Top="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropY}" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropWidth}" Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropHeight}" Fill="Red" IsHitTestVisible="False"></Rectangle>-->
+                                        </Canvas>
+                                        <Rectangle x:Name="PART_CropOverlay" Fill="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropOverlayBrush}" IsHitTestVisible="False" Width="{Binding ElementName=PART_ImageCanvas, Path=ActualWidth}" Height="{Binding ElementName=PART_ImageCanvas, Path=ActualHeight}" Clip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OverlayClip}"></Rectangle>
+                                        <c:ImageCropThumb x:Name="cropThumb" DragActionCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DragActionCommand}"></c:ImageCropThumb>
+                                    </Grid>
+                                </DockPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ImageSource" Value="{x:Null}">
+                            <Setter TargetName="panelControlsHost" Property="IsEnabled" Value="False"></Setter>
+                        </Trigger>
+                        <Trigger Property="ResizeWrapperVisibility" Value="Visible">
+                            <Setter TargetName="cropThumb" Property="Visibility" Value="Collapsed"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

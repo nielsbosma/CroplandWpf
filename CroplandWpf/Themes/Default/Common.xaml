@@ -1,151 +1,151 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-	<DropShadowEffect x:Key="effectShadow_Small" Direction="270" ShadowDepth="1.2" Color="#FF000000" Opacity="0.3" BlurRadius="4"></DropShadowEffect>
+    <DropShadowEffect x:Key="effectShadow_Small" Direction="270" ShadowDepth="1.2" Color="#FF000000" Opacity="0.3" BlurRadius="4"></DropShadowEffect>
 
-	<DropShadowEffect x:Key="effectShadow_Large" Direction="270" ShadowDepth="4" Color="#FF000000" Opacity="0.2" BlurRadius="10"></DropShadowEffect>
+    <DropShadowEffect x:Key="effectShadow_Large" Direction="270" ShadowDepth="4" Color="#FF000000" Opacity="0.2" BlurRadius="10"></DropShadowEffect>
 
-	<DropShadowEffect x:Key="effectShadow_DateIntervalPopup" Direction="270" ShadowDepth="3" Color="#FF000000" Opacity="0.4" BlurRadius="10"></DropShadowEffect>
+    <DropShadowEffect x:Key="effectShadow_DateIntervalPopup" Direction="270" ShadowDepth="3" Color="#FF000000" Opacity="0.4" BlurRadius="10"></DropShadowEffect>
 
-	<DropShadowEffect x:Key="effectShadow_Calendar" Direction="270" ShadowDepth="10" Color="#FF000000" Opacity="0.3" BlurRadius="15"></DropShadowEffect>
+    <DropShadowEffect x:Key="effectShadow_Calendar" Direction="270" ShadowDepth="10" Color="#FF000000" Opacity="0.3" BlurRadius="15"></DropShadowEffect>
 
-	<DropShadowEffect x:Key="effectShadow_Window" Direction="270" ShadowDepth="13" Color="#FF000000" Opacity="0.5" BlurRadius="28"></DropShadowEffect>
+    <DropShadowEffect x:Key="effectShadow_Window" Direction="270" ShadowDepth="13" Color="#FF000000" Opacity="0.5" BlurRadius="28"></DropShadowEffect>
 
-	<DropShadowEffect x:Key="effectShadow_Window_Light" Direction="270" ShadowDepth="13" Color="#FF000000" Opacity="0.5" BlurRadius="30"></DropShadowEffect>
+    <DropShadowEffect x:Key="effectShadow_Window_Light" Direction="270" ShadowDepth="13" Color="#FF000000" Opacity="0.5" BlurRadius="30"></DropShadowEffect>
 
-	<SolidColorBrush x:Key="brushControl_Background_Dark" Color="{DynamicResource colorControl_Background_Dark}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushControl_Background_Dark" Color="{DynamicResource colorControl_Background_Dark}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushControl_Background_Light" Color="{DynamicResource colorControl_Background_Light}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushControl_Background_Light" Color="{DynamicResource colorControl_Background_Light}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushToolWindow_Header_Background" Color="#FF317f52"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushToolWindow_Header_Background" Color="#FF317f52"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushControl_Foreground_Light" Color="{DynamicResource colorControl_Foreground_Light}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushControl_Foreground_Light" Color="{DynamicResource colorControl_Foreground_Light}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushControl_Foreground_Dark" Color="{DynamicResource colorControl_Foreground_Dark}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushControl_Foreground_Dark" Color="{DynamicResource colorControl_Foreground_Dark}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushControl_Background_Disabled_Dark" Color="{DynamicResource colorControl_Background_Disabled_Dark}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushControl_Background_Disabled_Dark" Color="{DynamicResource colorControl_Background_Disabled_Dark}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushControl_Foreground_Disabled_Light" Color="{DynamicResource colorControl_Foreground_Disabled_Light}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushControl_Foreground_Disabled_Light" Color="{DynamicResource colorControl_Foreground_Disabled_Light}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushControl_Foreground_Disabled_Dark" Color="{DynamicResource colorControl_Foreground_Disabled_Dark}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushControl_Foreground_Disabled_Dark" Color="{DynamicResource colorControl_Foreground_Disabled_Dark}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushControl_Background_MouseOver" Color="{DynamicResource colorControl_Background_MouseOver}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushControl_Background_MouseOver" Color="{DynamicResource colorControl_Background_MouseOver}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushControl_Background_MouseOver_Light" Color="#FF3DAB70"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushControl_Background_MouseOver_Light" Color="#FF3DAB70"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushScrollBar_Thumb_Background" Color="{DynamicResource colorScrollBar_Thumb_Background}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushScrollBar_Thumb_Background" Color="{DynamicResource colorScrollBar_Thumb_Background}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushScrollBar_Track_Background" Color="{DynamicResource colorScrollBar_Track_Background}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushScrollBar_Track_Background" Color="{DynamicResource colorScrollBar_Track_Background}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushListBoxItem_MouseOver_Background" Color="{DynamicResource colorListBoxItem_MouseOver_Background}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushListBoxItem_MouseOver_Background" Color="{DynamicResource colorListBoxItem_MouseOver_Background}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushListBoxItem_IsSelected_Background" Color="{DynamicResource colorListBoxItem_IsSelected_Background}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushListBoxItem_IsSelected_Background" Color="{DynamicResource colorListBoxItem_IsSelected_Background}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushListBox_Background" Color="{DynamicResource colorListBox_Background}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushListBox_Background" Color="{DynamicResource colorListBox_Background}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushListBox_Border" Color="{DynamicResource colorListBox_Border}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushListBox_Border" Color="{DynamicResource colorListBox_Border}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushHyperlink_Foreground" Color="{DynamicResource colorHyperlink_Foreground}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushHyperlink_Foreground" Color="{DynamicResource colorHyperlink_Foreground}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushHyperlink_Foreground_MouseOver" Color="{DynamicResource colorHyperlink_Foreground_MouseOver}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushHyperlink_Foreground_MouseOver" Color="{DynamicResource colorHyperlink_Foreground_MouseOver}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushItemsControl_Background" Color="{DynamicResource colorItemsControl_Background}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushItemsControl_Background" Color="{DynamicResource colorItemsControl_Background}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushItemsControl_Border" Color="{DynamicResource colorItemsControl_Border}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushItemsControl_Border" Color="{DynamicResource colorItemsControl_Border}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushItemsControl_Foreground" Color="{DynamicResource colorItemsControl_Foreground}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushItemsControl_Foreground" Color="{DynamicResource colorItemsControl_Foreground}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushItemsControl_Item_Background" Color="{DynamicResource colorItemsControl_Item_Background}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushItemsControl_Item_Background" Color="{DynamicResource colorItemsControl_Item_Background}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushSearchAutocompleteComboBox_Foreground" Color="{DynamicResource colorSearchAutocompleteComboBox_Foreground}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushSearchAutocompleteComboBox_Foreground" Color="{DynamicResource colorSearchAutocompleteComboBox_Foreground}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushSearchAutocompleteComboBox_Foreground_Highlight" Color="{DynamicResource colorSearchAutocompleteComboBoxItem_Foreground_Highlight}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushSearchAutocompleteComboBox_Foreground_Highlight" Color="{DynamicResource colorSearchAutocompleteComboBoxItem_Foreground_Highlight}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushIconFill" Color="{DynamicResource colorSearchAutocompleteComboBoxItem_Foreground_Highlight}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushIconFill" Color="{DynamicResource colorSearchAutocompleteComboBoxItem_Foreground_Highlight}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushButtonUtil_Background" Color="{DynamicResource colorButtonUtil_Background}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushButtonUtil_Background" Color="{DynamicResource colorButtonUtil_Background}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushButtonUtil_Foreground" Color="{DynamicResource colorButtonUtil_Foreground}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushButtonUtil_Foreground" Color="{DynamicResource colorButtonUtil_Foreground}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushButtonUtil_Foreground_MouseOver" Color="{DynamicResource colorButtonUtil_Foreground_MouseOver}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushButtonUtil_Foreground_MouseOver" Color="{DynamicResource colorButtonUtil_Foreground_MouseOver}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushButton_Arrow_Background" Color="{DynamicResource colorButton_Arrow_Background}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushButton_Arrow_Background" Color="{DynamicResource colorButton_Arrow_Background}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushButton_Cross_Background" Color="{DynamicResource colorButton_Cross_Background}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushButton_Cross_Background" Color="{DynamicResource colorButton_Cross_Background}"></SolidColorBrush>
 
-	<LinearGradientBrush x:Key="brushMenu_Separator_Background" EndPoint="0,1">
-		<GradientStop Offset="0.0" Color="#FFe6e6e6"></GradientStop>
-		<GradientStop Offset="1.0" Color="#FFfafafa"></GradientStop>
-	</LinearGradientBrush>
+    <LinearGradientBrush x:Key="brushMenu_Separator_Background" EndPoint="0,1">
+        <GradientStop Offset="0.0" Color="#FFe6e6e6"></GradientStop>
+        <GradientStop Offset="1.0" Color="#FFfafafa"></GradientStop>
+    </LinearGradientBrush>
 
-	<SolidColorBrush x:Key="brushMenuItem_MouseOver_Background" Color="{DynamicResource colorMenuItem_MouseOver_Background}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushMenuItem_MouseOver_Background" Color="{DynamicResource colorMenuItem_MouseOver_Background}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushMenuItem_MouseOver_Background_Light" Color="#FFf3f3f3"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushMenuItem_MouseOver_Background_Light" Color="#FFf3f3f3"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushMenu_DropDown_Border" Color="#FFededed"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushMenu_DropDown_Border" Color="#FFededed"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushMenu_Submenu_Gesture_Foreground" Color="#FFBCB9B9"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushMenu_Submenu_Gesture_Foreground" Color="#FFBCB9B9"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushMenuItem_Arrow_Background" Color="{DynamicResource colorMenuItem_Arrow_Background}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushMenuItem_Arrow_Background" Color="{DynamicResource colorMenuItem_Arrow_Background}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushMenuItem_Arrow_Background_MouseOver" Color="{DynamicResource colorMenuItem_Arrow_Background_MouseOver}"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushMenuItem_Arrow_Background_MouseOver" Color="{DynamicResource colorMenuItem_Arrow_Background_MouseOver}"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushCalendar_Icon_Background">#FFececec</SolidColorBrush>
+    <SolidColorBrush x:Key="brushCalendar_Icon_Background">#FFececec</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushCalendar_Icon_Background_Active">#FF58595B</SolidColorBrush>
+    <SolidColorBrush x:Key="brushCalendar_Icon_Background_Active">#FF58595B</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushCalendar_NavigationButton_Background">#FF777777</SolidColorBrush>
+    <SolidColorBrush x:Key="brushCalendar_NavigationButton_Background">#FF777777</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushCalendarDayButton_Background_MouseOver">#FFe7e7e7</SolidColorBrush>
+    <SolidColorBrush x:Key="brushCalendarDayButton_Background_MouseOver">#FFe7e7e7</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushCalendarDayButton_Foreground_MouseOver">#FF222222</SolidColorBrush>
+    <SolidColorBrush x:Key="brushCalendarDayButton_Foreground_MouseOver">#FF222222</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushWindowBackground_Dark">#FFf3f3f3</SolidColorBrush>
+    <SolidColorBrush x:Key="brushWindowBackground_Dark">#FFf3f3f3</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushMenuItem_Foreground_Dark">#FF515151</SolidColorBrush>
+    <SolidColorBrush x:Key="brushMenuItem_Foreground_Dark">#FF515151</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushWindow_Title_Foreground_Dark">#FF227347</SolidColorBrush>
+    <SolidColorBrush x:Key="brushWindow_Title_Foreground_Dark">#FF227347</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushButton_WindowClose_Background_Light">#FFeeeeee</SolidColorBrush>
+    <SolidColorBrush x:Key="brushButton_WindowClose_Background_Light">#FFeeeeee</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushButton_WindowClose_Icon_Background">#FF9b9b9b</SolidColorBrush>
+    <SolidColorBrush x:Key="brushButton_WindowClose_Icon_Background">#FF9b9b9b</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushMenuItem_TopLevelheader_Border_IsActive">#FFcccccc</SolidColorBrush>
+    <SolidColorBrush x:Key="brushMenuItem_TopLevelheader_Border_IsActive">#FFcccccc</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushDataGrid_Background">#FFfafafa</SolidColorBrush>
+    <SolidColorBrush x:Key="brushDataGrid_Background">#FFfafafa</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushDataGrid_Border">#FFcbcbcb</SolidColorBrush>
+    <SolidColorBrush x:Key="brushDataGrid_Border">#FFcbcbcb</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushDataGrid_Border_Inner">#FFdcdcdc</SolidColorBrush>
+    <SolidColorBrush x:Key="brushDataGrid_Border_Inner">#FFdcdcdc</SolidColorBrush>
 
-	<VisualBrush x:Key="brushAppIcon_FileStar" Stretch="Uniform">
-		<VisualBrush.Visual>
-			<Canvas Height="189.263" Width="984.297">
-				<Path Data="F1M465.4975,599.2846L464.4695,433.4236L562.1295,432.8206L562.3145, 462.7286L500.1165,463.1146L500.3265,497.2166L562.5245,496.8296L562.7115,526.9656L500.5135,527.3526L500.9585,599.0656z" Fill="#FF3E3E42" Height="166.464" Canvas.Left="236.618" Stretch="Fill" Canvas.Top="15.452" Width="98.242"/>
-				<Path Data="F1M588.9875,598.5201L588.2985,487.3791L620.5875,487.1801L621.2755,598.3201z M585.1845,441.7411C585.1525,436.6061,586.9795,432.1761,590.6685,428.4501C594.3575,424.7281,598.7785,422.8491,603.9295,422.8151C609.1555,422.7841,613.6565,424.5881,617.4285,428.2271C621.2015,431.8701,623.1045,436.2931,623.1365,441.5061C623.1685,446.7161,621.3195,451.1871,617.5945,454.9091C613.8665,458.6331,609.3885,460.5101,604.1645,460.5421C599.0115,460.5761,594.5685,458.6971,590.8325,454.9061C587.0965,451.1151,585.2145,446.7251,585.1845,441.7411" Fill="#FF3E3E42" Height="175.705" Canvas.Left="357.332" Stretch="Fill" Canvas.Top="5.446" Width="37.953"/>
-				<Path Data="F1M655.1513,598.1104L654.0623,422.5064L686.3503,422.3054L687.4393,597.9104z" Fill="#FF3E3E42" Height="175.805" Canvas.Left="426.211" Stretch="Fill" Canvas.Top="4.937" Width="33.377"/>
-				<Path Data="F1M796.2386,530.165C795.2886,523.146,792.7226,517.856,788.5486,514.295C784.3716, 510.733,778.6196,508.973,771.2956,509.019C764.1186,509.063,758.3516,510.874,753.9936,514.45C749.6336,518.029,746.8726,523.372,745.7106,530.478z M828.3076,549.452L744.8096,549.969C746.1426,557.931,749.1056,563.871,753.7026,567.787C758.2946,571.707,764.4446,573.641,772.1486,573.593C777.9636,573.558,782.9976,572.421,787.2526,570.185C791.5046,567.95,795.0906,564.501,798.0096,559.838L824.1456,572.67C818.1636,582.5,810.8646,589.778,802.2436,594.499C793.6256,599.223,783.4246,601.621,771.6416,601.693C753.8166,601.804,739.5846,596.535,728.9446,585.886C718.3026,575.237,712.9276,560.857,712.8146,542.748C712.7066,525.318,718.1136,510.947,729.0326,499.635C739.9536,488.324,753.9846,482.616,771.1316,482.51C788.8046,482.4,802.8086,487.581,813.1476,498.053C823.4836,508.526,828.7106,522.864,828.8216,541.067L828.7296,544.353z" Fill="#FF3E3E42" Height="119.186" Canvas.Left="484.961" Stretch="Fill" Canvas.Top="65.14" Width="116.009"/>
-				<Path Data="F1M845.0823,569.0835L857.9563,562.0715C860.4243,570.3285, 864.6363,576.6745,870.5933,581.1135C876.5513,585.5505,883.6813,587.7455,891.9903,587.6925C902.4143,587.6285,910.5713,584.5005,916.4623,578.3025C922.3523,572.1065,925.2643,563.4895,925.1973,552.4535C925.1473,544.5185,923.1403,537.9165,919.1833,532.6495C915.2203,527.3855,906.6503,521.2765,893.4633,514.3295C876.6413,505.5135,865.4673,497.7585,859.9533,491.0665C854.4333,484.3725,851.6473,476.3405,851.5893,466.9695C851.5163,455.2535,855.4383,445.6515,863.3633,438.1565C871.2843,430.6625,881.5903,426.8745,894.2813,426.7955C902.5883,426.7445,909.8123,428.4375,915.9513,431.8735C922.0913,435.3095,927.1463,440.5665,931.1193,447.6415L919.4933,454.7385C917.0443,449.9935,913.6223,446.3895,909.2283,443.9245C904.8333,441.4595,899.5743,440.2465,893.4563,440.2835C885.3003,440.3355,878.8183,442.7945,874.0153,447.6615C869.2113,452.5295,866.8343,459.0055,866.8853,467.0925C866.9563,478.6555,876.6143,489.4415,895.8633,499.4535L903.8213,503.5975C917.8413,511.2225,927.2873,518.4755,932.1663,525.3605C937.0403,532.2465,939.5153,541.2465,939.5843,552.3545C939.6763,567.2475,935.4063,579.0825,926.7753,587.8655C918.1433,596.6465,906.3513,601.0855,891.3953,601.1795C885.8813,601.2125,880.8363,600.6005,876.2583,599.3415C871.6793,598.0805,867.3803,596.0635,863.3613,593.2865C855.6223,587.8815,849.5303,579.8135,845.0823,569.0835" Fill="#FF3E3E42" Height="174.386" Canvas.Left="617.23" Stretch="Fill" Canvas.Top="9.426" Width="94.503"/>
-				<Path Data="F1M973.8625,507.5371L955.3945,507.6521L955.3205, 495.7561L973.7885,495.6411L973.5345,454.4031L987.2435,454.3181L987.4975,495.5571L1007.6635,495.4331L1007.7385,507.3271L987.5715,507.4521L988.1205,596.1611L974.4115,596.2461z" Fill="#FF3E3E42" Height="141.928" Canvas.Left="727.469" Stretch="Fill" Canvas.Top="36.95" Width="52.418"/>
-				<Path Data="F1M1035.1722,546.6446C1035.2512,559.6526,1038.2392, 569.6556,1044.1382,576.6536C1050.0342,583.6506,1058.4212,587.1156,1069.2982,587.0476C1079.8722,586.9826,1088.1762,583.0926,1094.2092,575.3786C1100.2412,567.6636,1103.2162,557.0766,1103.1322,543.6146C1103.0562,531.2866,1099.9742,521.6026,1093.8882,514.5686C1087.8002,507.5356,1079.5082,504.0496,1069.0112,504.1156C1058.5872,504.1806,1050.3202,507.9946,1044.2132,515.5586C1038.1032,523.1216,1035.0892,533.4846,1035.1722,546.6446 M1103.4532,595.3326L1103.3382,576.9796C1100.0522,584.4406,1095.4292,590.1436,1089.4702,594.0876C1083.5112,598.0326,1076.4052,600.0336,1068.1512,600.0846C1053.7602,600.1726,1042.1042,595.2936,1033.1822,585.4446C1024.2602,575.5956,1019.7502,562.5436,1019.6492,546.2866C1019.5492,530.1826,1023.8022,517.0176,1032.4102,506.7936C1041.0182,496.5736,1052.2522,491.4176,1066.1132,491.3316C1074.7472,491.2786,1082.1422,493.0656,1088.2992,496.6886C1094.4572,500.3156,1099.3392,505.8176,1102.9442,513.1966L1102.8302,494.8436L1116.5392,494.7586L1117.1622,595.2486z" Fill="#FF3E3E42" Height="108.755" Canvas.Left="791.796" Stretch="Fill" Canvas.Top="73.962" Width="97.515"/>
-				<Path Data="F1M1167.9854,514.6053C1172.9914,505.9643,1177.9764, 499.7983,1182.9394,496.1023C1187.9024,492.4103,1193.6684,490.5403,1200.2404,490.4993C1201.1464,490.4943,1202.1084,490.5273,1203.1304,490.5963C1204.1494,490.6653,1205.0744,490.7923,1205.9084,490.9743C1206.7394,491.1583,1207.6084,491.3243,1208.5174,491.4693C1209.4234,491.6153,1210.6354,491.9843,1212.1484,492.5793L1207.6984,505.7483L1202.9324,504.6443L1198.2854,504.2213C1189.9014,504.2723,1182.7684,508.2503,1176.8904,516.1523C1171.0064,524.0553,1168.1054,533.8663,1168.1784,545.5873L1168.4834,595.0433L1154.5484,595.1293L1153.9254,494.5253L1167.8604,494.4393z" Fill="#FF3E3E42" Height="104.63" Canvas.Left="926.074" Stretch="Fill" Canvas.Top="73.13" Width="58.223"/>
-				<Path Data="F1M231.7948,425.2545L381.6288,425.2545C383.8058,425.2545, 385.5718,423.4885,385.5718,421.3115C385.5718,419.1345,383.8058,417.3685,381.6288,417.3685L231.7948,417.3685C229.6178,417.3685,227.8518,419.1345,227.8518,421.3115C227.8518,423.4885,229.6178,425.2545,231.7948,425.2545" Fill="#FF227347" Height="7.886" Canvas.Left="0" Stretch="Fill" Canvas.Top="0" Width="157.72"/>
-				<Path Data="F1M352.9459,500.1502L326.6229,520.8332L337.9329,554.7622C338.2029, 555.5712,337.9179,556.4622,337.2289,556.9642C336.8859,557.2142,336.4799,557.3392,336.0759,557.3392C335.6699,557.3392,335.2629,557.2132,334.9179,556.9612L306.7119,536.2762L278.5049,556.9612C277.8169,557.4652,276.8809,557.4662,276.1949,556.9642C275.5059,556.4622,275.2209,555.5712,275.4909,554.7622L286.7999,520.8332L260.4779,500.1502C259.8209,499.6352,259.5639,498.7602,259.8359,497.9722C260.1099,497.1822,260.8519,496.6542,261.6869,496.6542L293.5809,496.6542L304.8659,464.6802C305.1419,463.8982,305.8819,463.3742,306.7119,463.3742C307.5419,463.3742,308.2809,463.8982,308.5579,464.6802L319.8419,496.6542L351.7369,496.6542C352.5709,496.6542,353.3139,497.1822,353.5869,497.9722C353.8599,498.7602,353.6029,499.6352,352.9459,500.1502 M381.6289,433.1402L231.7949,433.1402C229.6179,433.1402,227.8519,434.9062,227.8519,437.0832L227.8519,563.2592C227.8519,564.7222,228.6629,566.0662,229.9579,566.7482L304.8749,606.1782C306.0269,606.7822,307.3969,606.7822,308.5489,606.1782L383.4659,566.7482C384.7609,566.0662,385.5719,564.7222,385.5719,563.2592L385.5719,437.0832C385.5719,434.9062,383.8059,433.1402,381.6289,433.1402" Fill="#FF227347" Height="173.491" Canvas.Left="0" Stretch="Fill" Canvas.Top="15.772" Width="157.72"/>
-			</Canvas>
-		</VisualBrush.Visual>
-	</VisualBrush>
+    <VisualBrush x:Key="brushAppIcon_FileStar" Stretch="Uniform">
+        <VisualBrush.Visual>
+            <Canvas Height="189.263" Width="984.297">
+                <Path Data="F1M465.4975,599.2846L464.4695,433.4236L562.1295,432.8206L562.3145, 462.7286L500.1165,463.1146L500.3265,497.2166L562.5245,496.8296L562.7115,526.9656L500.5135,527.3526L500.9585,599.0656z" Fill="#FF3E3E42" Height="166.464" Canvas.Left="236.618" Stretch="Fill" Canvas.Top="15.452" Width="98.242"/>
+                <Path Data="F1M588.9875,598.5201L588.2985,487.3791L620.5875,487.1801L621.2755,598.3201z M585.1845,441.7411C585.1525,436.6061,586.9795,432.1761,590.6685,428.4501C594.3575,424.7281,598.7785,422.8491,603.9295,422.8151C609.1555,422.7841,613.6565,424.5881,617.4285,428.2271C621.2015,431.8701,623.1045,436.2931,623.1365,441.5061C623.1685,446.7161,621.3195,451.1871,617.5945,454.9091C613.8665,458.6331,609.3885,460.5101,604.1645,460.5421C599.0115,460.5761,594.5685,458.6971,590.8325,454.9061C587.0965,451.1151,585.2145,446.7251,585.1845,441.7411" Fill="#FF3E3E42" Height="175.705" Canvas.Left="357.332" Stretch="Fill" Canvas.Top="5.446" Width="37.953"/>
+                <Path Data="F1M655.1513,598.1104L654.0623,422.5064L686.3503,422.3054L687.4393,597.9104z" Fill="#FF3E3E42" Height="175.805" Canvas.Left="426.211" Stretch="Fill" Canvas.Top="4.937" Width="33.377"/>
+                <Path Data="F1M796.2386,530.165C795.2886,523.146,792.7226,517.856,788.5486,514.295C784.3716, 510.733,778.6196,508.973,771.2956,509.019C764.1186,509.063,758.3516,510.874,753.9936,514.45C749.6336,518.029,746.8726,523.372,745.7106,530.478z M828.3076,549.452L744.8096,549.969C746.1426,557.931,749.1056,563.871,753.7026,567.787C758.2946,571.707,764.4446,573.641,772.1486,573.593C777.9636,573.558,782.9976,572.421,787.2526,570.185C791.5046,567.95,795.0906,564.501,798.0096,559.838L824.1456,572.67C818.1636,582.5,810.8646,589.778,802.2436,594.499C793.6256,599.223,783.4246,601.621,771.6416,601.693C753.8166,601.804,739.5846,596.535,728.9446,585.886C718.3026,575.237,712.9276,560.857,712.8146,542.748C712.7066,525.318,718.1136,510.947,729.0326,499.635C739.9536,488.324,753.9846,482.616,771.1316,482.51C788.8046,482.4,802.8086,487.581,813.1476,498.053C823.4836,508.526,828.7106,522.864,828.8216,541.067L828.7296,544.353z" Fill="#FF3E3E42" Height="119.186" Canvas.Left="484.961" Stretch="Fill" Canvas.Top="65.14" Width="116.009"/>
+                <Path Data="F1M845.0823,569.0835L857.9563,562.0715C860.4243,570.3285, 864.6363,576.6745,870.5933,581.1135C876.5513,585.5505,883.6813,587.7455,891.9903,587.6925C902.4143,587.6285,910.5713,584.5005,916.4623,578.3025C922.3523,572.1065,925.2643,563.4895,925.1973,552.4535C925.1473,544.5185,923.1403,537.9165,919.1833,532.6495C915.2203,527.3855,906.6503,521.2765,893.4633,514.3295C876.6413,505.5135,865.4673,497.7585,859.9533,491.0665C854.4333,484.3725,851.6473,476.3405,851.5893,466.9695C851.5163,455.2535,855.4383,445.6515,863.3633,438.1565C871.2843,430.6625,881.5903,426.8745,894.2813,426.7955C902.5883,426.7445,909.8123,428.4375,915.9513,431.8735C922.0913,435.3095,927.1463,440.5665,931.1193,447.6415L919.4933,454.7385C917.0443,449.9935,913.6223,446.3895,909.2283,443.9245C904.8333,441.4595,899.5743,440.2465,893.4563,440.2835C885.3003,440.3355,878.8183,442.7945,874.0153,447.6615C869.2113,452.5295,866.8343,459.0055,866.8853,467.0925C866.9563,478.6555,876.6143,489.4415,895.8633,499.4535L903.8213,503.5975C917.8413,511.2225,927.2873,518.4755,932.1663,525.3605C937.0403,532.2465,939.5153,541.2465,939.5843,552.3545C939.6763,567.2475,935.4063,579.0825,926.7753,587.8655C918.1433,596.6465,906.3513,601.0855,891.3953,601.1795C885.8813,601.2125,880.8363,600.6005,876.2583,599.3415C871.6793,598.0805,867.3803,596.0635,863.3613,593.2865C855.6223,587.8815,849.5303,579.8135,845.0823,569.0835" Fill="#FF3E3E42" Height="174.386" Canvas.Left="617.23" Stretch="Fill" Canvas.Top="9.426" Width="94.503"/>
+                <Path Data="F1M973.8625,507.5371L955.3945,507.6521L955.3205, 495.7561L973.7885,495.6411L973.5345,454.4031L987.2435,454.3181L987.4975,495.5571L1007.6635,495.4331L1007.7385,507.3271L987.5715,507.4521L988.1205,596.1611L974.4115,596.2461z" Fill="#FF3E3E42" Height="141.928" Canvas.Left="727.469" Stretch="Fill" Canvas.Top="36.95" Width="52.418"/>
+                <Path Data="F1M1035.1722,546.6446C1035.2512,559.6526,1038.2392, 569.6556,1044.1382,576.6536C1050.0342,583.6506,1058.4212,587.1156,1069.2982,587.0476C1079.8722,586.9826,1088.1762,583.0926,1094.2092,575.3786C1100.2412,567.6636,1103.2162,557.0766,1103.1322,543.6146C1103.0562,531.2866,1099.9742,521.6026,1093.8882,514.5686C1087.8002,507.5356,1079.5082,504.0496,1069.0112,504.1156C1058.5872,504.1806,1050.3202,507.9946,1044.2132,515.5586C1038.1032,523.1216,1035.0892,533.4846,1035.1722,546.6446 M1103.4532,595.3326L1103.3382,576.9796C1100.0522,584.4406,1095.4292,590.1436,1089.4702,594.0876C1083.5112,598.0326,1076.4052,600.0336,1068.1512,600.0846C1053.7602,600.1726,1042.1042,595.2936,1033.1822,585.4446C1024.2602,575.5956,1019.7502,562.5436,1019.6492,546.2866C1019.5492,530.1826,1023.8022,517.0176,1032.4102,506.7936C1041.0182,496.5736,1052.2522,491.4176,1066.1132,491.3316C1074.7472,491.2786,1082.1422,493.0656,1088.2992,496.6886C1094.4572,500.3156,1099.3392,505.8176,1102.9442,513.1966L1102.8302,494.8436L1116.5392,494.7586L1117.1622,595.2486z" Fill="#FF3E3E42" Height="108.755" Canvas.Left="791.796" Stretch="Fill" Canvas.Top="73.962" Width="97.515"/>
+                <Path Data="F1M1167.9854,514.6053C1172.9914,505.9643,1177.9764, 499.7983,1182.9394,496.1023C1187.9024,492.4103,1193.6684,490.5403,1200.2404,490.4993C1201.1464,490.4943,1202.1084,490.5273,1203.1304,490.5963C1204.1494,490.6653,1205.0744,490.7923,1205.9084,490.9743C1206.7394,491.1583,1207.6084,491.3243,1208.5174,491.4693C1209.4234,491.6153,1210.6354,491.9843,1212.1484,492.5793L1207.6984,505.7483L1202.9324,504.6443L1198.2854,504.2213C1189.9014,504.2723,1182.7684,508.2503,1176.8904,516.1523C1171.0064,524.0553,1168.1054,533.8663,1168.1784,545.5873L1168.4834,595.0433L1154.5484,595.1293L1153.9254,494.5253L1167.8604,494.4393z" Fill="#FF3E3E42" Height="104.63" Canvas.Left="926.074" Stretch="Fill" Canvas.Top="73.13" Width="58.223"/>
+                <Path Data="F1M231.7948,425.2545L381.6288,425.2545C383.8058,425.2545, 385.5718,423.4885,385.5718,421.3115C385.5718,419.1345,383.8058,417.3685,381.6288,417.3685L231.7948,417.3685C229.6178,417.3685,227.8518,419.1345,227.8518,421.3115C227.8518,423.4885,229.6178,425.2545,231.7948,425.2545" Fill="#FF227347" Height="7.886" Canvas.Left="0" Stretch="Fill" Canvas.Top="0" Width="157.72"/>
+                <Path Data="F1M352.9459,500.1502L326.6229,520.8332L337.9329,554.7622C338.2029, 555.5712,337.9179,556.4622,337.2289,556.9642C336.8859,557.2142,336.4799,557.3392,336.0759,557.3392C335.6699,557.3392,335.2629,557.2132,334.9179,556.9612L306.7119,536.2762L278.5049,556.9612C277.8169,557.4652,276.8809,557.4662,276.1949,556.9642C275.5059,556.4622,275.2209,555.5712,275.4909,554.7622L286.7999,520.8332L260.4779,500.1502C259.8209,499.6352,259.5639,498.7602,259.8359,497.9722C260.1099,497.1822,260.8519,496.6542,261.6869,496.6542L293.5809,496.6542L304.8659,464.6802C305.1419,463.8982,305.8819,463.3742,306.7119,463.3742C307.5419,463.3742,308.2809,463.8982,308.5579,464.6802L319.8419,496.6542L351.7369,496.6542C352.5709,496.6542,353.3139,497.1822,353.5869,497.9722C353.8599,498.7602,353.6029,499.6352,352.9459,500.1502 M381.6289,433.1402L231.7949,433.1402C229.6179,433.1402,227.8519,434.9062,227.8519,437.0832L227.8519,563.2592C227.8519,564.7222,228.6629,566.0662,229.9579,566.7482L304.8749,606.1782C306.0269,606.7822,307.3969,606.7822,308.5489,606.1782L383.4659,566.7482C384.7609,566.0662,385.5719,564.7222,385.5719,563.2592L385.5719,437.0832C385.5719,434.9062,383.8059,433.1402,381.6289,433.1402" Fill="#FF227347" Height="173.491" Canvas.Left="0" Stretch="Fill" Canvas.Top="15.772" Width="157.72"/>
+            </Canvas>
+        </VisualBrush.Visual>
+    </VisualBrush>
 
-	<SolidColorBrush x:Key="brushToggleButton_ComboBox_DataGridComboBoxColumn_Background">#FFebebeb</SolidColorBrush>
+    <SolidColorBrush x:Key="brushToggleButton_ComboBox_DataGridComboBoxColumn_Background">#FFebebeb</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushToggleButton_ComboBox_DataGridComboBoxColumn_Arrow_Background">#FF000000</SolidColorBrush>
+    <SolidColorBrush x:Key="brushToggleButton_ComboBox_DataGridComboBoxColumn_Arrow_Background">#FF000000</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushCheckBox_DataGridCheckBoxColumn_Border">#FFe5e5e5</SolidColorBrush>
+    <SolidColorBrush x:Key="brushCheckBox_DataGridCheckBoxColumn_Border">#FFe5e5e5</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushIcon_LoadingIndicator_OuterRing" Color="#FF257F4E"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushIcon_LoadingIndicator_OuterRing" Color="#FF257F4E"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushIcon_LoadingIndicator_InnerRing" Color="#FF227347"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushIcon_LoadingIndicator_InnerRing" Color="#FF227347"></SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushControl_Selected_MouseOver_Background" Color="#FF438862"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushControl_Selected_MouseOver_Background" Color="#FF438862"></SolidColorBrush>
 
     <VisualBrush x:Key="brushIcon_Cloud" Stretch="Uniform">
         <VisualBrush.Visual>
@@ -256,100 +256,82 @@
     
     -->
 
-	<SolidColorBrush x:Key="brushProgressbar_Track_Background" Color="#FFe2e7ee"></SolidColorBrush>
+    <SolidColorBrush x:Key="brushProgressbar_Track_Background" Color="#FFe2e7ee"></SolidColorBrush>
 
-	<LinearGradientBrush x:Key="brushProgressBar_Indicator_Background" EndPoint="1,0">
-		<GradientStop Offset="0.0" Color="#FF267249"></GradientStop>
-		<GradientStop Offset="1.0" Color="#FF2a9159"></GradientStop>
-	</LinearGradientBrush>
+    <LinearGradientBrush x:Key="brushProgressBar_Indicator_Background" EndPoint="1,0">
+        <GradientStop Offset="0.0" Color="#FF267249"></GradientStop>
+        <GradientStop Offset="1.0" Color="#FF2a9159"></GradientStop>
+    </LinearGradientBrush>
 
-	<StreamGeometry x:Key="geometryNumericUpDown_Arrow_Up">M0,6 L6,0 12,6 0,6z</StreamGeometry>
+    <StreamGeometry x:Key="geometryNumericUpDown_Arrow_Up">M0,6 L6,0 12,6 0,6z</StreamGeometry>
 
-	<SolidColorBrush x:Key="brushNumericUpDown_Arrow_Background">#FF757575</SolidColorBrush>
+    <SolidColorBrush x:Key="brushNumericUpDown_Arrow_Background">#FF757575</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushButton_InputDialog_Cancel_Background">#FFd7d8d7</SolidColorBrush>
+    <SolidColorBrush x:Key="brushButton_InputDialog_Cancel_Background">#FFd7d8d7</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushButton_InputDialog_Cancel_Foreground">#FFa5a5a5</SolidColorBrush>
+    <SolidColorBrush x:Key="brushButton_InputDialog_Cancel_Foreground">#FFa5a5a5</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushToggleButton_MessageBoxWindow_ShowDetails_Foreground">#FF3c495c</SolidColorBrush>
+    <SolidColorBrush x:Key="brushToggleButton_MessageBoxWindow_ShowDetails_Foreground">#FF3c495c</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushToggleButton_MessageBoxWindow_ShowDetails_Arrow_Background">#FF747474</SolidColorBrush>
+    <SolidColorBrush x:Key="brushToggleButton_MessageBoxWindow_ShowDetails_Arrow_Background">#FF747474</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushToggleButton_Background">#FFdfe1e5</SolidColorBrush>
+    <SolidColorBrush x:Key="brushToggleButton_Background">#FFdfe1e5</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushToggleButton_Background_Checked">#FF177147</SolidColorBrush>
+    <SolidColorBrush x:Key="brushToggleButton_Background_Checked">#FF177147</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushToggleButton_Tick_Background">#FFffffff</SolidColorBrush>
+    <SolidColorBrush x:Key="brushToggleButton_Tick_Background">#FFffffff</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushToggleButton_Background_Disabled">#FFe8edf1</SolidColorBrush>
+    <SolidColorBrush x:Key="brushToggleButton_Background_Disabled">#FFe8edf1</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushToggleButton_Foreground">#FF1f2d41</SolidColorBrush>
+    <SolidColorBrush x:Key="brushToggleButton_Foreground">#FF1f2d41</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushToggleButton_Foreground_Disabled">#FF8d949d</SolidColorBrush>
+    <SolidColorBrush x:Key="brushToggleButton_Foreground_Disabled">#FF8d949d</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushToggleButton_Tick_Backround_Disabled">#FFf4f6f8</SolidColorBrush>
+    <SolidColorBrush x:Key="brushToggleButton_Tick_Backround_Disabled">#FFf4f6f8</SolidColorBrush>
 
-	<StreamGeometry x:Key="geometryIcon_Star">M0,88 L94,88 123,0 153,88 249,88 172,146 201,237 123,181 47,237 76,146 0,88z</StreamGeometry>
+    <StreamGeometry x:Key="geometryIcon_Star">M0,88 L94,88 123,0 153,88 249,88 172,146 201,237 123,181 47,237 76,146 0,88z</StreamGeometry>
 
-	<SolidColorBrush x:Key="brushButton_Background_Star">#FFd01e1a</SolidColorBrush>
+    <SolidColorBrush x:Key="brushButton_Background_Star">#FFd01e1a</SolidColorBrush>
 
-	<VisualBrush x:Key="brushIcon_ButtonInfo" AlignmentX="Center" AlignmentY="Center" Stretch="None">
-		<VisualBrush.Visual>
-			<TextBlock Text="i" Foreground="#FF1a6e41" FontSize="10pt" FontWeight="Black"></TextBlock>
-		</VisualBrush.Visual>
-	</VisualBrush>
+    <VisualBrush x:Key="brushIcon_ButtonInfo" AlignmentX="Center" AlignmentY="Center" Stretch="None">
+        <VisualBrush.Visual>
+            <TextBlock Text="i" Foreground="#FF1a6e41" FontSize="10pt" FontWeight="Black"></TextBlock>
+        </VisualBrush.Visual>
+    </VisualBrush>
 
-	<VisualBrush x:Key="brushIcon_ButtonStar" AlignmentX="Center" AlignmentY="Center" Stretch="None">
-		<VisualBrush.Visual>
-			<Path Data="{DynamicResource geometryIcon_Star}" Stretch="Uniform" Fill="{DynamicResource brushButton_Background_Star}" Width="12" Height="12" />
-		</VisualBrush.Visual>
-	</VisualBrush>
+    <VisualBrush x:Key="brushIcon_ButtonStar" AlignmentX="Center" AlignmentY="Center" Stretch="None">
+        <VisualBrush.Visual>
+            <Path Data="{DynamicResource geometryIcon_Star}" Stretch="Uniform" Fill="{DynamicResource brushButton_Background_Star}" Width="12" Height="12" />
+        </VisualBrush.Visual>
+    </VisualBrush>
 
-	<SolidColorBrush x:Key="brushButtonLight_Foreground">#FF7e7e7e</SolidColorBrush>
+    <SolidColorBrush x:Key="brushButtonLight_Foreground">#FF7e7e7e</SolidColorBrush>
 
-	<SolidColorBrush x:Key="brushButtonLight_Foreground_MouseOver">#FF2b784e</SolidColorBrush>
+    <SolidColorBrush x:Key="brushButtonLight_Foreground_MouseOver">#FF2b784e</SolidColorBrush>
 
-	<StreamGeometry x:Key="geometryIcon_Lock">M274.765,141.3L274.765,94.205C274.765,42.172 232.583,0 180.559,0 128.527,0 86.354,42.172 86.354,94.205L86.354,141.3C69.014,141.3,54.954,155.36,54.954,172.7L54.954,329.716C54.954,347.06,69.014,361.118,86.354,361.118L274.765,361.118C292.106,361.118,306.163,347.059,306.163,329.716L306.163,172.7C306.164,155.36,292.106,141.3,274.765,141.3z M117.756,94.205C117.756,59.515 145.876,31.402 180.559,31.402 215.244,31.402 243.364,59.514 243.364,94.205L243.364,141.3 117.756,141.3 117.756,94.205z M274.765,329.715L86.354,329.715 86.354,172.708 274.765,172.708 274.765,329.715z M164.858,262.558L164.858,282.612C164.858,291.276 171.893,298.313 180.559,298.313 189.223,298.313 196.26,291.276 196.26,282.612L196.26,262.558C205.597,257.117 211.961,247.102 211.961,235.512 211.961,218.164 197.899,204.102 180.559,204.102 163.219,204.102 149.159,218.164 149.159,235.512 149.159,247.102 155.517,257.117 164.858,262.558z</StreamGeometry>
+    <StreamGeometry x:Key="geometryIcon_Lock">M274.765,141.3L274.765,94.205C274.765,42.172 232.583,0 180.559,0 128.527,0 86.354,42.172 86.354,94.205L86.354,141.3C69.014,141.3,54.954,155.36,54.954,172.7L54.954,329.716C54.954,347.06,69.014,361.118,86.354,361.118L274.765,361.118C292.106,361.118,306.163,347.059,306.163,329.716L306.163,172.7C306.164,155.36,292.106,141.3,274.765,141.3z M117.756,94.205C117.756,59.515 145.876,31.402 180.559,31.402 215.244,31.402 243.364,59.514 243.364,94.205L243.364,141.3 117.756,141.3 117.756,94.205z M274.765,329.715L86.354,329.715 86.354,172.708 274.765,172.708 274.765,329.715z M164.858,262.558L164.858,282.612C164.858,291.276 171.893,298.313 180.559,298.313 189.223,298.313 196.26,291.276 196.26,282.612L196.26,262.558C205.597,257.117 211.961,247.102 211.961,235.512 211.961,218.164 197.899,204.102 180.559,204.102 163.219,204.102 149.159,218.164 149.159,235.512 149.159,247.102 155.517,257.117 164.858,262.558z</StreamGeometry>
 
-	<SolidColorBrush x:Key="brushSizeConstraintIcon">#FF878787</SolidColorBrush>
+    <SolidColorBrush x:Key="brushSizeConstraintIcon">#FF878787</SolidColorBrush>
 
-	<PathGeometry x:Key="geometryIcon_SizeConstraint">
-		<PathFigure IsFilled="False" StartPoint="0,6">
-			<PolyLineSegment Points="0,1 1,0 7,0 8,1 8,6" IsStroked="True"></PolyLineSegment>
-		</PathFigure>
-		<PathFigure IsFilled="False" StartPoint="8,12">
-			<PolyLineSegment Points="8,17 7,18 1,18 0,17 0,12" IsStroked="True"></PolyLineSegment>
-		</PathFigure>
-		<PathFigure IsFilled="True" IsClosed="True" StartPoint="3,4">
-			<PolyLineSegment Points="5,4 5,14 3,14 3,4" IsStroked="True"></PolyLineSegment>
-		</PathFigure>
-	</PathGeometry>
+    <PathGeometry x:Key="geometryIcon_SizeConstraint">
+        <PathFigure IsFilled="False" StartPoint="0,6">
+            <PolyLineSegment Points="0,1 1,0 7,0 8,1 8,6" IsStroked="True"></PolyLineSegment>
+        </PathFigure>
+        <PathFigure IsFilled="False" StartPoint="8,12">
+            <PolyLineSegment Points="8,17 7,18 1,18 0,17 0,12" IsStroked="True"></PolyLineSegment>
+        </PathFigure>
+        <PathFigure IsFilled="True" IsClosed="True" StartPoint="3,4">
+            <PolyLineSegment Points="5,4 5,14 3,14 3,4" IsStroked="True"></PolyLineSegment>
+        </PathFigure>
+    </PathGeometry>
 
-	<DrawingBrush x:Key="brushImageCropControl_Background" TileMode="Tile" Viewport="0,0,16,16" ViewportUnits="Absolute" Viewbox="0,0,8,8" ViewboxUnits="Absolute">
-		<DrawingBrush.Drawing>
-			<DrawingGroup>
-				<GeometryDrawing Brush="#FFdddddd">
-					<GeometryDrawing.Geometry>
-						<RectangleGeometry Rect="0,0,4,4"></RectangleGeometry>
-					</GeometryDrawing.Geometry>
-				</GeometryDrawing>
-				<GeometryDrawing Brush="#FFdddddd">
-					<GeometryDrawing.Geometry>
-						<RectangleGeometry Rect="4,4,4,4"></RectangleGeometry>
-					</GeometryDrawing.Geometry>
-				</GeometryDrawing>
-				<GeometryDrawing Brush="#FFffffff">
-					<GeometryDrawing.Geometry>
-						<RectangleGeometry Rect="0,4,4,4"></RectangleGeometry>
-					</GeometryDrawing.Geometry>
-				</GeometryDrawing>
-				<GeometryDrawing Brush="#FFffffff">
-					<GeometryDrawing.Geometry>
-						<RectangleGeometry Rect="4,0,4,4"></RectangleGeometry>
-					</GeometryDrawing.Geometry>
-				</GeometryDrawing>
-			</DrawingGroup>
-		</DrawingBrush.Drawing>
-	</DrawingBrush>
+    <DrawingBrush x:Key="brushImageCropControl_Background" Stretch="None" TileMode="Tile" Viewport="0,0,10,10" ViewportUnits="Absolute">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Geometry="M0,0 L10,0 10,10, 0,10Z" Brush="White"/>
+                <GeometryDrawing Geometry="M0,5 L10,5 10,10, 5,10 5,0 0,0Z" Brush="LightGray"/>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
 
 </ResourceDictionary> 
