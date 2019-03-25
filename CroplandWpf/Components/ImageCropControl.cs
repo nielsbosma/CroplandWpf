@@ -506,18 +506,20 @@ namespace CroplandWpf.Components
                     imageCanvas.Height = ImageSource.PixelHeight;
                     imageCanvas.MouseDown += (sender, args) =>
                     {
-                        cropOverlay.Visibility = Visibility.Collapsed;
-                        ResizeWrapperVisibility = Visibility.Collapsed;
                         CropX = 0;
                         CropY = 0;
                         CropWidth = 0;
                         CropHeight = 0;
-                        lastSubmittedRect = default(ImageCropRect);
-                        IsRectEditable = false;
-                        CropResultRect = default(ImageCropRect);
+                        lastSubmittedRect = new ImageCropRect(CropX, CropY, CropWidth, CropHeight);
+                        CropResultRect = new ImageCropRect(CropX, CropY, CropWidth, CropHeight);
 
-                        var pos = args.GetPosition(imageCanvas);
-                        imageCropThumb.RaiseEvent(new DragStartedEventArgs(pos.X, pos.Y));
+                        ResizeWrapperVisibility = Visibility.Collapsed;
+
+                        imageCropThumb.RaiseEvent(new DragStartedEventArgs(0, 0));
+                    };
+                    imageCropThumb.MouseUp += (sender, args) =>
+                    {
+                        imageCropThumb.RaiseEvent(new DragCompletedEventArgs(0, 0, false));
                     };
                     ImageScaleFactor = Math.Min((imageScrollViewer.ViewportWidth - 10) / ImageSource.PixelWidth,
                         (imageScrollViewer.ViewportHeight - 10) / ImageSource.PixelHeight);
@@ -713,14 +715,52 @@ namespace CroplandWpf.Components
                 }
                 if (dragInfo.ActionType == DragActionType.Delta)
                 {
-                    CurrentDragPoint = imageCanvas.TranslatePoint(Mouse.GetPosition(imageCanvas), imageCanvas);
+                    var pos = imageCanvas.TranslatePoint(Mouse.GetPosition(imageCanvas), imageCanvas);
+                    if (keepConstraint)
+                    {
+                        var width = Math.Abs(pos.X - DragStartPoint.X);
+                        var height = Math.Abs(pos.Y - DragStartPoint.Y);
+                        if (width > height * absoluteSizeAspectRatio)
+                        {
+                            pos.Y = pos.Y > DragStartPoint.Y
+                                ? DragStartPoint.Y + width / absoluteSizeAspectRatio
+                                : DragStartPoint.Y - width / absoluteSizeAspectRatio;
+                        }
+                        else
+                        {
+                            pos.X = pos.X > DragStartPoint.X
+                                ? DragStartPoint.X + height * absoluteSizeAspectRatio
+                                : DragStartPoint.X - height * absoluteSizeAspectRatio;
+                        }
+                    }
+                    CurrentDragPoint = pos;
                 }
                 if (dragInfo.ActionType == DragActionType.Completed)
                 {
-                    DragCompletedPoint = imageCanvas.TranslatePoint(Mouse.GetPosition(imageCanvas), imageCanvas);
-                    CurrentDragPoint = imageCanvas.TranslatePoint(Mouse.GetPosition(imageCanvas), imageCanvas);
+                    var pos = imageCanvas.TranslatePoint(Mouse.GetPosition(imageCanvas), imageCanvas);
+                    if (keepConstraint)
+                    {
+                        var width = Math.Abs(pos.X - DragStartPoint.X);
+                        var height = Math.Abs(pos.Y - DragStartPoint.Y);
+                        if (width > height * absoluteSizeAspectRatio)
+                        {
+                            pos.Y = pos.Y > DragStartPoint.Y
+                                ? DragStartPoint.Y + width / absoluteSizeAspectRatio
+                                : DragStartPoint.Y - width / absoluteSizeAspectRatio;
+                        }
+                        else
+                        {
+                            pos.X = pos.X > DragStartPoint.X
+                                ? DragStartPoint.X + height * absoluteSizeAspectRatio
+                                : DragStartPoint.X - height * absoluteSizeAspectRatio;
+                        }
+                    }
+                    DragCompletedPoint = pos;
+                    CurrentDragPoint = pos;
+
                     CropResultRect = GenerateCropResultRect();
                     ResizeWrapperVisibility = Visibility.Visible;
+                    cropOverlay.Visibility = Visibility.Visible;
                     CropWidth = CropResultRect.Width;
                     CropHeight = CropResultRect.Height;
                     CropX = CropResultRect.X;
@@ -995,6 +1035,7 @@ namespace CroplandWpf.Components
             {
                 DragStartedEventArgs dsea = e as DragStartedEventArgs;
                 DragActionCommand.Execute(new DragActionInfo(DragActionType.Started, dsea));
+                IsDragging = true;
             }
             else if (e is DragDeltaEventArgs)
             {
