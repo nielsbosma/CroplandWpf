@@ -97,6 +97,11 @@
                             <Setter Property="Cursor" Value="SizeAll"></Setter>
                             <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
                             <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.0" ScaleY="1.0"></ScaleTransform>
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -287,7 +292,17 @@
 															<ScaleTransform ScaleX="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageScaleFactor, Mode=OneWay}" ScaleY="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageScaleFactor, Mode=OneWay}"></ScaleTransform>
 														</Grid.LayoutTransform>-->
                                         <Canvas x:Name="PART_ImageCanvas" Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageBrush}">
-                                            <c:ImageResizeWrapper x:Name="PART_ResizeWrapper" Canvas.Left="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropX}" Canvas.Top="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropY}" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropWidth}" Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropHeight}" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ResizeWrapperVisibility, Mode=OneWay}" Style="{StaticResource styleImageResizeWrapper_ImageCropControl}" ThumbDragCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ResizeThumbDragCommand, Mode=OneWay}" ScaleFactor="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ResizeThumbScaleFactor, Mode=OneWay}"></c:ImageResizeWrapper>
+                                            <c:ImageResizeWrapper 
+                                                x:Name="PART_ResizeWrapper"
+                                                Canvas.Left="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropX}"
+                                                Canvas.Top="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropY}"
+                                                Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropWidth}"
+                                                Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropHeight}"
+                                                Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ResizeWrapperVisibility, Mode=OneWay}"
+                                                Style="{StaticResource styleImageResizeWrapper_ImageCropControl}"
+                                                ThumbDragCommand="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ResizeThumbDragCommand, Mode=OneWay}"
+                                                ScaleFactor="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ResizeThumbScaleFactor, Mode=OneWay}">
+                                            </c:ImageResizeWrapper>
                                             <!--<Rectangle Canvas.Left="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropX}" Canvas.Top="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropY}" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropWidth}" Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropHeight}" Fill="Red" IsHitTestVisible="False"></Rectangle>-->
                                         </Canvas>
                                         <Rectangle x:Name="PART_CropOverlay" Fill="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CropOverlayBrush}" IsHitTestVisible="False" Width="{Binding ElementName=PART_ImageCanvas, Path=ActualWidth}" Height="{Binding ElementName=PART_ImageCanvas, Path=ActualHeight}" Clip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=OverlayClip}"></Rectangle>

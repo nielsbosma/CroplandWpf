@@ -545,10 +545,10 @@ namespace CroplandWpf.Components
                 IsRectEditable = (ImageCropRect)e.NewValue != default(ImageCropRect);
                 if (refreshCropElementsPosition)
                 {
-                    CropX = CropResultRect.X;
-                    CropY = CropResultRect.Y;
                     CropWidth = CropResultRect.Width;
                     CropHeight = CropResultRect.Height;
+                    CropX = CropResultRect.X;
+                    CropY = CropResultRect.Y;
                     clipGeometry2.Rect = CropResultRect.ToRect();
                 }
             }
@@ -569,8 +569,8 @@ namespace CroplandWpf.Components
             ImageResizeThumbDragDelta deltaInfo = (ImageResizeThumbDragDelta)obj;
             refreshCropElementsPosition = true;
             //TODO --validation
-            double hDelta = deltaInfo.hChange, vDelta = deltaInfo.vChange;
-
+            double hDelta = deltaInfo.hChange * ResizeThumbScaleFactor,
+                vDelta = deltaInfo.vChange * ResizeThumbScaleFactor;
 
             switch (deltaInfo.Role)
             {
@@ -758,13 +758,11 @@ namespace CroplandWpf.Components
                     DragCompletedPoint = pos;
                     CurrentDragPoint = pos;
 
+                    refreshCropElementsPosition = true;
                     CropResultRect = GenerateCropResultRect();
+                    refreshCropElementsPosition = false;
                     ResizeWrapperVisibility = Visibility.Visible;
                     cropOverlay.Visibility = Visibility.Visible;
-                    CropWidth = CropResultRect.Width;
-                    CropHeight = CropResultRect.Height;
-                    CropX = CropResultRect.X;
-                    CropY = CropResultRect.Y;
                 }
             }
         }
@@ -794,8 +792,6 @@ namespace CroplandWpf.Components
         {
             var width = (int)imageCanvas.Width;
             var height = (int)imageCanvas.Height;
-            var hCoef = 1;
-            var wCoef = 1;
             keepConstraint = true;
             coerceImageCrop = false;
 
