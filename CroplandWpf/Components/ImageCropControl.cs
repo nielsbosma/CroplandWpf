@@ -585,24 +585,38 @@ namespace CroplandWpf.Components
                     break;
 
                 case ResizeThumbRole.ResizeLeftTop:
+                    if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
+                        vDelta = 0;
+                    if (hDelta < 0 && CropResultRect.X + hDelta < 0)
+                        hDelta = 0;
+
                     CropResultRect = keepConstraint
                         ? CropResultRect.AddX(vDelta * absoluteSizeAspectRatio).AddY(vDelta).AddWidth(-vDelta * absoluteSizeAspectRatio).AddHeight(-vDelta)
                         : CropResultRect.AddX(hDelta).AddY(vDelta).AddWidth(-hDelta).AddHeight(-vDelta);
                     break;
 
                 case ResizeThumbRole.ResizeTop:
+                    if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
+                        vDelta = 0;
+
                     CropResultRect = keepConstraint
                         ? CropResultRect.AddX(vDelta * absoluteSizeAspectRatio * .5).AddY(vDelta).AddWidth(-vDelta * absoluteSizeAspectRatio).AddHeight(-vDelta)
                         : CropResultRect.AddY(vDelta).AddHeight(-vDelta);
                     break;
 
                 case ResizeThumbRole.ResizeRightTop:
+                    if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
+                        vDelta = 0;
+
                     CropResultRect = keepConstraint
                         ? CropResultRect.AddY(vDelta).AddWidth(-vDelta * absoluteSizeAspectRatio).AddHeight(-vDelta)
                         : CropResultRect.AddY(vDelta).AddHeight(-vDelta).AddWidth(hDelta);
                     break;
 
                 case ResizeThumbRole.ResizeLeft:
+                    if (hDelta < 0 && CropResultRect.X + hDelta < 0)
+                        hDelta = 0;
+
                     CropResultRect = keepConstraint
                         ? CropResultRect.AddX(hDelta).AddY(hDelta * .5 / absoluteSizeAspectRatio).AddWidth(-hDelta).AddHeight(-hDelta / absoluteSizeAspectRatio)
                         : CropResultRect.AddX(hDelta).AddWidth(-hDelta);
@@ -615,6 +629,9 @@ namespace CroplandWpf.Components
                     break;
 
                 case ResizeThumbRole.ResizeLeftBottom:
+                    if (hDelta < 0 && CropResultRect.X + hDelta < 0)
+                        hDelta = 0;
+
                     CropResultRect = keepConstraint
                         ? CropResultRect.AddX(-vDelta * absoluteSizeAspectRatio).AddWidth(vDelta * absoluteSizeAspectRatio).AddHeight(vDelta)
                         : CropResultRect.AddX(hDelta).AddWidth(-hDelta).AddHeight(vDelta);
