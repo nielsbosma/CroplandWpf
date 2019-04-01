@@ -176,10 +176,12 @@
 	<Style x:Key="styleButton_AddFile" TargetType="Button" BasedOn="{StaticResource styleButton_Round}">
 		<Setter Property="Height" Value="34"></Setter>
 		<Setter Property="Width" Value="34"></Setter>
-		<Setter Property="Content">
+		<Setter Property="ContentTemplate">
 			<Setter.Value>
-				<Path x:Name="Shape_4" Data="F1M6,1C6,1 6,6 6,6 6,6 1,6 1,6 1,6 1,8 1,8 1,8 6,8 6,8 6,8 6,13 6,13 6,13 8,13 8,13 8,13 8,8 8,8 8,8 13,8 13,8 13,8 13,6 13,6 13,6 8,6 8,6 8,6 8,1 8,1 8,1 6,1 6,1z" Fill="{DynamicResource brushControl_Background_Light}" Height="14" Width="14" SnapsToDevicePixels="False" UseLayoutRounding="True"/>
-			</Setter.Value>
+                <DataTemplate>
+				    <Path x:Name="Shape_4" Data="F1M6,1C6,1 6,6 6,6 6,6 1,6 1,6 1,6 1,8 1,8 1,8 6,8 6,8 6,8 6,13 6,13 6,13 8,13 8,13 8,13 8,8 8,8 8,8 13,8 13,8 13,8 13,6 13,6 13,6 8,6 8,6 8,6 8,1 8,1 8,1 6,1 6,1z" Fill="{DynamicResource brushControl_Background_Light}" Height="14" Width="14" SnapsToDevicePixels="False" UseLayoutRounding="True"/>
+                </DataTemplate>
+            </Setter.Value>
 		</Setter>
 	</Style>
 
