@@ -277,7 +277,7 @@
                                             </i:Interaction.Triggers>
                                         </ComboBox>
 
-                                        <TextBlock Grid.Row="6" Margin="5,10,5,0">Scale:</TextBlock>
+                                        <TextBlock Grid.Row="6" Margin="5,10,5,0">Zoom:</TextBlock>
                                         <Slider Grid.Row="7" Margin="5,5,5,0" Minimum="0.1" Maximum="5.0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ImageScaleFactor, Mode=TwoWay}" a:Slider.ValueStringFormat="{}{0:P0}"></Slider>
                                     </Grid>
 
