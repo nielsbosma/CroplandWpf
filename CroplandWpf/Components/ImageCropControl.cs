@@ -578,101 +578,260 @@ namespace CroplandWpf.Components
                 vDelta *= ResizeThumbScaleFactor;
             }
 
-            switch (deltaInfo.Role)
+            if (deltaInfo.Role == ResizeThumbRole.Move)
             {
-                case ResizeThumbRole.Move:
-                    if ((hDelta < 0 && CropResultRect.X + hDelta < 0) || (hDelta > 0 && (CropResultRect.X + CropResultRect.Width + hDelta) > imageCanvas.Width))
-                        hDelta = 0;
+                if ((hDelta < 0 && CropResultRect.X + hDelta < 0) || (hDelta > 0 && (CropResultRect.X + CropResultRect.Width + hDelta) > imageCanvas.Width))
+                    hDelta = 0;
 
-                    if ((vDelta < 0 && CropResultRect.Y + vDelta < 0) || (vDelta > 0 && (CropResultRect.Y + CropResultRect.Height + vDelta) > imageCanvas.Height))
-                        vDelta = 0;
+                if ((vDelta < 0 && CropResultRect.Y + vDelta < 0) || (vDelta > 0 && (CropResultRect.Y + CropResultRect.Height + vDelta) > imageCanvas.Height))
+                    vDelta = 0;
 
-                    CropResultRect = CropResultRect.AddX(hDelta).AddY(vDelta);
-                    break;
-
-                case ResizeThumbRole.ResizeLeftTop:
-                    if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
-                        vDelta = 0;
-                    if (hDelta < 0 && CropResultRect.X + hDelta < 0)
-                        hDelta = 0;
-
-                    CropResultRect = keepConstraint
-                        ? CropResultRect.AddX(vDelta * absoluteSizeAspectRatio).AddY(vDelta).AddWidth(-vDelta * absoluteSizeAspectRatio).AddHeight(-vDelta)
-                        : CropResultRect.AddX(hDelta).AddY(vDelta).AddWidth(-hDelta).AddHeight(-vDelta);
-                    break;
-
-                case ResizeThumbRole.ResizeTop:
-                    if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
-                        vDelta = 0;
-
-                    CropResultRect = keepConstraint
-                        ? CropResultRect.AddX(vDelta * absoluteSizeAspectRatio * .5).AddY(vDelta).AddWidth(-vDelta * absoluteSizeAspectRatio).AddHeight(-vDelta)
-                        : CropResultRect.AddY(vDelta).AddHeight(-vDelta);
-                    break;
-
-                case ResizeThumbRole.ResizeRightTop:
-                    if (hDelta > 0 && CropResultRect.X + CropResultRect.Width + hDelta > imageCanvas.Width)
-                        hDelta = 0;
-                    if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
-                        vDelta = 0;
-
-                    CropResultRect = keepConstraint
-                        ? CropResultRect.AddY(vDelta).AddWidth(-vDelta * absoluteSizeAspectRatio).AddHeight(-vDelta)
-                        : CropResultRect.AddY(vDelta).AddHeight(-vDelta).AddWidth(hDelta);
-                    break;
-
-                case ResizeThumbRole.ResizeLeft:
-                    if (hDelta < 0 && CropResultRect.X + hDelta < 0)
-                        hDelta = 0;
-
-                    CropResultRect = keepConstraint
-                        ? CropResultRect.AddX(hDelta).AddY(hDelta * .5 / absoluteSizeAspectRatio).AddWidth(-hDelta).AddHeight(-hDelta / absoluteSizeAspectRatio)
-                        : CropResultRect.AddX(hDelta).AddWidth(-hDelta);
-                    break;
-
-                case ResizeThumbRole.ResizeRight:
-                    if (hDelta > 0 && CropResultRect.X + CropResultRect.Width + hDelta > imageCanvas.Width)
-                        hDelta = 0;
-
-                    CropResultRect = keepConstraint
-                        ? CropResultRect.AddWidth(hDelta).AddY(-hDelta * .5 / absoluteSizeAspectRatio).AddHeight(hDelta / absoluteSizeAspectRatio)
-                        : CropResultRect.AddWidth(hDelta);
-                    break;
-
-                case ResizeThumbRole.ResizeLeftBottom:
-                    if (hDelta < 0 && CropResultRect.X + hDelta < 0)
-                        hDelta = 0;
-                    if (vDelta > 0 && CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height)
-                        vDelta = 0;
-
-                    CropResultRect = keepConstraint
-                        ? CropResultRect.AddX(-vDelta * absoluteSizeAspectRatio).AddWidth(vDelta * absoluteSizeAspectRatio).AddHeight(vDelta)
-                        : CropResultRect.AddX(hDelta).AddWidth(-hDelta).AddHeight(vDelta);
-                    break;
-
-                case ResizeThumbRole.ResizeBottom:
-                    if (vDelta > 0 && CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height)
-                        vDelta = 0;
-
-                    CropResultRect = keepConstraint
-                        ? CropResultRect.AddX(-vDelta * absoluteSizeAspectRatio * .5).AddWidth(vDelta * absoluteSizeAspectRatio).AddHeight(vDelta)
-                        : CropResultRect.AddHeight(vDelta);
-                    break;
-
-                case ResizeThumbRole.ResizeRightBottom:
-                    if (hDelta > 0 && CropResultRect.X + CropResultRect.Width + hDelta > imageCanvas.Width)
-                        hDelta = 0;
-                    if (vDelta > 0 && CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height)
-                        vDelta = 0;
-
-                    CropResultRect = keepConstraint
-                        ? CropResultRect.AddWidth(vDelta * absoluteSizeAspectRatio).AddHeight(vDelta)
-                        : CropResultRect.AddWidth(hDelta).AddHeight(vDelta);
-                    break;
-
-                default:
-                    break;
+                CropResultRect = CropResultRect.AddX(hDelta).AddY(vDelta);
             }
+
+            if (keepConstraint)
+            {
+                if(deltaInfo.Role == ResizeThumbRole.ResizeLeft || deltaInfo.Role == ResizeThumbRole.ResizeRight)
+                {
+                    vDelta = hDelta / absoluteSizeAspectRatio;
+                }
+                else
+                {
+                    hDelta = vDelta * absoluteSizeAspectRatio;
+                }
+
+                switch (deltaInfo.Role)
+                {
+                    case ResizeThumbRole.ResizeLeftTop:
+                        if (hDelta < 0 && CropResultRect.X + hDelta < 0)
+                            hDelta = vDelta = 0;
+                        if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
+                            vDelta = hDelta = 0;
+
+                        CropResultRect = CropResultRect.AddX(hDelta).AddY(vDelta).AddWidth(-hDelta).AddHeight(-vDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeTop:
+                        if (hDelta < 0 && (CropResultRect.X + hDelta < 0 || CropResultRect.X + CropResultRect.Width - hDelta > imageCanvas.Width))
+                            hDelta = vDelta = 0;
+                        if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
+                            vDelta = hDelta = 0;
+
+                        CropResultRect = CropResultRect.AddX(hDelta * .5).AddY(vDelta).AddWidth(-hDelta).AddHeight(-vDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeRightTop:
+                        if (hDelta < 0 && CropResultRect.X + CropResultRect.Width - hDelta > imageCanvas.Width)
+                            hDelta = vDelta = 0;
+                        if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
+                            vDelta = hDelta = 0;
+
+                        CropResultRect = CropResultRect.AddY(vDelta).AddWidth(-hDelta).AddHeight(-vDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeLeft:
+                        if (hDelta < 0 && CropResultRect.X + hDelta < 0)
+                            hDelta = vDelta = 0;
+                        if (vDelta < 0 && (CropResultRect.Y + vDelta < 0 || CropResultRect.Y + CropResultRect.Height - vDelta > imageCanvas.Height))
+                            vDelta = hDelta = 0;
+
+                        CropResultRect = CropResultRect.AddX(hDelta).AddY(vDelta * .5).AddWidth(-hDelta).AddHeight(-vDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeRight:
+                        if (hDelta > 0 && CropResultRect.X + CropResultRect.Width + hDelta > imageCanvas.Width)
+                            hDelta = vDelta = 0;
+                        if (vDelta > 0 && (CropResultRect.Y - vDelta < 0 || CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height))
+                            vDelta = hDelta = 0;
+
+                        CropResultRect = CropResultRect.AddWidth(hDelta).AddY(-vDelta * .5).AddHeight(vDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeLeftBottom:
+                        if (hDelta > 0 && CropResultRect.X - hDelta < 0)
+                            hDelta = vDelta = 0;
+                        if (vDelta > 0 && CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height)
+                            vDelta = hDelta = 0;
+
+                        CropResultRect = CropResultRect.AddX(-hDelta).AddWidth(hDelta).AddHeight(vDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeBottom:
+                        if (hDelta > 0 && (CropResultRect.X - hDelta < 0 || CropResultRect.X + CropResultRect.Width + hDelta > imageCanvas.Width))
+                            hDelta = vDelta = 0;
+                        if (vDelta > 0 && CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height)
+                            vDelta = hDelta = 0;
+
+                        CropResultRect = CropResultRect.AddX(-hDelta * .5).AddWidth(hDelta).AddHeight(vDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeRightBottom:
+                        if (hDelta > 0 && CropResultRect.X + CropResultRect.Width + hDelta > imageCanvas.Width)
+                            hDelta = vDelta = 0;
+                        if (vDelta > 0 && CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height)
+                            vDelta = hDelta = 0;
+
+                        CropResultRect = CropResultRect.AddWidth(hDelta).AddHeight(vDelta);
+                        break;
+                }
+            }
+            else
+            {
+                switch (deltaInfo.Role)
+                {
+                    case ResizeThumbRole.ResizeLeftTop:
+                        if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
+                            vDelta = 0;
+                        if (hDelta < 0 && CropResultRect.X + hDelta < 0)
+                            hDelta = 0;
+
+                        CropResultRect = CropResultRect.AddX(hDelta).AddY(vDelta).AddWidth(-hDelta).AddHeight(-vDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeTop:
+                        if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
+                            vDelta = 0;
+
+                        CropResultRect = CropResultRect.AddY(vDelta).AddHeight(-vDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeRightTop:
+                        if (hDelta > 0 && CropResultRect.X + CropResultRect.Width + hDelta > imageCanvas.Width)
+                            hDelta = 0;
+                        if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
+                            vDelta = 0;
+
+                        CropResultRect = CropResultRect.AddY(vDelta).AddHeight(-vDelta).AddWidth(hDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeLeft:
+                        if (hDelta < 0 && CropResultRect.X + hDelta < 0)
+                            hDelta = 0;
+
+                        CropResultRect = CropResultRect.AddX(hDelta).AddWidth(-hDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeRight:
+                        if (hDelta > 0 && CropResultRect.X + CropResultRect.Width + hDelta > imageCanvas.Width)
+                            hDelta = 0;
+
+                        CropResultRect = CropResultRect.AddWidth(hDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeLeftBottom:
+                        if (hDelta < 0 && CropResultRect.X + hDelta < 0)
+                            hDelta = 0;
+                        if (vDelta > 0 && CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height)
+                            vDelta = 0;
+
+                        CropResultRect = CropResultRect.AddX(hDelta).AddWidth(-hDelta).AddHeight(vDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeBottom:
+                        if (vDelta > 0 && CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height)
+                            vDelta = 0;
+
+                        CropResultRect = CropResultRect.AddHeight(vDelta);
+                        break;
+
+                    case ResizeThumbRole.ResizeRightBottom:
+                        if (hDelta > 0 && CropResultRect.X + CropResultRect.Width + hDelta > imageCanvas.Width)
+                            hDelta = 0;
+                        if (vDelta > 0 && CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height)
+                            vDelta = 0;
+
+                        CropResultRect = CropResultRect.AddWidth(hDelta).AddHeight(vDelta);
+                        break;
+                }
+            }
+            //switch (deltaInfo.Role)
+            //{
+            //    case ResizeThumbRole.ResizeLeftTop:
+            //        if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
+            //            vDelta = 0;
+            //        if (hDelta < 0 && CropResultRect.X + hDelta < 0)
+            //            hDelta = 0;
+
+            //        CropResultRect = CropResultRect.AddX(hDelta).AddY(vDelta).AddWidth(-hDelta).AddHeight(-vDelta);
+            //        break;
+
+            //    case ResizeThumbRole.ResizeTop:
+            //        if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
+            //            vDelta = 0;
+
+            //        if (keepConstraint && vDelta == 0)
+            //            hDelta = 0;
+
+            //        CropResultRect = keepConstraint
+            //            ? CropResultRect.AddX(hDelta * .5).AddY(vDelta).AddWidth(-hDelta).AddHeight(-vDelta)
+            //            : CropResultRect.AddY(vDelta).AddHeight(-vDelta);
+            //        break;
+
+            //    case ResizeThumbRole.ResizeRightTop:
+            //        if (hDelta > 0 && CropResultRect.X + CropResultRect.Width + hDelta > imageCanvas.Width)
+            //            hDelta = 0;
+            //        if (vDelta < 0 && CropResultRect.Y + vDelta < 0)
+            //            vDelta = 0;
+
+            //        if (keepConstraint && (vDelta == 0 || hDelta == 0))
+            //            vDelta = hDelta = 0;
+
+            //        //CropResultRect = keepConstraint
+            //        //    ? CropResultRect.AddY(vDelta).AddWidth(-vDelta * absoluteSizeAspectRatio).AddHeight(-vDelta)
+            //        //    : CropResultRect.AddY(vDelta).AddHeight(-vDelta).AddWidth(hDelta);
+            //        CropResultRect = CropResultRect.AddX(hDelta).AddWidth(-hDelta).AddY(vDelta).AddHeight(-vDelta);
+            //        break;
+
+            //    case ResizeThumbRole.ResizeLeft:
+            //        if (hDelta < 0 && CropResultRect.X + hDelta < 0)
+            //            hDelta = 0;
+
+            //        CropResultRect = keepConstraint
+            //            ? CropResultRect.AddX(hDelta).AddY(hDelta * .5 / absoluteSizeAspectRatio).AddWidth(-hDelta).AddHeight(-hDelta / absoluteSizeAspectRatio)
+            //            : CropResultRect.AddX(hDelta).AddWidth(-hDelta);
+            //        break;
+
+            //    case ResizeThumbRole.ResizeRight:
+            //        if (hDelta > 0 && CropResultRect.X + CropResultRect.Width + hDelta > imageCanvas.Width)
+            //            hDelta = 0;
+
+            //        CropResultRect = keepConstraint
+            //            ? CropResultRect.AddWidth(hDelta).AddY(-hDelta * .5 / absoluteSizeAspectRatio).AddHeight(hDelta / absoluteSizeAspectRatio)
+            //            : CropResultRect.AddWidth(hDelta);
+            //        break;
+
+            //    case ResizeThumbRole.ResizeLeftBottom:
+            //        if (hDelta < 0 && CropResultRect.X + hDelta < 0)
+            //            hDelta = 0;
+            //        if (vDelta > 0 && CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height)
+            //            vDelta = 0;
+
+            //        CropResultRect = keepConstraint
+            //            ? CropResultRect.AddX(-vDelta * absoluteSizeAspectRatio).AddWidth(vDelta * absoluteSizeAspectRatio).AddHeight(vDelta)
+            //            : CropResultRect.AddX(hDelta).AddWidth(-hDelta).AddHeight(vDelta);
+            //        break;
+
+            //    case ResizeThumbRole.ResizeBottom:
+            //        if (vDelta > 0 && CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height)
+            //            vDelta = 0;
+
+            //        CropResultRect = keepConstraint
+            //            ? CropResultRect.AddX(-vDelta * absoluteSizeAspectRatio * .5).AddWidth(vDelta * absoluteSizeAspectRatio).AddHeight(vDelta)
+            //            : CropResultRect.AddHeight(vDelta);
+            //        break;
+
+            //    case ResizeThumbRole.ResizeRightBottom:
+            //        if (hDelta > 0 && CropResultRect.X + CropResultRect.Width + hDelta > imageCanvas.Width)
+            //            hDelta = 0;
+            //        if (vDelta > 0 && CropResultRect.Y + CropResultRect.Height + vDelta > imageCanvas.Height)
+            //            vDelta = 0;
+
+            //        CropResultRect = CropResultRect.AddWidth(hDelta).AddHeight(vDelta);
+            //        break;
+
+            //    default:
+            //        break;
+            //}
             if (keepConstraint) NormalizeImageProportions();
             refreshCropElementsPosition = false;
         }
