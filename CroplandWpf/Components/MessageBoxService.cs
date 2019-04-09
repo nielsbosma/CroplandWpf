@@ -99,12 +99,12 @@ namespace CroplandWpf.Components
 
 		public static void ShowException(Exception exception, string windowTitle = null, string exceptionHeader = null, string exceptionMessageOverride = null, MessageBoxFooterButtonsCollection footerButtons = null)
 		{
-			string finalWIndowTitle = windowTitle ?? DefaultWindowTitle;
+			string finalWindowTitle = windowTitle ?? DefaultWindowTitle;
 			currentDispatcher.Invoke(new Action(() =>
 			{
 				MessageBoxInfo info = new MessageBoxInfo
 				{
-					Title = finalWIndowTitle,
+					Title = finalWindowTitle,
 					Content = exception != null ?
 					new ExceptionInfo(exceptionHeader, exception.GetType().Name, exceptionMessageOverride ?? exception.Message, exception.StackTrace) :
 					new ExceptionInfo(exceptionHeader, null, exceptionMessageOverride, null),

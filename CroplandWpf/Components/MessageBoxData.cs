@@ -218,19 +218,21 @@ namespace CroplandWpf.Components
 		public string Exception { get; set; }
 		public string Message { get; set; }
 		public string StackTrace { get; set; }
+        public string FilePath { get; set; }
 
-		public ExceptionInfo()
+        public ExceptionInfo()
 		{
 
 		}
 
-		public ExceptionInfo(string name, string exception, string message, string stackTrace)
+		public ExceptionInfo(string name, string exception, string message, string stackTrace, string filePath = null)
 		{
 			Name = name;
 			Exception = exception;
 			Message = message;
 			StackTrace = stackTrace.Trim();
-		}
+            FilePath = filePath;
+        }
 
 		public ExceptionInfo(Exception exception)
 		{
